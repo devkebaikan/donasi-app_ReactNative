@@ -1,0 +1,40 @@
+{
+  "organizations": {
+    "11": {
+      "id": 11,
+      "name": "Aksiberbagi",
+      "logo": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+      "location": "Jalan Tentara Pelajar RT 5 RW 27 Guwosari Jebres",
+      "phone": "(0274) 588 212",
+      "joined_at": "2019-03-01T00:00:00.000Z",
+      "description": "Aksiberbagi adalah platform penggalang dana yang menghubungkan kebaikan para donatur dengan program-program sosial, kemanusiaan, pendidikan, dan keagamaan di seluruh Indonesia. Setiap program dijalankan dengan prinsip transparansi dan akuntabilitas, memastikan donasi yang terkumpul benar-benar sampai kepada penerima manfaat.",
+      "total_donatur": 12500,
+      "is_verified": true
+    }
+  },
+  "reports": {
+    "11": [
+      {
+        "id": 1,
+        "title": "Laporan Keuangan Triwulan I 2026",
+        "period": "Triwulan I 2026",
+        "published_at": "2026-04-05T00:00:00.000Z",
+        "file_url": "https://cdn.aksiberbagi.com/organization-reports/11-1.pdf"
+      },
+      {
+        "id": 2,
+        "title": "Laporan Keuangan Triwulan IV 2025",
+        "period": "Triwulan IV 2025",
+        "published_at": "2026-01-08T00:00:00.000Z",
+        "file_url": "https://cdn.aksiberbagi.com/organization-reports/11-2.pdf"
+      },
+      {
+        "id": 3,
+        "title": "Laporan Keuangan Triwulan III 2025",
+        "period": "Triwulan III 2025",
+        "published_at": "2025-10-06T00:00:00.000Z",
+        "file_url": "https://cdn.aksiberbagi.com/organization-reports/11-3.pdf"
+      }
+    ]
+  }
+}

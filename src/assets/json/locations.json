@@ -1,0 +1,79 @@
+[
+  {
+    "id": "jakarta",
+    "name": "Jakarta, DKI Jakarta",
+    "latitude": -6.2088,
+    "longitude": 106.8456,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "karanganyar",
+    "name": "Kabupaten Karanganyar, Jawa Tengah",
+    "latitude": -7.5996,
+    "longitude": 110.954,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "surakarta",
+    "name": "Kota Surakarta, Jawa Tengah",
+    "latitude": -7.5561,
+    "longitude": 110.8317,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "bandung",
+    "name": "Bandung, Jawa Barat",
+    "latitude": -6.9175,
+    "longitude": 107.6191,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "surabaya",
+    "name": "Surabaya, Jawa Timur",
+    "latitude": -7.2575,
+    "longitude": 112.7521,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "yogyakarta",
+    "name": "Yogyakarta, DI Yogyakarta",
+    "latitude": -7.7956,
+    "longitude": 110.3695,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "medan",
+    "name": "Medan, Sumatera Utara",
+    "latitude": 3.5952,
+    "longitude": 98.6722,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "bandaaceh",
+    "name": "Banda Aceh, Aceh",
+    "latitude": 5.5483,
+    "longitude": 95.3238,
+    "timezone": "Asia/Jakarta"
+  },
+  {
+    "id": "makassar",
+    "name": "Makassar, Sulawesi Selatan",
+    "latitude": -5.1477,
+    "longitude": 119.4327,
+    "timezone": "Asia/Makassar"
+  },
+  {
+    "id": "denpasar",
+    "name": "Denpasar, Bali",
+    "latitude": -8.6705,
+    "longitude": 115.2126,
+    "timezone": "Asia/Makassar"
+  },
+  {
+    "id": "jayapura",
+    "name": "Jayapura, Papua",
+    "latitude": -2.5333,
+    "longitude": 140.7,
+    "timezone": "Asia/Jayapura"
+  }
+]

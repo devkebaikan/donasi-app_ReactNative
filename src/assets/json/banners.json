@@ -1,0 +1,17 @@
+[
+  {
+    "id": "banner-1",
+    "imageUrl": "https://picsum.photos/seed/banner1/800/360",
+    "title": "Bantu Palestina Sekarang"
+  },
+  {
+    "id": "banner-2",
+    "imageUrl": "https://picsum.photos/seed/banner2/800/360",
+    "title": "Zakat Penghasilan Bulan Ini"
+  },
+  {
+    "id": "banner-3",
+    "imageUrl": "https://picsum.photos/seed/banner3/800/360",
+    "title": "Wakaf Sumur untuk Pelosok Negeri"
+  }
+]

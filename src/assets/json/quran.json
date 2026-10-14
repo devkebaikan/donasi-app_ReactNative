@@ -1,0 +1,373 @@
+{
+  "challengeCatalog": [
+    {
+      "id": "chl-khatam-30",
+      "name": "Khatam 30 Hari",
+      "imageUrl": "https://don.aksiberbagi.com/images/challenge/khatam-30.webp",
+      "descriptionHtml": "<p>Challenge ini mengajak kamu menyelesaikan bacaan Al-Quran dalam 30 hari. Setiap hari ada target surah yang perlu diselesaikan.</p><p>Tidak perlu terburu-buru. Yang penting konsisten setiap hari, walau hanya beberapa halaman.</p><p><strong>Tips:</strong> pilih waktu tetap setiap hari, misalnya setelah Subuh atau menjelang tidur.</p>",
+      "participantCount": 1248,
+      "startDayOffset": -12,
+      "endDayOffset": 18,
+      "surahNumbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "defaultJoined": true
+    },
+    {
+      "id": "chl-juz-30",
+      "name": "Juz 30 Sebulan",
+      "imageUrl": "https://don.aksiberbagi.com/images/challenge/juz-30.webp",
+      "descriptionHtml": "<p>Menghafal dan memahami Juz 30 dalam satu bulan. Cocok untuk kamu yang ingin memperbaiki bacaan surah-surah pendek.</p><p>Ada 37 surah di Juz 30, mulai dari An-Naba sampai An-Nas.</p>",
+      "participantCount": 863,
+      "startDayOffset": -5,
+      "endDayOffset": 25,
+      "surahNumbers": [
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114
+      ],
+      "defaultJoined": true
+    },
+    {
+      "id": "chl-yasin-jumat",
+      "name": "Yasin Tiap Jumat",
+      "imageUrl": "https://don.aksiberbagi.com/images/challenge/yasin-jumat.webp",
+      "descriptionHtml": "<p>Membiasakan membaca Surah Yasin setiap hari Jumat selama satu bulan penuh.</p><p>Challenge ringan yang cocok untuk memulai kebiasaan membaca Al-Quran secara rutin.</p>",
+      "participantCount": 2104,
+      "startDayOffset": -2,
+      "endDayOffset": 26,
+      "surahNumbers": [
+        36
+      ],
+      "defaultJoined": false
+    },
+    {
+      "id": "chl-ramadhan-lalu",
+      "name": "Tadarus Ramadhan",
+      "imageUrl": "https://don.aksiberbagi.com/images/challenge/tadarus.webp",
+      "descriptionHtml": "<p>Tadarus bersama sepanjang bulan Ramadhan.</p>",
+      "participantCount": 5417,
+      "startDayOffset": -60,
+      "endDayOffset": -30,
+      "surahNumbers": [
+        2,
+        3,
+        4
+      ],
+      "defaultJoined": false
+    }
+  ],
+  "surahHistory": [
+    {
+      "surahNumber": 18,
+      "lastAyah": 45,
+      "totalAyah": 110,
+      "isCompleted": false,
+      "updatedAt": "2026-08-25T19:12:00.000Z"
+    },
+    {
+      "surahNumber": 67,
+      "lastAyah": 30,
+      "totalAyah": 30,
+      "isCompleted": true,
+      "updatedAt": "2026-08-24T21:40:00.000Z"
+    },
+    {
+      "surahNumber": 36,
+      "lastAyah": 12,
+      "totalAyah": 83,
+      "isCompleted": false,
+      "updatedAt": "2026-08-23T05:30:00.000Z"
+    },
+    {
+      "surahNumber": 55,
+      "lastAyah": 78,
+      "totalAyah": 78,
+      "isCompleted": true,
+      "updatedAt": "2026-08-22T18:05:00.000Z"
+    },
+    {
+      "surahNumber": 2,
+      "lastAyah": 60,
+      "totalAyah": 286,
+      "isCompleted": false,
+      "updatedAt": "2026-08-21T04:55:00.000Z"
+    },
+    {
+      "surahNumber": 3,
+      "lastAyah": 20,
+      "totalAyah": 200,
+      "isCompleted": false,
+      "updatedAt": "2026-08-20T04:10:00.000Z"
+    },
+    {
+      "surahNumber": 1,
+      "lastAyah": 7,
+      "totalAyah": 7,
+      "isCompleted": true,
+      "updatedAt": "2026-08-19T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 4,
+      "lastAyah": 176,
+      "totalAyah": 176,
+      "isCompleted": true,
+      "updatedAt": "2026-08-18T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 6,
+      "lastAyah": 165,
+      "totalAyah": 165,
+      "isCompleted": true,
+      "updatedAt": "2026-08-17T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 5,
+      "lastAyah": 60,
+      "totalAyah": 120,
+      "isCompleted": false,
+      "updatedAt": "2026-08-16T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 78,
+      "lastAyah": 40,
+      "totalAyah": 40,
+      "isCompleted": true,
+      "updatedAt": "2026-08-15T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 79,
+      "lastAyah": 20,
+      "totalAyah": 46,
+      "isCompleted": false,
+      "updatedAt": "2026-08-14T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 110,
+      "lastAyah": 3,
+      "totalAyah": 3,
+      "isCompleted": true,
+      "updatedAt": "2026-08-13T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 111,
+      "lastAyah": 5,
+      "totalAyah": 5,
+      "isCompleted": true,
+      "updatedAt": "2026-08-12T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 112,
+      "lastAyah": 4,
+      "totalAyah": 4,
+      "isCompleted": true,
+      "updatedAt": "2026-08-11T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 113,
+      "lastAyah": 5,
+      "totalAyah": 5,
+      "isCompleted": true,
+      "updatedAt": "2026-08-10T05:10:00.000Z"
+    },
+    {
+      "surahNumber": 114,
+      "lastAyah": 6,
+      "totalAyah": 6,
+      "isCompleted": true,
+      "updatedAt": "2026-08-09T05:10:00.000Z"
+    }
+  ],
+  "bookmarks": [
+    {
+      "surahNumber": 18,
+      "totalAyah": 110,
+      "savedAt": "2026-08-25T19:20:00.000Z"
+    },
+    {
+      "surahNumber": 36,
+      "totalAyah": 83,
+      "savedAt": "2026-08-23T05:35:00.000Z"
+    },
+    {
+      "surahNumber": 56,
+      "totalAyah": 96,
+      "savedAt": "2026-08-19T20:00:00.000Z"
+    },
+    {
+      "surahNumber": 67,
+      "totalAyah": 30,
+      "savedAt": "2026-08-18T21:15:00.000Z"
+    },
+    {
+      "surahNumber": 78,
+      "totalAyah": 40,
+      "savedAt": "2026-08-17T05:05:00.000Z"
+    },
+    {
+      "surahNumber": 87,
+      "totalAyah": 19,
+      "savedAt": "2026-08-16T05:00:00.000Z"
+    }
+  ],
+  "schedules": [
+    {
+      "id": "sch-001",
+      "dayOffset": 0,
+      "surahNumber": 2,
+      "surahNameLatin": "Al-Baqarah",
+      "targetAyah": 100,
+      "readAyah": 60,
+      "repeat": "TIDAK_BERULANG"
+    },
+    {
+      "id": "sch-002",
+      "dayOffset": 1,
+      "surahNumber": 3,
+      "surahNameLatin": "Ali 'Imran",
+      "targetAyah": 50,
+      "readAyah": 0,
+      "repeat": "TIDAK_BERULANG"
+    },
+    {
+      "id": "sch-003",
+      "dayOffset": -1,
+      "surahNumber": 4,
+      "surahNameLatin": "An-Nisa",
+      "targetAyah": 40,
+      "readAyah": 12,
+      "repeat": "TIDAK_BERULANG"
+    },
+    {
+      "id": "sch-004",
+      "dayOffset": -3,
+      "surahNumber": 67,
+      "surahNameLatin": "Al-Mulk",
+      "targetAyah": 30,
+      "readAyah": 30,
+      "repeat": "MINGGUAN"
+    },
+    {
+      "id": "sch-005",
+      "dayOffset": 3,
+      "surahNumber": 36,
+      "surahNameLatin": "Yasin",
+      "targetAyah": 83,
+      "readAyah": 0,
+      "repeat": "MINGGUAN"
+    },
+    {
+      "id": "sch-006",
+      "dayOffset": -7,
+      "surahNumber": 18,
+      "surahNameLatin": "Al-Kahfi",
+      "targetAyah": 110,
+      "readAyah": 110,
+      "repeat": "MINGGUAN"
+    },
+    {
+      "id": "sch-007",
+      "dayOffset": 7,
+      "surahNumber": 55,
+      "surahNameLatin": "Ar-Rahman",
+      "targetAyah": 78,
+      "readAyah": 0,
+      "repeat": "TIDAK_BERULANG"
+    }
+  ],
+  "cities": [
+    {
+      "name": "Jakarta Selatan",
+      "latitude": -6.26,
+      "longitude": 106.81
+    },
+    {
+      "name": "Bandung",
+      "latitude": -6.91,
+      "longitude": 107.61
+    },
+    {
+      "name": "Kota Surakarta",
+      "latitude": -7.56,
+      "longitude": 110.83
+    },
+    {
+      "name": "Surabaya",
+      "latitude": -7.26,
+      "longitude": 112.75
+    },
+    {
+      "name": "Medan",
+      "latitude": 3.6,
+      "longitude": 98.68
+    },
+    {
+      "name": "Makassar",
+      "latitude": -5.15,
+      "longitude": 119.43
+    }
+  ]
+}

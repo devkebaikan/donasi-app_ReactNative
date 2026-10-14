@@ -1,0 +1,4365 @@
+{
+  "groups": [
+    {
+      "id": "grp-015",
+      "name": "Grup Saya: Berbagi Nasi Jumat",
+      "description": "Grup yang saya buat sendiri — patungan nasi bungkus tiap Jumat untuk pekerja harian.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-15/800/500",
+      "targetAmount": 12000000,
+      "collectedAmount": 4350000,
+      "progressLabel": null,
+      "memberCount": 312,
+      "memberPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isMember": true,
+      "isPublic": true,
+      "location": "Jakarta Selatan",
+      "batchLabel": null,
+      "about": "<p>Grup yang saya buat sendiri.</p><p>Setiap Jumat kami mengumpulkan urunan untuk nasi bungkus. Batch dipakai memisahkan putaran tiap bulan.</p>",
+      "programId": "prg-102",
+      "programTitle": "Bantuan Pangan",
+      "isCreator": true,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "weekly",
+        "weekDay": "fri",
+        "time": "06:00"
+      },
+      "deadlineOffsetDays": 45,
+      "createdAtOffsetDays": -25,
+      "inviteCode": "myg01"
+    },
+    {
+      "id": "grp-001",
+      "name": "Khatam Bareng 40 Hari",
+      "description": "Selesaikan bacaan Al-Quran bersama-sama dalam 40 hari. Setiap anggota membaca 1 juz per hari.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-1/800/500",
+      "targetAmount": 20000000,
+      "collectedAmount": 13000000,
+      "progressLabel": "26 Juz",
+      "memberCount": 27,
+      "memberPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100"
+        },
+        {
+          "id": "usr-2",
+          "name": "Siti",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Semarang, Jawa Tengah",
+      "batchLabel": null,
+      "about": "<p>Selesaikan bacaan Al-Quran bersama-sama dalam 40 hari. Setiap anggota membaca 1 juz per hari.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-101",
+      "programTitle": "Donasi Umum",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 40,
+      "createdAtOffsetDays": -12,
+      "inviteCode": "a7x9m"
+    },
+    {
+      "id": "grp-002",
+      "name": "Pemuda Kajen Berbagi",
+      "description": "Patungan warga untuk kebutuhan pangan tetangga yang terdampak musim paceklik.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-2/800/500",
+      "targetAmount": 20000000,
+      "collectedAmount": 5000000,
+      "progressLabel": null,
+      "memberCount": 248,
+      "memberPreviews": [
+        {
+          "id": "usr-4",
+          "name": "Rina",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-6",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100"
+        }
+      ],
+      "isMember": true,
+      "isPublic": true,
+      "location": "Desa Kajen, Pati",
+      "batchLabel": "Batch 2",
+      "about": "<p>Patungan warga untuk kebutuhan pangan tetangga yang terdampak musim paceklik.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-102",
+      "programTitle": "Bantuan Pangan",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 5,
+      "createdAtOffsetDays": -30,
+      "inviteCode": "k3p8q"
+    },
+    {
+      "id": "grp-003",
+      "name": "Puasa Sunnah Senin Kamis",
+      "description": "Saling mengingatkan dan memotivasi untuk istiqomah puasa sunnah di bulan ini.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-3/800/500",
+      "targetAmount": 5000000,
+      "collectedAmount": 4400000,
+      "progressLabel": "88% Partisipasi",
+      "memberCount": 11,
+      "memberPreviews": [
+        {
+          "id": "usr-7",
+          "name": "Nadia",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100"
+        },
+        {
+          "id": "usr-8",
+          "name": "Hasan",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": null,
+      "batchLabel": null,
+      "about": "<p>Saling mengingatkan dan memotivasi untuk istiqomah puasa sunnah di bulan ini.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-101",
+      "programTitle": "Donasi Umum",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 7,
+      "createdAtOffsetDays": -6,
+      "inviteCode": "z2w6r"
+    },
+    {
+      "id": "grp-004",
+      "name": "10.000 Shalawat",
+      "description": "Kumpulkan 10.000 shalawat bersama grup ini dalam waktu 2 minggu.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-4/800/500",
+      "targetAmount": 10000000,
+      "collectedAmount": 3200000,
+      "progressLabel": "3.200",
+      "memberCount": 48,
+      "memberPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Kudus, Jawa Tengah",
+      "batchLabel": null,
+      "about": "<p>Kumpulkan 10.000 shalawat bersama grup ini dalam waktu 2 minggu.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-101",
+      "programTitle": "Donasi Umum",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 14,
+      "createdAtOffsetDays": -9,
+      "inviteCode": "m9t4v"
+    },
+    {
+      "id": "grp-005",
+      "name": "Sedekah Subuh Berjamaah",
+      "description": "Menyisihkan sedikit rezeki setiap subuh, dikumpulkan untuk santunan anak yatim.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-5/800/500",
+      "targetAmount": 15000000,
+      "collectedAmount": 9750000,
+      "progressLabel": null,
+      "memberCount": 64,
+      "memberPreviews": [
+        {
+          "id": "usr-2",
+          "name": "Siti",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-4",
+          "name": "Rina",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100"
+        },
+        {
+          "id": "usr-7",
+          "name": "Nadia",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Yogyakarta",
+      "batchLabel": null,
+      "about": "<p>Menyisihkan sedikit rezeki setiap subuh, dikumpulkan untuk santunan anak yatim.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-104",
+      "programTitle": "Santunan Yatim",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 21,
+      "createdAtOffsetDays": -18,
+      "inviteCode": "b5n1h"
+    },
+    {
+      "id": "grp-006",
+      "name": "Wakaf Sumur Desa Pandan",
+      "description": "Satu sumur bor untuk 80 keluarga yang selama ini berjalan 2 km demi air bersih.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-6/800/500",
+      "targetAmount": 35000000,
+      "collectedAmount": 28900000,
+      "progressLabel": null,
+      "memberCount": 132,
+      "memberPreviews": [
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100"
+        },
+        {
+          "id": "usr-6",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100"
+        },
+        {
+          "id": "usr-8",
+          "name": "Hasan",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Desa Pandan, Gunungkidul",
+      "batchLabel": null,
+      "about": "<p>Satu sumur bor untuk 80 keluarga yang selama ini berjalan 2 km demi air bersih.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-105",
+      "programTitle": "Air Bersih",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 3,
+      "createdAtOffsetDays": -45,
+      "inviteCode": "c8j7d"
+    },
+    {
+      "id": "grp-007",
+      "name": "Beasiswa Anak Kampung Kami",
+      "description": "Biaya sekolah untuk 10 anak berprestasi dari keluarga prasejahtera.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-7/800/500",
+      "targetAmount": 25000000,
+      "collectedAmount": 25400000,
+      "progressLabel": null,
+      "memberCount": 89,
+      "memberPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-7",
+          "name": "Nadia",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100"
+        }
+      ],
+      "isMember": true,
+      "isPublic": true,
+      "location": "Bandung, Jawa Barat",
+      "batchLabel": null,
+      "about": "<p>Biaya sekolah untuk 10 anak berprestasi dari keluarga prasejahtera.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-103",
+      "programTitle": "Beasiswa Pendidikan",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 18,
+      "createdAtOffsetDays": -22,
+      "inviteCode": "e4y2s"
+    },
+    {
+      "id": "grp-008",
+      "name": "Jumat Berkah Nasi Bungkus",
+      "description": "Seratus nasi bungkus setiap Jumat untuk pekerja harian di sekitar pasar.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-8/800/500",
+      "targetAmount": 8000000,
+      "collectedAmount": 2100000,
+      "progressLabel": null,
+      "memberCount": 19,
+      "memberPreviews": [
+        {
+          "id": "usr-4",
+          "name": "Rina",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100"
+        },
+        {
+          "id": "usr-8",
+          "name": "Hasan",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Solo, Jawa Tengah",
+      "batchLabel": null,
+      "about": "<p>Seratus nasi bungkus setiap Jumat untuk pekerja harian di sekitar pasar.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-102",
+      "programTitle": "Bantuan Pangan",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 26,
+      "createdAtOffsetDays": -4,
+      "inviteCode": "g6u3f"
+    },
+    {
+      "id": "grp-009",
+      "name": "Renovasi Musala Al-Ikhlas",
+      "description": "Atap bocor dan lantai retak. Kita perbaiki pelan-pelan, urunan seikhlasnya.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-9/800/500",
+      "targetAmount": 40000000,
+      "collectedAmount": 11200000,
+      "progressLabel": null,
+      "memberCount": 73,
+      "memberPreviews": [
+        {
+          "id": "usr-2",
+          "name": "Siti",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100"
+        },
+        {
+          "id": "usr-6",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Sidoarjo, Jawa Timur",
+      "batchLabel": null,
+      "about": "<p>Atap bocor dan lantai retak. Kita perbaiki pelan-pelan, urunan seikhlasnya.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-101",
+      "programTitle": "Donasi Umum",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 60,
+      "createdAtOffsetDays": -15,
+      "inviteCode": "h1o5l"
+    },
+    {
+      "id": "grp-010",
+      "name": "Tahajud & Sedekah Malam",
+      "description": "Grup pengingat tahajud yang sekaligus mengumpulkan sedekah malam.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-10/800/500",
+      "targetAmount": 12000000,
+      "collectedAmount": 7800000,
+      "progressLabel": null,
+      "memberCount": 41,
+      "memberPreviews": [
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-7",
+          "name": "Nadia",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100"
+        },
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": null,
+      "batchLabel": null,
+      "about": "<p>Grup pengingat tahajud yang sekaligus mengumpulkan sedekah malam.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-101",
+      "programTitle": "Donasi Umum",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 9,
+      "createdAtOffsetDays": -11,
+      "inviteCode": "i9a8c"
+    },
+    {
+      "id": "grp-011",
+      "name": "Paket Sembako Lansia",
+      "description": "Sembako bulanan untuk lansia yang tinggal sendiri di kampung kami.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-11/800/500",
+      "targetAmount": 18000000,
+      "collectedAmount": 6300000,
+      "progressLabel": null,
+      "memberCount": 35,
+      "memberPreviews": [
+        {
+          "id": "usr-6",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100"
+        },
+        {
+          "id": "usr-2",
+          "name": "Siti",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-4",
+          "name": "Rina",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Malang, Jawa Timur",
+      "batchLabel": null,
+      "about": "<p>Sembako bulanan untuk lansia yang tinggal sendiri di kampung kami.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-102",
+      "programTitle": "Bantuan Pangan",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 33,
+      "createdAtOffsetDays": -7,
+      "inviteCode": "j2e7k"
+    },
+    {
+      "id": "grp-012",
+      "name": "Al-Quran untuk Pesantren",
+      "description": "Seribu mushaf untuk pesantren di pelosok yang kekurangan bahan bacaan.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-12/800/500",
+      "targetAmount": 30000000,
+      "collectedAmount": 4500000,
+      "progressLabel": null,
+      "memberCount": 22,
+      "memberPreviews": [
+        {
+          "id": "usr-8",
+          "name": "Hasan",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100"
+        },
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Lombok Timur, NTB",
+      "batchLabel": null,
+      "about": "<p>Seribu mushaf untuk pesantren di pelosok yang kekurangan bahan bacaan.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-103",
+      "programTitle": "Beasiswa Pendidikan",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 50,
+      "createdAtOffsetDays": -3,
+      "inviteCode": "l5r4b"
+    },
+    {
+      "id": "grp-013",
+      "name": "Arisan Kebaikan Keluarga Besar",
+      "description": "Grup tertutup keluarga untuk santunan rutin bulanan.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-13/800/500",
+      "targetAmount": 6000000,
+      "collectedAmount": 2400000,
+      "progressLabel": null,
+      "memberCount": 14,
+      "memberPreviews": [
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100"
+        },
+        {
+          "id": "usr-7",
+          "name": "Nadia",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100"
+        }
+      ],
+      "isMember": false,
+      "isPublic": false,
+      "location": "Bekasi, Jawa Barat",
+      "batchLabel": null,
+      "about": "<p>Grup tertutup keluarga untuk santunan rutin bulanan.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-101",
+      "programTitle": "Donasi Umum",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": 28,
+      "createdAtOffsetDays": -20,
+      "inviteCode": "n8d3x"
+    },
+    {
+      "id": "grp-014",
+      "name": "Qurban Patungan 1447 H",
+      "description": "Satu sapi untuk tujuh keluarga. Grup ditutup setelah hari raya.",
+      "coverImageUrl": "https://picsum.photos/seed/donasi-bersama-14/800/500",
+      "targetAmount": 24500000,
+      "collectedAmount": 24500000,
+      "progressLabel": null,
+      "memberCount": 58,
+      "memberPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100"
+        },
+        {
+          "id": "usr-2",
+          "name": "Siti",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isMember": false,
+      "isPublic": true,
+      "location": "Cirebon, Jawa Barat",
+      "batchLabel": null,
+      "about": "<p>Satu sapi untuk tujuh keluarga. Grup ditutup setelah hari raya.</p><p>Grup ini dikelola bersama oleh anggotanya. Setiap urunan langsung tercatat di riwayat patungan dan menambah progres grup.</p>",
+      "programId": "prg-101",
+      "programTitle": "Donasi Umum",
+      "isCreator": false,
+      "reminder": {
+        "isEnabled": true,
+        "frequency": "daily",
+        "weekDay": null,
+        "time": "05:00"
+      },
+      "deadlineOffsetDays": -6,
+      "createdAtOffsetDays": -90,
+      "inviteCode": "p3q9w"
+    }
+  ],
+  "contributions": {
+    "grp-001": [
+      {
+        "id": "contrib-grp-001-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -2,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-1"
+      },
+      {
+        "id": "contrib-grp-001-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -9,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-2"
+      },
+      {
+        "id": "contrib-grp-001-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 250000,
+        "createdAtOffsetHours": -16,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-3"
+      },
+      {
+        "id": "contrib-grp-001-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 25000,
+        "createdAtOffsetHours": -23,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-3"
+      },
+      {
+        "id": "contrib-grp-001-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 500000,
+        "createdAtOffsetHours": -30,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-4"
+      },
+      {
+        "id": "contrib-grp-001-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 75000,
+        "createdAtOffsetHours": -37,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-5"
+      },
+      {
+        "id": "contrib-grp-001-7",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 150000,
+        "createdAtOffsetHours": -44,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-7"
+      },
+      {
+        "id": "contrib-grp-001-8",
+        "donaturName": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "amount": 20000,
+        "createdAtOffsetHours": -51,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-6"
+      },
+      {
+        "id": "contrib-grp-001-9",
+        "donaturName": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "amount": 300000,
+        "createdAtOffsetHours": -58,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-7"
+      },
+      {
+        "id": "contrib-grp-001-10",
+        "donaturName": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "amount": 1000000,
+        "createdAtOffsetHours": -65,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-8"
+      },
+      {
+        "id": "contrib-grp-001-11",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 35000,
+        "createdAtOffsetHours": -72,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-11"
+      },
+      {
+        "id": "contrib-grp-001-12",
+        "donaturName": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "amount": 200000,
+        "createdAtOffsetHours": -79,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-9"
+      },
+      {
+        "id": "contrib-grp-001-13",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -86,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-1"
+      },
+      {
+        "id": "contrib-grp-001-14",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -93,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-001-1",
+        "memberId": "member-grp-001-2"
+      }
+    ],
+    "grp-002": [
+      {
+        "id": "contrib-grp-002-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -3,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-2",
+        "memberId": "member-grp-002-23"
+      },
+      {
+        "id": "contrib-grp-002-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 250000,
+        "createdAtOffsetHours": -10,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-2",
+        "memberId": "member-grp-002-1"
+      },
+      {
+        "id": "contrib-grp-002-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 25000,
+        "createdAtOffsetHours": -17,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-002-2",
+        "memberId": "member-grp-002-3"
+      },
+      {
+        "id": "contrib-grp-002-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 500000,
+        "createdAtOffsetHours": -24,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-2",
+        "memberId": "member-grp-002-2"
+      },
+      {
+        "id": "contrib-grp-002-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 75000,
+        "createdAtOffsetHours": -31,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-2",
+        "memberId": "member-grp-002-3"
+      },
+      {
+        "id": "contrib-grp-002-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 150000,
+        "createdAtOffsetHours": -38,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-2",
+        "memberId": "member-grp-002-4"
+      },
+      {
+        "id": "contrib-grp-002-7",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 20000,
+        "createdAtOffsetHours": -45,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-002-1",
+        "memberId": "member-grp-002-7"
+      },
+      {
+        "id": "contrib-grp-002-8",
+        "donaturName": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "amount": 300000,
+        "createdAtOffsetHours": -52,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-1",
+        "memberId": "member-grp-002-5"
+      },
+      {
+        "id": "contrib-grp-002-9",
+        "donaturName": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "amount": 1000000,
+        "createdAtOffsetHours": -59,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-1",
+        "memberId": "member-grp-002-6"
+      },
+      {
+        "id": "contrib-grp-002-10",
+        "donaturName": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "amount": 35000,
+        "createdAtOffsetHours": -66,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-1",
+        "memberId": "member-grp-002-7"
+      },
+      {
+        "id": "contrib-grp-002-11",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 200000,
+        "createdAtOffsetHours": -73,
+        "isMine": true,
+        "isAnonymous": true,
+        "batchId": "batch-grp-002-1",
+        "memberId": "member-grp-002-11"
+      },
+      {
+        "id": "contrib-grp-002-12",
+        "donaturName": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -80,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-002-1",
+        "memberId": "member-grp-002-8"
+      }
+    ],
+    "grp-003": [
+      {
+        "id": "contrib-grp-003-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 250000,
+        "createdAtOffsetHours": -4,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-003-1",
+        "memberId": null
+      },
+      {
+        "id": "contrib-grp-003-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 25000,
+        "createdAtOffsetHours": -11,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-003-1",
+        "memberId": null
+      },
+      {
+        "id": "contrib-grp-003-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 500000,
+        "createdAtOffsetHours": -18,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-003-1",
+        "memberId": "member-grp-003-3"
+      },
+      {
+        "id": "contrib-grp-003-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 75000,
+        "createdAtOffsetHours": -25,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-003-1",
+        "memberId": "member-grp-003-1"
+      },
+      {
+        "id": "contrib-grp-003-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 150000,
+        "createdAtOffsetHours": -32,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-003-1",
+        "memberId": "member-grp-003-2"
+      },
+      {
+        "id": "contrib-grp-003-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 20000,
+        "createdAtOffsetHours": -39,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-003-1",
+        "memberId": "member-grp-003-3"
+      }
+    ],
+    "grp-004": [
+      {
+        "id": "contrib-grp-004-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 25000,
+        "createdAtOffsetHours": -5,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-21"
+      },
+      {
+        "id": "contrib-grp-004-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 500000,
+        "createdAtOffsetHours": -12,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-22"
+      },
+      {
+        "id": "contrib-grp-004-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 75000,
+        "createdAtOffsetHours": -19,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-3"
+      },
+      {
+        "id": "contrib-grp-004-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 150000,
+        "createdAtOffsetHours": -26,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-23"
+      },
+      {
+        "id": "contrib-grp-004-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 20000,
+        "createdAtOffsetHours": -33,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-1"
+      },
+      {
+        "id": "contrib-grp-004-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 300000,
+        "createdAtOffsetHours": -40,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-2"
+      },
+      {
+        "id": "contrib-grp-004-7",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 1000000,
+        "createdAtOffsetHours": -47,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-7"
+      },
+      {
+        "id": "contrib-grp-004-8",
+        "donaturName": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "amount": 35000,
+        "createdAtOffsetHours": -54,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-3"
+      },
+      {
+        "id": "contrib-grp-004-9",
+        "donaturName": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "amount": 200000,
+        "createdAtOffsetHours": -61,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-004-1",
+        "memberId": "member-grp-004-4"
+      }
+    ],
+    "grp-005": [
+      {
+        "id": "contrib-grp-005-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 500000,
+        "createdAtOffsetHours": -6,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-20"
+      },
+      {
+        "id": "contrib-grp-005-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 75000,
+        "createdAtOffsetHours": -13,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-21"
+      },
+      {
+        "id": "contrib-grp-005-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 150000,
+        "createdAtOffsetHours": -20,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-3"
+      },
+      {
+        "id": "contrib-grp-005-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 20000,
+        "createdAtOffsetHours": -27,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-22"
+      },
+      {
+        "id": "contrib-grp-005-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 300000,
+        "createdAtOffsetHours": -34,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-23"
+      },
+      {
+        "id": "contrib-grp-005-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 1000000,
+        "createdAtOffsetHours": -41,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-1"
+      },
+      {
+        "id": "contrib-grp-005-7",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 35000,
+        "createdAtOffsetHours": -48,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-7"
+      },
+      {
+        "id": "contrib-grp-005-8",
+        "donaturName": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "amount": 200000,
+        "createdAtOffsetHours": -55,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-2"
+      },
+      {
+        "id": "contrib-grp-005-9",
+        "donaturName": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -62,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-3"
+      },
+      {
+        "id": "contrib-grp-005-10",
+        "donaturName": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -69,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-4"
+      },
+      {
+        "id": "contrib-grp-005-11",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 250000,
+        "createdAtOffsetHours": -76,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-005-1",
+        "memberId": "member-grp-005-11"
+      }
+    ],
+    "grp-006": [
+      {
+        "id": "contrib-grp-006-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 75000,
+        "createdAtOffsetHours": -7,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-006-1",
+        "memberId": "member-grp-006-19"
+      },
+      {
+        "id": "contrib-grp-006-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 150000,
+        "createdAtOffsetHours": -14,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-006-1",
+        "memberId": "member-grp-006-20"
+      },
+      {
+        "id": "contrib-grp-006-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 20000,
+        "createdAtOffsetHours": -21,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-006-1",
+        "memberId": "member-grp-006-3"
+      }
+    ],
+    "grp-007": [
+      {
+        "id": "contrib-grp-007-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 150000,
+        "createdAtOffsetHours": -8,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-007-2",
+        "memberId": "member-grp-007-18"
+      },
+      {
+        "id": "contrib-grp-007-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 20000,
+        "createdAtOffsetHours": -15,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-007-2",
+        "memberId": "member-grp-007-19"
+      },
+      {
+        "id": "contrib-grp-007-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 300000,
+        "createdAtOffsetHours": -22,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-007-2",
+        "memberId": "member-grp-007-3"
+      },
+      {
+        "id": "contrib-grp-007-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 1000000,
+        "createdAtOffsetHours": -29,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-007-2",
+        "memberId": "member-grp-007-20"
+      },
+      {
+        "id": "contrib-grp-007-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 35000,
+        "createdAtOffsetHours": -36,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-007-1",
+        "memberId": "member-grp-007-21"
+      },
+      {
+        "id": "contrib-grp-007-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 200000,
+        "createdAtOffsetHours": -43,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-007-1",
+        "memberId": "member-grp-007-22"
+      },
+      {
+        "id": "contrib-grp-007-7",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 50000,
+        "createdAtOffsetHours": -50,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-007-1",
+        "memberId": "member-grp-007-7"
+      },
+      {
+        "id": "contrib-grp-007-8",
+        "donaturName": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -57,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-007-1",
+        "memberId": "member-grp-007-23"
+      }
+    ],
+    "grp-008": [],
+    "grp-009": [
+      {
+        "id": "contrib-grp-009-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 300000,
+        "createdAtOffsetHours": -10,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-009-1",
+        "memberId": "member-grp-009-16"
+      },
+      {
+        "id": "contrib-grp-009-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 1000000,
+        "createdAtOffsetHours": -17,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-009-1",
+        "memberId": "member-grp-009-17"
+      },
+      {
+        "id": "contrib-grp-009-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 35000,
+        "createdAtOffsetHours": -24,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-009-1",
+        "memberId": "member-grp-009-3"
+      },
+      {
+        "id": "contrib-grp-009-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 200000,
+        "createdAtOffsetHours": -31,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-009-1",
+        "memberId": "member-grp-009-18"
+      },
+      {
+        "id": "contrib-grp-009-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -38,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-009-1",
+        "memberId": "member-grp-009-19"
+      }
+    ],
+    "grp-010": [
+      {
+        "id": "contrib-grp-010-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 1000000,
+        "createdAtOffsetHours": -11,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-010-1",
+        "memberId": "member-grp-010-15"
+      },
+      {
+        "id": "contrib-grp-010-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 35000,
+        "createdAtOffsetHours": -18,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-010-1",
+        "memberId": "member-grp-010-16"
+      },
+      {
+        "id": "contrib-grp-010-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 200000,
+        "createdAtOffsetHours": -25,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-010-1",
+        "memberId": "member-grp-010-3"
+      },
+      {
+        "id": "contrib-grp-010-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -32,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-010-1",
+        "memberId": "member-grp-010-17"
+      },
+      {
+        "id": "contrib-grp-010-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -39,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-010-1",
+        "memberId": "member-grp-010-18"
+      },
+      {
+        "id": "contrib-grp-010-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 250000,
+        "createdAtOffsetHours": -46,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-010-1",
+        "memberId": "member-grp-010-19"
+      },
+      {
+        "id": "contrib-grp-010-7",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 25000,
+        "createdAtOffsetHours": -53,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-010-1",
+        "memberId": "member-grp-010-7"
+      }
+    ],
+    "grp-011": [
+      {
+        "id": "contrib-grp-011-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 35000,
+        "createdAtOffsetHours": -12,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-011-1",
+        "memberId": "member-grp-011-14"
+      },
+      {
+        "id": "contrib-grp-011-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 200000,
+        "createdAtOffsetHours": -19,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-011-1",
+        "memberId": "member-grp-011-15"
+      },
+      {
+        "id": "contrib-grp-011-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 50000,
+        "createdAtOffsetHours": -26,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-011-1",
+        "memberId": "member-grp-011-3"
+      },
+      {
+        "id": "contrib-grp-011-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -33,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-011-1",
+        "memberId": "member-grp-011-16"
+      }
+    ],
+    "grp-012": [
+      {
+        "id": "contrib-grp-012-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 200000,
+        "createdAtOffsetHours": -13,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-012-1",
+        "memberId": "member-grp-012-13"
+      },
+      {
+        "id": "contrib-grp-012-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -20,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-012-1",
+        "memberId": "member-grp-012-14"
+      }
+    ],
+    "grp-013": [
+      {
+        "id": "contrib-grp-013-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -14,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-013-1",
+        "memberId": "member-grp-013-12"
+      },
+      {
+        "id": "contrib-grp-013-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -21,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-013-1",
+        "memberId": "member-grp-013-13"
+      },
+      {
+        "id": "contrib-grp-013-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 250000,
+        "createdAtOffsetHours": -28,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-013-1",
+        "memberId": "member-grp-013-3"
+      }
+    ],
+    "grp-014": [
+      {
+        "id": "contrib-grp-014-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -15,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-014-1",
+        "memberId": "member-grp-014-11"
+      },
+      {
+        "id": "contrib-grp-014-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 250000,
+        "createdAtOffsetHours": -22,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-014-1",
+        "memberId": "member-grp-014-12"
+      },
+      {
+        "id": "contrib-grp-014-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 25000,
+        "createdAtOffsetHours": -29,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-014-1",
+        "memberId": "member-grp-014-3"
+      },
+      {
+        "id": "contrib-grp-014-4",
+        "donaturName": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "amount": 500000,
+        "createdAtOffsetHours": -36,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-014-1",
+        "memberId": "member-grp-014-13"
+      },
+      {
+        "id": "contrib-grp-014-5",
+        "donaturName": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "amount": 75000,
+        "createdAtOffsetHours": -43,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-014-1",
+        "memberId": "member-grp-014-14"
+      },
+      {
+        "id": "contrib-grp-014-6",
+        "donaturName": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "amount": 150000,
+        "createdAtOffsetHours": -50,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-014-1",
+        "memberId": "member-grp-014-15"
+      }
+    ],
+    "grp-015": [
+      {
+        "id": "contrib-grp-015-1",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 50000,
+        "createdAtOffsetHours": -3,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-015-1",
+        "memberId": "member-grp-015-1"
+      },
+      {
+        "id": "contrib-grp-015-2",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 150000,
+        "createdAtOffsetHours": -14,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-015-1",
+        "memberId": "member-grp-015-2"
+      },
+      {
+        "id": "contrib-grp-015-3",
+        "donaturName": "Hamba Allah",
+        "avatarUrl": null,
+        "amount": 75000,
+        "createdAtOffsetHours": -25,
+        "isMine": false,
+        "isAnonymous": true,
+        "batchId": "batch-grp-015-1",
+        "memberId": "member-grp-015-1"
+      },
+      {
+        "id": "contrib-grp-015-4",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 500000,
+        "createdAtOffsetHours": -36,
+        "isMine": true,
+        "isAnonymous": false,
+        "batchId": "batch-grp-015-1",
+        "memberId": "member-grp-015-2"
+      },
+      {
+        "id": "contrib-grp-015-5",
+        "donaturName": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "amount": 25000,
+        "createdAtOffsetHours": -47,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-015-1",
+        "memberId": "member-grp-015-1"
+      },
+      {
+        "id": "contrib-grp-015-6",
+        "donaturName": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "amount": 100000,
+        "createdAtOffsetHours": -58,
+        "isMine": false,
+        "isAnonymous": false,
+        "batchId": "batch-grp-015-1",
+        "memberId": "member-grp-015-2"
+      }
+    ]
+  },
+  "members": {
+    "grp-001": [
+      {
+        "id": "member-grp-001-1",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-001-2",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-3",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-4",
+        "name": "Rina Wati",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-5",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-6",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-7",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-8",
+        "name": "Hasan Basri",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-9",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-10",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-11",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-12",
+        "name": "Maya Sari",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-13",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-14",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-15",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-16",
+        "name": "Fitri Handayani",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-17",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-18",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-19",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-20",
+        "name": "Intan Permata",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-21",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-22",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-001-23",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-002": [
+      {
+        "id": "member-grp-002-1",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-002-2",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-3",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-4",
+        "name": "Dewi Lestari",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-5",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-6",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-7",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-8",
+        "name": "Yusuf Maulana",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-9",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-10",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-11",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-12",
+        "name": "Irfan Hakim",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-13",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-14",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-15",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-16",
+        "name": "Dimas Aditya",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-17",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-18",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-19",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-20",
+        "name": "Galih Saputra",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-21",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-22",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-002-23",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-003": [
+      {
+        "id": "member-grp-003-1",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-003-2",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-3",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-4",
+        "name": "Fajar Nugroho",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-5",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-6",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-7",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-8",
+        "name": "Aisyah Rahma",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-9",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-10",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-003-11",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-004": [
+      {
+        "id": "member-grp-004-1",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-004-2",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-3",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-4",
+        "name": "Nadia Putri",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-5",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-6",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-7",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-8",
+        "name": "Rizky Pratama",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-9",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-10",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-11",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-12",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-13",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-14",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-15",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-16",
+        "name": "Reza Firmansyah",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-17",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-18",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-19",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-20",
+        "name": "Toni Kurniawan",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-21",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-22",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-004-23",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-005": [
+      {
+        "id": "member-grp-005-1",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-005-2",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-3",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-4",
+        "name": "Hasan Basri",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-5",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-6",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-7",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-8",
+        "name": "Maya Sari",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-9",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-10",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-11",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-12",
+        "name": "Fitri Handayani",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-13",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-14",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-15",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-16",
+        "name": "Intan Permata",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-17",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-18",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-19",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-20",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-21",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-22",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-005-23",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-006": [
+      {
+        "id": "member-grp-006-1",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-006-2",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-3",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-4",
+        "name": "Yusuf Maulana",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-5",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-6",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-7",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-8",
+        "name": "Irfan Hakim",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-9",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-10",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-11",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-12",
+        "name": "Dimas Aditya",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-13",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-14",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-15",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-16",
+        "name": "Galih Saputra",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-17",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-18",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-19",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-20",
+        "name": "Siti Aminah",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-21",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-22",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-006-23",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-007": [
+      {
+        "id": "member-grp-007-1",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-007-2",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-3",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-4",
+        "name": "Aisyah Rahma",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-5",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-6",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-7",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-8",
+        "name": "Laila Nur",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-9",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-10",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-11",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-12",
+        "name": "Salma Zahra",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-13",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-14",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-15",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-16",
+        "name": "Hana Mufida",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-17",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-18",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-19",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-20",
+        "name": "Budi Santoso",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-21",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-22",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-007-23",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-008": [
+      {
+        "id": "member-grp-008-1",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-008-2",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-3",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-4",
+        "name": "Rizky Pratama",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-5",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-6",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-7",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-8",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-9",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-10",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-11",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-12",
+        "name": "Reza Firmansyah",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-13",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-14",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-15",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-16",
+        "name": "Toni Kurniawan",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-17",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-18",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-008-19",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-009": [
+      {
+        "id": "member-grp-009-1",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-009-2",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-3",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-4",
+        "name": "Maya Sari",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-5",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-6",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-7",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-8",
+        "name": "Fitri Handayani",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-9",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-10",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-11",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-12",
+        "name": "Intan Permata",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-13",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-14",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-15",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-16",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-17",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-18",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-19",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-20",
+        "name": "Dewi Lestari",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-21",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-22",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-009-23",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-010": [
+      {
+        "id": "member-grp-010-1",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-010-2",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-3",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-4",
+        "name": "Irfan Hakim",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-5",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-6",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-7",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-8",
+        "name": "Dimas Aditya",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-9",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-10",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-11",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-12",
+        "name": "Galih Saputra",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-13",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-14",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-15",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-16",
+        "name": "Siti Aminah",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-17",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-18",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-19",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-20",
+        "name": "Fajar Nugroho",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-21",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-22",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-010-23",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-011": [
+      {
+        "id": "member-grp-011-1",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-011-2",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-3",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-4",
+        "name": "Laila Nur",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-5",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-6",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-7",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-8",
+        "name": "Salma Zahra",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-9",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-10",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-11",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-12",
+        "name": "Hana Mufida",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-13",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-14",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-15",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-16",
+        "name": "Budi Santoso",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-17",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-18",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-19",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-20",
+        "name": "Nadia Putri",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-21",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-22",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-011-23",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-012": [
+      {
+        "id": "member-grp-012-1",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-012-2",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-3",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-4",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-5",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-6",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-7",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-8",
+        "name": "Reza Firmansyah",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-9",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-10",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-11",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-12",
+        "name": "Toni Kurniawan",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-13",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-14",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-15",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-16",
+        "name": "Rina Wati",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-17",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-18",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-19",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-20",
+        "name": "Hasan Basri",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-21",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-012-22",
+        "name": "Aisyah Rahma",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-013": [
+      {
+        "id": "member-grp-013-1",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-013-2",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-3",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-4",
+        "name": "Fitri Handayani",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-5",
+        "name": "Dimas Aditya",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-6",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-7",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-8",
+        "name": "Intan Permata",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-9",
+        "name": "Galih Saputra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-9/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-10",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-11",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-12",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-13",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-013-14",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-014": [
+      {
+        "id": "member-grp-014-1",
+        "name": "Laila Nur",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-014-2",
+        "name": "Bagus Wicaksono",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-3",
+        "name": "Fitri Handayani",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": "Inspirator Kebaikan",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-4",
+        "name": "Dimas Aditya",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-5",
+        "name": "Salma Zahra",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-6",
+        "name": "Reza Firmansyah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-7",
+        "name": "Intan Permata",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-8",
+        "name": "Galih Saputra",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-9",
+        "name": "Hana Mufida",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-10",
+        "name": "Toni Kurniawan",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-11",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-12",
+        "name": "Siti Aminah",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-13",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-14",
+        "name": "Rina Wati",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-15",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-4/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-16",
+        "name": "Fajar Nugroho",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-17",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-18",
+        "name": "Hasan Basri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-19",
+        "name": "Yusuf Maulana",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-8/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-20",
+        "name": "Aisyah Rahma",
+        "avatarUrl": null,
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-21",
+        "name": "Rizky Pratama",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-10/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-22",
+        "name": "Maya Sari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-11/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-014-23",
+        "name": "Irfan Hakim",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-12/100/100",
+        "roleLabel": "Anggota Baru",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ],
+    "grp-015": [
+      {
+        "id": "member-grp-015-1",
+        "name": "Ahmad Fauzi",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-1/100/100",
+        "roleLabel": "Kreator Grup",
+        "badgeLabel": null,
+        "isCreator": true
+      },
+      {
+        "id": "member-grp-015-2",
+        "name": "Siti Aminah",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-2/100/100",
+        "roleLabel": "Penderma Aktif",
+        "badgeLabel": "Donatur Teraktif",
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-015-3",
+        "name": "Budi Santoso",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-3/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-015-4",
+        "name": "Rina Wati",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-015-5",
+        "name": "Dewi Lestari",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-5/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-015-6",
+        "name": "Fajar Nugroho",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-6/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-015-7",
+        "name": "Nadia Putri",
+        "avatarUrl": "https://picsum.photos/seed/dbmember-7/100/100",
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      },
+      {
+        "id": "member-grp-015-8",
+        "name": "Hasan Basri",
+        "avatarUrl": null,
+        "roleLabel": "Anggota",
+        "badgeLabel": null,
+        "isCreator": false
+      }
+    ]
+  },
+  "batches": {
+    "grp-001": [
+      {
+        "id": "batch-grp-001-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -12,
+        "status": "active",
+        "startedAtOffsetDays": -12
+      }
+    ],
+    "grp-002": [
+      {
+        "id": "batch-grp-002-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -30,
+        "status": "ended",
+        "startedAtOffsetDays": -30
+      },
+      {
+        "id": "batch-grp-002-2",
+        "label": "Batch 2",
+        "createdAtOffsetDays": -16,
+        "status": "active",
+        "startedAtOffsetDays": -16
+      },
+      {
+        "id": "batch-grp-002-draft",
+        "label": "Batch 3",
+        "status": "draft",
+        "createdAtOffsetDays": -1,
+        "startedAtOffsetDays": null
+      }
+    ],
+    "grp-003": [
+      {
+        "id": "batch-grp-003-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -6,
+        "status": "active",
+        "startedAtOffsetDays": -6
+      }
+    ],
+    "grp-004": [
+      {
+        "id": "batch-grp-004-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -9,
+        "status": "active",
+        "startedAtOffsetDays": -9
+      }
+    ],
+    "grp-005": [
+      {
+        "id": "batch-grp-005-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -18,
+        "status": "active",
+        "startedAtOffsetDays": -18
+      }
+    ],
+    "grp-006": [
+      {
+        "id": "batch-grp-006-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -45,
+        "status": "active",
+        "startedAtOffsetDays": -45
+      }
+    ],
+    "grp-007": [
+      {
+        "id": "batch-grp-007-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -22,
+        "status": "ended",
+        "startedAtOffsetDays": -22
+      },
+      {
+        "id": "batch-grp-007-2",
+        "label": "Batch 2",
+        "createdAtOffsetDays": -8,
+        "status": "active",
+        "startedAtOffsetDays": -8
+      }
+    ],
+    "grp-008": [
+      {
+        "id": "batch-grp-008-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -4,
+        "status": "active",
+        "startedAtOffsetDays": -4
+      }
+    ],
+    "grp-009": [
+      {
+        "id": "batch-grp-009-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -15,
+        "status": "active",
+        "startedAtOffsetDays": -15
+      }
+    ],
+    "grp-010": [
+      {
+        "id": "batch-grp-010-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -11,
+        "status": "active",
+        "startedAtOffsetDays": -11
+      }
+    ],
+    "grp-011": [
+      {
+        "id": "batch-grp-011-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -7,
+        "status": "active",
+        "startedAtOffsetDays": -7
+      }
+    ],
+    "grp-012": [
+      {
+        "id": "batch-grp-012-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -3,
+        "status": "active",
+        "startedAtOffsetDays": -3
+      }
+    ],
+    "grp-013": [
+      {
+        "id": "batch-grp-013-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -20,
+        "status": "active",
+        "startedAtOffsetDays": -20
+      }
+    ],
+    "grp-014": [
+      {
+        "id": "batch-grp-014-1",
+        "label": "Batch 1",
+        "createdAtOffsetDays": -90,
+        "status": "active",
+        "startedAtOffsetDays": -90
+      }
+    ],
+    "grp-015": [
+      {
+        "id": "batch-grp-015-1",
+        "label": "Batch Agustus",
+        "status": "active",
+        "createdAtOffsetDays": -25,
+        "startedAtOffsetDays": -25
+      },
+      {
+        "id": "batch-grp-015-2",
+        "label": "Batch September",
+        "status": "draft",
+        "createdAtOffsetDays": -2,
+        "startedAtOffsetDays": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "items": [
+    {
+      "id": "amalan-seed-1",
+      "dayOffset": 0,
+      "presetSlug": "sholat-wajib",
+      "title": "Sholat Subuh",
+      "time": "04:45",
+      "note": "Berjamaah di masjid",
+      "isCompleted": true,
+      "reminderEnabled": false
+    },
+    {
+      "id": "amalan-seed-2",
+      "dayOffset": 0,
+      "presetSlug": "tilawah",
+      "title": "Tilawah Quran",
+      "time": "06:00",
+      "note": null,
+      "isCompleted": true,
+      "reminderEnabled": true
+    },
+    {
+      "id": "amalan-seed-3",
+      "dayOffset": 0,
+      "presetSlug": "sholat-wajib",
+      "title": "Sholat Dzuhur",
+      "time": "12:10",
+      "note": null,
+      "isCompleted": false,
+      "reminderEnabled": false
+    },
+    {
+      "id": "amalan-seed-4",
+      "dayOffset": 0,
+      "presetSlug": "sedekah",
+      "title": "Sedekah",
+      "time": "19:30",
+      "note": "Kotak amal masjid setelah maghrib, niatnya untuk almarhum bapak dan seluruh keluarga yang sudah mendahului.",
+      "isCompleted": false,
+      "reminderEnabled": false
+    },
+
+    {
+      "id": "amalan-seed-5",
+      "dayOffset": -1,
+      "presetSlug": "sholat-wajib",
+      "title": "Sholat Subuh",
+      "time": "04:44",
+      "note": null,
+      "isCompleted": true,
+      "reminderEnabled": false
+    },
+    {
+      "id": "amalan-seed-6",
+      "dayOffset": -1,
+      "presetSlug": "dzikir",
+      "title": "Dzikir",
+      "time": "05:30",
+      "note": "Dzikir pagi",
+      "isCompleted": true,
+      "reminderEnabled": false
+    },
+    {
+      "id": "amalan-seed-7",
+      "dayOffset": -1,
+      "presetSlug": "sedekah",
+      "title": "Sedekah",
+      "time": "17:00",
+      "note": null,
+      "isCompleted": true,
+      "reminderEnabled": false
+    },
+
+    {
+      "id": "amalan-seed-8",
+      "dayOffset": -3,
+      "presetSlug": "tilawah",
+      "title": "Tilawah Quran",
+      "time": "05:15",
+      "note": "Sampai juz 3",
+      "isCompleted": true,
+      "reminderEnabled": false
+    },
+    {
+      "id": "amalan-seed-9",
+      "dayOffset": -3,
+      "presetSlug": "sholat-sunnah",
+      "title": "Sholat Sunnah",
+      "time": "20:15",
+      "note": null,
+      "isCompleted": false,
+      "reminderEnabled": false
+    },
+
+    {
+      "id": "amalan-seed-10",
+      "dayOffset": -4,
+      "presetSlug": "puasa-sunnah",
+      "title": "Puasa Sunnah",
+      "time": "04:30",
+      "note": "Puasa Senin",
+      "isCompleted": true,
+      "reminderEnabled": false
+    },
+
+    {
+      "id": "amalan-seed-11",
+      "dayOffset": -5,
+      "presetSlug": "sholat-sunnah",
+      "title": "Sholat Sunnah",
+      "time": "03:40",
+      "note": null,
+      "isCompleted": false,
+      "reminderEnabled": false
+    },
+    {
+      "id": "amalan-seed-12",
+      "dayOffset": -5,
+      "presetSlug": "lainnya",
+      "title": "Lainnya",
+      "time": "16:00",
+      "note": "Menjenguk tetangga yang sakit",
+      "isCompleted": false,
+      "reminderEnabled": false
+    },
+
+    {
+      "id": "amalan-seed-13",
+      "dayOffset": -6,
+      "presetSlug": "dzikir",
+      "title": "Dzikir",
+      "time": "18:20",
+      "note": null,
+      "isCompleted": true,
+      "reminderEnabled": false
+    }
+  ],
+  "presets": [
+    {"slug": "sholat-wajib", "label": "Sholat Wajib", "iconSlug": "moon-stars"},
+    {"slug": "sholat-sunnah", "label": "Sholat Sunnah", "iconSlug": "sun"},
+    {"slug": "sedekah", "label": "Sedekah", "iconSlug": "hand-money"},
+    {"slug": "tilawah", "label": "Tilawah Quran", "iconSlug": "book"},
+    {"slug": "dzikir", "label": "Dzikir", "iconSlug": "hand-heart"},
+    {"slug": "puasa-sunnah", "label": "Puasa Sunnah", "iconSlug": "moon-stars"},
+    {"slug": "lainnya", "label": "Lainnya", "iconSlug": "checklist"}
+  ]
+}

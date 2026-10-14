@@ -1,0 +1,311 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Masjid & Pondok",
+      "is_utama": "1",
+      "image": "image-1736219589.png",
+      "slug": "masjid-pondok",
+      "is_active": "1",
+      "akun_penerimaan_id": null,
+      "akun_pengeluaran_id": null,
+      "created_at": "2024-11-11T04:28:49+01:00",
+      "updated_at": "2025-01-06T21:13:09+01:00",
+      "image_url": "https://cdn.aksiberbagi.com/categories/image-1736219589.png"
+    },
+    {
+      "id": 2,
+      "name": "Kesehatan",
+      "is_utama": "1",
+      "image": "image-1736219604.png",
+      "slug": "kesehatan",
+      "is_active": "1",
+      "akun_penerimaan_id": null,
+      "akun_pengeluaran_id": null,
+      "created_at": "2024-11-11T04:28:49+01:00",
+      "updated_at": "2025-01-06T21:13:24+01:00",
+      "image_url": "https://cdn.aksiberbagi.com/categories/image-1736219604.png"
+    },
+    {
+      "id": 3,
+      "name": "Hewan",
+      "is_utama": "1",
+      "image": "image-1736219613.png",
+      "slug": "hewan",
+      "is_active": "1",
+      "akun_penerimaan_id": null,
+      "akun_pengeluaran_id": null,
+      "created_at": "2024-11-11T04:28:49+01:00",
+      "updated_at": "2025-01-06T21:13:33+01:00",
+      "image_url": "https://cdn.aksiberbagi.com/categories/image-1736219613.png"
+    },
+    {
+      "id": 4,
+      "name": "Pendidikan",
+      "is_utama": "1",
+      "image": "image-1736219623.png",
+      "slug": "pendidikan",
+      "is_active": "1",
+      "akun_penerimaan_id": null,
+      "akun_pengeluaran_id": null,
+      "created_at": "2024-11-11T04:28:49+01:00",
+      "updated_at": "2025-01-06T21:13:43+01:00",
+      "image_url": "https://cdn.aksiberbagi.com/categories/image-1736219623.png"
+    },
+    {
+      "id": 6,
+      "name": "Bencana Alam",
+      "is_utama": "1",
+      "image": "image-1736219639.png",
+      "slug": "bencana-alam",
+      "is_active": "1",
+      "akun_penerimaan_id": null,
+      "akun_pengeluaran_id": null,
+      "created_at": "2024-11-11T04:28:49+01:00",
+      "updated_at": "2025-01-06T21:13:59+01:00",
+      "image_url": "https://cdn.aksiberbagi.com/categories/image-1736219639.png"
+    },
+    {
+      "id": 8,
+      "name": "Sosial & Kemanusiaan",
+      "is_utama": "1",
+      "image": "image-1736219661.png",
+      "slug": "sosial-kemanusiaan",
+      "is_active": "1",
+      "akun_penerimaan_id": null,
+      "akun_pengeluaran_id": null,
+      "created_at": "2024-11-11T04:28:49+01:00",
+      "updated_at": "2025-01-06T21:14:21+01:00",
+      "image_url": "https://cdn.aksiberbagi.com/categories/image-1736219661.png"
+    },
+    {
+      "id": 9,
+      "name": "Zakat",
+      "is_utama": "1",
+      "image": "image-1736219670.png",
+      "slug": "zakat",
+      "is_active": "1",
+      "akun_penerimaan_id": null,
+      "akun_pengeluaran_id": null,
+      "created_at": "2024-11-11T04:28:49+01:00",
+      "updated_at": "2025-01-06T21:14:30+01:00",
+      "image_url": "https://cdn.aksiberbagi.com/categories/image-1736219670.png"
+    }
+  ],
+  "list": [
+    {
+      "id": 819,
+      "title": "Bantu 1000 Muallaf belajar Membaca Al-Quran",
+      "link": "bantumuallafbelajarquran",
+      "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "time_target": null,
+      "nominal_target": 50000000,
+      "nominal_achieved": 35000000,
+      "progress_achieved": 70,
+      "remaining_days": 8,
+      "cta_color": "#xxxxxx",
+      "mitra": {
+        "id": 11,
+        "name": "Aksiberbagi",
+        "image": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "location": "Jalan Tentara Pelajar RT 5 RW 27 Guwosari Jebres"
+      },
+      "category": {
+        "id": 8,
+        "name": "Sosial & Kemanusiaan",
+        "slug": "sosial-kemanusiaan",
+        "image": "https://cdn.aksiberbagi.com/categories/image-1736219661.png"
+      },
+      "tipe": {
+        "id": 3,
+        "name": "INFAK",
+        "slug": "infaq",
+        "description": "infak"
+      }
+    },
+    {
+      "id": 818,
+      "title": "Bangun Kembali RA Babussalam Babo, Bandar Pusaka, Aceh Tamiang",
+      "link": "bangunbabussalamaceh",
+      "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "time_target": null,
+      "nominal_target": 125000000,
+      "nominal_achieved": 89375000,
+      "progress_achieved": 71,
+      "remaining_days": 15,
+      "mitra": {
+        "id": 11,
+        "name": "Aksiberbagi",
+        "image": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "location": "Jalan Tentara Pelajar RT 5 RW 27 Guwosari Jebres"
+      },
+      "category": {
+        "id": 1,
+        "name": "Masjid & Pondok",
+        "slug": "masjid-pondok",
+        "image": "https://cdn.aksiberbagi.com/categories/image-1736219589.png"
+      },
+      "tipe": {
+        "id": 3,
+        "name": "INFAK",
+        "slug": "infaq",
+        "description": "infak"
+      }
+    },
+    {
+      "id": 817,
+      "title": "Sedekah Jariyah Bantu Santri Tuli Penghafal Qur'an di Pondok Pesantren Abata",
+      "link": "jariyahabata2",
+      "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "time_target": null,
+      "nominal_target": 250000000,
+      "nominal_achieved": 162500000,
+      "progress_achieved": 65,
+      "remaining_days": 22,
+      "mitra": {
+        "id": 11,
+        "name": "Aksiberbagi",
+        "image": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "location": "Jalan Tentara Pelajar RT 5 RW 27 Guwosari Jebres"
+      },
+      "category": {
+        "id": 1,
+        "name": "Masjid & Pondok",
+        "slug": "masjid-pondok",
+        "image": "https://cdn.aksiberbagi.com/categories/image-1736219589.png"
+      },
+      "tipe": {
+        "id": 3,
+        "name": "INFAK",
+        "slug": "infaq",
+        "description": "infak"
+      }
+    },
+    {
+      "id": 807,
+      "title": "Tunaika",
+      "link": "kafarat",
+      "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "time_target": null,
+      "nominal_target": 50000000,
+      "nominal_achieved": 42500000,
+      "progress_achieved": 85,
+      "remaining_days": 5,
+      "mitra": {
+        "id": 11,
+        "name": "Aksiberbagi",
+        "image": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "location": "Jalan Tentara Pelajar RT 5 RW 27 Guwosari Jebres"
+      },
+      "category": {
+        "id": 8,
+        "name": "Sosial & Kemanusiaan",
+        "slug": "sosial-kemanusiaan",
+        "image": "https://cdn.aksiberbagi.com/categories/image-1736219661.png"
+      },
+      "tipe": {
+        "id": 3,
+        "name": "INFAK",
+        "slug": "infaq",
+        "description": "infak"
+      }
+    },
+    {
+      "id": 805,
+      "title": "AL-QURAN PENUH LUMPUR !!! Raih Pahala Jariyah Hadiahkan Al-Quran Terbaik",
+      "link": "alquranuntuksumatra",
+      "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "time_target": null,
+      "nominal_target": 150000000,
+      "nominal_achieved": 112500000,
+      "progress_achieved": 75,
+      "remaining_days": 12,
+      "mitra": {
+        "id": 11,
+        "name": "Aksiberbagi",
+        "image": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "location": "Jalan Tentara Pelajar RT 5 RW 27 Guwosari Jebres"
+      },
+      "category": {
+        "id": 1,
+        "name": "Masjid & Pondok",
+        "slug": "masjid-pondok",
+        "image": "https://cdn.aksiberbagi.com/categories/image-1736219589.png"
+      },
+      "tipe": {
+        "id": 3,
+        "name": "INFAK",
+        "slug": "infaq",
+        "description": "infak"
+      }
+    }
+  ],
+  "detailContent": "<p>Aksiberbagi.com menghadirkan program kebaikan ini dan mengajak seluruh sahabat berbagi untuk ikut serta membantu saudara kita yang membutuhkan. Setiap donasi yang terkumpul akan disalurkan secara bertahap dan transparan kepada penerima manfaat.</p><p><br></p><p>Program ini akan berjalan selama satu periode penuh dan akan terus dilanjutkan sampai selesai. Dengan adanya program ini besar harapan bisa membantu lebih banyak penerima manfaat.</p><p class=\"ql-align-justify\"><img src=\"https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg\"></p><p class=\"ql-align-justify\">Melalui Aksiberbagi, Sahabat Berbagi dapat mencetak pahala jariyah dengan memberikan kemudahan bagi para penerima manfaat.&nbsp;</p>",
+  "nominalIconUrl": "https://cdn.aksiberbagi.com/categories/image-1736219661.png",
+  "detailDefaults": {
+    "nominalPresets": [
+      {
+        "nominal": 1000000,
+        "icon": "https://cdn.aksiberbagi.com/categories/image-1736219661.png",
+        "label": "Donasi Terbaik"
+      },
+      {
+        "nominal": 500000,
+        "icon": "https://cdn.aksiberbagi.com/categories/image-1736219661.png",
+        "label": "Donasi Utama"
+      },
+      {
+        "nominal": 70000,
+        "icon": "https://cdn.aksiberbagi.com/categories/image-1736219661.png",
+        "label": "Donasi Pilihan"
+      },
+      {
+        "nominal": 50000,
+        "icon": "https://cdn.aksiberbagi.com/categories/image-1736219661.png",
+        "label": "Donasi Sederhana"
+      }
+    ],
+    "packages": [
+      {
+        "id": 1,
+        "label": "Paket Sembako",
+        "nominal": 70000,
+        "icon": "https://cdn.aksiberbagi.com/categories/image-1736219661.png"
+      },
+      {
+        "id": 2,
+        "label": "Paket Pendidikan",
+        "nominal": 150000,
+        "icon": "https://cdn.aksiberbagi.com/categories/image-1736219661.png"
+      },
+      {
+        "id": 3,
+        "label": "Paket Kesehatan",
+        "nominal": 250000,
+        "icon": "https://cdn.aksiberbagi.com/categories/image-1736219661.png"
+      }
+    ],
+    "nearestProjects": [
+      {
+        "id": 1,
+        "title": "Penyaluran Sembako Tahap 1",
+        "status": "menunggu",
+        "distributed_at": "2026-08-20T00:00:00+07:00",
+        "mitra": {
+          "name": "Aksiberbagi",
+          "image": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png"
+        }
+      },
+      {
+        "id": 2,
+        "title": "Penyaluran Sembako Tahap 2",
+        "status": "proses",
+        "distributed_at": "2026-08-27T00:00:00+07:00",
+        "mitra": {
+          "name": "Aksiberbagi",
+          "image": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png"
+        }
+      }
+    ]
+  }
+}

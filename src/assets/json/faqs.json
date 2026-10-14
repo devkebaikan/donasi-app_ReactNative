@@ -1,0 +1,17 @@
+[
+  {
+    "id": "faq-1",
+    "question": "Bagaimana cara berdonasi?",
+    "answer": "Pilih program donasi yang diinginkan, tentukan nominal, lalu selesaikan pembayaran melalui metode yang tersedia."
+  },
+  {
+    "id": "faq-2",
+    "question": "Apakah donasi saya bisa dilacak?",
+    "answer": "Ya, setiap donasi tercatat pada riwayat \"Donasi Saya\" beserta status penyalurannya."
+  },
+  {
+    "id": "faq-3",
+    "question": "Bagaimana jika pembayaran gagal?",
+    "answer": "Jika pembayaran gagal, dana akan otomatis dikembalikan sesuai kebijakan metode pembayaran yang digunakan. Hubungi CS jika membutuhkan bantuan."
+  }
+]

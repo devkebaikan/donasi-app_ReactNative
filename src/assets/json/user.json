@@ -1,0 +1,32 @@
+{
+  "me": {
+    "id": "usr-1",
+    "name": "Buddy",
+    "email": "user@email.com",
+    "phone": "081234567890",
+    "avatarUrl": null
+  },
+  "updateProfile": {
+    "failureMessage": "Gagal menyimpan perubahan profil",
+    "successMessage": "Profil berhasil diperbarui",
+    "errors": {
+      "name": "Nama tidak boleh kosong",
+      "email": "Masukkan alamat email yang valid"
+    }
+  },
+  "updateAvatar": {
+    "mockAvatarUrl": "mock://avatar-updated",
+    "successMessage": "Foto profil berhasil diubah"
+  },
+  "updateSettings": {
+    "successMessage": "Preferensi berhasil disimpan"
+  },
+  "settings": {
+    "isHideName": false,
+    "isHideNominal": false,
+    "isContactable": false,
+    "isReminderEnabled": false,
+    "reminderFrequency": "daily",
+    "reminderTime": "05:00"
+  }
+}

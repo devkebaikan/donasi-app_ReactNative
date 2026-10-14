@@ -1,0 +1,56 @@
+{
+  "items": [
+    {
+      "id": "recurring-1",
+      "programTitle": "Pembangunan Sumur Desa",
+      "programImageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "amount": 5000,
+      "frequency": "daily",
+      "scheduleTime": "05:00",
+      "status": "AKTIF",
+      "totalDonated": 150000,
+      "startDayOffset": -30,
+      "history": [
+        {"id": "recurring-1-history-1", "dayOffset": -1, "timeOfDay": "05:01", "status": "BERHASIL"},
+        {"id": "recurring-1-history-2", "dayOffset": -2, "timeOfDay": "05:00", "status": "BERHASIL"},
+        {"id": "recurring-1-history-3", "dayOffset": -3, "timeOfDay": "05:00", "status": "BERHASIL"},
+        {"id": "recurring-1-history-4", "dayOffset": -4, "timeOfDay": "05:00", "status": "GAGAL"},
+        {"id": "recurring-1-history-5", "dayOffset": -5, "timeOfDay": "05:00", "status": "BERHASIL"}
+      ]
+    },
+    {
+      "id": "recurring-2",
+      "programTitle": "Sedekah Beras Santri",
+      "programImageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "amount": 50000,
+      "frequency": "weekly",
+      "scheduleTime": "08:00",
+      "scheduleDay": 5,
+      "status": "AKTIF",
+      "totalDonated": 900000,
+      "startDayOffset": -45,
+      "history": [
+        {"id": "recurring-2-history-1", "dayOffset": -3, "timeOfDay": "08:00", "status": "BERHASIL"},
+        {"id": "recurring-2-history-2", "dayOffset": -10, "timeOfDay": "08:00", "status": "BERHASIL"},
+        {"id": "recurring-2-history-3", "dayOffset": -17, "timeOfDay": "08:02", "status": "BERHASIL"}
+      ]
+    },
+    {
+      "id": "recurring-3",
+      "programTitle": "Penerangan Masjid",
+      "programImageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "amount": 100000,
+      "frequency": "monthly",
+      "scheduleTime": "09:00",
+      "scheduleDay": 1,
+      "status": "JEDA",
+      "totalDonated": 300000,
+      "startDayOffset": -90,
+      "history": [
+        {"id": "recurring-3-history-1", "dayOffset": -29, "timeOfDay": "09:00", "status": "BERHASIL"},
+        {"id": "recurring-3-history-2", "dayOffset": -59, "timeOfDay": "09:00", "status": "BERHASIL"},
+        {"id": "recurring-3-history-3", "dayOffset": -89, "timeOfDay": "09:01", "status": "BERHASIL"}
+      ]
+    }
+  ]
+}

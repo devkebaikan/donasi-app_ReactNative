@@ -1,0 +1,19 @@
+{
+  "balance": 2750,
+  "topup": {
+    "minAmount": 10000,
+    "minAmountFailureMessage": "Minimal topup Rp 10.000",
+    "adminFee": 2500,
+    "successMessage": "Topup berhasil dibuat",
+    "methodNames": {
+      "bank-bca": "BCA",
+      "bank-mandiri": "Mandiri",
+      "bank-bni": "BNI",
+      "bank-bsi": "BSI",
+      "ewallet-ovo": "OVO",
+      "ewallet-gopay": "GoPay",
+      "qris": "QRIS"
+    },
+    "mockBankAccountNumber": "8990812345678"
+  }
+}

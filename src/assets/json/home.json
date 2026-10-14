@@ -1,0 +1,494 @@
+{
+  "home_banner": [
+    {
+      "id": "banner-1",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "title": "Banner 1",
+      "programId": 819
+    },
+    {
+      "id": "banner-2",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "title": "Banner 2",
+      "programId": 820
+    },
+    {
+      "id": "banner-3",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "title": "Banner 3",
+      "programId": 821
+    },
+    {
+      "id": "banner-4",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "title": "Banner 4",
+      "programId": 822
+    },
+    {
+      "id": "banner-5",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "title": "Banner 5",
+      "programId": 823
+    }
+  ],
+  "main_banner": {
+    "id": "1",
+    "image_url": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+    "programId": 819
+  },
+  "second_banner": {
+    "id": "2",
+    "image_url": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+    "programId": 820
+  },
+  "kalender_donasi_rutin": {
+    "streak_days": 0,
+    "subtitle": "Yuk, rutinkan kebaikan dengan donasi rutin!",
+    "weekly_schedule": [
+      {
+        "day_name": "Sen",
+        "has_donation": true,
+        "day_of_week": 1
+      },
+      {
+        "day_name": "Sel",
+        "has_donation": true,
+        "day_of_week": 2
+      },
+      {
+        "day_name": "Rab",
+        "has_donation": true,
+        "day_of_week": 3
+      },
+      {
+        "day_name": "Kam",
+        "has_donation": true,
+        "day_of_week": 4
+      },
+      {
+        "day_name": "Jum",
+        "has_donation": false,
+        "day_of_week": 5
+      },
+      {
+        "day_name": "Sab",
+        "has_donation": false,
+        "day_of_week": 6
+      },
+      {
+        "day_name": "Min",
+        "has_donation": false,
+        "day_of_week": 0
+      }
+    ]
+  },
+  "menu_utama": [
+    {
+      "id": 1,
+      "name": "Donasi",
+      "image_url": "https://don.aksiberbagi.com/images/icons/menu/1.%20Donasi.webp",
+      "screen": "Donations"
+    },
+    {
+      "id": 2,
+      "name": "Infak",
+      "image_url": "https://don.aksiberbagi.com/images/icons/menu/2.%20Infaq.webp",
+      "screen": "Infak"
+    },
+    {
+      "id": 3,
+      "name": "Zakat",
+      "image_url": "https://don.aksiberbagi.com/images/icons/menu/3.%20Zakat.webp",
+      "screen": "Zakat"
+    },
+    {
+      "id": 4,
+      "name": "Donasi Rutin",
+      "image_url": "https://don.aksiberbagi.com/images/icons/menu/6.%20Donasi%20rutin.webp",
+      "screen": "RecurringDonation"
+    }
+  ],
+  "program_tema_1": {
+    "nama_tema": "#BahagiakanlahYatim",
+    "deskripsi_tema": "Ambil bagian sekarang, kuatkan bekal akhirat.",
+    "background_url": "",
+    "program": [
+      {
+        "id": 819,
+        "title": "Bahagiakan Anak Yatim Raih Bahagia Dunia dan Akhirat",
+        "link": "program-819",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 100000000,
+        "nominal_achieved": 24161772,
+        "progress_achieved": 24,
+        "remaining_days": 45,
+        "mitra": {
+          "id": 1,
+          "name": "Aksi Cepat Tanggap",
+          "image": "",
+          "location": "Jakarta"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      },
+      {
+        "id": 820,
+        "title": "Sedekah Quran Atas Nama Orang Tua: Amal Jariyah Alirkan Pahala",
+        "link": "program-820",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 50000000,
+        "nominal_achieved": 19268097,
+        "progress_achieved": 39,
+        "remaining_days": 30,
+        "mitra": {
+          "id": 2,
+          "name": "Rumah Zakat",
+          "image": "",
+          "location": "Bandung"
+        },
+        "category": {
+          "id": 2,
+          "name": "Pendidikan",
+          "slug": "pendidikan",
+          "image": ""
+        }
+      },
+      {
+        "id": 821,
+        "title": "Amal Jariyah Sumur Pemberian Kehidupan",
+        "link": "program-821",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 75000000,
+        "nominal_achieved": 35720000,
+        "progress_achieved": 48,
+        "remaining_days": 60,
+        "mitra": {
+          "id": 3,
+          "name": "Laznas Yatim Mandiri",
+          "image": "",
+          "location": "Surabaya"
+        },
+        "category": {
+          "id": 3,
+          "name": "Kesehatan",
+          "slug": "kesehatan",
+          "image": ""
+        }
+      },
+      {
+        "id": 822,
+        "title": "Beasiswa Penuh Transformasi Masa Depan Anak Dhuafa",
+        "link": "program-822",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 60000000,
+        "nominal_achieved": 28400000,
+        "progress_achieved": 47,
+        "remaining_days": 90,
+        "mitra": {
+          "id": 4,
+          "name": "Kompak Bangsa",
+          "image": "",
+          "location": "Medan"
+        },
+        "category": {
+          "id": 4,
+          "name": "Pendidikan",
+          "slug": "pendidikan",
+          "image": ""
+        }
+      },
+      {
+        "id": 823,
+        "title": "Takziah Keluarga Yatim Piatu Bimbingan Kasih Sayang",
+        "link": "program-823",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 40000000,
+        "nominal_achieved": 15280000,
+        "progress_achieved": 38,
+        "remaining_days": 21,
+        "mitra": {
+          "id": 5,
+          "name": "Yayasan Senyum Ceria",
+          "image": "",
+          "location": "Yogyakarta"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      }
+    ]
+  },
+  "program_tema_2": {
+    "nama_tema": "#BahagiakanlahOrangTua",
+    "deskripsi_tema": "Bantu mereka yang sedang membutuhkan sekarang.",
+    "background_url": "",
+    "program": [
+      {
+        "id": 824,
+        "title": "Bantuan Darurat Keluarga Terdampak Bencana Alam",
+        "link": "program-824",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 200000000,
+        "nominal_achieved": 156700000,
+        "progress_achieved": 78,
+        "remaining_days": 7,
+        "mitra": {
+          "id": 1,
+          "name": "Aksi Cepat Tanggap",
+          "image": "",
+          "location": "Jakarta"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      },
+      {
+        "id": 825,
+        "title": "Operasi Kesehatan Anak-Anak Kurang Mampu Gratis",
+        "link": "program-825",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 120000000,
+        "nominal_achieved": 89400000,
+        "progress_achieved": 74,
+        "remaining_days": 14,
+        "mitra": {
+          "id": 2,
+          "name": "Rumah Zakat",
+          "image": "",
+          "location": "Bandung"
+        },
+        "category": {
+          "id": 3,
+          "name": "Kesehatan",
+          "slug": "kesehatan",
+          "image": ""
+        }
+      },
+      {
+        "id": 826,
+        "title": "Paket Sembako untuk Keluarga Terdampak Krisis Ekonomi",
+        "link": "program-826",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 80000000,
+        "nominal_achieved": 58200000,
+        "progress_achieved": 73,
+        "remaining_days": 10,
+        "mitra": {
+          "id": 3,
+          "name": "Laznas Yatim Mandiri",
+          "image": "",
+          "location": "Surabaya"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      },
+      {
+        "id": 827,
+        "title": "Renovasi Sekolah Rusak di Daerah Terpencil Urgent",
+        "link": "program-827",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 150000000,
+        "nominal_achieved": 102500000,
+        "progress_achieved": 68,
+        "remaining_days": 21,
+        "mitra": {
+          "id": 4,
+          "name": "Kompak Bangsa",
+          "image": "",
+          "location": "Medan"
+        },
+        "category": {
+          "id": 2,
+          "name": "Pendidikan",
+          "slug": "pendidikan",
+          "image": ""
+        }
+      },
+      {
+        "id": 828,
+        "title": "Alat Medis Rumah Sakit Terpencil Penyelamat Nyawa",
+        "link": "program-828",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 90000000,
+        "nominal_achieved": 64800000,
+        "progress_achieved": 72,
+        "remaining_days": 12,
+        "mitra": {
+          "id": 5,
+          "name": "Yayasan Senyum Ceria",
+          "image": "",
+          "location": "Yogyakarta"
+        },
+        "category": {
+          "id": 3,
+          "name": "Kesehatan",
+          "slug": "kesehatan",
+          "image": ""
+        }
+      }
+    ]
+  },
+  "program_mendesak": {
+    "nama_tema": "Program Mendesak",
+    "deskripsi_tema": "Bantu mereka yang sedang membutuhkan sekarang.",
+    "background_url": "",
+    "program": [
+      {
+        "id": 829,
+        "title": "Bantuan Darurat Bencana Alam Terkini",
+        "link": "program-829",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 250000000,
+        "nominal_achieved": 200000000,
+        "progress_achieved": 80,
+        "remaining_days": 3,
+        "mitra": {
+          "id": 1,
+          "name": "Aksi Cepat Tanggap",
+          "image": "",
+          "location": "Jakarta"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      },
+      {
+        "id": 830,
+        "title": "Obat-obatan Darurat Pengungsian Korban Bencana",
+        "link": "program-830",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 100000000,
+        "nominal_achieved": 75000000,
+        "progress_achieved": 75,
+        "remaining_days": 2,
+        "mitra": {
+          "id": 2,
+          "name": "Rumah Zakat",
+          "image": "",
+          "location": "Bandung"
+        },
+        "category": {
+          "id": 3,
+          "name": "Kesehatan",
+          "slug": "kesehatan",
+          "image": ""
+        }
+      },
+      {
+        "id": 831,
+        "title": "Makanan Siap Saji Korban Banjir Bandang Urgent",
+        "link": "program-831",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 80000000,
+        "nominal_achieved": 60000000,
+        "progress_achieved": 75,
+        "remaining_days": 5,
+        "mitra": {
+          "id": 3,
+          "name": "Laznas Yatim Mandiri",
+          "image": "",
+          "location": "Surabaya"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      },
+      {
+        "id": 832,
+        "title": "Tenda dan Selimut Darurat Untuk Pengungsi",
+        "link": "program-832",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 120000000,
+        "nominal_achieved": 90000000,
+        "progress_achieved": 75,
+        "remaining_days": 4,
+        "mitra": {
+          "id": 4,
+          "name": "Kompak Bangsa",
+          "image": "",
+          "location": "Medan"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      },
+      {
+        "id": 833,
+        "title": "Pompa Air dan Purifikasi Untuk Desa Terdampak",
+        "link": "program-833",
+        "image": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "time_target": null,
+        "nominal_target": 150000000,
+        "nominal_achieved": 112500000,
+        "progress_achieved": 75,
+        "remaining_days": 6,
+        "mitra": {
+          "id": 5,
+          "name": "Yayasan Senyum Ceria",
+          "image": "",
+          "location": "Yogyakarta"
+        },
+        "category": {
+          "id": 1,
+          "name": "Kemanusiaan",
+          "slug": "kemanusiaan",
+          "image": ""
+        }
+      }
+    ]
+  },
+  "wallet_balance": 2750,
+  "next_prayer_time": {
+    "name": "Dzuhur",
+    "time": "11:42"
+  },
+  "popup_promo": [
+    {
+      "id": "1",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "link": "promo-link-1"
+    },
+    {
+      "id": "2",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "link": "promo-link-2"
+    }
+  ]
+}

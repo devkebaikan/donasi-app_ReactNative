@@ -1,0 +1,176 @@
+{
+  "referenceDate": "2026-06-26",
+  "defaultLocationId": "jakarta",
+  "baseTimes": {
+    "jakarta": {
+      "SUBUH": "04:39",
+      "TERBIT": "06:03",
+      "DZUHUR": "11:55",
+      "ASHAR": "15:17",
+      "MAGHRIB": "17:48",
+      "ISYA": "19:03"
+    },
+    "karanganyar": {
+      "SUBUH": "04:25",
+      "TERBIT": "05:49",
+      "DZUHUR": "11:39",
+      "ASHAR": "15:00",
+      "MAGHRIB": "17:29",
+      "ISYA": "18:44"
+    },
+    "surakarta": {
+      "SUBUH": "04:25",
+      "TERBIT": "05:49",
+      "DZUHUR": "11:39",
+      "ASHAR": "15:00",
+      "MAGHRIB": "17:30",
+      "ISYA": "18:45"
+    },
+    "bandung": {
+      "SUBUH": "04:37",
+      "TERBIT": "06:01",
+      "DZUHUR": "11:52",
+      "ASHAR": "15:14",
+      "MAGHRIB": "17:44",
+      "ISYA": "18:59"
+    },
+    "surabaya": {
+      "SUBUH": "04:17",
+      "TERBIT": "05:41",
+      "DZUHUR": "11:32",
+      "ASHAR": "14:53",
+      "MAGHRIB": "17:23",
+      "ISYA": "18:38"
+    },
+    "yogyakarta": {
+      "SUBUH": "04:27",
+      "TERBIT": "05:51",
+      "DZUHUR": "11:41",
+      "ASHAR": "15:02",
+      "MAGHRIB": "17:31",
+      "ISYA": "18:47"
+    },
+    "medan": {
+      "SUBUH": "04:54",
+      "TERBIT": "06:18",
+      "DZUHUR": "12:28",
+      "ASHAR": "15:55",
+      "MAGHRIB": "18:38",
+      "ISYA": "19:54"
+    },
+    "bandaaceh": {
+      "SUBUH": "05:03",
+      "TERBIT": "06:28",
+      "DZUHUR": "12:41",
+      "ASHAR": "16:09",
+      "MAGHRIB": "18:55",
+      "ISYA": "20:11"
+    },
+    "makassar": {
+      "SUBUH": "04:47",
+      "TERBIT": "06:10",
+      "DZUHUR": "12:05",
+      "ASHAR": "15:28",
+      "MAGHRIB": "18:00",
+      "ISYA": "19:15"
+    },
+    "denpasar": {
+      "SUBUH": "05:09",
+      "TERBIT": "06:33",
+      "DZUHUR": "12:22",
+      "ASHAR": "15:42",
+      "MAGHRIB": "18:11",
+      "ISYA": "19:26"
+    },
+    "jayapura": {
+      "SUBUH": "04:17",
+      "TERBIT": "05:41",
+      "DZUHUR": "11:40",
+      "ASHAR": "15:04",
+      "MAGHRIB": "17:39",
+      "ISYA": "18:54"
+    }
+  },
+  "options": {
+    "calculationMethods": [
+      {
+        "value": "KEMENAG",
+        "label": "SIHAT/KEMENAG",
+        "description": "Kementerian Agama RI"
+      },
+      {
+        "value": "MWL",
+        "label": "Muslim World League",
+        "description": "Liga Muslim Dunia"
+      },
+      {
+        "value": "MAKKAH",
+        "label": "Umm al-Qura",
+        "description": "Makkah, Arab Saudi"
+      },
+      {
+        "value": "EGYPT",
+        "label": "Egyptian General Authority",
+        "description": "Mesir"
+      },
+      {
+        "value": "KARACHI",
+        "label": "University of Islamic Sciences",
+        "description": "Karachi"
+      },
+      {
+        "value": "ISNA",
+        "label": "ISNA",
+        "description": "Amerika Utara"
+      }
+    ],
+    "juristicMethods": [
+      {
+        "value": "STANDARD",
+        "label": "Standard",
+        "description": "Syafi'i, Maliki & Hambali"
+      },
+      {
+        "value": "HANAFI",
+        "label": "Hanafi",
+        "description": "Bayangan dua kali panjang benda"
+      }
+    ],
+    "highLatitudeRules": [
+      {
+        "value": "ANGLE_BASED",
+        "label": "Metode Berbasis Sudut",
+        "description": null
+      },
+      {
+        "value": "MIDNIGHT",
+        "label": "Tengah Malam",
+        "description": null
+      },
+      {
+        "value": "ONE_SEVENTH",
+        "label": "Sepertujuh Malam",
+        "description": null
+      },
+      {
+        "value": "NONE",
+        "label": "Tanpa Penyesuaian",
+        "description": null
+      }
+    ],
+    "muadzins": [
+      {
+        "id": "rizal-armada",
+        "name": "Rizal Armada"
+      },
+      {
+        "id": "mishary-alafasy",
+        "name": "Mishary Rashid Alafasy"
+      },
+      {
+        "id": "ahmad-al-nafees",
+        "name": "Ahmad Al-Nafees"
+      }
+    ]
+  }
+}

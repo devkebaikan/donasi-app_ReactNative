@@ -1,0 +1,1277 @@
+[
+  {
+    "number": 1,
+    "nameLatin": "Al-Fatihah",
+    "nameArabic": "الْفَاتِحَة",
+    "meaning": "Pembukaan",
+    "totalAyah": 7,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      1
+    ]
+  },
+  {
+    "number": 2,
+    "nameLatin": "Al-Baqarah",
+    "nameArabic": "الْبَقَرَة",
+    "meaning": "Sapi Betina",
+    "totalAyah": 286,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "number": 3,
+    "nameLatin": "Ali 'Imran",
+    "nameArabic": "آل عِمْرَان",
+    "meaning": "Keluarga Imran",
+    "totalAyah": 200,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      3,
+      4
+    ]
+  },
+  {
+    "number": 4,
+    "nameLatin": "An-Nisa",
+    "nameArabic": "النِّسَاء",
+    "meaning": "Wanita",
+    "totalAyah": 176,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "number": 5,
+    "nameLatin": "Al-Ma'idah",
+    "nameArabic": "الْمَائِدَة",
+    "meaning": "Hidangan",
+    "totalAyah": 120,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      6,
+      7
+    ]
+  },
+  {
+    "number": 6,
+    "nameLatin": "Al-An'am",
+    "nameArabic": "الْأَنْعَام",
+    "meaning": "Binatang Ternak",
+    "totalAyah": 165,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      7,
+      8
+    ]
+  },
+  {
+    "number": 7,
+    "nameLatin": "Al-A'raf",
+    "nameArabic": "الْأَعْرَاف",
+    "meaning": "Tempat Tertinggi",
+    "totalAyah": 206,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      8,
+      9
+    ]
+  },
+  {
+    "number": 8,
+    "nameLatin": "Al-Anfal",
+    "nameArabic": "الْأَنْفَال",
+    "meaning": "Rampasan Perang",
+    "totalAyah": 75,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      9,
+      10
+    ]
+  },
+  {
+    "number": 9,
+    "nameLatin": "At-Taubah",
+    "nameArabic": "التَّوْبَة",
+    "meaning": "Pengampunan",
+    "totalAyah": 129,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      10,
+      11
+    ]
+  },
+  {
+    "number": 10,
+    "nameLatin": "Yunus",
+    "nameArabic": "يُونُس",
+    "meaning": "Nabi Yunus",
+    "totalAyah": 109,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      11
+    ]
+  },
+  {
+    "number": 11,
+    "nameLatin": "Hud",
+    "nameArabic": "هُود",
+    "meaning": "Nabi Hud",
+    "totalAyah": 123,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      11,
+      12
+    ]
+  },
+  {
+    "number": 12,
+    "nameLatin": "Yusuf",
+    "nameArabic": "يُوسُف",
+    "meaning": "Nabi Yusuf",
+    "totalAyah": 111,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      12,
+      13
+    ]
+  },
+  {
+    "number": 13,
+    "nameLatin": "Ar-Ra'd",
+    "nameArabic": "الرَّعْد",
+    "meaning": "Guruh",
+    "totalAyah": 43,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      13
+    ]
+  },
+  {
+    "number": 14,
+    "nameLatin": "Ibrahim",
+    "nameArabic": "إِبْرَاهِيم",
+    "meaning": "Nabi Ibrahim",
+    "totalAyah": 52,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      13
+    ]
+  },
+  {
+    "number": 15,
+    "nameLatin": "Al-Hijr",
+    "nameArabic": "الْحِجْر",
+    "meaning": "Gunung Al-Hijr",
+    "totalAyah": 99,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      14
+    ]
+  },
+  {
+    "number": 16,
+    "nameLatin": "An-Nahl",
+    "nameArabic": "النَّحْل",
+    "meaning": "Lebah",
+    "totalAyah": 128,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      14
+    ]
+  },
+  {
+    "number": 17,
+    "nameLatin": "Al-Isra",
+    "nameArabic": "الْإِسْرَاء",
+    "meaning": "Perjalanan Malam",
+    "totalAyah": 111,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      15
+    ]
+  },
+  {
+    "number": 18,
+    "nameLatin": "Al-Kahfi",
+    "nameArabic": "الْكَهْف",
+    "meaning": "Gua",
+    "totalAyah": 110,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      15,
+      16
+    ]
+  },
+  {
+    "number": 19,
+    "nameLatin": "Maryam",
+    "nameArabic": "مَرْيَم",
+    "meaning": "Maryam",
+    "totalAyah": 98,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      16
+    ]
+  },
+  {
+    "number": 20,
+    "nameLatin": "Taha",
+    "nameArabic": "طه",
+    "meaning": "Taha",
+    "totalAyah": 135,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      16
+    ]
+  },
+  {
+    "number": 21,
+    "nameLatin": "Al-Anbiya",
+    "nameArabic": "الْأَنْبِيَاء",
+    "meaning": "Para Nabi",
+    "totalAyah": 112,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      17
+    ]
+  },
+  {
+    "number": 22,
+    "nameLatin": "Al-Hajj",
+    "nameArabic": "الْحَجّ",
+    "meaning": "Haji",
+    "totalAyah": 78,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      17
+    ]
+  },
+  {
+    "number": 23,
+    "nameLatin": "Al-Mu'minun",
+    "nameArabic": "الْمُؤْمِنُون",
+    "meaning": "Orang Mukmin",
+    "totalAyah": 118,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      18
+    ]
+  },
+  {
+    "number": 24,
+    "nameLatin": "An-Nur",
+    "nameArabic": "النُّور",
+    "meaning": "Cahaya",
+    "totalAyah": 64,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      18
+    ]
+  },
+  {
+    "number": 25,
+    "nameLatin": "Al-Furqan",
+    "nameArabic": "الْفُرْقَان",
+    "meaning": "Pembeda",
+    "totalAyah": 77,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      18,
+      19
+    ]
+  },
+  {
+    "number": 26,
+    "nameLatin": "Asy-Syu'ara",
+    "nameArabic": "الشُّعَرَاء",
+    "meaning": "Para Penyair",
+    "totalAyah": 227,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      19
+    ]
+  },
+  {
+    "number": 27,
+    "nameLatin": "An-Naml",
+    "nameArabic": "النَّمْل",
+    "meaning": "Semut",
+    "totalAyah": 93,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      19,
+      20
+    ]
+  },
+  {
+    "number": 28,
+    "nameLatin": "Al-Qasas",
+    "nameArabic": "الْقَصَص",
+    "meaning": "Kisah",
+    "totalAyah": 88,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      20
+    ]
+  },
+  {
+    "number": 29,
+    "nameLatin": "Al-'Ankabut",
+    "nameArabic": "الْعَنْكَبُوت",
+    "meaning": "Laba-Laba",
+    "totalAyah": 69,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      20,
+      21
+    ]
+  },
+  {
+    "number": 30,
+    "nameLatin": "Ar-Rum",
+    "nameArabic": "الرُّوم",
+    "meaning": "Bangsa Romawi",
+    "totalAyah": 60,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      21
+    ]
+  },
+  {
+    "number": 31,
+    "nameLatin": "Luqman",
+    "nameArabic": "لُقْمَان",
+    "meaning": "Luqman",
+    "totalAyah": 34,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      21
+    ]
+  },
+  {
+    "number": 32,
+    "nameLatin": "As-Sajdah",
+    "nameArabic": "السَّجْدَة",
+    "meaning": "Sujud",
+    "totalAyah": 30,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      21
+    ]
+  },
+  {
+    "number": 33,
+    "nameLatin": "Al-Ahzab",
+    "nameArabic": "الْأَحْزَاب",
+    "meaning": "Golongan yang Bersekutu",
+    "totalAyah": 73,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      21,
+      22
+    ]
+  },
+  {
+    "number": 34,
+    "nameLatin": "Saba",
+    "nameArabic": "سَبَأ",
+    "meaning": "Kaum Saba",
+    "totalAyah": 54,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      22
+    ]
+  },
+  {
+    "number": 35,
+    "nameLatin": "Fatir",
+    "nameArabic": "فَاطِر",
+    "meaning": "Pencipta",
+    "totalAyah": 45,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      22
+    ]
+  },
+  {
+    "number": 36,
+    "nameLatin": "Yasin",
+    "nameArabic": "يس",
+    "meaning": "Yasin",
+    "totalAyah": 83,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      22,
+      23
+    ]
+  },
+  {
+    "number": 37,
+    "nameLatin": "As-Saffat",
+    "nameArabic": "الصَّافَّات",
+    "meaning": "Barisan",
+    "totalAyah": 182,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      23
+    ]
+  },
+  {
+    "number": 38,
+    "nameLatin": "Sad",
+    "nameArabic": "ص",
+    "meaning": "Sad",
+    "totalAyah": 88,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      23
+    ]
+  },
+  {
+    "number": 39,
+    "nameLatin": "Az-Zumar",
+    "nameArabic": "الزُّمَر",
+    "meaning": "Rombongan",
+    "totalAyah": 75,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      23,
+      24
+    ]
+  },
+  {
+    "number": 40,
+    "nameLatin": "Gafir",
+    "nameArabic": "غَافِر",
+    "meaning": "Maha Pengampun",
+    "totalAyah": 85,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      24
+    ]
+  },
+  {
+    "number": 41,
+    "nameLatin": "Fussilat",
+    "nameArabic": "فُصِّلَت",
+    "meaning": "Yang Dijelaskan",
+    "totalAyah": 54,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      24,
+      25
+    ]
+  },
+  {
+    "number": 42,
+    "nameLatin": "Asy-Syura",
+    "nameArabic": "الشُّورَى",
+    "meaning": "Musyawarah",
+    "totalAyah": 53,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      25
+    ]
+  },
+  {
+    "number": 43,
+    "nameLatin": "Az-Zukhruf",
+    "nameArabic": "الزُّخْرُف",
+    "meaning": "Perhiasan",
+    "totalAyah": 89,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      25
+    ]
+  },
+  {
+    "number": 44,
+    "nameLatin": "Ad-Dukhan",
+    "nameArabic": "الدُّخَان",
+    "meaning": "Kabut",
+    "totalAyah": 59,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      25
+    ]
+  },
+  {
+    "number": 45,
+    "nameLatin": "Al-Jasiyah",
+    "nameArabic": "الْجَاثِيَة",
+    "meaning": "Yang Berlutut",
+    "totalAyah": 37,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      25
+    ]
+  },
+  {
+    "number": 46,
+    "nameLatin": "Al-Ahqaf",
+    "nameArabic": "الْأَحْقَاف",
+    "meaning": "Bukit Pasir",
+    "totalAyah": 35,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      26
+    ]
+  },
+  {
+    "number": 47,
+    "nameLatin": "Muhammad",
+    "nameArabic": "مُحَمَّد",
+    "meaning": "Nabi Muhammad",
+    "totalAyah": 38,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      26
+    ]
+  },
+  {
+    "number": 48,
+    "nameLatin": "Al-Fath",
+    "nameArabic": "الْفَتْح",
+    "meaning": "Kemenangan",
+    "totalAyah": 29,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      26
+    ]
+  },
+  {
+    "number": 49,
+    "nameLatin": "Al-Hujurat",
+    "nameArabic": "الْحُجُرَات",
+    "meaning": "Kamar-Kamar",
+    "totalAyah": 18,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      26
+    ]
+  },
+  {
+    "number": 50,
+    "nameLatin": "Qaf",
+    "nameArabic": "ق",
+    "meaning": "Qaf",
+    "totalAyah": 45,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      26
+    ]
+  },
+  {
+    "number": 51,
+    "nameLatin": "Az-Zariyat",
+    "nameArabic": "الذَّارِيَات",
+    "meaning": "Angin yang Menerbangkan",
+    "totalAyah": 60,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      26,
+      27
+    ]
+  },
+  {
+    "number": 52,
+    "nameLatin": "At-Tur",
+    "nameArabic": "الطُّور",
+    "meaning": "Bukit Tursina",
+    "totalAyah": 49,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      27
+    ]
+  },
+  {
+    "number": 53,
+    "nameLatin": "An-Najm",
+    "nameArabic": "النَّجْم",
+    "meaning": "Bintang",
+    "totalAyah": 62,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      27
+    ]
+  },
+  {
+    "number": 54,
+    "nameLatin": "Al-Qamar",
+    "nameArabic": "الْقَمَر",
+    "meaning": "Bulan",
+    "totalAyah": 55,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      27
+    ]
+  },
+  {
+    "number": 55,
+    "nameLatin": "Ar-Rahman",
+    "nameArabic": "الرَّحْمَٰن",
+    "meaning": "Maha Pengasih",
+    "totalAyah": 78,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      27
+    ]
+  },
+  {
+    "number": 56,
+    "nameLatin": "Al-Waqi'ah",
+    "nameArabic": "الْوَاقِعَة",
+    "meaning": "Hari Kiamat",
+    "totalAyah": 96,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      27
+    ]
+  },
+  {
+    "number": 57,
+    "nameLatin": "Al-Hadid",
+    "nameArabic": "الْحَدِيد",
+    "meaning": "Besi",
+    "totalAyah": 29,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      27
+    ]
+  },
+  {
+    "number": 58,
+    "nameLatin": "Al-Mujadilah",
+    "nameArabic": "الْمُجَادِلَة",
+    "meaning": "Wanita yang Mengajukan Gugatan",
+    "totalAyah": 22,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 59,
+    "nameLatin": "Al-Hasyr",
+    "nameArabic": "الْحَشْر",
+    "meaning": "Pengusiran",
+    "totalAyah": 24,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 60,
+    "nameLatin": "Al-Mumtahanah",
+    "nameArabic": "الْمُمْتَحَنَة",
+    "meaning": "Wanita yang Diuji",
+    "totalAyah": 13,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 61,
+    "nameLatin": "As-Saff",
+    "nameArabic": "الصَّفّ",
+    "meaning": "Barisan",
+    "totalAyah": 14,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 62,
+    "nameLatin": "Al-Jumu'ah",
+    "nameArabic": "الْجُمُعَة",
+    "meaning": "Hari Jumat",
+    "totalAyah": 11,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 63,
+    "nameLatin": "Al-Munafiqun",
+    "nameArabic": "الْمُنَافِقُون",
+    "meaning": "Orang Munafik",
+    "totalAyah": 11,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 64,
+    "nameLatin": "At-Tagabun",
+    "nameArabic": "التَّغَابُن",
+    "meaning": "Hari Ditampakkan Kesalahan",
+    "totalAyah": 18,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 65,
+    "nameLatin": "At-Talaq",
+    "nameArabic": "الطَّلَاق",
+    "meaning": "Talak",
+    "totalAyah": 12,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 66,
+    "nameLatin": "At-Tahrim",
+    "nameArabic": "التَّحْرِيم",
+    "meaning": "Mengharamkan",
+    "totalAyah": 12,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      28
+    ]
+  },
+  {
+    "number": 67,
+    "nameLatin": "Al-Mulk",
+    "nameArabic": "الْمُلْك",
+    "meaning": "Kerajaan",
+    "totalAyah": 30,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 68,
+    "nameLatin": "Al-Qalam",
+    "nameArabic": "الْقَلَم",
+    "meaning": "Pena",
+    "totalAyah": 52,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 69,
+    "nameLatin": "Al-Haqqah",
+    "nameArabic": "الْحَاقَّة",
+    "meaning": "Hari Kiamat",
+    "totalAyah": 52,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 70,
+    "nameLatin": "Al-Ma'arij",
+    "nameArabic": "الْمَعَارِج",
+    "meaning": "Tempat Naik",
+    "totalAyah": 44,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 71,
+    "nameLatin": "Nuh",
+    "nameArabic": "نُوح",
+    "meaning": "Nabi Nuh",
+    "totalAyah": 28,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 72,
+    "nameLatin": "Al-Jinn",
+    "nameArabic": "الْجِنّ",
+    "meaning": "Jin",
+    "totalAyah": 28,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 73,
+    "nameLatin": "Al-Muzzammil",
+    "nameArabic": "الْمُزَّمِّل",
+    "meaning": "Orang yang Berselimut",
+    "totalAyah": 20,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 74,
+    "nameLatin": "Al-Muddassir",
+    "nameArabic": "الْمُدَّثِّر",
+    "meaning": "Orang yang Berkemul",
+    "totalAyah": 56,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 75,
+    "nameLatin": "Al-Qiyamah",
+    "nameArabic": "الْقِيَامَة",
+    "meaning": "Hari Kiamat",
+    "totalAyah": 40,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 76,
+    "nameLatin": "Al-Insan",
+    "nameArabic": "الْإِنْسَان",
+    "meaning": "Manusia",
+    "totalAyah": 31,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 77,
+    "nameLatin": "Al-Mursalat",
+    "nameArabic": "الْمُرْسَلَات",
+    "meaning": "Malaikat yang Diutus",
+    "totalAyah": 50,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      29
+    ]
+  },
+  {
+    "number": 78,
+    "nameLatin": "An-Naba",
+    "nameArabic": "النَّبَأ",
+    "meaning": "Berita Besar",
+    "totalAyah": 40,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 79,
+    "nameLatin": "An-Nazi'at",
+    "nameArabic": "النَّازِعَات",
+    "meaning": "Malaikat yang Mencabut",
+    "totalAyah": 46,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 80,
+    "nameLatin": "'Abasa",
+    "nameArabic": "عَبَسَ",
+    "meaning": "Bermuka Masam",
+    "totalAyah": 42,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 81,
+    "nameLatin": "At-Takwir",
+    "nameArabic": "التَّكْوِير",
+    "meaning": "Menggulung",
+    "totalAyah": 29,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 82,
+    "nameLatin": "Al-Infitar",
+    "nameArabic": "الْإِنْفِطَار",
+    "meaning": "Terbelah",
+    "totalAyah": 19,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 83,
+    "nameLatin": "Al-Mutaffifin",
+    "nameArabic": "الْمُطَفِّفِين",
+    "meaning": "Orang yang Curang",
+    "totalAyah": 36,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 84,
+    "nameLatin": "Al-Insyiqaq",
+    "nameArabic": "الْإِنْشِقَاق",
+    "meaning": "Terbelah",
+    "totalAyah": 25,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 85,
+    "nameLatin": "Al-Buruj",
+    "nameArabic": "الْبُرُوج",
+    "meaning": "Gugusan Bintang",
+    "totalAyah": 22,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 86,
+    "nameLatin": "At-Tariq",
+    "nameArabic": "الطَّارِق",
+    "meaning": "Yang Datang di Malam Hari",
+    "totalAyah": 17,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 87,
+    "nameLatin": "Al-A'la",
+    "nameArabic": "الْأَعْلَى",
+    "meaning": "Maha Tinggi",
+    "totalAyah": 19,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 88,
+    "nameLatin": "Al-Gasyiyah",
+    "nameArabic": "الْغَاشِيَة",
+    "meaning": "Hari Pembalasan",
+    "totalAyah": 26,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 89,
+    "nameLatin": "Al-Fajr",
+    "nameArabic": "الْفَجْر",
+    "meaning": "Fajar",
+    "totalAyah": 30,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 90,
+    "nameLatin": "Al-Balad",
+    "nameArabic": "الْبَلَد",
+    "meaning": "Negeri",
+    "totalAyah": 20,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 91,
+    "nameLatin": "Asy-Syams",
+    "nameArabic": "الشَّمْس",
+    "meaning": "Matahari",
+    "totalAyah": 15,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 92,
+    "nameLatin": "Al-Lail",
+    "nameArabic": "اللَّيْل",
+    "meaning": "Malam",
+    "totalAyah": 21,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 93,
+    "nameLatin": "Ad-Duha",
+    "nameArabic": "الضُّحَى",
+    "meaning": "Waktu Duha",
+    "totalAyah": 11,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 94,
+    "nameLatin": "Asy-Syarh",
+    "nameArabic": "الشَّرْح",
+    "meaning": "Melapangkan",
+    "totalAyah": 8,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 95,
+    "nameLatin": "At-Tin",
+    "nameArabic": "التِّين",
+    "meaning": "Buah Tin",
+    "totalAyah": 8,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 96,
+    "nameLatin": "Al-'Alaq",
+    "nameArabic": "الْعَلَق",
+    "meaning": "Segumpal Darah",
+    "totalAyah": 19,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 97,
+    "nameLatin": "Al-Qadr",
+    "nameArabic": "الْقَدْر",
+    "meaning": "Kemuliaan",
+    "totalAyah": 5,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 98,
+    "nameLatin": "Al-Bayyinah",
+    "nameArabic": "الْبَيِّنَة",
+    "meaning": "Bukti Nyata",
+    "totalAyah": 8,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 99,
+    "nameLatin": "Az-Zalzalah",
+    "nameArabic": "الزَّلْزَلَة",
+    "meaning": "Guncangan",
+    "totalAyah": 8,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 100,
+    "nameLatin": "Al-'Adiyat",
+    "nameArabic": "الْعَادِيَات",
+    "meaning": "Kuda Perang yang Berlari",
+    "totalAyah": 11,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 101,
+    "nameLatin": "Al-Qari'ah",
+    "nameArabic": "الْقَارِعَة",
+    "meaning": "Hari Kiamat",
+    "totalAyah": 11,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 102,
+    "nameLatin": "At-Takasur",
+    "nameArabic": "التَّكَاثُر",
+    "meaning": "Bermegah-Megahan",
+    "totalAyah": 8,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 103,
+    "nameLatin": "Al-'Asr",
+    "nameArabic": "الْعَصْر",
+    "meaning": "Masa",
+    "totalAyah": 3,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 104,
+    "nameLatin": "Al-Humazah",
+    "nameArabic": "الْهُمَزَة",
+    "meaning": "Pengumpat",
+    "totalAyah": 9,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 105,
+    "nameLatin": "Al-Fil",
+    "nameArabic": "الْفِيل",
+    "meaning": "Gajah",
+    "totalAyah": 5,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 106,
+    "nameLatin": "Quraisy",
+    "nameArabic": "قُرَيْش",
+    "meaning": "Suku Quraisy",
+    "totalAyah": 4,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 107,
+    "nameLatin": "Al-Ma'un",
+    "nameArabic": "الْمَاعُون",
+    "meaning": "Barang yang Berguna",
+    "totalAyah": 7,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 108,
+    "nameLatin": "Al-Kausar",
+    "nameArabic": "الْكَوْثَر",
+    "meaning": "Nikmat yang Berlimpah",
+    "totalAyah": 3,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 109,
+    "nameLatin": "Al-Kafirun",
+    "nameArabic": "الْكَافِرُون",
+    "meaning": "Orang Kafir",
+    "totalAyah": 6,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 110,
+    "nameLatin": "An-Nasr",
+    "nameArabic": "النَّصْر",
+    "meaning": "Pertolongan",
+    "totalAyah": 3,
+    "revelation": "MADANIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 111,
+    "nameLatin": "Al-Lahab",
+    "nameArabic": "الْمَسَد",
+    "meaning": "Gejolak Api",
+    "totalAyah": 5,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 112,
+    "nameLatin": "Al-Ikhlas",
+    "nameArabic": "الْإِخْلَاص",
+    "meaning": "Ikhlas",
+    "totalAyah": 4,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 113,
+    "nameLatin": "Al-Falaq",
+    "nameArabic": "الْفَلَق",
+    "meaning": "Waktu Subuh",
+    "totalAyah": 5,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  },
+  {
+    "number": 114,
+    "nameLatin": "An-Nas",
+    "nameArabic": "النَّاس",
+    "meaning": "Manusia",
+    "totalAyah": 6,
+    "revelation": "MAKKIYAH",
+    "juzNumbers": [
+      30
+    ]
+  }
+]

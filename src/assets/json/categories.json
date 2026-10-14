@@ -1,0 +1,32 @@
+[
+  {
+    "id": "cat-zakat",
+    "name": "Zakat",
+    "iconName": "hand-coin"
+  },
+  {
+    "id": "cat-infak",
+    "name": "Infak",
+    "iconName": "gift"
+  },
+  {
+    "id": "cat-palestina",
+    "name": "Palestina",
+    "iconName": "flag-outline"
+  },
+  {
+    "id": "cat-beasiswa",
+    "name": "Beasiswa",
+    "iconName": "school"
+  },
+  {
+    "id": "cat-masjid",
+    "name": "Masjid",
+    "iconName": "building-church-outline"
+  },
+  {
+    "id": "cat-lainnya",
+    "name": "Lainnya",
+    "iconName": "dots-horizontal"
+  }
+]

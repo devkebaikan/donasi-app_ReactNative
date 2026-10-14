@@ -1,0 +1,561 @@
+{
+  "map": {
+    "countryName": "Indonesia",
+    "participantCount": 200539,
+    "serviceCount": 265883,
+    "dataMonthOffset": -3,
+    "dataNote": "Desa Berdaya adalah desa binaan yang didampingi sampai mampu mengelola program kebaikannya sendiri. BUMMas (Badan Usaha Milik Masyarakat) adalah unit usaha bersama yang dibentuk warga desa binaan sebagai sumber pemasukan berkelanjutan.\n\nAngka pada peta dihimpun dari laporan mitra penyalur dan diperbarui setiap bulan. Provinsi berwarna abu-abu berarti belum ada program berjalan di sana.\n\nBatas wilayah pada peta bersumber dari Natural Earth (public domain).",
+    "provinces": [
+      {
+        "code": "ID-AC",
+        "name": "Aceh",
+        "participantCount": 2366,
+        "villageCount": 35,
+        "bummasCount": 3
+      },
+      {
+        "code": "ID-SU",
+        "name": "Sumatera Utara",
+        "participantCount": 4147,
+        "villageCount": 50,
+        "bummasCount": 10
+      },
+      {
+        "code": "ID-SB",
+        "name": "Sumatera Barat",
+        "participantCount": 1439,
+        "villageCount": 37,
+        "bummasCount": 8
+      },
+      {
+        "code": "ID-RI",
+        "name": "Riau",
+        "participantCount": 1139,
+        "villageCount": 35,
+        "bummasCount": 6
+      },
+      {
+        "code": "ID-KR",
+        "name": "Kepulauan Riau",
+        "participantCount": 228,
+        "villageCount": 0,
+        "bummasCount": 1
+      },
+      {
+        "code": "ID-JA",
+        "name": "Jambi",
+        "participantCount": 898,
+        "villageCount": 30,
+        "bummasCount": 8
+      },
+      {
+        "code": "ID-BE",
+        "name": "Bengkulu",
+        "participantCount": 415,
+        "villageCount": 8,
+        "bummasCount": 2
+      },
+      {
+        "code": "ID-SS",
+        "name": "Sumatera Selatan",
+        "participantCount": 1601,
+        "villageCount": 46,
+        "bummasCount": 7
+      },
+      {
+        "code": "ID-BB",
+        "name": "Kepulauan Bangka Belitung",
+        "participantCount": 393,
+        "villageCount": 16,
+        "bummasCount": 2
+      },
+      {
+        "code": "ID-LA",
+        "name": "Lampung",
+        "participantCount": 3276,
+        "villageCount": 72,
+        "bummasCount": 19
+      },
+      {
+        "code": "ID-BT",
+        "name": "Banten",
+        "participantCount": 1220,
+        "villageCount": 53,
+        "bummasCount": 2
+      },
+      {
+        "code": "ID-JK",
+        "name": "DKI Jakarta",
+        "participantCount": 17245,
+        "villageCount": 69,
+        "bummasCount": 15
+      },
+      {
+        "code": "ID-JB",
+        "name": "Jawa Barat",
+        "participantCount": 14157,
+        "villageCount": 414,
+        "bummasCount": 96
+      },
+      {
+        "code": "ID-JT",
+        "name": "Jawa Tengah",
+        "participantCount": 52972,
+        "villageCount": 460,
+        "bummasCount": 118
+      },
+      {
+        "code": "ID-YO",
+        "name": "DI Yogyakarta",
+        "participantCount": 4424,
+        "villageCount": 204,
+        "bummasCount": 59
+      },
+      {
+        "code": "ID-JI",
+        "name": "Jawa Timur",
+        "participantCount": 44240,
+        "villageCount": 204,
+        "bummasCount": 59
+      },
+      {
+        "code": "ID-BA",
+        "name": "Bali",
+        "participantCount": 1105,
+        "villageCount": 21,
+        "bummasCount": 3
+      },
+      {
+        "code": "ID-NB",
+        "name": "Nusa Tenggara Barat",
+        "participantCount": 1580,
+        "villageCount": 88,
+        "bummasCount": 5
+      },
+      {
+        "code": "ID-NT",
+        "name": "Nusa Tenggara Timur",
+        "participantCount": 972,
+        "villageCount": 44,
+        "bummasCount": 4
+      },
+      {
+        "code": "ID-KB",
+        "name": "Kalimantan Barat",
+        "participantCount": 1139,
+        "villageCount": 35,
+        "bummasCount": 6
+      },
+      {
+        "code": "ID-KT",
+        "name": "Kalimantan Tengah",
+        "participantCount": 329,
+        "villageCount": 30,
+        "bummasCount": 4
+      },
+      {
+        "code": "ID-KS",
+        "name": "Kalimantan Selatan",
+        "participantCount": 1105,
+        "villageCount": 21,
+        "bummasCount": 3
+      },
+      {
+        "code": "ID-KI",
+        "name": "Kalimantan Timur",
+        "participantCount": 1439,
+        "villageCount": 37,
+        "bummasCount": 8
+      },
+      {
+        "code": "ID-SA",
+        "name": "Sulawesi Utara",
+        "participantCount": 372,
+        "villageCount": 10,
+        "bummasCount": 0
+      },
+      {
+        "code": "ID-ST",
+        "name": "Sulawesi Tengah",
+        "participantCount": 6956,
+        "villageCount": 58,
+        "bummasCount": 12
+      },
+      {
+        "code": "ID-SN",
+        "name": "Sulawesi Selatan",
+        "participantCount": 15780,
+        "villageCount": 88,
+        "bummasCount": 5
+      },
+      {
+        "code": "ID-SG",
+        "name": "Sulawesi Tenggara",
+        "participantCount": 1220,
+        "villageCount": 53,
+        "bummasCount": 2
+      },
+      {
+        "code": "ID-MA",
+        "name": "Maluku",
+        "participantCount": 11,
+        "villageCount": 8,
+        "bummasCount": 1
+      },
+      {
+        "code": "ID-MU",
+        "name": "Maluku Utara",
+        "participantCount": 228,
+        "villageCount": 4,
+        "bummasCount": 1
+      },
+      {
+        "code": "ID-PA",
+        "name": "Papua",
+        "participantCount": 372,
+        "villageCount": 10,
+        "bummasCount": 0
+      },
+      {
+        "code": "ID-PB",
+        "name": "Papua Barat",
+        "participantCount": 189,
+        "villageCount": 6,
+        "bummasCount": 0
+      },
+      {
+        "code": "ID-KU",
+        "name": "Kalimantan Utara",
+        "participantCount": 604,
+        "villageCount": 12,
+        "bummasCount": 2
+      },
+      {
+        "code": "ID-PS",
+        "name": "Papua Selatan",
+        "participantCount": 143,
+        "villageCount": 5,
+        "bummasCount": 0
+      }
+    ],
+    "overseas": {
+      "name": "Luar Negeri",
+      "participantCount": 30250
+    },
+    "asnaf": [
+      {
+        "slug": "miskin",
+        "name": "Miskin",
+        "percentage": 79.43
+      },
+      {
+        "slug": "fakir",
+        "name": "Fakir",
+        "percentage": 15.47
+      },
+      {
+        "slug": "fi-sabilillah",
+        "name": "Fi Sabilillah",
+        "percentage": 4.81
+      },
+      {
+        "slug": "muallaf",
+        "name": "Muallaf",
+        "percentage": 0.14
+      },
+      {
+        "slug": "gharimin",
+        "name": "Gharimin",
+        "percentage": 0.1
+      },
+      {
+        "slug": "ibnu-sabil",
+        "name": "Ibnu Sabil",
+        "percentage": 0.04
+      }
+    ]
+  },
+  "reports": [
+    {
+      "monthOffset": 0,
+      "summary": {
+        "incomingAmount": 2300000,
+        "distributedAmount": 7400000,
+        "remainingAmount": 0,
+        "operationalAmount": 45300
+      },
+      "programs": [
+        {
+          "id": "rpt-2601",
+          "title": "Sedekah Subuh (Pahlawan Subuh)",
+          "categories": [
+            "sedekah"
+          ],
+          "categoryLabels": [
+            "Sedekah",
+            "Pendidikan",
+            "Kesehatan",
+            "Sosial",
+            "Kemanusiaan"
+          ],
+          "collectedAmount": 330500,
+          "distributedAmount": 0,
+          "distributionPercentage": 0,
+          "details": []
+        },
+        {
+          "id": "rpt-2602",
+          "title": "Donasi Rutin Bulanan Kemanusiaan (Pahlawan Palestina)",
+          "categories": [
+            "sedekah"
+          ],
+          "categoryLabels": [
+            "Sedekah",
+            "Kemanusiaan"
+          ],
+          "collectedAmount": 8100000,
+          "distributedAmount": 6200000,
+          "distributionPercentage": 77,
+          "details": [
+            {
+              "label": "Penyaluran tahap 1",
+              "dayOffset": -12,
+              "amount": 3100000
+            },
+            {
+              "label": "Penyaluran tahap 2",
+              "dayOffset": -4,
+              "amount": 3100000
+            }
+          ]
+        },
+        {
+          "id": "rpt-2603",
+          "title": "Wakaf Sumur Bor untuk Desa Kekeringan",
+          "categories": [
+            "wakaf"
+          ],
+          "categoryLabels": [
+            "Wakaf",
+            "Air Bersih"
+          ],
+          "collectedAmount": 4250000,
+          "distributedAmount": 1200000,
+          "distributionPercentage": 28,
+          "details": [
+            {
+              "label": "Pengeboran titik pertama",
+              "dayOffset": -20,
+              "amount": 1200000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "monthOffset": -1,
+      "summary": {
+        "incomingAmount": 9800000,
+        "distributedAmount": 8900000,
+        "remainingAmount": 900000,
+        "operationalAmount": 132000
+      },
+      "programs": [
+        {
+          "id": "rpt-2501",
+          "title": "Beasiswa Anak Yatim",
+          "categories": [
+            "sedekah"
+          ],
+          "categoryLabels": [
+            "Sedekah",
+            "Pendidikan"
+          ],
+          "collectedAmount": 12400000,
+          "distributedAmount": 12400000,
+          "distributionPercentage": 100,
+          "details": [
+            {
+              "label": "Pencairan semester ganjil",
+              "dayOffset": -38,
+              "amount": 6200000
+            },
+            {
+              "label": "Pencairan semester genap",
+              "dayOffset": -32,
+              "amount": 6200000
+            }
+          ]
+        },
+        {
+          "id": "rpt-2502",
+          "title": "Wakaf Quran untuk Pesantren Pedalaman",
+          "categories": [
+            "wakaf"
+          ],
+          "categoryLabels": [
+            "Wakaf",
+            "Pendidikan"
+          ],
+          "collectedAmount": 5600000,
+          "distributedAmount": 4100000,
+          "distributionPercentage": 73,
+          "details": [
+            {
+              "label": "Pengiriman 200 mushaf",
+              "dayOffset": -35,
+              "amount": 4100000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "monthOffset": -2,
+      "summary": {
+        "incomingAmount": 4100000,
+        "distributedAmount": 3750000,
+        "remainingAmount": 350000,
+        "operationalAmount": 88000
+      },
+      "programs": [
+        {
+          "id": "rpt-2401",
+          "title": "Bantuan Pangan Lansia",
+          "categories": [
+            "sedekah"
+          ],
+          "categoryLabels": [
+            "Sedekah",
+            "Sosial"
+          ],
+          "collectedAmount": 3750000,
+          "distributedAmount": 3750000,
+          "distributionPercentage": 100,
+          "details": [
+            {
+              "label": "Distribusi paket pangan",
+              "dayOffset": -64,
+              "amount": 3750000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "monthOffset": -3,
+      "summary": {
+        "incomingAmount": 0,
+        "distributedAmount": 0,
+        "remainingAmount": 0,
+        "operationalAmount": 0
+      },
+      "programs": []
+    },
+    {
+      "monthOffset": -4,
+      "summary": {
+        "incomingAmount": 15200000,
+        "distributedAmount": 11800000,
+        "remainingAmount": 3400000,
+        "operationalAmount": 210000
+      },
+      "programs": [
+        {
+          "id": "rpt-2201",
+          "title": "Renovasi Musala Terdampak Banjir",
+          "categories": [
+            "sedekah"
+          ],
+          "categoryLabels": [
+            "Sedekah",
+            "Kemanusiaan"
+          ],
+          "collectedAmount": 7300000,
+          "distributedAmount": 7300000,
+          "distributionPercentage": 100,
+          "details": [
+            {
+              "label": "Material bangunan",
+              "dayOffset": -126,
+              "amount": 4300000
+            },
+            {
+              "label": "Upah tukang",
+              "dayOffset": -120,
+              "amount": 3000000
+            }
+          ]
+        },
+        {
+          "id": "rpt-2202",
+          "title": "Wakaf Tanah Pemakaman Muslim",
+          "categories": [
+            "wakaf"
+          ],
+          "categoryLabels": [
+            "Wakaf",
+            "Sosial"
+          ],
+          "collectedAmount": 9100000,
+          "distributedAmount": 4500000,
+          "distributionPercentage": 49,
+          "details": [
+            {
+              "label": "Pembayaran tahap pertama",
+              "dayOffset": -122,
+              "amount": 4500000
+            }
+          ]
+        },
+        {
+          "id": "rpt-2203",
+          "title": "Santunan Guru Ngaji",
+          "categories": [
+            "sedekah"
+          ],
+          "categoryLabels": [
+            "Sedekah",
+            "Pendidikan"
+          ],
+          "collectedAmount": 2600000,
+          "distributedAmount": 0,
+          "distributionPercentage": 0,
+          "details": []
+        }
+      ]
+    },
+    {
+      "monthOffset": -5,
+      "summary": {
+        "incomingAmount": 6400000,
+        "distributedAmount": 6400000,
+        "remainingAmount": 0,
+        "operationalAmount": 96000
+      },
+      "programs": [
+        {
+          "id": "rpt-2101",
+          "title": "Operasi Katarak Gratis",
+          "categories": [
+            "sedekah"
+          ],
+          "categoryLabels": [
+            "Sedekah",
+            "Kesehatan"
+          ],
+          "collectedAmount": 6400000,
+          "distributedAmount": 6400000,
+          "distributionPercentage": 100,
+          "details": [
+            {
+              "label": "Biaya operasi 40 pasien",
+              "dayOffset": -158,
+              "amount": 6400000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

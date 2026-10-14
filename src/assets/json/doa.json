@@ -1,0 +1,226 @@
+[
+  {
+    "id": "doa-1",
+    "author": {
+      "id": "usr-anon",
+      "name": "Hamba Allah",
+      "avatarUrl": null
+    },
+    "content": "semoga diberikan kesehatan dan kemudahan dalam beribadah dan bekerja",
+    "createdAt": "2026-06-26T14:22:00.000Z",
+    "isAmiin": true,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-2",
+    "author": {
+      "id": "usr-2",
+      "name": "Agus Sofiana",
+      "avatarUrl": null
+    },
+    "content": "Ya Rahman Ya Jabbar, ampuni, kasihi dan sayangilah hamba dan adik septia magdalena. Ya Wahab berilah taufik dan hidayah adik septia agar ia kembali ke jalan yang Engkau ridhoi, lapangkanlah dadanya, dan jauhkanlah ia dari segala keburukan dunia maupun akhirat.",
+    "createdAt": "2026-06-26T13:45:00.000Z",
+    "isAmiin": false,
+    "isFavorite": true,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-3",
+    "author": {
+      "id": "usr-3",
+      "name": "Nikita Khoirunnisa",
+      "avatarUrl": null
+    },
+    "content": "Ya Allah, mudahkanlah urusan kedua orang tua kami dan panjangkanlah umur mereka dalam ketaatan",
+    "createdAt": "2026-06-26T13:08:00.000Z",
+    "isAmiin": true,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-4",
+    "author": {
+      "id": "usr-4",
+      "name": "Rahmat Hidayat",
+      "avatarUrl": "https://picsum.photos/seed/doa-avatar-4/200/200"
+    },
+    "content": "Semoga Allah memberikan rezeki yang halal dan berkah untuk keluarga kami",
+    "createdAt": "2026-06-26T12:31:00.000Z",
+    "isAmiin": false,
+    "isFavorite": true,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-5",
+    "author": {
+      "id": "usr-anon",
+      "name": "Hamba Allah",
+      "avatarUrl": null
+    },
+    "content": "Ya Allah, sembuhkanlah ibu saya dari sakit yang beliau derita. Engkaulah sebaik-baik penyembuh, tidak ada kesembuhan kecuali kesembuhan dari-Mu, kesembuhan yang tidak menyisakan penyakit sedikit pun. Kuatkanlah hati kami yang menemani beliau.",
+    "createdAt": "2026-06-26T11:54:00.000Z",
+    "isAmiin": false,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-6",
+    "author": {
+      "id": "usr-1",
+      "name": "Buddy",
+      "avatarUrl": null
+    },
+    "content": "Semoga anak-anak kami tumbuh menjadi pribadi yang sholeh dan bermanfaat bagi sesama",
+    "createdAt": "2026-06-26T11:17:00.000Z",
+    "isAmiin": true,
+    "isFavorite": false,
+    "isMine": true,
+    "isReported": false
+  },
+  {
+    "id": "doa-7",
+    "author": {
+      "id": "usr-6",
+      "name": "Siti Maryam",
+      "avatarUrl": "https://picsum.photos/seed/doa-avatar-6/200/200"
+    },
+    "content": "Ya Allah, lapangkanlah rezeki suami saya dan berkahilah setiap tetes keringatnya",
+    "createdAt": "2026-06-26T10:40:00.000Z",
+    "isAmiin": false,
+    "isFavorite": true,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-8",
+    "author": {
+      "id": "usr-anon",
+      "name": "Hamba Allah",
+      "avatarUrl": null
+    },
+    "content": "Mohon doanya sahabat, semoga saya diberi kelancaran dalam menghadapi sidang skripsi minggu depan",
+    "createdAt": "2026-06-26T10:03:00.000Z",
+    "isAmiin": false,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-9",
+    "author": {
+      "id": "usr-8",
+      "name": "Dewi Lestari",
+      "avatarUrl": null
+    },
+    "content": "Ya Allah, jauhkanlah kami dari fitnah dunia dan akhirat, serta wafatkanlah kami dalam keadaan husnul khatimah",
+    "createdAt": "2026-06-26T09:26:00.000Z",
+    "isAmiin": false,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-10",
+    "author": {
+      "id": "usr-1",
+      "name": "Buddy",
+      "avatarUrl": null
+    },
+    "content": "Semoga usaha kecil yang baru saya rintis ini diberi kelancaran dan menjadi jalan rezeki bagi banyak orang",
+    "createdAt": "2026-06-26T08:49:00.000Z",
+    "isAmiin": true,
+    "isFavorite": true,
+    "isMine": true,
+    "isReported": false
+  },
+  {
+    "id": "doa-11",
+    "author": {
+      "id": "usr-10",
+      "name": "Fajar Nugroho",
+      "avatarUrl": "https://picsum.photos/seed/doa-avatar-10/200/200"
+    },
+    "content": "Ya Allah, tetapkanlah hati kami di atas agama-Mu dan jangan Engkau palingkan setelah Engkau beri petunjuk",
+    "createdAt": "2026-06-26T08:12:00.000Z",
+    "isAmiin": false,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-12",
+    "author": {
+      "id": "usr-anon",
+      "name": "Hamba Allah",
+      "avatarUrl": null
+    },
+    "content": "Mohon doa untuk saudara-saudara kami yang sedang diuji di Palestina, semoga Allah menguatkan mereka",
+    "createdAt": "2026-06-26T07:35:00.000Z",
+    "isAmiin": false,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-13",
+    "author": {
+      "id": "usr-12",
+      "name": "Indah Permata",
+      "avatarUrl": null
+    },
+    "content": "Ya Allah, berikanlah ketenangan kepada hati yang sedang gelisah ini dan gantilah dengan kesabaran",
+    "createdAt": "2026-06-26T06:58:00.000Z",
+    "isAmiin": false,
+    "isFavorite": true,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-14",
+    "author": {
+      "id": "usr-13",
+      "name": "Bayu Saputra",
+      "avatarUrl": null
+    },
+    "content": "Semoga Allah mempertemukan saya dengan jodoh yang menuntun saya lebih dekat kepada-Nya",
+    "createdAt": "2026-06-26T06:21:00.000Z",
+    "isAmiin": true,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  },
+  {
+    "id": "doa-15",
+    "author": {
+      "id": "usr-1",
+      "name": "Buddy",
+      "avatarUrl": null
+    },
+    "content": "Ya Allah, terimalah amal ibadah kami di bulan yang penuh berkah ini dan ampunilah dosa-dosa kami",
+    "createdAt": "2026-06-26T05:44:00.000Z",
+    "isAmiin": false,
+    "isFavorite": false,
+    "isMine": true,
+    "isReported": false
+  },
+  {
+    "id": "doa-16",
+    "author": {
+      "id": "usr-15",
+      "name": "Laila Rahma",
+      "avatarUrl": null
+    },
+    "content": "Mohon doanya, semoga ayah saya yang sedang dirawat segera pulih dan bisa berkumpul lagi bersama kami",
+    "createdAt": "2026-06-26T05:07:00.000Z",
+    "isAmiin": false,
+    "isFavorite": false,
+    "isMine": false,
+    "isReported": false
+  }
+]

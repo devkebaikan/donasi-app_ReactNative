@@ -1,0 +1,184 @@
+[
+  {
+    "id": "donation-sukses-menunggu",
+    "paymentStatus": "sukses",
+    "salurStatus": "menunggu",
+    "paymentStatusAt": "2026-08-01T09:41:00.000Z",
+    "salurStatusAt": null,
+    "salurCompletionAt": "2026-09-15T00:00:00.000Z",
+    "amount": 250000,
+    "paymentDate": "2026-08-01T09:41:00.000Z",
+    "paymentMethod": "BSI Mobile",
+    "donationLabel": "Infaq",
+    "program": {
+      "id": "819",
+      "link": "bantumuallafbelajarquran",
+      "title": "Bantu 1000 Muallaf belajar Membaca Al-Quran",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "mitra": {
+        "id": "mitra-11",
+        "name": "Aksiberbagi",
+        "photoUrl": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "isVerified": true
+      }
+    },
+    "projectSalur": null,
+    "reports": []
+  },
+  {
+    "id": "donation-sukses-persiapan",
+    "paymentStatus": "sukses",
+    "salurStatus": "persiapan",
+    "paymentStatusAt": "2026-07-20T10:15:00.000Z",
+    "salurStatusAt": "2026-08-05T11:00:00.000Z",
+    "salurCompletionAt": "2026-09-10T00:00:00.000Z",
+    "amount": 500000,
+    "paymentDate": "2026-07-20T10:15:00.000Z",
+    "paymentMethod": "GoPay",
+    "donationLabel": "Infaq",
+    "program": {
+      "id": "818",
+      "link": "bangunbabussalamaceh",
+      "title": "Bangun Kembali RA Babussalam Babo, Bandar Pusaka, Aceh Tamiang",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "mitra": {
+        "id": "mitra-11",
+        "name": "Aksiberbagi",
+        "photoUrl": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "isVerified": true
+      }
+    },
+    "projectSalur": {
+      "id": "project-salur-babussalam",
+      "title": "Pembangunan Sumur Wakaf",
+      "location": "Kajen, Pekalongan",
+      "beneficiaryCount": 150
+    },
+    "reports": []
+  },
+  {
+    "id": "donation-sukses-proses",
+    "paymentStatus": "sukses",
+    "salurStatus": "proses",
+    "paymentStatusAt": "2026-07-01T08:30:00.000Z",
+    "salurStatusAt": "2026-08-10T09:00:00.000Z",
+    "salurCompletionAt": "2026-09-05T00:00:00.000Z",
+    "amount": 1000000,
+    "paymentDate": "2026-07-01T08:30:00.000Z",
+    "paymentMethod": "BCA Virtual Account",
+    "donationLabel": "Infaq",
+    "program": {
+      "id": "817",
+      "link": "jariyahabata2",
+      "title": "Sedekah Jariyah Bantu Santri Tuli Penghafal Qur'an di Pondok Pesantren Abata",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "mitra": {
+        "id": "mitra-11",
+        "name": "Aksiberbagi",
+        "photoUrl": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "isVerified": true
+      }
+    },
+    "projectSalur": {
+      "id": "project-salur-abata",
+      "title": "Distribusi Bantuan Tahap 1",
+      "location": "Donggo, Kabupaten Bima",
+      "beneficiaryCount": 320
+    },
+    "reports": [
+      {
+        "id": "report-abata-1",
+        "photoUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "title": "Penyaluran Tahap Pertama",
+        "distributedAt": "2026-08-12T00:00:00.000Z",
+        "status": "selesai"
+      },
+      {
+        "id": "report-abata-2",
+        "photoUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "title": "Dokumentasi Kegiatan di Lapangan",
+        "distributedAt": "2026-08-16T00:00:00.000Z",
+        "status": "proses"
+      }
+    ]
+  },
+  {
+    "id": "donation-sukses-selesai",
+    "paymentStatus": "sukses",
+    "salurStatus": "selesai",
+    "paymentStatusAt": "2026-06-01T09:00:00.000Z",
+    "salurStatusAt": null,
+    "salurCompletionAt": "2026-08-15T16:00:00.000Z",
+    "amount": 150000,
+    "paymentDate": "2026-06-01T09:00:00.000Z",
+    "paymentMethod": "QRIS",
+    "donationLabel": "Infaq",
+    "program": {
+      "id": "807",
+      "link": "kafarat",
+      "title": "Tunaika",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "mitra": {
+        "id": "mitra-11",
+        "name": "Aksiberbagi",
+        "photoUrl": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "isVerified": true
+      }
+    },
+    "projectSalur": {
+      "id": "project-salur-tunaika",
+      "title": "Penyaluran Sembako",
+      "location": "Pulau Kelapa, Kepulauan Seribu",
+      "beneficiaryCount": 80
+    },
+    "reports": [
+      {
+        "id": "report-tunaika-1",
+        "photoUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "title": "Penyaluran Tahap Pertama",
+        "distributedAt": "2026-07-20T00:00:00.000Z",
+        "status": "selesai"
+      },
+      {
+        "id": "report-tunaika-2",
+        "photoUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "title": "Update Progres Pembangunan",
+        "distributedAt": "2026-08-01T00:00:00.000Z",
+        "status": "selesai"
+      },
+      {
+        "id": "report-tunaika-3",
+        "photoUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+        "title": "Laporan Penggunaan Dana",
+        "distributedAt": "2026-08-15T00:00:00.000Z",
+        "status": "selesai"
+      }
+    ]
+  },
+  {
+    "id": "donation-gagal",
+    "paymentStatus": "gagal",
+    "salurStatus": null,
+    "paymentStatusAt": "2026-08-10T14:20:00.000Z",
+    "salurStatusAt": null,
+    "salurCompletionAt": null,
+    "amount": 300000,
+    "paymentDate": "2026-08-10T14:20:00.000Z",
+    "paymentMethod": "OVO",
+    "donationLabel": "Infaq",
+    "program": {
+      "id": "805",
+      "link": "alquranuntuksumatra",
+      "title": "AL-QURAN PENUH LUMPUR !!! Raih Pahala Jariyah Hadiahkan Al-Quran Terbaik",
+      "imageUrl": "https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg",
+      "mitra": {
+        "id": "mitra-11",
+        "name": "Aksiberbagi",
+        "photoUrl": "https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png",
+        "isVerified": true
+      }
+    },
+    "projectSalur": null,
+    "reports": []
+  }
+]

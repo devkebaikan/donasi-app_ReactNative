@@ -1,0 +1,87 @@
+[
+  {
+    "id": "notif-1",
+    "type": "DONATION_INFO",
+    "title": "Selangkah Lagi Donasi Selesai",
+    "body": "Mohon lakukan donasi untuk program Zakat Penghasilan untuk Dhuafa sebelum batas waktu berakhir.",
+    "isRead": false,
+    "createdAt": "2026-06-26T09:00:00.000Z",
+    "deepLink": "program-1",
+    "targetId": "program-1",
+    "targetType": "program"
+  },
+  {
+    "id": "notif-2",
+    "type": "DONATION_INFO",
+    "title": "Selangkah Lagi Donasi Selesai",
+    "body": "Mohon lakukan donasi untuk program Bantu Kemanusiaan Palestina sebelum batas waktu berakhir.",
+    "isRead": false,
+    "createdAt": "2026-06-26T08:00:00.000Z",
+    "deepLink": "program-3",
+    "targetId": "program-3",
+    "targetType": "program"
+  },
+  {
+    "id": "notif-3",
+    "type": "ORGANIZATION_NEWS",
+    "title": "\"Gaza Memanggil!\" Kirim Bantuan Sekarang",
+    "body": "Berita terbaru dari program \"Gaza Memanggil!\" Kirim bantuan darurat untuk saudara kita di Gaza.",
+    "isRead": false,
+    "createdAt": "2026-06-08T10:00:00.000Z",
+    "deepLink": "article-1",
+    "targetId": "article-1",
+    "targetType": "article"
+  },
+  {
+    "id": "notif-4",
+    "type": "ORGANIZATION_NEWS",
+    "title": "Laporan Penyaluran Wakaf Sumur Triwulan Ini",
+    "body": "Simak laporan lengkap penyaluran dana wakaf sumur untuk pelosok negeri pada triwulan ini.",
+    "isRead": true,
+    "createdAt": "2026-05-29T10:00:00.000Z",
+    "deepLink": "article-2",
+    "targetId": "article-2",
+    "targetType": "article"
+  },
+  {
+    "id": "notif-5",
+    "type": "DONATION_INFO",
+    "title": "Donasimu Sedang Disalurkan",
+    "body": "Donasi kamu untuk Paket Sembako untuk Keluarga Terdampak sedang dalam proses penyaluran.",
+    "isRead": true,
+    "createdAt": "2026-05-20T10:00:00.000Z",
+    "deepLink": "donation-1",
+    "targetId": "donation-1",
+    "targetType": "donation"
+  },
+  {
+    "id": "notif-6",
+    "type": "SYSTEM",
+    "title": "Selamat Datang di Amal Sholeh",
+    "body": "Terima kasih telah bergabung. Yuk mulai berbagi kebaikan lewat program donasi pilihan kamu.",
+    "isRead": true,
+    "createdAt": "2026-05-10T10:00:00.000Z"
+  },
+  {
+    "id": "notif-7",
+    "type": "ORGANIZATION_NEWS",
+    "title": "Beasiswa Yatim Berprestasi Dibuka Kembali",
+    "body": "Program Beasiswa Yatim Berprestasi kembali dibuka untuk periode pendaftaran baru.",
+    "isRead": true,
+    "createdAt": "2026-05-02T10:00:00.000Z",
+    "deepLink": "article-3",
+    "targetId": "article-3",
+    "targetType": "article"
+  },
+  {
+    "id": "notif-8",
+    "type": "DONATION_INFO",
+    "title": "Terima Kasih Atas Donasimu",
+    "body": "Donasi kamu untuk Renovasi Masjid Pelosok Desa telah kami terima dan akan segera disalurkan.",
+    "isRead": true,
+    "createdAt": "2026-04-25T10:00:00.000Z",
+    "deepLink": "program-5",
+    "targetId": "program-5",
+    "targetType": "program"
+  }
+]

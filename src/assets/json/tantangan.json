@@ -1,0 +1,1184 @@
+{
+  "categories": [
+    {
+      "slug": "al-quran",
+      "label": "Al-Quran",
+      "iconSlug": "book-bookmark"
+    },
+    {
+      "slug": "ibadah",
+      "label": "Ibadah",
+      "iconSlug": "moon"
+    },
+    {
+      "slug": "sosial",
+      "label": "Sosial",
+      "iconSlug": "users-group-rounded"
+    },
+    {
+      "slug": "sedekah",
+      "label": "Sedekah",
+      "iconSlug": "hand-heart"
+    },
+    {
+      "slug": "keluarga",
+      "label": "Keluarga",
+      "iconSlug": "users-group-two-rounded"
+    }
+  ],
+  "challenges": [
+    {
+      "id": "tnt-001",
+      "name": "Khatam Bareng 40 Hari",
+      "description": "Selesaikan bacaan Al-Qur'an bersama-sama dalam 40 hari. Setiap anggota membaca 1 juz setiap harinya.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-001/800/500",
+      "categorySlug": "al-quran",
+      "mode": "group",
+      "durationDays": 40,
+      "unit": "Juz",
+      "doneValue": 26,
+      "targetValue": 30,
+      "progressLabel": "26 Juz",
+      "participantCount": 24,
+      "participantPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isJoined": true,
+      "isPublic": true,
+      "descriptionHtml": "<p>Selesaikan bacaan Al-Qur'an bersama-sama dalam 40 hari. Setiap anggota membaca 1 juz setiap harinya.</p>",
+      "dailyTargetText": "Baca 1 juz",
+      "action": {
+        "type": "quran",
+        "quranChallengeId": "chl-001"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 12,
+      "createdAtOffsetDays": -28,
+      "inviteCode": "t001"
+    },
+    {
+      "id": "tnt-002",
+      "name": "Puasa Sunnah Senin Kamis",
+      "description": "Saling mengingatkan dan memotivasi untuk istiqomah puasa sunnah di bulan ini.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-002/800/500",
+      "categorySlug": "ibadah",
+      "mode": "group",
+      "durationDays": 30,
+      "unit": null,
+      "doneValue": 22,
+      "targetValue": 30,
+      "progressLabel": null,
+      "participantCount": 8,
+      "participantPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        }
+      ],
+      "isJoined": true,
+      "isPublic": true,
+      "descriptionHtml": "<p>Saling mengingatkan dan memotivasi untuk istiqomah puasa sunnah di bulan ini.</p>",
+      "dailyTargetText": "Puasa Senin atau Kamis",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 7,
+      "createdAtOffsetDays": -23,
+      "inviteCode": "t002"
+    },
+    {
+      "id": "tnt-003",
+      "name": "10.000 Shalawat",
+      "description": "Kumpulkan 10.000 shalawat bersama grup ini dalam waktu 2 minggu.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-003/800/500",
+      "categorySlug": "ibadah",
+      "mode": "group",
+      "durationDays": 14,
+      "unit": "Kali",
+      "doneValue": 3200,
+      "targetValue": 10000,
+      "progressLabel": "3200 Kali",
+      "participantCount": 45,
+      "participantPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Kumpulkan 10.000 shalawat bersama grup ini dalam waktu 2 minggu.</p>",
+      "dailyTargetText": "Baca 700 shalawat",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 14,
+      "createdAtOffsetDays": -3,
+      "inviteCode": "t003"
+    },
+    {
+      "id": "tnt-004",
+      "name": "Sedekah Subuh 30 Hari",
+      "description": "Bersedekah setiap selepas subuh selama 30 hari, berapa pun nominalnya.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-004/800/500",
+      "categorySlug": "sedekah",
+      "mode": "group",
+      "durationDays": 30,
+      "unit": null,
+      "doneValue": 11,
+      "targetValue": 30,
+      "progressLabel": null,
+      "participantCount": 132,
+      "participantPreviews": [
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-7",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p7/100/100"
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Bersedekah setiap selepas subuh selama 30 hari, berapa pun nominalnya.</p>",
+      "dailyTargetText": "Sedekah selepas subuh",
+      "action": {
+        "type": "donation",
+        "programId": "819"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 19,
+      "createdAtOffsetDays": -11,
+      "inviteCode": "t004"
+    },
+    {
+      "id": "tnt-005",
+      "name": "Tilawah 2 Lembar Sehari",
+      "description": "Tantangan personal membaca dua lembar mushaf setiap hari tanpa putus.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-005/800/500",
+      "categorySlug": "al-quran",
+      "mode": "personal",
+      "durationDays": 21,
+      "unit": "Lembar",
+      "doneValue": 18,
+      "targetValue": 42,
+      "progressLabel": "18 Lembar",
+      "participantCount": 1,
+      "participantPreviews": [],
+      "isJoined": true,
+      "isPublic": false,
+      "descriptionHtml": "<p>Tantangan personal membaca dua lembar mushaf setiap hari tanpa putus.</p>",
+      "dailyTargetText": "Baca 2 lembar",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": true,
+      "deadlineOffsetDays": 12,
+      "createdAtOffsetDays": -9,
+      "inviteCode": "t005"
+    },
+    {
+      "id": "tnt-006",
+      "name": "Dzikir Pagi Petang",
+      "description": "Membiasakan dzikir pagi dan petang bersama, saling mengingatkan tiap hari.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-006/800/500",
+      "categorySlug": "ibadah",
+      "mode": "group",
+      "durationDays": 40,
+      "unit": null,
+      "doneValue": 31,
+      "targetValue": 40,
+      "progressLabel": null,
+      "participantCount": 76,
+      "participantPreviews": [
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-7",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p7/100/100"
+        },
+        {
+          "id": "usr-9",
+          "name": "Hana",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p9/100/100"
+        }
+      ],
+      "isJoined": true,
+      "isPublic": true,
+      "descriptionHtml": "<p>Membiasakan dzikir pagi dan petang bersama, saling mengingatkan tiap hari.</p>",
+      "dailyTargetText": "Dzikir pagi dan petang",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": true,
+      "deadlineOffsetDays": 9,
+      "createdAtOffsetDays": -31,
+      "inviteCode": "t006"
+    },
+    {
+      "id": "tnt-007",
+      "name": "Jumat Berbagi Nasi Bungkus",
+      "description": "Patungan nasi bungkus tiap Jumat untuk pekerja harian di sekitar kita.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-007/800/500",
+      "categorySlug": "sosial",
+      "mode": "group",
+      "durationDays": 60,
+      "unit": null,
+      "doneValue": 4,
+      "targetValue": 8,
+      "progressLabel": null,
+      "participantCount": 58,
+      "participantPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Patungan nasi bungkus tiap Jumat untuk pekerja harian di sekitar kita.</p>",
+      "dailyTargetText": "Ikut urunan Jumat",
+      "action": {
+        "type": "donasiBersama",
+        "groupId": "grp-015"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 33,
+      "createdAtOffsetDays": -27,
+      "inviteCode": "t007"
+    },
+    {
+      "id": "tnt-008",
+      "name": "Sholat Tahajud 21 Hari",
+      "description": "Bangun malam bersama selama 21 hari. Saling membangunkan lewat grup.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-008/800/500",
+      "categorySlug": "ibadah",
+      "mode": "group",
+      "durationDays": 21,
+      "unit": null,
+      "doneValue": 6,
+      "targetValue": 21,
+      "progressLabel": null,
+      "participantCount": 19,
+      "participantPreviews": [
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Bangun malam bersama selama 21 hari. Saling membangunkan lewat grup.</p>",
+      "dailyTargetText": "Tahajud minimal 2 rakaat",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 15,
+      "createdAtOffsetDays": -6,
+      "inviteCode": "t008"
+    },
+    {
+      "id": "tnt-009",
+      "name": "Menghafal 20 Doa Harian",
+      "description": "Hafalkan satu doa harian tiap hari selama 20 hari bersama keluarga.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-009/800/500",
+      "categorySlug": "keluarga",
+      "mode": "group",
+      "durationDays": 20,
+      "unit": "Doa",
+      "doneValue": 7,
+      "targetValue": 20,
+      "progressLabel": "7 Doa",
+      "participantCount": 12,
+      "participantPreviews": [
+        {
+          "id": "usr-7",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p7/100/100"
+        },
+        {
+          "id": "usr-9",
+          "name": "Hana",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p9/100/100"
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Hafalkan satu doa harian tiap hari selama 20 hari bersama keluarga.</p>",
+      "dailyTargetText": "Hafal 1 doa",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 13,
+      "createdAtOffsetDays": -7,
+      "inviteCode": "t009"
+    },
+    {
+      "id": "tnt-010",
+      "name": "Infak Seribu Sehari",
+      "description": "Menyisihkan seribu rupiah setiap hari selama sebulan penuh.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-010/800/500",
+      "categorySlug": "sedekah",
+      "mode": "group",
+      "durationDays": 30,
+      "unit": null,
+      "doneValue": 25,
+      "targetValue": 30,
+      "progressLabel": null,
+      "participantCount": 204,
+      "participantPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Menyisihkan seribu rupiah setiap hari selama sebulan penuh.</p>",
+      "dailyTargetText": "Infak Rp1.000",
+      "action": {
+        "type": "donation",
+        "programId": "820"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 5,
+      "createdAtOffsetDays": -25,
+      "inviteCode": "t010"
+    },
+    {
+      "id": "tnt-011",
+      "name": "Baca Sirah Nabawiyah",
+      "description": "Membaca satu bab sirah tiap hari dan berdiskusi di grup tiap pekan.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-011/800/500",
+      "categorySlug": "keluarga",
+      "mode": "group",
+      "durationDays": 30,
+      "unit": "Bab",
+      "doneValue": 9,
+      "targetValue": 30,
+      "progressLabel": "9 Bab",
+      "participantCount": 27,
+      "participantPreviews": [
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-7",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p7/100/100"
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Membaca satu bab sirah tiap hari dan berdiskusi di grup tiap pekan.</p>",
+      "dailyTargetText": "Baca 1 bab",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 21,
+      "createdAtOffsetDays": -9,
+      "inviteCode": "t011"
+    },
+    {
+      "id": "tnt-012",
+      "name": "Sedekah Jariyah Ramadan",
+      "description": "Tantangan yang sudah selesai — arsip pengingat kebaikan Ramadan lalu.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-012/800/500",
+      "categorySlug": "sedekah",
+      "mode": "group",
+      "durationDays": 30,
+      "unit": null,
+      "doneValue": 30,
+      "targetValue": 30,
+      "progressLabel": null,
+      "participantCount": 411,
+      "participantPreviews": [
+        {
+          "id": "usr-1",
+          "name": "Ahmad",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p1/100/100"
+        },
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Tantangan yang sudah selesai — arsip pengingat kebaikan Ramadan lalu.</p>",
+      "dailyTargetText": "Sedekah harian",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": -4,
+      "createdAtOffsetDays": -34,
+      "inviteCode": "t012"
+    },
+    {
+      "id": "tnt-013",
+      "name": "Bersih-bersih Masjid Pekanan",
+      "description": "Gotong royong membersihkan masjid setiap akhir pekan selama dua bulan.",
+      "coverImageUrl": null,
+      "categorySlug": "sosial",
+      "mode": "group",
+      "durationDays": 60,
+      "unit": null,
+      "doneValue": 3,
+      "targetValue": 8,
+      "progressLabel": null,
+      "participantCount": 34,
+      "participantPreviews": [
+        {
+          "id": "usr-3",
+          "name": "Budi",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p3/100/100"
+        },
+        {
+          "id": "usr-5",
+          "name": "Dewi",
+          "avatarUrl": null
+        },
+        {
+          "id": "usr-7",
+          "name": "Fajar",
+          "avatarUrl": "https://picsum.photos/seed/tantangan-p7/100/100"
+        }
+      ],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Gotong royong membersihkan masjid setiap akhir pekan selama dua bulan.</p>",
+      "dailyTargetText": "Ikut jadwal pekanan",
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 41,
+      "createdAtOffsetDays": -21,
+      "inviteCode": "t013"
+    },
+    {
+      "id": "tnt-014",
+      "name": "Menahan Lisan 14 Hari",
+      "description": "Tantangan personal menjaga lisan dari ghibah selama dua pekan.",
+      "coverImageUrl": "https://picsum.photos/seed/tnt-014/800/500",
+      "categorySlug": "ibadah",
+      "mode": "personal",
+      "durationDays": 14,
+      "unit": null,
+      "doneValue": 5,
+      "targetValue": 14,
+      "progressLabel": null,
+      "participantCount": 1,
+      "participantPreviews": [],
+      "isJoined": false,
+      "isPublic": true,
+      "descriptionHtml": "<p>Tantangan personal menjaga lisan dari ghibah selama dua pekan.</p>",
+      "dailyTargetText": null,
+      "action": {
+        "type": "journal"
+      },
+      "isCreator": false,
+      "deadlineOffsetDays": 14,
+      "createdAtOffsetDays": -5,
+      "inviteCode": "t014"
+    }
+  ],
+  "leaderboard": {
+    "tnt-001": [
+      {
+        "id": "usr-tnt-001-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m0/100/100",
+        "contributionValue": 1.9,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-001-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m1/100/100",
+        "contributionValue": 1.8,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-001-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m2/100/100",
+        "contributionValue": 1.7,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-001-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 1.6,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-001-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m4/100/100",
+        "contributionValue": 1.5,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-001-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m5/100/100",
+        "contributionValue": 1.4,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-001-7",
+        "name": "Irfan K.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m6/100/100",
+        "contributionValue": 1.3,
+        "lastActivityLabel": "2 hari lalu"
+      },
+      {
+        "id": "usr-tnt-001-8",
+        "name": "Joko W.",
+        "avatarUrl": null,
+        "contributionValue": 1.2,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-001-9",
+        "name": "Kartika N.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m8/100/100",
+        "contributionValue": 1.1,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-001-10",
+        "name": "Lukman H.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m9/100/100",
+        "contributionValue": 1.0,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-001-11",
+        "name": "Maya S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m10/100/100",
+        "contributionValue": 0.9,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-001-12",
+        "name": "Nurul I.",
+        "avatarUrl": null,
+        "contributionValue": 0.8,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-001-13",
+        "name": "Oki P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m12/100/100",
+        "contributionValue": 0.7,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-001-14",
+        "name": "Putri L.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-001m13/100/100",
+        "contributionValue": 0.7,
+        "lastActivityLabel": "2 hari lalu"
+      },
+      {
+        "id": "usr-me",
+        "name": "Rizky",
+        "avatarUrl": null,
+        "contributionValue": 0,
+        "lastActivityLabel": null
+      }
+    ],
+    "tnt-002": [
+      {
+        "id": "usr-tnt-002-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-002m0/100/100",
+        "contributionValue": 3.7,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-002-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-002m1/100/100",
+        "contributionValue": 3.5,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-002-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-002m2/100/100",
+        "contributionValue": 3.3,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-002-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 3.1,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-002-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-002m4/100/100",
+        "contributionValue": 2.9,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-002-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-002m5/100/100",
+        "contributionValue": 2.8,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-me",
+        "name": "Rizky",
+        "avatarUrl": null,
+        "contributionValue": 0,
+        "lastActivityLabel": null
+      }
+    ],
+    "tnt-003": [
+      {
+        "id": "usr-tnt-003-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-003m0/100/100",
+        "contributionValue": 533.3,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-003-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-003m1/100/100",
+        "contributionValue": 506.7,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-003-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-003m2/100/100",
+        "contributionValue": 480.0,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-003-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 453.3,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-003-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-003m4/100/100",
+        "contributionValue": 426.7,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-003-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-003m5/100/100",
+        "contributionValue": 400.0,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-004": [
+      {
+        "id": "usr-tnt-004-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-004m0/100/100",
+        "contributionValue": 1.8,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-004-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-004m1/100/100",
+        "contributionValue": 1.7,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-004-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-004m2/100/100",
+        "contributionValue": 1.6,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-004-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 1.6,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-004-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-004m4/100/100",
+        "contributionValue": 1.5,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-004-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-004m5/100/100",
+        "contributionValue": 1.4,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-006": [
+      {
+        "id": "usr-tnt-006-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-006m0/100/100",
+        "contributionValue": 5.2,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-006-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-006m1/100/100",
+        "contributionValue": 4.9,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-006-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-006m2/100/100",
+        "contributionValue": 4.7,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-006-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 4.4,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-006-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-006m4/100/100",
+        "contributionValue": 4.1,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-006-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-006m5/100/100",
+        "contributionValue": 3.9,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-me",
+        "name": "Rizky",
+        "avatarUrl": null,
+        "contributionValue": 0,
+        "lastActivityLabel": null
+      }
+    ],
+    "tnt-007": [
+      {
+        "id": "usr-tnt-007-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-007m0/100/100",
+        "contributionValue": 0.7,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-007-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-007m1/100/100",
+        "contributionValue": 0.6,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-007-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-007m2/100/100",
+        "contributionValue": 0.6,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-007-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 0.6,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-007-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-007m4/100/100",
+        "contributionValue": 0.5,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-007-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-007m5/100/100",
+        "contributionValue": 0.5,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-008": [
+      {
+        "id": "usr-tnt-008-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-008m0/100/100",
+        "contributionValue": 1.0,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-008-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-008m1/100/100",
+        "contributionValue": 0.9,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-008-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-008m2/100/100",
+        "contributionValue": 0.9,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-008-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 0.8,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-008-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-008m4/100/100",
+        "contributionValue": 0.8,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-008-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-008m5/100/100",
+        "contributionValue": 0.8,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-009": [
+      {
+        "id": "usr-tnt-009-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-009m0/100/100",
+        "contributionValue": 1.2,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-009-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-009m1/100/100",
+        "contributionValue": 1.1,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-009-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-009m2/100/100",
+        "contributionValue": 1.1,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-009-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 1.0,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-009-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-009m4/100/100",
+        "contributionValue": 0.9,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-009-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-009m5/100/100",
+        "contributionValue": 0.9,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-010": [
+      {
+        "id": "usr-tnt-010-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-010m0/100/100",
+        "contributionValue": 4.2,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-010-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-010m1/100/100",
+        "contributionValue": 4.0,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-010-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-010m2/100/100",
+        "contributionValue": 3.8,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-010-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 3.5,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-010-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-010m4/100/100",
+        "contributionValue": 3.3,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-010-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-010m5/100/100",
+        "contributionValue": 3.1,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-011": [
+      {
+        "id": "usr-tnt-011-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-011m0/100/100",
+        "contributionValue": 1.5,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-011-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-011m1/100/100",
+        "contributionValue": 1.4,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-011-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-011m2/100/100",
+        "contributionValue": 1.4,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-011-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 1.3,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-011-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-011m4/100/100",
+        "contributionValue": 1.2,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-011-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-011m5/100/100",
+        "contributionValue": 1.1,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-012": [
+      {
+        "id": "usr-tnt-012-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-012m0/100/100",
+        "contributionValue": 5.0,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-012-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-012m1/100/100",
+        "contributionValue": 4.8,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-012-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-012m2/100/100",
+        "contributionValue": 4.5,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-012-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 4.2,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-012-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-012m4/100/100",
+        "contributionValue": 4.0,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-012-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-012m5/100/100",
+        "contributionValue": 3.8,
+        "lastActivityLabel": "Hari ini"
+      }
+    ],
+    "tnt-013": [
+      {
+        "id": "usr-tnt-013-1",
+        "name": "Ahmad F.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-013m0/100/100",
+        "contributionValue": 0.5,
+        "lastActivityLabel": "2 jam lalu"
+      },
+      {
+        "id": "usr-tnt-013-2",
+        "name": "Siti M.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-013m1/100/100",
+        "contributionValue": 0.5,
+        "lastActivityLabel": "Hari ini"
+      },
+      {
+        "id": "usr-tnt-013-3",
+        "name": "Budi S.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-013m2/100/100",
+        "contributionValue": 0.5,
+        "lastActivityLabel": "Kemarin"
+      },
+      {
+        "id": "usr-tnt-013-4",
+        "name": "Dewi A.",
+        "avatarUrl": null,
+        "contributionValue": 0.5,
+        "lastActivityLabel": "3 jam lalu"
+      },
+      {
+        "id": "usr-tnt-013-5",
+        "name": "Fajar R.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-013m4/100/100",
+        "contributionValue": 0.5,
+        "lastActivityLabel": "5 jam lalu"
+      },
+      {
+        "id": "usr-tnt-013-6",
+        "name": "Hana P.",
+        "avatarUrl": "https://picsum.photos/seed/tnt-013m5/100/100",
+        "contributionValue": 0.5,
+        "lastActivityLabel": "Hari ini"
+      }
+    ]
+  },
+  "jurnalSeed": {
+    "tnt-002": 5,
+    "tnt-006": 14,
+    "tnt-005": 3,
+    "tnt-001": 2
+  }
+}

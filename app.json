@@ -1,0 +1,36 @@
+{
+  "name": "BbMobile",
+  "displayName": "bb-mobile",
+  "expo": {
+    "name": "bb-mobile",
+    "slug": "bb-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": ["ios", "android"],
+    "updates": {
+      "url": "https://u.expo.dev/EXPO_PROJECT_ID",
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 3000
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "ios": {
+      "bundleIdentifier": "com.yourcompany.appname",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.yourcompany.appname",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "EXPO_PROJECT_ID"
+      }
+    }
+  }
+}

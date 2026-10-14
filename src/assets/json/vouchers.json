@@ -1,0 +1,8 @@
+{
+  "successMessage": "Voucher berhasil diklaim",
+  "failureMessage": "Kode tidak valid atau sudah digunakan",
+  "valid": {
+    "HEMAT10": 10000,
+    "BERBAGI25": 25000
+  }
+}

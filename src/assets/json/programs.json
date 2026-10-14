@@ -1,0 +1,48 @@
+[
+  {
+    "id": "program-1",
+    "title": "Zakat Penghasilan untuk Dhuafa",
+    "organization": "Yayasan Amal Sholeh",
+    "thumbnailUrl": "https://picsum.photos/seed/program1/300/300",
+    "category": "Zakat",
+    "collectedAmount": 12500000,
+    "goalAmount": 125500000,
+    "daysLeft": 12
+  },
+  {
+    "id": "program-2",
+    "title": "Paket Sembako untuk Keluarga Terdampak",
+    "organization": "Rumah Peduli",
+    "thumbnailUrl": "https://picsum.photos/seed/program2/300/300",
+    "category": "Infak",
+    "collectedAmount": 8200000,
+    "daysLeft": 20
+  },
+  {
+    "id": "program-3",
+    "title": "Bantu Kemanusiaan Palestina",
+    "organization": "Aliansi Kemanusiaan",
+    "thumbnailUrl": "https://picsum.photos/seed/program3/300/300",
+    "category": "Palestina",
+    "collectedAmount": 45300000,
+    "daysLeft": 5
+  },
+  {
+    "id": "program-4",
+    "title": "Beasiswa Yatim Berprestasi",
+    "organization": "Yayasan Cerdas Bangsa",
+    "thumbnailUrl": "https://picsum.photos/seed/program4/300/300",
+    "category": "Beasiswa",
+    "collectedAmount": 6100000,
+    "daysLeft": 30
+  },
+  {
+    "id": "program-5",
+    "title": "Renovasi Masjid Pelosok Desa",
+    "organization": "Wakaf Nusantara",
+    "thumbnailUrl": "https://picsum.photos/seed/program5/300/300",
+    "category": "Masjid",
+    "collectedAmount": 21750000,
+    "daysLeft": 18
+  }
+]
