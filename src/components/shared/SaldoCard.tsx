@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {Icon} from '@/components/ui/Icon';
-import {Wallet, ClockCircle} from '@solar-icons/react-native/Linear';
+import {ClockCircle} from '@solar-icons/react-native/Linear';
 import {Button} from '@/components/ui/Button';
-import {colors, spacing, radius, fontSize, fontWeight, shadows} from '@/theme';
+import {colors} from '@/theme';
 import {formatCurrency} from '@/utils/formatCurrency';
 import type {PrayerTime} from '@/types/prayerTime';
 
@@ -26,15 +26,24 @@ export function SaldoCard({
   const buttonLabel = isAuthenticated ? 'Top Up' : 'Masuk';
 
   return (
-    <View style={styles.card}>
-      <View style={styles.headerRow}>
-        <View style={styles.headerLeft}>
-          <View style={styles.iconWrapper}>
-            <Icon icon={Wallet} size={24} color={colors.primary[500]} />
+    <View className="bg-white px-6 py-4 gap-3 shadow-sm">
+      <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center gap-3.5 flex-1">
+          <View className="w-8 h-8 rounded-xl items-center justify-center">
+            <Image
+              source={require('@/assets/images/icons/wallet.png')}
+              className="w-full h-full"
+              resizeMode="contain"
+            />
           </View>
-          <View style={styles.titleBalance}>
-            <Text style={styles.title}>Saldo Kebaikan</Text>
-            <Text style={[styles.balance, !isAuthenticated && styles.balanceHidden]}>
+          <View className="flex-1 gap-1">
+            <Text className="text-sm font-medium text-neutral-600">Saldo Saku Kebaikan</Text>
+            <Text
+              className={
+                isAuthenticated
+                  ? 'text-lg font-bold text-neutral-900'
+                  : 'text-xs font-normal text-neutral-400'
+              }>
               {displayBalance}
             </Text>
           </View>
@@ -42,89 +51,19 @@ export function SaldoCard({
         <Button label={buttonLabel} onPress={onPressAction} size="smWide" />
       </View>
 
-      <View style={styles.divider} />
+      <View className="h-px bg-neutral-200" />
 
-      <View style={styles.infoRow}>
-        <View style={styles.prayerInfo}>
+      <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center gap-1.5">
           <Icon icon={ClockCircle} size={14} color={colors.neutral[900]} />
-          <Text style={styles.infoText}>
+          <Text className="text-xs font-medium text-neutral-600">
             {nextPrayerTime
               ? `${nextPrayerTime.name} ${nextPrayerTime.time}`
               : '-'}
           </Text>
         </View>
-        <Text style={styles.infoText}>{hijriDate}</Text>
+        <Text className="text-xs font-medium text-neutral-600">{hijriDate}</Text>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    // marginHorizontal: spacing.lg,
-    // marginVertical: spacing.lg,
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.lg,
-    // borderRadius: radius.xl,
-    backgroundColor: colors.neutral[0],
-    gap: spacing.md,
-    ...shadows.sm,
-  },
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  headerLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.md,
-    flex: 1,
-  },
-  iconWrapper: {
-    width: 44,
-    height: 44,
-    borderRadius: radius.lg,
-    backgroundColor: colors.primary[100],
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titleBalance: {
-    flex: 1,
-    gap: spacing.xs,
-  },
-  title: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[600],
-  },
-  balance: {
-    fontSize: fontSize.lg,
-    fontWeight: fontWeight.bold,
-    color: colors.neutral[900],
-  },
-  balanceHidden: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.regular,
-    color: colors.neutral[400],
-  },
-  divider: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: colors.neutral[200],
-  },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  prayerInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-  },
-  infoText: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[600],
-  },
-});

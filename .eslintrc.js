@@ -8,6 +8,15 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json',
   },
+  ignorePatterns: [
+    '*.config.js',
+    '.eslintrc.js',
+    'metro.config.js',
+    'babel.config.js',
+    'tailwind.config.js',
+    'react-native.config.js',
+    'scripts/**/*',
+  ],
   rules: {
     // Tidak boleh ada any
     '@typescript-eslint/no-explicit-any': 'error',

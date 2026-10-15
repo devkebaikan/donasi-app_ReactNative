@@ -51,7 +51,7 @@ const ICON_SIZE: Record<ButtonSize, number> = {
 // 44x44 dijaga lewat hitSlop (bukan minHeight) — lihat juga
 // docs/03-ui-standards/accessibility.md.
 const XS_HIT_SLOP = {top: 8, bottom: 8, left: 8, right: 8};
-const SM_WIDE_HIT_SLOP = {top: 3, bottom: 3, left: 0, right: 0};
+const SM_WIDE_HIT_SLOP = {top: 2, bottom: 2, left: 0, right: 0};
 
 const HIT_SLOP: Partial<Record<ButtonSize, typeof XS_HIT_SLOP>> = {
   xs: XS_HIT_SLOP,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     minHeight: 44,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
   },
   primary: {
     backgroundColor: colors.secondary[500],
@@ -161,8 +161,7 @@ const styles = StyleSheet.create({
   // Tombol aksi di header kartu (Saldo Kebaikan di Home, Saku Berbagi di form
   // donasi rutin): sedikit lebih pendek dari `sm` tapi lebih lebar.
   smWide: {
-    minHeight: 38,
-    minWidth: 104,
+    minHeight: 30,
     paddingVertical: spacing.xs,
     paddingHorizontal: spacing.xl,
   },

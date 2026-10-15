@@ -86,26 +86,27 @@
     {
       "id": 1,
       "name": "Donasi",
-      "image_url": "https://don.aksiberbagi.com/images/icons/menu/1.%20Donasi.webp",
+      "image_url": "@/assets/images/home/donasi.png",
       "screen": "Donations"
     },
-    {
+    { 
       "id": 2,
       "name": "Infak",
-      "image_url": "https://don.aksiberbagi.com/images/icons/menu/2.%20Infaq.webp",
+      "image_url": "@/assets/images/home/infak.png",
       "screen": "Infak"
     },
     {
       "id": 3,
       "name": "Zakat",
-      "image_url": "https://don.aksiberbagi.com/images/icons/menu/3.%20Zakat.webp",
+      "image_url": "@/assets/images/home/zakat.png",
       "screen": "Zakat"
     },
     {
       "id": 4,
-      "name": "Donasi Rutin",
-      "image_url": "https://don.aksiberbagi.com/images/icons/menu/6.%20Donasi%20rutin.webp",
-      "screen": "RecurringDonation"
+      "name": "Rutin",
+      "image_url": "@/assets/images/home/rutin.png",
+      "screen": "RecurringDonation",
+      "is_new" : true
     }
   ],
   "program_tema_1": {

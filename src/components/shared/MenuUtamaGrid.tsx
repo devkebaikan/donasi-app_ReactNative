@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, Image, type ImageSourcePropType} from 'react-native';
 import {Widget} from '@solar-icons/react-native/Linear';
 import {Icon} from '@/components/ui/Icon';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import {colors} from '@/theme';
 
 export interface MenuItem {
   id: number;
@@ -12,11 +12,16 @@ export interface MenuItem {
   is_new?: boolean;
 }
 
-// Baris ini SELALU 4 sel, tidak pernah lebih. Kalau API mengirim lebih dari 4
-// menu, sel keempat berubah jadi "Lainnya" (jadi cuma 3 menu yang tampil) dan
-// sisanya dibuka lewat bottom sheet — pola yang sama dengan kategori program
-// di DonationCategoryGrid.
 const MAX_TILES = 4;
+
+// Metro bundler membutuhkan require statis. Mapping ini memetakan
+// nama screen ke file asset lokal di src/assets/images/home/.
+const LOCAL_MENU_ICONS: Record<string, ImageSourcePropType> = {
+  Donations: require('@/assets/images/home/donasi.png'),
+  Infak: require('@/assets/images/home/infaq.png'),
+  Zakat: require('@/assets/images/home/zakat.png'),
+  RecurringDonation: require('@/assets/images/home/rutin.png'),
+};
 
 interface MenuUtamaGridProps {
   items?: MenuItem[];
@@ -29,101 +34,77 @@ export function MenuUtamaGrid({
   onPressItem,
   onPressMore,
 }: MenuUtamaGridProps): React.JSX.Element {
-  if (!items || items.length === 0) {
+  if (items.length === 0) {
     return <View />;
   }
 
   const hasMore = items.length > MAX_TILES;
-  const displayItems = items.slice(0, hasMore ? MAX_TILES - 1 : MAX_TILES);
+  const displayItems = items.slice(
+    0,
+    hasMore ? MAX_TILES - 1 : MAX_TILES,
+  );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.grid}>
-        {displayItems.map(item => (
-          <TouchableOpacity
-            key={item.id}
-            style={styles.item}
-            onPress={() => onPressItem(item.screen)}
-            accessibilityRole="button"
-            accessibilityLabel={item.name}>
-            <View style={styles.iconContainer}>
-              <Image
-                source={{uri: item.image_url}}
-                style={styles.icon}
-                resizeMode="contain"
-              />
-              {item.is_new && <View style={styles.badge}>
-                <Text style={styles.badgeText}>NEW</Text>
-              </View>}
-            </View>
-            <Text style={styles.label}>{item.name}</Text>
-          </TouchableOpacity>
-        ))}
+    <View className="px-4 py-4">
+      <View className="flex-row justify-between">
+        {displayItems.map(item => {
+          // Prioritaskan icon lokal, atau gunakan remote URI jika berawalan http
+          const iconSource =
+            LOCAL_MENU_ICONS[item.screen] ??
+            (item.image_url?.startsWith('http') ? {uri: item.image_url} : undefined);
+
+          return (
+            <TouchableOpacity
+              key={item.id}
+              className="flex-1 items-center gap-2"
+              onPress={() => onPressItem(item.screen)}
+              accessibilityRole="button"
+              accessibilityLabel={item.name}>
+              <View className="relative h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+                {iconSource && (
+                  <Image
+                    source={iconSource}
+                    className="h-full w-full"
+                    resizeMode="contain"
+                  />
+                )}
+
+                {item.is_new && (
+                  <View className="absolute -right-1 -top-1 rounded-full bg-secondary-500 px-1.5 py-0.5">
+                    <Text className="text-[8px] font-bold text-white">
+                      NEW
+                    </Text>
+                  </View>
+                )}
+              </View>
+
+              <Text className="text-center text-xs text-neutral-600">
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+
         {hasMore && (
           <TouchableOpacity
-            style={styles.item}
+            className="flex-1 items-center gap-2"
             onPress={onPressMore}
             accessibilityRole="button"
             accessibilityLabel="Lainnya">
-            <View style={[styles.iconContainer, styles.moreContainer]}>
-              <Icon icon={Widget} size={28} color={colors.primary[600]} />
+            <View className="h-[45px] w-[45px] items-center justify-center rounded-full bg-primary-100">
+              <Icon
+                icon={Widget}
+                size={22}
+                color={colors.primary[600]}
+              />
             </View>
-            <Text style={styles.label}>Lainnya</Text>
+
+            <Text className="text-center text-xs font-medium text-neutral-900">
+              Lainnya
+            </Text>
           </TouchableOpacity>
         )}
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.lg,
-  },
-  grid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  item: {
-    flex: 1,
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  iconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: radius.full,
-    backgroundColor: colors.neutral[100],
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  icon: {
-    width: 48,
-    height: 48,
-  },
-  badge: {
-    position: 'absolute',
-    top: -4,
-    right: -4,
-    backgroundColor: colors.secondary[500],
-    borderRadius: radius.full,
-    paddingHorizontal: spacing.xs,
-    paddingVertical: 2,
-  },
-  badgeText: {
-    fontSize: 10,
-    fontWeight: fontWeight.bold,
-    color: colors.neutral[0],
-  },
-  moreContainer: {
-    backgroundColor: colors.primary[100],
-  },
-  label: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[900],
-    textAlign: 'center',
-  },
-});
