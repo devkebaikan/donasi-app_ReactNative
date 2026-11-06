@@ -16,10 +16,17 @@ export class ApiError extends Error {
 
 // Helper wajib dipakai di tiap queryFn/mutationFn yang manggil service —
 // `someService.getSomething().then(unwrapResponse)` — supaya kontrak
-// {success, message, data} otomatis terhubung ke error state React Query.
+// {status: 200, message, data} atau {success: true, message, data}
+// otomatis terhubung ke error state React Query.
 export function unwrapResponse<T>(response: ApiResponse<T>): T {
-  if (!response.success) {
-    throw new ApiError(response.message, response.data);
+  const isSuccess =
+    response.success === true ||
+    (typeof response.status === 'number' && response.status >= 200 && response.status < 300) ||
+    (response.success === undefined && response.status === undefined && response.data !== undefined);
+
+  if (!isSuccess) {
+    throw new ApiError(response.message || 'Terjadi kesalahan sistem', response.data);
   }
   return response.data;
 }
+

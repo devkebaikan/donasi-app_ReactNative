@@ -7,6 +7,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import type {BottomSheetBackdropProps} from '@gorhom/bottom-sheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {sanitizeImageUrl} from '@/utils/imageUrl';
 import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
 import type {MenuItem} from '@/components/shared/MenuUtamaGrid';
 
@@ -74,7 +75,7 @@ export const MenuUtamaBottomSheet = forwardRef<
               accessibilityLabel={item.name}>
               <View style={styles.iconWrapper}>
                 <Image
-                  source={{uri: item.image_url}}
+                  source={{uri: sanitizeImageUrl(item.image_url)}}
                   style={styles.itemImage}
                   resizeMode="contain"
                 />

@@ -1776,6 +1776,20 @@ export function resolveMockRequest(method: string, url: string, body: unknown): 
     return ok({success: true, message: 'Berhasil mengambil saldo', data: walletFixture.balance});
   }
 
+  if (httpMethod === 'GET' && path.startsWith('/donors/list')) {
+    return ok({
+      success: true,
+      message: 'Berhasil mengambil daftar donatur',
+      data: [
+        { id: 1, name: 'Ahmad Fauzi', total: 50000 },
+        { id: 2, name: 'Siti Rahma', total: 100000 },
+        { id: 3, name: 'Hamba Allah', total: 25000 },
+        { id: 4, name: 'Budi Santoso', total: 200000 },
+        { id: 5, name: 'Nurul Hidayah', total: 75000 },
+      ],
+    });
+  }
+
   if (httpMethod === 'POST' && path === '/wallet/topup') {
     const {amount, paymentMethodId} = requestBody as TopupBody;
     const {topup} = walletFixture;
@@ -3502,7 +3516,7 @@ export function resolveMockRequest(method: string, url: string, body: unknown): 
     return ok({success: true, message: '', data: reflection});
   }
 
-  if (httpMethod === 'GET' && path === '/pages/program-categories') {
+  if (httpMethod === 'GET' && path === '/program-categories') {
     return ok({
       success: true,
       message: 'berhasil get categories',
@@ -3933,7 +3947,7 @@ export function resolveMockRequest(method: string, url: string, body: unknown): 
     });
   }
 
-  if (httpMethod === 'GET' && path === '/pages/home') {
+  if (httpMethod === 'GET' && path === '/home') {
     return ok({
       success: true,
       message: 'Data retrieved successfully',

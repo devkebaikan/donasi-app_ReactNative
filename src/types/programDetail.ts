@@ -31,7 +31,8 @@ export interface ProgramDetailApiResponse {
   remaining_days: number | null;
   total_beneficiery: number;
   beneficiery_by_news: number;
-  total_donaturs: number;
+  total_donaturs?: number | null;
+  total_donors?: number | null;
   is_rutin: boolean;
   is_favorit: boolean;
   created_at: string;
@@ -60,7 +61,7 @@ export interface ProgramDetailApiResponse {
   nominal_presets: NominalPresetApiItem[] | null;
   packages: DonationPackageApiItem[] | null;
   cta_color: string | null; // hex warna tombol CTA, mis. "#FD6542" — null = pakai default
-  nearest_projects: ProjectSalurTerdekatApiItem[];
+  nearest_projects?: ProjectSalurTerdekatApiItem[] | null;
 }
 
 // Bentuk ringkas project salur untuk komponen "Project Salur Terdekat" di

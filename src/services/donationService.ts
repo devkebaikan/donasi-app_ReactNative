@@ -57,10 +57,11 @@ const SIMULATED_DELAY_MS = 500;
 const PAGE_SIZE = 10;
 
 interface ProgramCategoriesResponse {
-  success: boolean;
-  message: string;
+  status?: number;
+  success?: boolean;
+  message?: string;
   data: Category[];
-  program_list: Program[];
+  program_list?: Program[];
 }
 
 const ORGANIZATIONS = [
@@ -160,7 +161,7 @@ function delay<T>(value: T): Promise<T> {
 
 async function fetchProgramCategoriesPage(): Promise<ProgramCategoriesResponse> {
   const res = await apiClient.get<ProgramCategoriesResponse>(
-    '/pages/program-categories',
+    '/program-categories',
   );
   return res.data;
 }
@@ -301,7 +302,16 @@ export async function getDonationCategories(): Promise<
 > {
   try {
     const page = await getProgramCategoriesPage();
-    return {success: page.success, message: page.message, data: page.data};
+    const isSuccess =
+      page.success === true ||
+      (typeof page.status === 'number' && page.status >= 200 && page.status < 300) ||
+      (page.data != null && Array.isArray(page.data));
+
+    return {
+      success: isSuccess,
+      message: page.message || 'OK',
+      data: Array.isArray(page.data) ? page.data : [],
+    };
   } catch {
     return {
       success: false,
@@ -381,7 +391,7 @@ function mapProgramDetail(raw: ProgramDetailApiResponse): ProgramDetail {
     usedAmount,
     availableAmount: collectedAmount - usedAmount,
     goalAmount: raw.nominal_target ?? Infinity,
-    donaturCount: raw.total_donaturs,
+    donaturCount: raw.total_donors ?? raw.total_donaturs ?? 0,
     daysLeft: raw.remaining_days ?? Infinity,
     progressPercent: hasUnlimitedGoal
       ? 100
@@ -602,7 +612,12 @@ export async function getProgramDetail(
   const res = await apiClient.get<ApiResponse<ProgramDetailApiResponse>>(
     `/programs/link/${encodeURIComponent(link)}`,
   );
-  if (!res.data.success || !res.data.data) {
+  const isSuccess =
+    res.data.success === true ||
+    (typeof res.data.status === 'number' && res.data.status >= 200 && res.data.status < 300) ||
+    res.status === 200;
+
+  if (!isSuccess || !res.data.data) {
     return {
       success: false,
       message: res.data.message || 'Program tidak tersedia',
@@ -611,7 +626,7 @@ export async function getProgramDetail(
   }
   return {
     success: true,
-    message: res.data.message,
+    message: res.data.message || 'OK',
     data: mapProgramDetail(res.data.data),
   };
 }

@@ -101,7 +101,7 @@ export function DonasiRutinCalendar({
                   style={[
                     styles.dayItem,
                     { backgroundColor: dayBg, borderColor: borderDayColor },
-                    isToday && { borderStyle: 'dashed' },
+                    isToday && styles.dayItemToday,
                   ]}>
                   <View
                     style={[
@@ -206,6 +206,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xs,
     borderRadius: radius.md,
     borderWidth: 1,
+  },
+  dayItemToday: {
+    borderStyle: 'dashed',
   },
   iconCircle: {
     // width: 56,

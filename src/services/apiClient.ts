@@ -7,9 +7,11 @@ import {queryClient} from './queryClient';
 
 export const apiClient = axios.create({
   baseURL: ENV.API_BASE_URL,
-  timeout: 10_000,
+  timeout: 15_000,
   headers: {
     'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'X-Client-Key': ENV.CLIENT_KEY,
   },
 });
 
@@ -59,6 +61,9 @@ if (USE_MOCK_DATA) {
 }
 
 apiClient.interceptors.request.use(config => {
+  if (ENV.CLIENT_KEY) {
+    config.headers['X-Client-Key'] = ENV.CLIENT_KEY;
+  }
   const token = useAuthStore.getState().accessToken;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -66,17 +71,21 @@ apiClient.interceptors.request.use(config => {
   return config;
 });
 
+
 apiClient.interceptors.response.use(
   response => response,
   async error => {
     if (error.response?.status === 401) {
-      useAuthStore.getState().clearAuth();
-      // Auth invalid di luar alur logout manual (mis. token expired) —
-      // cache query tetap harus dibersihkan, sama seperti logout manual di
-      // useAccount.ts, supaya data user sebelumnya tidak nyangkut/kebaca
-      // user berikutnya yang login di device yang sama.
-      queryClient.clear();
+      const hadToken = Boolean(useAuthStore.getState().accessToken);
+      if (hadToken) {
+        useAuthStore.getState().clearAuth();
+        // Auth invalid di luar alur logout manual (mis. token expired) —
+        // cache query tetap harus dibersihkan, supaya data user sebelumnya tidak
+        // nyangkut/kebaca user berikutnya yang login di device yang sama.
+        queryClient.clear();
+      }
     }
     return Promise.reject(error);
   },
 );
+

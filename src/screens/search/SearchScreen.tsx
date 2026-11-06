@@ -71,6 +71,8 @@ const TOP_KEYWORDS: TopSearch[] = [
   {id: '4', query: 'infak', count: 389},
 ];
 
+const DEFAULT_ASPECT_RATIO = 1080 / 1920; // 16:9
+
 function DonationSearchItem({
   donation,
   onPress,
@@ -80,9 +82,8 @@ function DonationSearchItem({
   donation: TopDonation;
   onPress: () => void;
   imageHeights: Record<string, number>;
-  setImageHeights: (heights: Record<string, number>) => void;
+  setImageHeights: React.Dispatch<React.SetStateAction<Record<string, number>>>;
 }): React.JSX.Element {
-  const DEFAULT_ASPECT_RATIO = 1080 / 1920; // 16:9
   const imageHeight = imageHeights[donation.id] ?? DONATION_THUMBNAIL_WIDTH * DEFAULT_ASPECT_RATIO;
 
   useEffect(() => {
@@ -90,19 +91,19 @@ function DonationSearchItem({
       donation.image,
       (width, height) => {
         const aspectRatio = height / width;
-        setImageHeights({
-          ...imageHeights,
+        setImageHeights(prev => ({
+          ...prev,
           [donation.id]: DONATION_THUMBNAIL_WIDTH * aspectRatio,
-        });
+        }));
       },
       () => {
-        setImageHeights({
-          ...imageHeights,
+        setImageHeights(prev => ({
+          ...prev,
           [donation.id]: DONATION_THUMBNAIL_WIDTH * DEFAULT_ASPECT_RATIO,
-        });
+        }));
       },
     );
-  }, [donation.image, donation.id]);
+  }, [donation.image, donation.id, setImageHeights]);
 
   return (
     <TouchableOpacity

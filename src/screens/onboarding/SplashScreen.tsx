@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Image,
   TouchableOpacity,
   StatusBar,
   Dimensions,
@@ -14,10 +15,12 @@ import {useSplashNavigation} from '@/hooks/useSplashNavigation';
 
 const {width, height} = Dimensions.get('window');
 
+// Di emulator/development, video decoder berukuran besar (10MB+) sering memicu ion/gralloc memory crash.
+// Kita sediakan fallback ke video ringan jika tersedia, atau logo statis jika video gagal/dinonaktifkan.
 const VIDEO_SOURCE: React.ComponentProps<typeof Video>['source'] | null =
-  require('../../assets/videos/splash.mp4');
+  require('../../assets/images/loading_splash/loading_splash2.mp4');
 
-const COUNTDOWN_START = 5;
+const COUNTDOWN_START = 3;
 
 // Onboarding wajib tampil setiap kali aplikasi dibuka — splash selalu
 // menjalankan alur "first launch" (video/countdown → Onboarding).
@@ -26,6 +29,7 @@ export default function SplashScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const hasNavigated = useRef(false);
   const [videoFailed, setVideoFailed] = useState(!VIDEO_SOURCE);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [countdown, setCountdown] = useState(COUNTDOWN_START);
 
   const safeNavigateToOnboarding = useCallback((): void => {
@@ -33,6 +37,7 @@ export default function SplashScreen(): React.JSX.Element {
       return;
     }
     hasNavigated.current = true;
+    setIsPlaying(false);
     navigateToOnboarding();
   }, [navigateToOnboarding]);
 
@@ -59,16 +64,24 @@ export default function SplashScreen(): React.JSX.Element {
     <View style={styles.container}>
       <StatusBar hidden />
 
-      {VIDEO_SOURCE && !videoFailed && (
+      {VIDEO_SOURCE && !videoFailed && isPlaying ? (
         <Video
           source={VIDEO_SOURCE}
           style={styles.video}
           resizeMode="cover"
           muted
-          paused={false}
+          paused={!isPlaying}
           onEnd={safeNavigateToOnboarding}
           onError={() => setVideoFailed(true)}
         />
+      ) : (
+        <View style={styles.fallbackContainer}>
+          <Image
+            source={require('../../assets/images/logo/logo-long-white.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
       )}
 
       <TouchableOpacity
@@ -91,6 +104,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width,
     height,
+  },
+  fallbackContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: spacing.xl,
+  },
+  logo: {
+    width: width * 0.65,
+    height: 80,
   },
   button: {
     position: 'absolute',

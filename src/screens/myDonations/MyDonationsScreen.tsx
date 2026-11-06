@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   RefreshControl,
-  UIManager,
-  findNodeHandle,
   StyleSheet,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
@@ -15,7 +13,6 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
-  AltArrowRight,
   AltArrowDown,
   HandMoney,
   HandHeart,
@@ -159,16 +156,6 @@ export default function MyDonationsScreen(): React.JSX.Element {
 
   function handlePressDonateAgain(): void {
     navigation.navigate('Donations');
-  }
-
-  function handlePressSeeAllHistory(): void {
-    setActiveTab('donasi');
-    const nodeHandle = findNodeHandle(historySectionRef.current);
-    if (nodeHandle) {
-      UIManager.measure(nodeHandle, (_x, _y, _width, _height, _pageX, pageY) => {
-        scrollViewRef.current?.scrollTo({ y: pageY - spacing.lg, animated: true });
-      });
-    }
   }
 
   function handlePressTransaction(donation: Donation): void {

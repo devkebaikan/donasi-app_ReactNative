@@ -11,6 +11,8 @@ import {unwrapResponse} from '@/utils/apiError';
 import {queryKeys} from '@/utils/queryKeys';
 import {showToast} from '@/utils/toast';
 import type {DonasiBersamaBatch} from '@/types/donasiBersama';
+import type {ApiResponse} from '@/types/api';
+
 
 type State = {
   batches: DonasiBersamaBatch[];
@@ -55,14 +57,19 @@ export function useDonasiBersamaBatches(groupId: string): State & Actions {
   // Empat aksi batch memakai jalur yang sama: jalankan, tampilkan pesan,
   // segarkan daftar, lalu ikut menyegarkan badge batch di detail grup.
   async function runMutation(
-    action: () => Promise<{success: boolean; message: string; data: unknown}>,
+    action: () => Promise<ApiResponse<unknown>>,
   ): Promise<boolean> {
     setIsMutating(true);
     setFieldErrors({});
     try {
       const response = await action();
-      if (!response.success) {
+      const isSuccess =
+        response.success === true ||
+        (typeof response.status === 'number' && response.status >= 200 && response.status < 300) ||
+        (response.success === undefined && response.status === undefined);
+      if (!isSuccess) {
         showToast(response.message);
+
         setFieldErrors(
           (response.data as Record<string, string> | null) ?? {},
         );

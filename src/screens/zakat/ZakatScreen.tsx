@@ -32,10 +32,6 @@ export default function ZakatScreen({
     navigation.goBack();
   }
 
-  function handlePressKonsultasi(): void {
-    showToast('Segera hadir');
-  }
-
   function handlePressKalkulator(): void {
     navigation.navigate('ZakatKalkulator');
   }

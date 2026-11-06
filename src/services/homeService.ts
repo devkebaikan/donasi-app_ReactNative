@@ -1,16 +1,10 @@
 import { apiClient } from './apiClient';
 import type { ApiResponse } from '@/types/api';
+import type { HomePageData } from '@/types/home';
 import type { Banner } from '@/types/banner';
 import type { Category } from '@/types/category';
 import type { Program } from '@/types/program';
-import type { PrayerTime } from '@/types/prayerTime';
 import type { Promo } from '@/types/promo';
-
-interface MainBanner {
-  id: string;
-  image_url: string;
-  programId: number;
-}
 
 interface DaySchedule {
   day_name: string;
@@ -24,13 +18,6 @@ export interface DonasiRutinCalendarData {
   weekly_schedule: DaySchedule[];
 }
 
-interface MenuUtama {
-  id: number;
-  name: string;
-  image_url: string;
-  screen: string;
-}
-
 export interface ProgramTheme {
   nama_tema: string;
   deskripsi_tema: string;
@@ -39,26 +26,13 @@ export interface ProgramTheme {
   program: Program[];
 }
 
-interface HomePageData {
-  home_banner: Banner[];
-  main_banner: MainBanner;
-  second_banner: MainBanner;
-  menu_utama: MenuUtama[];
-  program_tema_1: ProgramTheme;
-  program_tema_2: ProgramTheme;
-  program_mendesak: ProgramTheme;
-  program_category: Category[];
-  program_list: Program[];
-  wallet_balance: number;
-  next_prayer_time: PrayerTime | null;
-  popup_promo: Promo[];
-  kalender_donasi_rutin: DonasiRutinCalendarData;
-}
+export type { HomePageData };
 
 export async function getHomePage(): Promise<ApiResponse<HomePageData>> {
   const res = await apiClient.get<ApiResponse<HomePageData>>('/pages/home');
   return res.data;
 }
+
 
 export async function getBanners(): Promise<ApiResponse<Banner[]>> {
   const res = await apiClient.get<ApiResponse<Banner[]>>('/banners');

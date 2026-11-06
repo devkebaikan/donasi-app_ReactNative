@@ -5,7 +5,6 @@ import {
   TextInput,
   FlatList,
   RefreshControl,
-  StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
@@ -22,7 +21,7 @@ import {DonationSortDirectionToggle} from '@/components/shared/DonationSortDirec
 import {DonationListToggle} from '@/components/shared/DonationListToggle';
 import {DonationListCard} from '@/components/shared/DonationListCard';
 import {useAllDonations} from '@/hooks/useAllDonations';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import {colors} from '@/theme';
 import type {RootStackNavigationProp} from '@/types/navigation';
 import type {Program} from '@/types/program';
 
@@ -42,8 +41,6 @@ export default function AllDonationsScreen({
   const insets = useSafeAreaInsets();
   const categorySheetRef = useRef<BottomSheetModal>(null);
 
-  // Display field: updates on every keystroke. Only committed to searchQuery
-  // (and thus to the actual list fetch) when the user submits.
   const [searchInput, setSearchInput] = useState(route.params?.search || '');
   const [searchQuery, setSearchQuery] = useState(route.params?.search || '');
 
@@ -96,19 +93,20 @@ export default function AllDonationsScreen({
   }
 
   return (
-    <View style={[styles.container, {paddingTop: insets.top}]}>
-      <View style={styles.header}>
+    <View className="flex-1 bg-white" style={{paddingTop: insets.top}}>
+      {/* Header Search */}
+      <View className="flex-row items-center px-4 py-3 border-b border-neutral-200 gap-3">
         <TouchableOpacity
-          style={styles.backButton}
+          className="min-h-[44px] min-w-[44px] items-center justify-center -ml-2"
           onPress={handleBack}
           accessibilityRole="button"
           accessibilityLabel="Kembali">
           <Icon icon={ArrowLeft} size={24} color={colors.neutral[700]} />
         </TouchableOpacity>
-        <View style={styles.searchInputWrapper}>
+        <View className="flex-1 flex-row items-center bg-neutral-100 rounded-xl px-3 py-2 gap-2">
           <Icon icon={Magnifer} size={20} color={colors.neutral[400]} />
           <TextInput
-            style={styles.searchInput}
+            className="flex-1 text-sm text-neutral-900 p-0"
             placeholder="Cari program donasi.."
             placeholderTextColor={colors.neutral[400]}
             value={searchInput}
@@ -128,7 +126,7 @@ export default function AllDonationsScreen({
       </View>
 
       {isLoading ? (
-        <View style={styles.loadingContainer}>
+        <View className="flex-1 items-center justify-center">
           <ActivityIndicator color={colors.primary[500]} />
         </View>
       ) : (
@@ -138,9 +136,9 @@ export default function AllDonationsScreen({
           data={isListLoading ? [] : donations}
           keyExtractor={(item, index) => `${item.id}-${index}`}
           numColumns={viewMode === 'grid' ? 2 : 1}
-          columnWrapperStyle={viewMode === 'grid' ? styles.gridRow : undefined}
+          columnWrapperStyle={viewMode === 'grid' ? {gap: 12, paddingHorizontal: 16} : undefined}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.listContent}
+          contentContainerClassName="gap-3 pb-8"
           onEndReachedThreshold={0.4}
           onEndReached={loadMore}
           refreshControl={
@@ -153,27 +151,23 @@ export default function AllDonationsScreen({
           }
           ListHeaderComponent={
             <>
-              <View style={styles.section}>
-                <View style={styles.categoryGridWrapper}>
-                  <DonationCategoryGrid
-                    categories={categories}
-                    selectedCategoryId={selectedCategoryId}
-                    onSelectCategory={selectCategory}
-                    onPressMore={handlePressMoreCategories}
-                  />
-                </View>
-              </View>
-              <View style={styles.gap} />
-              <View style={styles.section}>
-                <FeaturedDonationsSection
-                  programs={featuredPrograms}
-                  onPressProgram={handleProgramPress}
+              <View className="px-4 pt-3">
+                <DonationCategoryGrid
+                  categories={categories}
+                  selectedCategoryId={selectedCategoryId}
+                  onSelectCategory={selectCategory}
+                  onPressMore={handlePressMoreCategories}
                 />
               </View>
-              <View style={styles.gap} />
-              <View style={styles.section}>
-                <View style={styles.toolbar}>
-                  <View style={styles.sortGroup}>
+              <View className="h-2 bg-neutral-100 my-2" />
+              <FeaturedDonationsSection
+                programs={featuredPrograms}
+                onPressProgram={handleProgramPress}
+              />
+              {featuredPrograms.length > 0 && <View className="h-2 bg-neutral-100 my-2" />}
+              <View className="px-4 py-2">
+                <View className="flex-row items-center justify-between">
+                  <View className="flex-row items-center gap-2">
                     <DonationFilterDropdown
                       value={sortOption}
                       onChange={setSortOption}
@@ -189,11 +183,7 @@ export default function AllDonationsScreen({
             </>
           }
           renderItem={({item}) => (
-            <View
-              style={[
-                styles.section,
-                viewMode === 'grid' ? styles.gridItem : styles.listItemWrapper,
-              ]}>
+            <View className={viewMode === 'grid' ? 'flex-1 mb-2' : 'px-4'}>
               <DonationListCard
                 program={item}
                 variant={viewMode}
@@ -203,19 +193,21 @@ export default function AllDonationsScreen({
           )}
           ListEmptyComponent={
             isListLoading ? (
-              <View style={styles.listLoading} testID="donation-list-loading">
+              <View className="py-12 items-center" testID="donation-list-loading">
                 <ActivityIndicator color={colors.primary[500]} />
               </View>
             ) : (
-              <View style={styles.emptyState} testID="donation-list-empty">
-                <View style={styles.emptyImage} />
-                <Text style={styles.emptyText}>Program tidak tersedia</Text>
+              <View className="items-center justify-center py-16 gap-3" testID="donation-list-empty">
+                <View className="w-20 h-20 rounded-full bg-neutral-100 items-center justify-center">
+                  <Text className="text-4xl">📭</Text>
+                </View>
+                <Text className="text-sm font-medium text-neutral-500">Program tidak tersedia</Text>
               </View>
             )
           }
           ListFooterComponent={
             isLoadingMore ? (
-              <View style={styles.footerLoading}>
+              <View className="py-4 items-center">
                 <ActivityIndicator color={colors.primary[500]} />
               </View>
             ) : null
@@ -232,109 +224,3 @@ export default function AllDonationsScreen({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral[0],
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.neutral[200],
-    gap: spacing.md,
-  },
-  backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  searchInputWrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: spacing.md,
-    height: 44,
-    borderRadius: radius.lg,
-    backgroundColor: colors.neutral[100],
-    gap: spacing.sm,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: fontSize.sm,
-    color: colors.neutral[900],
-  },
-  loadingContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  listContent: {
-    paddingBottom: spacing.lg,
-    gap: spacing.md,
-  },
-  section: {
-    backgroundColor: colors.neutral[0],
-  },
-  gap: {
-    height: spacing.md,
-    backgroundColor: colors.neutral[50],
-  },
-  categoryGridWrapper: {
-    paddingHorizontal: spacing.lg,
-  },
-  listItemWrapper: {
-    paddingHorizontal: spacing.lg,
-  },
-  toolbar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    paddingBottom: spacing.md,
-    gap: spacing.md,
-  },
-  sortGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  listLoading: {
-    paddingVertical: spacing['2xl'],
-    alignItems: 'center',
-  },
-  emptyState: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: spacing['3xl'],
-    gap: spacing.md,
-  },
-  emptyImage: {
-    width: 120,
-    height: 120,
-    borderRadius: radius.full,
-    backgroundColor: colors.neutral[100],
-  },
-  emptyText: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[500],
-  },
-  gridRow: {
-    paddingHorizontal: spacing.lg,
-    gap: spacing.md,
-  },
-  gridItem: {
-    flex: 1,
-    marginBottom: spacing.md,
-  },
-  footerLoading: {
-    paddingVertical: spacing.lg,
-    alignItems: 'center',
-  },
-});

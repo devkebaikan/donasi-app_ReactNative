@@ -1,68 +1,61 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import {Icon} from '@/components/ui/Icon';
-import {ClockCircle} from '@solar-icons/react-native/Linear';
-import {Button} from '@/components/ui/Button';
-import {colors} from '@/theme';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {formatCurrency} from '@/utils/formatCurrency';
-import type {PrayerTime} from '@/types/prayerTime';
 
 interface SaldoCardProps {
   balance: number;
-  nextPrayerTime: PrayerTime | null;
-  hijriDate: string;
   isAuthenticated: boolean;
   onPressAction: () => void;
+  className?: string;
 }
 
 export function SaldoCard({
   balance,
-  nextPrayerTime,
-  hijriDate,
   isAuthenticated,
   onPressAction,
+  className = '',
 }: SaldoCardProps): React.JSX.Element {
-  const displayBalance = isAuthenticated ? formatCurrency(balance) : '●●●●●●●●';
+  const displayBalance = isAuthenticated ? formatCurrency(balance) : '*******';
   const buttonLabel = isAuthenticated ? 'Top Up' : 'Masuk';
 
   return (
-    <View className="bg-white px-6 py-4 gap-3 shadow-sm">
-      <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center gap-3.5 flex-1">
-          <View className="w-8 h-8 rounded-xl items-center justify-center">
-            <Image
-              source={require('@/assets/images/icons/wallet.png')}
-              className="w-full h-full"
-              resizeMode="contain"
-            />
-          </View>
-          <View className="flex-1 gap-1">
-            <Text className="text-sm font-medium text-neutral-600">Saldo Saku Kebaikan</Text>
-            <Text
-              className={
-                isAuthenticated
-                  ? 'text-lg font-bold text-neutral-900'
-                  : 'text-xs font-normal text-neutral-400'
-              }>
-              {displayBalance}
-            </Text>
-          </View>
+    <View className={`mx-8 -mt-4 mb-2 z-10 ${className}`}>
+      <View className="bg-white rounded-xl px-4 py-3 flex-row items-center gap-3 border border-neutral-100 shadow-md">
+        {/* Wallet Icon with circular tinted background */}
+        <View className="w-8 h-8 items-center justify-center shrink-0">
+          <Image
+            source={require('@/assets/images/icons/wallet.png')}
+            className="w-full h-full"
+            resizeMode="contain"
+          />
         </View>
-        <Button label={buttonLabel} onPress={onPressAction} size="smWide" />
-      </View>
 
-      <View className="h-px bg-neutral-200" />
-
-      <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center gap-1.5">
-          <Icon icon={ClockCircle} size={14} color={colors.neutral[900]} />
-          <Text className="text-xs font-medium text-neutral-600">
-            {nextPrayerTime
-              ? `${nextPrayerTime.name} ${nextPrayerTime.time}`
-              : '-'}
+        {/* Saldo Details */}
+        <View className="flex-1 min-w-0 justify-center">
+          <Text className="text-[11px] text-neutral-400 mb-0.5 leading-none">
+            Saldo Saku Kebaikan
+          </Text>
+          <Text
+            className={
+              isAuthenticated
+                ? 'text-base font-bold text-neutral-800'
+                : 'text-sm font-medium text-neutral-400 tracking-widest'
+            }>
+            {displayBalance}
           </Text>
         </View>
-        <Text className="text-xs font-medium text-neutral-600">{hijriDate}</Text>
+
+        {/* Action Button: Top Up or Masuk */}
+        <TouchableOpacity
+          className="bg-secondary-500 px-4 py-2 rounded-xl shrink-0 items-center justify-center"
+          onPress={onPressAction}
+          activeOpacity={0.85}
+          accessibilityRole="button"
+          accessibilityLabel={buttonLabel}>
+          <Text className="text-white text-xs font-semibold">
+            {buttonLabel}
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

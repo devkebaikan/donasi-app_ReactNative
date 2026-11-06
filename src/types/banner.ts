@@ -3,4 +3,6 @@ export interface Banner {
   imageUrl: string;
   title: string;
   programId?: number;
+  link?: string;
 }
+

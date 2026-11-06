@@ -1,12 +1,10 @@
 import React, {useRef} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import type {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {ProgramCard} from '@/components/shared/ProgramCard';
 import {Button} from '@/components/ui/Button';
 import {DonationCategoryGrid} from '@/components/shared/DonationCategoryGrid';
 import {CategoryBottomSheet} from '@/components/shared/CategoryBottomSheet';
-import {colors, spacing, fontSize, fontWeight} from '@/theme';
-import {screenWidth} from '@/utils/screen';
 import type {Category} from '@/types/category';
 import type {Program} from '@/types/program';
 
@@ -17,6 +15,7 @@ interface ProgramListSectionProps {
   onSelectCategory: (categoryId: number | null) => void;
   onPressProgram: (program: Program) => void;
   onPressSeeMore: () => void;
+  className?: string;
 }
 
 export function ProgramListSection({
@@ -26,11 +25,12 @@ export function ProgramListSection({
   onSelectCategory,
   onPressProgram,
   onPressSeeMore,
+  className = '',
 }: ProgramListSectionProps): React.JSX.Element {
   const categorySheetRef = useRef<BottomSheetModal>(null);
 
   const filteredPrograms = selectedCategoryId
-    ? programs.filter(program => String(program.category.id) === String(selectedCategoryId))
+    ? programs.filter(program => String(program.category?.id) === String(selectedCategoryId))
     : programs;
 
   function handleSelectCategory(category: Category): void {
@@ -47,10 +47,12 @@ export function ProgramListSection({
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bantu Kategori Favorite</Text>
+    <View className={`py-6 gap-3 ${className}`}>
+      <Text className="text-base font-semibold text-neutral-900 px-4">
+        Bantu Kategori Favorite
+      </Text>
 
-      <View style={styles.categoryGridWrapper}>
+      <View className="px-4">
         <DonationCategoryGrid
           categories={categories}
           selectedCategoryId={selectedCategoryId}
@@ -59,13 +61,15 @@ export function ProgramListSection({
         />
       </View>
 
-      <View style={styles.list}>
+      <View className="px-4 gap-2">
         {filteredPrograms.length === 0 ? (
-          <View style={styles.emptyState}>
-            <View style={styles.emptyStateImagePlaceholder}>
-              <Text style={styles.emptyStateImageText}>📭</Text>
+          <View className="min-h-[240px] bg-neutral-50 rounded-xl items-center justify-center py-6 gap-3">
+            <View className="w-20 h-20 rounded-full bg-neutral-100 items-center justify-center">
+              <Text className="text-5xl">📭</Text>
             </View>
-            <Text style={styles.emptyStateText}>Program tidak tersedia</Text>
+            <Text className="text-base font-medium text-neutral-500 text-center">
+              Program tidak tersedia
+            </Text>
           </View>
         ) : (
           filteredPrograms.map(program => (
@@ -78,11 +82,11 @@ export function ProgramListSection({
         )}
       </View>
 
-      <View style={styles.seeMoreButtonWrapper}>
+      <View className="mx-4">
         <Button
-          label="Lihat 352 Program Lainnya"
+          label="Program Lainnya"
           onPress={onPressSeeMore}
-          variant="ghost"
+          // variant="ghost"
         />
       </View>
 
@@ -95,53 +99,3 @@ export function ProgramListSection({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: spacing.xl,
-    paddingBottom: spacing.xl,
-    gap: spacing.md,
-  },
-  title: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-    paddingHorizontal: spacing.lg,
-  },
-  categoryGridWrapper: {
-    paddingHorizontal: spacing.lg,
-  },
-  list: {
-    paddingHorizontal: spacing.lg,
-    gap: spacing.sm,
-  },
-  seeMoreButtonWrapper: {
-    marginHorizontal: spacing.lg,
-  },
-  emptyState: {
-    minHeight: 240,
-    backgroundColor: colors.neutral[50],
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: spacing.xl,
-    gap: spacing.md,
-  },
-  emptyStateImagePlaceholder: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: colors.neutral[100],
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  emptyStateImageText: {
-    fontSize: 48,
-  },
-  emptyStateText: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[500],
-    textAlign: 'center',
-  },
-});

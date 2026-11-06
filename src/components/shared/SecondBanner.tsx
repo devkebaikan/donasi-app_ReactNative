@@ -16,20 +16,20 @@ export function SecondBanner({
 }: SecondBannerProps): React.JSX.Element {
   const [imageError, setImageError] = useState(false);
 
-  const hasValidData = imageUrl && programId && onPress;
-  const showImage = hasValidData && !imageError;
+  const showImage = Boolean(imageUrl) && !imageError;
 
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        if (hasValidData) {
+        if (onPress && programId !== undefined) {
           onPress(programId);
         }
       }}
-      activeOpacity={hasValidData ? 0.7 : 1}
+      activeOpacity={onPress ? 0.7 : 1}
       accessibilityRole="button"
       accessibilityLabel="Second banner">
+
       {showImage ? (
         <Image
           source={{uri: imageUrl}}

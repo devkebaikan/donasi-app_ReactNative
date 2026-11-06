@@ -1,59 +1,77 @@
-import React, {useState} from 'react';
-import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {colors} from '@/theme';
-import {screenWidth} from '@/utils/screen';
+import React, {useState, useEffect} from 'react';
+import {View, Image, TouchableOpacity} from 'react-native';
+import {sanitizeImageUrl} from '@/utils/imageUrl';
 
 interface MainBannerProps {
   imageUrl?: string;
+  link?: string;
   programId?: number;
-  onPress?: (programId: number) => void;
+  onPress?: (target: string | number) => void;
+  className?: string;
 }
+
+const DEFAULT_ASPECT_RATIO = 3;
 
 export function MainBanner({
   imageUrl,
+  link,
   programId,
   onPress,
+  className = '',
 }: MainBannerProps): React.JSX.Element {
   const [imageError, setImageError] = useState(false);
+  const [aspectRatio, setAspectRatio] = useState<number>(DEFAULT_ASPECT_RATIO);
+  const safeImageUrl = sanitizeImageUrl(imageUrl);
 
-  const hasValidData = imageUrl && programId && onPress;
-  const showImage = hasValidData && !imageError;
+  useEffect(() => {
+    if (!safeImageUrl) {
+      return;
+    }
+    setImageError(false);
+    Image.getSize(
+      safeImageUrl,
+      (width, height) => {
+        if (width > 0 && height > 0) {
+          setAspectRatio(width / height);
+        }
+      },
+      () => {
+        setImageError(true);
+      },
+    );
+  }, [safeImageUrl]);
+
+  const showImage = Boolean(safeImageUrl) && !imageError;
+  const target = link || programId;
+
+  if (!safeImageUrl) {
+    return <View />;
+  }
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      className={`w-full overflow-hidden ${className}`}
+      style={{aspectRatio}}
       onPress={() => {
-        if (hasValidData) {
-          onPress(programId);
+        if (onPress && target !== undefined) {
+          onPress(target);
         }
       }}
-      activeOpacity={hasValidData ? 0.7 : 1}
+      activeOpacity={onPress && target ? 0.85 : 1}
       accessibilityRole="button"
-      accessibilityLabel="Main banner">
+      accessibilityLabel="Banner Promosi">
       {showImage ? (
         <Image
-          source={{uri: imageUrl}}
-          style={styles.image}
-          resizeMode="cover"
+          source={{uri: safeImageUrl}}
+          className="w-full h-full"
+          style={{aspectRatio}}
+          resizeMode="contain"
           onError={() => setImageError(true)}
           accessibilityRole="image"
         />
       ) : (
-        <View style={[styles.image, styles.placeholder]} />
+        <View className="w-full h-full bg-neutral-100" />
       )}
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-  },
-  image: {
-    width: screenWidth,
-    height: screenWidth * 0.5,
-    backgroundColor: colors.neutral[100],
-  },
-  placeholder: {
-    backgroundColor: colors.neutral[100],
-  },
-});

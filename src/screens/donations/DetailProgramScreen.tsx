@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
 } from 'react-native';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -33,7 +32,8 @@ import {useDetailProgram} from '@/hooks/useDetailProgram';
 import {usePaymentMethodSelection} from '@/hooks/usePaymentMethodSelection';
 import {useAuthStore} from '@/stores/authStore';
 import {showToast} from '@/utils/toast';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import {colors} from '@/theme';
+import {sanitizeImageUrl} from '@/utils/imageUrl';
 import type {DetailProgramScreenProps, RootStackNavigationProp} from '@/types/navigation';
 import type {DonaturSort} from '@/types/programDetail';
 import type {PaymentMethod} from '@/types/payment';
@@ -115,9 +115,8 @@ export default function DetailProgramScreen({
       setConfirmedAmount(null);
       setConfirmedLabel('Nominal Donasi');
       resetSelection();
-      setNominalSheetKey(key => key + 1);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []),
+      setNominalSheetKey(currentKey => currentKey + 1);
+    }, [resetSelection]),
   );
 
   useEffect(() => {
@@ -232,10 +231,6 @@ export default function DetailProgramScreen({
       programTitle: program.title,
       programImageUrl: program.imageUrl,
     };
-    // Melihat program boleh tanpa login; mengatur donasi rutin tidak. Ini
-    // SATU-SATUNYA gerbang login untuk alur rutin — tab "Pilihan Rutin" cuma
-    // mengantar ke halaman ini, tidak punya jalan pintas ke form.
-    // Lihat docs/08-features/donasi-rutin/README.md.
     if (!isAuthenticated) {
       navigation.navigate('Login', {
         redirectTo: {screen: 'DonasiRutinSetup', params},
@@ -273,7 +268,7 @@ export default function DetailProgramScreen({
 
   if (isLoading) {
     return (
-      <View style={[styles.container, styles.centerContent]}>
+      <View className="flex-1 bg-white items-center justify-center">
         <ActivityIndicator color={colors.primary[500]} />
       </View>
     );
@@ -281,7 +276,7 @@ export default function DetailProgramScreen({
 
   if (isNotFound || !program) {
     return (
-      <View style={[styles.container, {paddingTop: insets.top}]}>
+      <View className="flex-1 bg-white" style={{paddingTop: insets.top}}>
         <DetailProgramHeader
           title="Detail Program"
           onPressBack={handleBack}
@@ -301,7 +296,7 @@ export default function DetailProgramScreen({
   }
 
   return (
-    <View style={[styles.container, {paddingTop: insets.top}]}>
+    <View className="flex-1 bg-white" style={{paddingTop: insets.top}}>
       <DetailProgramHeader
         title={program.title}
         onPressBack={handleBack}
@@ -309,16 +304,16 @@ export default function DetailProgramScreen({
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}>
-        <View style={styles.mediaWrapper}>
+        contentContainerClassName="pb-32">
+        <View className="relative">
           <Image
-            source={{uri: program.imageUrl}}
-            style={styles.media}
+            source={{uri: sanitizeImageUrl(program.imageUrl)}}
+            className="w-full h-56 bg-neutral-200"
             resizeMode="cover"
             accessibilityRole="image"
             accessibilityLabel={program.title}
           />
-          <View style={styles.salesNotifOverlay}>
+          <View className="absolute left-4 right-4 bottom-3">
             <SalesNotifCard items={salesNotif} />
           </View>
         </View>
@@ -330,9 +325,6 @@ export default function DetailProgramScreen({
           />
         ) : null}
 
-        {/* "Project Salur Terdekat" ikut tersembunyi sampai "Selengkapnya"
-            ditekan — satu paket dengan rincian capaian, bukan section
-            berdiri sendiri seperti sebelumnya. */}
         <ProgramInfoCapaian
           program={program}
           expandedContent={
@@ -343,10 +335,7 @@ export default function DetailProgramScreen({
           }
         />
 
-        {/* Note + kartu penggalang dana satu blok: dua-duanya menerangkan
-            angka di blok capaian tepat di atasnya, jadi jaraknya dirapatkan
-            (gap sm) alih-alih dua section terpisah dengan padding sendiri. */}
-        <View style={styles.noteSection}>
+        <View className="px-4 pb-3 gap-2">
           <ProgramAvailabilityNote />
           {program.organization ? (
             <FundraiserCard
@@ -358,9 +347,9 @@ export default function DetailProgramScreen({
 
         <ProgramTabBar activeTab={activeTab} onChange={setActiveTab} />
 
-        <View style={styles.tabContent}>
+        <View className="py-3">
           {activeTab === 'about' && (
-            <View style={styles.section}>
+            <View className="px-4 py-3 gap-2">
               {program.contentHtml ? (
                 <HtmlContent html={program.contentHtml} />
               ) : (
@@ -371,14 +360,14 @@ export default function DetailProgramScreen({
 
           {activeTab === 'projects' &&
             (isProjectsLoading ? (
-              <View style={styles.tabLoading}>
+              <View className="py-8 items-center">
                 <ActivityIndicator color={colors.primary[500]} />
               </View>
             ) : projects.length === 0 ? (
               <EmptyState icon={FileText} title="Belum ada project salur" />
             ) : (
-              <View style={styles.listSection}>
-                <View style={styles.timelineWrapper}>
+              <View className="px-4 gap-3">
+                <View className="relative">
                   {projects.slice(0, SALUR_LIST_LIMIT).map((project, index, visible) => (
                     <SalurTimelineItem
                       key={project.id}
@@ -399,42 +388,40 @@ export default function DetailProgramScreen({
 
           {activeTab === 'donatur' &&
             (isDonaturLoading ? (
-              <View style={styles.tabLoading}>
+              <View className="py-8 items-center">
                 <ActivityIndicator color={colors.primary[500]} />
               </View>
             ) : (
-              <View style={styles.listSection}>
-                <View style={styles.donaturHeader}>
-                  <Text style={styles.donaturTotal}>
+              <View className="px-4 gap-3">
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-base font-semibold text-neutral-900">
                     {program.donaturCount.toLocaleString('id-ID')} Donatur
                   </Text>
                   <TouchableOpacity
                     onPress={handleSeeAll}
                     accessibilityRole="button"
                     accessibilityLabel="Lihat semua donatur">
-                    <Text style={styles.seeAll}>Lihat semua</Text>
+                    <Text className="text-sm font-semibold text-primary-600 py-2">Lihat semua</Text>
                   </TouchableOpacity>
                 </View>
 
-                <View style={styles.donaturSortRow}>
+                <View className="flex-row gap-2">
                   {DONATUR_SORT_OPTIONS.map(option => {
                     const isActive = option.value === donaturSort;
                     return (
                       <TouchableOpacity
                         key={option.value}
-                        style={[
-                          styles.donaturSortChip,
-                          isActive && styles.donaturSortChipActive,
-                        ]}
+                        className={`px-4 py-1.5 rounded-full ${
+                          isActive ? 'bg-primary-500' : 'bg-neutral-100'
+                        }`}
                         onPress={() => setDonaturSort(option.value)}
                         accessibilityRole="button"
                         accessibilityLabel={`Urutkan donatur ${option.label}`}
                         accessibilityState={{selected: isActive}}>
                         <Text
-                          style={[
-                            styles.donaturSortLabel,
-                            isActive && styles.donaturSortLabelActive,
-                          ]}>
+                          className={`text-xs font-medium ${
+                            isActive ? 'text-white' : 'text-neutral-600'
+                          }`}>
                           {option.label}
                         </Text>
                       </TouchableOpacity>
@@ -458,14 +445,14 @@ export default function DetailProgramScreen({
 
           {activeTab === 'reports' &&
             (isProjectsLoading ? (
-              <View style={styles.tabLoading}>
+              <View className="py-8 items-center">
                 <ActivityIndicator color={colors.primary[500]} />
               </View>
             ) : reportSalur.length === 0 ? (
               <EmptyState icon={FileText} title="Belum ada report salur" />
             ) : (
-              <View style={styles.listSection}>
-                <View style={styles.timelineWrapper}>
+              <View className="px-4 gap-3">
+                <View className="relative">
                   {reportSalur.slice(0, SALUR_LIST_LIMIT).map((report, index, visible) => (
                     <SalurTimelineItem
                       key={report.id}
@@ -529,92 +516,3 @@ export default function DetailProgramScreen({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral[0],
-  },
-  centerContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  scrollContent: {
-    paddingBottom: spacing['4xl'] * 2,
-  },
-  mediaWrapper: {
-    position: 'relative',
-  },
-  media: {
-    width: '100%',
-    height: 220,
-    backgroundColor: colors.neutral[200],
-  },
-  salesNotifOverlay: {
-    position: 'absolute',
-    left: spacing.lg,
-    right: spacing.lg,
-    bottom: spacing.md,
-  },
-  section: {
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    gap: spacing.sm,
-  },
-  noteSection: {
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.md,
-    gap: spacing.sm,
-  },
-  tabContent: {
-    paddingVertical: spacing.md,
-  },
-  listSection: {
-    paddingHorizontal: spacing.lg,
-    gap: spacing.md,
-  },
-  tabLoading: {
-    paddingVertical: spacing['2xl'],
-    alignItems: 'center',
-  },
-  timelineWrapper: {
-    position: 'relative',
-  },
-  donaturHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  donaturTotal: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  seeAll: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.semiBold,
-    color: colors.primary[600],
-    paddingVertical: spacing.sm,
-  },
-  donaturSortRow: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-  },
-  donaturSortChip: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-    borderRadius: radius.full,
-    backgroundColor: colors.neutral[100],
-  },
-  donaturSortChipActive: {
-    backgroundColor: colors.primary[500],
-  },
-  donaturSortLabel: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[600],
-  },
-  donaturSortLabelActive: {
-    color: colors.neutral[0],
-  },
-});

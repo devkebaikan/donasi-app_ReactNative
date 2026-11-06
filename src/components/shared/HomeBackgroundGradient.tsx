@@ -11,7 +11,7 @@ export function HomeBackgroundGradient({
   children,
 }: HomeBackgroundGradientProps): React.JSX.Element {
   return (
-    <>
+    <View style={StyleSheet.absoluteFill} pointerEvents="none">
       <LinearGradient
         colors={[colors.primary[200], colors.neutral[0], colors.neutral[0]]}
         start={{ x: 0, y: 0 }}
@@ -20,7 +20,7 @@ export function HomeBackgroundGradient({
       />
 
       {/* Floating Orbs — Glassmorphism Pastel */}
-      <View style={styles.orbsContainer} pointerEvents="none">
+      <View style={styles.orbsContainer}>
         {/* Orb hijau (primary) — sisi kiri */}
         <View style={[styles.orb, styles.orbLargeGreen]} />
 
@@ -32,7 +32,7 @@ export function HomeBackgroundGradient({
       </View>
 
       {children}
-    </>
+    </View>
   );
 }
 

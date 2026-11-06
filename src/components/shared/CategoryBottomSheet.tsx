@@ -8,6 +8,7 @@ import {
 import type {BottomSheetBackdropProps} from '@gorhom/bottom-sheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {CategorySelectedBadge} from '@/components/shared/CategorySelectedBadge';
+import {sanitizeImageUrl} from '@/utils/imageUrl';
 import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
 import type {Category} from '@/types/category';
 
@@ -82,7 +83,7 @@ export const CategoryBottomSheet = forwardRef<
                     isSelected && styles.iconWrapperSelected,
                   ]}>
                   <Image
-                    source={{uri: category.image_url}}
+                    source={{uri: sanitizeImageUrl(category.image_url)}}
                     style={styles.categoryImage}
                     resizeMode="contain"
                   />
@@ -146,8 +147,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   iconWrapper: {
-    width: 52,
-    height: 52,
+    width: 46,
+    height: 46,
     borderRadius: radius.full,
     backgroundColor: colors.primary[50],
     alignItems: 'center',
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     color: colors.neutral[700],
   },
   categoryImage: {
-    width: 26,
-    height: 26,
+    width: '100%',
+    height: '100%',
   },
 });

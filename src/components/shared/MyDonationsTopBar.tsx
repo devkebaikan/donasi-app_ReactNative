@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BlurView} from '@react-native-community/blur';
 import {AppLogo} from '@/components/ui/AppLogo';
 import {SearchBar} from '@/components/ui/SearchBar';
-import {colors, spacing, glass} from '@/theme';
+import {colors, spacing} from '@/theme';
 
 interface MyDonationsTopBarProps {
   onPressSearch: () => void;

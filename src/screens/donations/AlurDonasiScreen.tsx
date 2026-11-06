@@ -6,7 +6,6 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {BottomSheetModal} from '@gorhom/bottom-sheet';
@@ -21,7 +20,7 @@ import {DonationConfirmDialog} from '@/components/shared/DonationConfirmDialog';
 import {useAlurDonasi} from '@/hooks/useAlurDonasi';
 import {useAuthStore} from '@/stores/authStore';
 import {formatCurrency} from '@/utils/formatCurrency';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import {colors} from '@/theme';
 import type {AlurDonasiScreenProps} from '@/types/navigation';
 import type {PaymentMethod} from '@/types/payment';
 
@@ -95,21 +94,37 @@ export default function AlurDonasiScreen({
     metodeSheetRef.current?.present();
   }
 
+  // Jika dipanggil dari DetailProgramScreen dengan metode yang sudah
+  // dipilih (alur baru, Step 1 & 2 dipilih di sana), langsung pakai metode itu.
   useEffect(() => {
     if (preservedMethod) {
-      // Nominal & metode sudah dipilih duluan di DetailProgramScreen (tanpa
-      // redirect) — langsung tampil Step 3, tidak ada bottom sheet yang dibuka.
       presetMethod(preservedMethod);
-      loadPaymentMethods();
-      loadWalletBalance();
-    } else if (reopenMetodePembayaran || preservedAmount !== undefined) {
-      openMetodeSheet();
-    } else {
-      nominalSheetRef.current?.present();
     }
-    // Hanya dijalankan sekali saat screen mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [preservedMethod, presetMethod]);
+
+  // Handle pembukaan kembali MetodePembayaranBottomSheet jika user
+  // baru saja kembali dari alur login/register (kasus: user anonim pilih
+  // Saku Kebaikan di step 2, lalu diminta login dulu).
+  const hasHandledReopenRef = useRef(false);
+  useEffect(() => {
+    if (hasHandledReopenRef.current || !reopenMetodePembayaran) {
+      return;
+    }
+    hasHandledReopenRef.current = true;
+    openMetodeSheet();
+  }, [reopenMetodePembayaran]);
+
+  // Jika user tadinya guest lalu berhasil login (mis. lewat header profil
+  // atau navigasi lain) saat metode Saku Kebaikan sedang aktif, muat ulang
+  // saldo saku agar status "saldo tidak cukup" langsung ter-update.
+  const prevIsAuthenticatedRef = useRef(isAuthenticated);
+  useEffect(() => {
+    const wasUnauthenticated = !prevIsAuthenticatedRef.current;
+    prevIsAuthenticatedRef.current = isAuthenticated;
+    if (wasUnauthenticated && isAuthenticated && selectedMethod?.type === 'wallet') {
+      loadWalletBalance();
+    }
+  }, [isAuthenticated, selectedMethod?.type, loadWalletBalance]);
 
   function handleConfirmAmount(amount: number, label: string): void {
     confirmAmount(amount, label);
@@ -185,7 +200,7 @@ export default function AlurDonasiScreen({
   const hasSummary = selectedAmount > 0 && selectedMethod !== null;
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-neutral-50" style={{paddingTop: insets.top}}>
       <HeaderLight
         title="Donasi Sekarang"
         onBack={() => navigation.goBack()}
@@ -193,84 +208,88 @@ export default function AlurDonasiScreen({
 
       {hasSummary && selectedMethod ? (
         <ScrollView
-          contentContainerStyle={styles.content}
+          contentContainerClassName="p-4 gap-4 pb-12"
           showsVerticalScrollIndicator={false}>
-          <View style={styles.summaryCard}>
-            <View style={styles.programRow}>
-              <Image source={{uri: programImageUrl}} style={styles.programImage} />
-              <Text style={styles.programTitle} numberOfLines={2}>
+          <View className="bg-white rounded-xl p-4 gap-3 border border-neutral-100 shadow-sm">
+            <View className="flex-row items-center gap-3">
+              <Image
+                source={{uri: programImageUrl}}
+                className="w-18 h-10 rounded-md bg-neutral-200"
+                style={{width: 72, height: (72 * 9) / 16}}
+              />
+              <Text className="flex-1 text-base font-semibold text-neutral-900" numberOfLines={2}>
                 {programTitle}
               </Text>
               <TouchableOpacity
-                style={styles.changeButton}
+                className="min-h-[44px] self-center justify-center px-2"
                 onPress={handleChangeProgram}
                 accessibilityRole="button"
                 accessibilityLabel="Ubah program">
-                <Text style={styles.changeButtonText}>Ubah</Text>
+                <Text className="text-sm font-medium text-primary-500">Ubah</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={styles.divider} />
+            <View className="h-px bg-neutral-200" />
 
-            <View style={styles.summaryRow}>
-              <View style={styles.summaryTextWrapper}>
-                <Text style={styles.summaryLabel}>{nominalLabel}</Text>
-                <Text style={styles.summaryValue}>
+            <View className="flex-row items-center justify-between">
+              <View className="gap-0.5">
+                <Text className="text-sm text-neutral-500">{nominalLabel}</Text>
+                <Text className="text-base font-semibold text-neutral-900">
                   {formatCurrency(selectedAmount)}
                 </Text>
               </View>
               <TouchableOpacity
-                style={styles.changeButton}
+                className="min-h-[44px] self-center justify-center px-2"
                 onPress={() => nominalSheetRef.current?.present()}
                 accessibilityRole="button"
                 accessibilityLabel="Ubah nominal donasi">
-                <Text style={styles.changeButtonText}>Ubah</Text>
+                <Text className="text-sm font-medium text-primary-500">Ubah</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={styles.divider} />
+            <View className="h-px bg-neutral-200" />
 
-            <View style={styles.summaryRow}>
-              <View style={styles.methodInfo}>
+            <View className="flex-row items-center justify-between">
+              <View className="flex-row items-center gap-2 flex-1">
                 {selectedMethod.type === 'wallet' ? (
-                  <View style={styles.methodIconWrapper}>
+                  <View className="w-7 h-7 rounded-sm bg-primary-50 items-center justify-center">
                     <Icon icon={Wallet} size={18} color={colors.primary[500]} />
                   </View>
                 ) : selectedMethod.logoUrl ? (
                   <Image
                     source={{uri: selectedMethod.logoUrl}}
-                    style={styles.methodLogo}
+                    className="w-7 h-7 rounded-sm"
                     resizeMode="contain"
                   />
                 ) : (
-                  <View style={styles.methodLogoPlaceholder} />
+                  <View className="w-7 h-7 rounded-sm bg-neutral-100" />
                 )}
-                <Text style={styles.summaryValue}>{selectedMethod.name}</Text>
+                <Text className="text-base font-semibold text-neutral-900">{selectedMethod.name}</Text>
               </View>
               <TouchableOpacity
-                style={styles.changeButton}
+                className="min-h-[44px] self-center justify-center px-2"
                 onPress={openMetodeSheet}
                 accessibilityRole="button"
                 accessibilityLabel="Ubah metode pembayaran">
-                <Text style={styles.changeButtonText}>Ubah</Text>
+                <Text className="text-sm font-medium text-primary-500">Ubah</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {methodError ? (
-            <Text style={styles.errorText} accessibilityLiveRegion="polite">
+            <Text className="text-sm text-semantic-error" accessibilityLiveRegion="polite">
               {methodError}
             </Text>
           ) : null}
 
-          <View style={styles.optionsCard}>
-            <View style={styles.fieldWrapper}>
-              <Text style={styles.textareaLabel}>Nama Lengkap</Text>
+          <View className="bg-white rounded-xl p-4 gap-4 border border-neutral-100 shadow-sm">
+            <View className="gap-2">
+              <Text className="text-base font-medium text-neutral-900">Nama Lengkap</Text>
               {isAuthenticated ? (
-                <Text style={styles.fieldValue}>{user?.name}</Text>
+                <Text className="text-base font-medium text-neutral-900">{user?.name}</Text>
               ) : (
                 <TextInput
-                  style={styles.fieldInput}
+                  className="h-12 border border-neutral-200 rounded-md px-3 text-base text-neutral-900 bg-white"
                   value={donaturName}
                   onChangeText={setDonaturName}
                   placeholder="Tulis nama lengkap"
@@ -279,20 +298,20 @@ export default function AlurDonasiScreen({
                 />
               )}
               {donaturNameError ? (
-                <Text style={styles.errorText} accessibilityLiveRegion="polite">
+                <Text className="text-sm text-semantic-error" accessibilityLiveRegion="polite">
                   {donaturNameError}
                 </Text>
               ) : null}
             </View>
-            <View style={styles.fieldWrapper}>
-              <Text style={styles.textareaLabel}>Nomor WhatsApp</Text>
+            <View className="gap-2">
+              <Text className="text-base font-medium text-neutral-900">Nomor WhatsApp</Text>
               {isAuthenticated ? (
-                <Text style={styles.fieldValue}>{user?.phone}</Text>
+                <Text className="text-base font-medium text-neutral-900">{user?.phone}</Text>
               ) : (
-                <View style={styles.phoneInputWrapper}>
-                  <Text style={styles.phoneInputPrefix}>+62</Text>
+                <View className="flex-row items-center h-12 border border-neutral-200 rounded-md px-3 gap-1 bg-white">
+                  <Text className="text-base font-medium text-neutral-500">+62</Text>
                   <TextInput
-                    style={styles.phoneInput}
+                    className="flex-1 text-base text-neutral-900 p-0"
                     value={donaturPhone}
                     onChangeText={setDonaturPhone}
                     placeholder="8xx-xxxx-xxxx"
@@ -303,7 +322,7 @@ export default function AlurDonasiScreen({
                 </View>
               )}
               {donaturPhoneError ? (
-                <Text style={styles.errorText} accessibilityLiveRegion="polite">
+                <Text className="text-sm text-semantic-error" accessibilityLiveRegion="polite">
                   {donaturPhoneError}
                 </Text>
               ) : null}
@@ -314,13 +333,14 @@ export default function AlurDonasiScreen({
               value={isAnonymous}
               onValueChange={setIsAnonymous}
             />
-            <View style={styles.doaWrapper}>
-              <View style={styles.textareaLabelRow}>
-                <Text style={styles.textareaLabel}>Do'a atau Pesan</Text>
-                <Text style={styles.textareaLabelOptional}>(opsional)</Text>
+            <View className="gap-2">
+              <View className="flex-row items-center gap-1">
+                <Text className="text-base font-medium text-neutral-900">Do'a atau Pesan</Text>
+                <Text className="text-xs text-neutral-400">(opsional)</Text>
               </View>
               <TextInput
-                style={styles.textarea}
+                className="h-22 border border-neutral-200 rounded-md px-3 pt-2 text-base text-neutral-900 bg-white"
+                style={{textAlignVertical: 'top'}}
                 value={prayer}
                 onChangeText={setPrayer}
                 placeholder="Tulis Do'a atau Pesan..."
@@ -331,7 +351,7 @@ export default function AlurDonasiScreen({
             </View>
           </View>
 
-          <View style={styles.optionsCard}>
+          <View className="bg-white rounded-xl p-4 gap-4 border border-neutral-100 shadow-sm">
             <DonationOptionToggle
               label="Donasi atas nama orang lain"
               value={isOnBehalfEnabled}
@@ -343,14 +363,16 @@ export default function AlurDonasiScreen({
           </View>
         </ScrollView>
       ) : (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyStateText}>
+        <View className="flex-1 items-center justify-center p-4">
+          <Text className="text-base text-neutral-500 text-center">
             Lengkapi nominal dan metode pembayaran untuk melanjutkan donasi.
           </Text>
         </View>
       )}
 
-      <View style={[styles.footer, {paddingBottom: insets.bottom + spacing.md}]}>
+      <View
+        className="p-4 bg-white border-t border-neutral-200"
+        style={{paddingBottom: insets.bottom + 12}}>
         <Button
           label="Lanjutkan Donasi"
           onPress={openConfirmDialog}
@@ -398,190 +420,3 @@ export default function AlurDonasiScreen({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral[50],
-  },
-  content: {
-    padding: spacing.lg,
-    gap: spacing.lg,
-  },
-  programRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.md,
-  },
-  programImage: {
-    // Foto program selalu landscape 16:9 — sama dengan kartu program di daftar.
-    width: 72,
-    height: (72 * 9) / 16,
-    borderRadius: radius.md,
-    backgroundColor: colors.neutral[200],
-  },
-  programTitle: {
-    flex: 1,
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  summaryCard: {
-    backgroundColor: colors.neutral[0],
-    borderRadius: radius.lg,
-    padding: spacing.lg,
-    gap: spacing.md,
-  },
-  summaryRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  summaryTextWrapper: {
-    gap: 2,
-  },
-  summaryLabel: {
-    fontSize: fontSize.sm,
-    color: colors.neutral[500],
-  },
-  summaryValue: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  methodInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    flex: 1,
-  },
-  methodIconWrapper: {
-    width: 28,
-    height: 28,
-    borderRadius: radius.sm,
-    backgroundColor: colors.primary[50],
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  methodLogo: {
-    width: 28,
-    height: 28,
-    borderRadius: radius.sm,
-  },
-  methodLogoPlaceholder: {
-    width: 28,
-    height: 28,
-    borderRadius: radius.sm,
-    backgroundColor: colors.neutral[100],
-  },
-  divider: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: colors.neutral[200],
-  },
-  changeButton: {
-    minHeight: 44,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: spacing.sm,
-  },
-  changeButtonText: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
-    color: colors.primary[500],
-  },
-  errorText: {
-    fontSize: fontSize.sm,
-    color: colors.semantic.error,
-  },
-  optionsCard: {
-    backgroundColor: colors.neutral[0],
-    borderRadius: radius.lg,
-    padding: spacing.lg,
-    gap: spacing.lg,
-  },
-  doaWrapper: {
-    gap: spacing.sm,
-  },
-  fieldWrapper: {
-    gap: spacing.sm,
-  },
-  fieldValue: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[900],
-  },
-  fieldInput: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: colors.neutral[200],
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.md,
-    fontSize: fontSize.md,
-    color: colors.neutral[900],
-    backgroundColor: colors.neutral[0],
-  },
-  phoneInputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 48,
-    borderWidth: 1,
-    borderColor: colors.neutral[200],
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.md,
-    gap: spacing.xs,
-    backgroundColor: colors.neutral[0],
-  },
-  phoneInputPrefix: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[500],
-  },
-  phoneInput: {
-    flex: 1,
-    fontSize: fontSize.md,
-    color: colors.neutral[900],
-    padding: 0,
-  },
-  textareaLabelRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-  },
-  textareaLabel: {
-    fontSize: fontSize.md,
-    color: colors.neutral[900],
-  },
-  textareaLabelOptional: {
-    fontSize: fontSize.xs,
-    color: colors.neutral[400],
-  },
-  textarea: {
-    height: 88,
-    borderWidth: 1,
-    borderColor: colors.neutral[200],
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.sm,
-    fontSize: fontSize.md,
-    color: colors.neutral[900],
-    backgroundColor: colors.neutral[0],
-    textAlignVertical: 'top',
-  },
-  emptyState: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: spacing.lg,
-  },
-  emptyStateText: {
-    fontSize: fontSize.md,
-    color: colors.neutral[500],
-    textAlign: 'center',
-  },
-  footer: {
-    padding: spacing.lg,
-    backgroundColor: colors.neutral[0],
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.neutral[200],
-  },
-});

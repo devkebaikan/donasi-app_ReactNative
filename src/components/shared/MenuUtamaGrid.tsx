@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Image, type ImageSourcePropType} from 'react-native';
 import {Widget} from '@solar-icons/react-native/Linear';
 import {Icon} from '@/components/ui/Icon';
+import {sanitizeImageUrl} from '@/utils/imageUrl';
 import {colors} from '@/theme';
 
 export interface MenuItem {
@@ -49,9 +50,10 @@ export function MenuUtamaGrid({
       <View className="flex-row justify-between">
         {displayItems.map(item => {
           // Prioritaskan icon lokal, atau gunakan remote URI jika berawalan http
+          const safeUrl = sanitizeImageUrl(item.image_url);
           const iconSource =
             LOCAL_MENU_ICONS[item.screen] ??
-            (item.image_url?.startsWith('http') ? {uri: item.image_url} : undefined);
+            (safeUrl?.startsWith('http') ? {uri: safeUrl} : undefined);
 
           return (
             <TouchableOpacity

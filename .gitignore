@@ -60,3 +60,5 @@ DerivedData
 .expo-shared/
 
 /android
+tmp/
+

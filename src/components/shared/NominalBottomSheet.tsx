@@ -14,6 +14,7 @@ import {PackageOptionItem} from '@/components/shared/PackageOptionItem';
 import {Box} from '@solar-icons/react-native/Linear';
 import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
 import {formatCurrency, formatNumberWithSeparator} from '@/utils/formatCurrency';
+import {sanitizeImageUrl} from '@/utils/imageUrl';
 import {MIN_DONATION_AMOUNT} from '@/hooks/useAlurDonasi';
 import type {DonationPackage} from '@/types/programDetail';
 
@@ -150,7 +151,7 @@ export const NominalBottomSheet = forwardRef<
       handleIndicatorStyle={styles.handleIndicator}>
       <View style={styles.header}>
         <View style={styles.programRow}>
-          <Image source={{uri: programImageUrl}} style={styles.programImage} />
+          <Image source={{uri: sanitizeImageUrl(programImageUrl)}} style={styles.programImage} />
           <Text style={styles.programTitle} numberOfLines={2}>
             {programTitle}
           </Text>
