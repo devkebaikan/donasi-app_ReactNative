@@ -10,16 +10,17 @@ import {
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {FileText, HandMoney} from '@solar-icons/react-native/Linear';
+import {AltArrowRight, FileText, HandMoney, Soundwave, UsersGroupTwoRounded} from '@solar-icons/react-native/Linear';
 import {EmptyState} from '@/components/ui/EmptyState';
+import {Avatar} from '@/components/ui/Avatar';
 import {DetailProgramHeader} from '@/components/shared/DetailProgramHeader';
-import {InfoTerkiniCard} from '@/components/shared/InfoTerkiniCard';
 import {ProgramInfoCapaian} from '@/components/shared/ProgramInfoCapaian';
 import {ProjectSalurTerdekatSection} from '@/components/shared/ProjectSalurTerdekatSection';
-import {ProgramAvailabilityNote} from '@/components/shared/ProgramAvailabilityNote';
+import {PenggalangDanaAccordion} from '@/components/shared/PenggalangDanaAccordion';
 import {SalesNotifCard} from '@/components/shared/SalesNotifCard';
 import {FundraiserCard} from '@/components/shared/FundraiserCard';
 import {ProgramTabBar} from '@/components/shared/ProgramTabBar';
+import {StorySection} from '@/components/shared/StorySection';
 import {HtmlContent} from '@/components/shared/HtmlContent';
 import {SalurTimelineItem} from '@/components/shared/SalurTimelineItem';
 import {SeeMoreOverlay} from '@/components/shared/SeeMoreOverlay';
@@ -31,12 +32,16 @@ import {MetodePembayaranBottomSheet} from '@/components/shared/MetodePembayaranB
 import {useDetailProgram} from '@/hooks/useDetailProgram';
 import {usePaymentMethodSelection} from '@/hooks/usePaymentMethodSelection';
 import {useAuthStore} from '@/stores/authStore';
+import {likeDonaturPrayer} from '@/services/donationService';
 import {showToast} from '@/utils/toast';
+import {formatCurrency} from '@/utils/formatCurrency';
+import {formatFullDate} from '@/utils/formatDate';
 import {colors} from '@/theme';
 import {sanitizeImageUrl} from '@/utils/imageUrl';
 import type {DetailProgramScreenProps, RootStackNavigationProp} from '@/types/navigation';
 import type {DonaturSort} from '@/types/programDetail';
 import type {PaymentMethod} from '@/types/payment';
+import { Icon } from '@/components/ui/Icon';
 
 const SHARE_OPTION_LABEL: Record<ShareOption, string> = {
   facebook: 'Facebook',
@@ -73,21 +78,20 @@ export default function DetailProgramScreen({
   const [confirmedLabel, setConfirmedLabel] = useState('Nominal Donasi');
   const [nominalSheetKey, setNominalSheetKey] = useState(0);
 
+  // Ambil paket data program lengkap dalam 1 objek terpadu `data`
   const {
-    program,
+    data,
     isLoading,
     isNotFound,
-    salesNotif,
-    activeTab,
-    projects,
-    reportSalur,
     isProjectsLoading,
-    donatur,
-    donaturSort,
     isDonaturLoading,
+    isFundraisersLoading,
+    activeTab,
     setActiveTab,
-    setDonaturSort,
   } = useDetailProgram(link);
+
+  const program = data.detail;
+  const {salesNotif, projects, reportSalur, donatur, fundraisers} = data;
 
   const {
     paymentMethods,
@@ -100,12 +104,8 @@ export default function DetailProgramScreen({
     loadWalletBalance,
     selectMethod,
     resetSelection,
-  } = usePaymentMethodSelection({amount: confirmedAmount ?? 0});
+  } = usePaymentMethodSelection({amount: confirmedAmount ?? 0, program_link: link});
 
-  // Kembali dari AlurDonasiScreen (baik karena invoice sudah berhasil
-  // dibentuk lalu tap back, maupun karena Step 3 dibatalkan sebelum
-  // submit) harus mengosongkan pilihan nominal & metode pembayaran —
-  // bukan menampilkan lagi pilihan lama, user wajib pilih ulang dari awal.
   useFocusEffect(
     useCallback(() => {
       if (!hasNavigatedToAlurDonasiRef.current) {
@@ -129,7 +129,6 @@ export default function DetailProgramScreen({
     loadPaymentMethods();
     loadWalletBalance();
     metodeSheetRef.current?.present();
-    // Hanya dijalankan sekali setelah program termuat.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [program]);
 
@@ -147,12 +146,14 @@ export default function DetailProgramScreen({
   }
 
   function handlePressFundraiser(): void {
-    if (!program?.organization) {
+    const mitraId = program?.mitra?.id ?? program?.organization?.id;
+    const mitraName = program?.mitra?.name ?? program?.organization?.name;
+    if (!mitraId) {
       return;
     }
     navigation.navigate('PerLembaga', {
-      lembagaId: program.organization.id,
-      lembagaName: program.organization.name,
+      lembagaId: String(mitraId),
+      lembagaName: mitraName ?? 'Lembaga',
     });
   }
 
@@ -189,6 +190,7 @@ export default function DetailProgramScreen({
       programId: program.id,
       programTitle: program.title,
       programImageUrl: program.imageUrl,
+      programLink: link,
       nominalType: program.nominalType,
       presets: program.nominalPresets,
       packages: program.packages,
@@ -220,10 +222,6 @@ export default function DetailProgramScreen({
 
   function handlePressSecondary(): void {
     if (!program) {
-      return;
-    }
-    if (!program.isRutin) {
-      handleShare();
       return;
     }
     const params = {
@@ -262,8 +260,10 @@ export default function DetailProgramScreen({
     navigation.navigate('DetailProjectSalur', {projectSalurId: id});
   }
 
-  function handlePressAamiin(): void {
-    showToast('Fitur akan segera hadir.');
+  async function handlePressAamiin(item: any): Promise<void> {
+    if (item?.id) {
+      await likeDonaturPrayer(item.id);
+    }
   }
 
   if (isLoading) {
@@ -284,8 +284,8 @@ export default function DetailProgramScreen({
         />
         <EmptyState
           icon={FileText}
-          title="Program tidak tersedia"
-          description="Program yang kamu cari tidak ditemukan atau sudah tidak tersedia."
+          title="Program tidak ditemukan"
+          description="Program yang Anda cari tidak tersedia."
         />
         <ShareBottomSheet
           ref={shareSheetRef}
@@ -297,17 +297,21 @@ export default function DetailProgramScreen({
 
   return (
     <View className="flex-1 bg-white" style={{paddingTop: insets.top}}>
+      {/* Header Bar */}
       <DetailProgramHeader
         title={program.title}
         onPressBack={handleBack}
         onPressShare={handleShare}
       />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
         contentContainerClassName="pb-32">
+        {/* Banner Image with Sales Notification */}
         <View className="relative">
           <Image
-            source={{uri: sanitizeImageUrl(program.imageUrl)}}
+            source={{uri: sanitizeImageUrl(program.image || program.imageUrl)}}
             className="w-full h-56 bg-neutral-200"
             resizeMode="cover"
             accessibilityRole="image"
@@ -318,44 +322,98 @@ export default function DetailProgramScreen({
           </View>
         </View>
 
-        {program.organization ? (
-          <InfoTerkiniCard
-            organizationName={program.organization.name}
-            onPressSelengkapnya={handlePressFundraiser}
+        {/* Profil Lembaga Mitra (Header Mitra di bawah banner) */}
+        {program.mitra || program.organization ? (
+          <FundraiserCard
+            organization={
+              program.organization ?? {
+                id: String(program.mitra?.id),
+                name: program.mitra?.name ?? '',
+                logoUrl: program.mitra?.image ?? '',
+                isVerified: true,
+              }
+            }
+            onPress={handlePressFundraiser}
           />
         ) : null}
 
-        <ProgramInfoCapaian
-          program={program}
-          expandedContent={
-            <ProjectSalurTerdekatSection
-              items={program.nearestProjects}
-              onPressNext={handlePressDetailProjectSalur}
+        {/* Info Capaian & Donasi Tersedia */}
+        <ProgramInfoCapaian program={program} />
+
+        {/* Info Box Banner (Informasi rencana dan penyaluran) */}
+       <View className="mx-4 my-2 flex-row items-start gap-3 rounded-xl border border-cyan-100 bg-cyan-50/70 p-3">
+          {/* Icon */}
+          <View className="mt-0.5 h-7 w-7 shrink-0 items-center justify-center rounded-full bg-cyan-100">
+            <Icon
+              icon={Soundwave}
+              size={18}
+              color={colors.primary[600]}
             />
+          </View>
+
+          {/* Content */}
+          <View className="min-w-0 flex-1">
+            <Text className="text-xs leading-relaxed text-gray-700">
+              Alhamdulillah, Donasi sebesar{' '}
+              <Text className="font-semibold text-gray-900">
+                {formatCurrency(
+                  Number(
+                    program.nominal_achieved -
+                    program.no_project_nominal.nominal
+                  )
+                )}
+              </Text>{' '}
+              telah tersalurkan untuk{' '}
+              <Text className="font-semibold text-gray-900">
+                {(program.total_beneficiery ??
+                  program.totalBeneficiary ??
+                  0).toLocaleString('id-ID')}
+              </Text>{' '}
+              penerima manfaat. Semakin banyak donasi yang tersedia,
+              semakin besar bantuan yang bisa disalurkan oleh program ini.
+            </Text>
+          </View>
+        </View>
+
+
+        {/* Accordion Tentang Penggalang Dana */}
+        <PenggalangDanaAccordion
+          organization={
+            program.organization ?? {
+              id: String(program.mitra?.id),
+              name: program.mitra?.name ?? '',
+              logoUrl: program.mitra?.image ?? '',
+              isVerified: true,
+            }
           }
         />
 
-        <View className="px-4 pb-3 gap-2">
-          <ProgramAvailabilityNote />
-          {program.organization ? (
-            <FundraiserCard
-              organization={program.organization}
-              onPress={handlePressFundraiser}
-            />
-          ) : null}
+        {/* Rencana Salur Terdekat */}
+        {((program.last_two_projects && program.last_two_projects.length > 0)) ? (
+          <ProjectSalurTerdekatSection
+            items={program.last_two_projects}
+            onPressNext={handlePressDetailProjectSalur}
+            onPressSeeAll={handleSeeAllProjectSalur}
+          />
+        ) : null}
+
+        {/* Tab Navigasi: Cerita, Salur, Donatur, Fundraiser */}
+        <View className="mt-4">
+          <ProgramTabBar activeTab={activeTab} onChange={setActiveTab} />
         </View>
 
-        <ProgramTabBar activeTab={activeTab} onChange={setActiveTab} />
-
-        <View className="py-3">
+        {/* Tab Content Area */}
+        <View className="py-2">
           {activeTab === 'about' && (
-            <View className="px-4 py-3 gap-2">
-              {program.contentHtml ? (
-                <HtmlContent html={program.contentHtml} />
-              ) : (
-                <EmptyState icon={FileText} title="Belum ada cerita program" />
-              )}
-            </View>
+            program.content || program.contentHtml ? (
+              <StorySection htmlContent={program.content || program.contentHtml} />
+            ) : (
+              <EmptyState
+                icon={FileText}
+                title="Belum ada cerita program"
+                description="Cerita atau informasi detail mengenai program ini belum tersedia."
+              />
+            )
           )}
 
           {activeTab === 'projects' &&
@@ -363,8 +421,76 @@ export default function DetailProgramScreen({
               <View className="py-8 items-center">
                 <ActivityIndicator color={colors.primary[500]} />
               </View>
-            ) : projects.length === 0 ? (
-              <EmptyState icon={FileText} title="Belum ada project salur" />
+            ) : !data.report && projects.length === 0 ? (
+              <EmptyState
+                icon={FileText}
+                title="Belum ada Laporan Penyaluran"
+                description="Laporan penyaluran donasi untuk program ini belum tersedia."
+              />
+            ) : data.report ? (
+              <View className="px-4 gap-3">
+                {/* Title Badge "Laporan Penyaluran" */}
+                <View className="flex-row items-center gap-2 mb-1">
+                  <View className="px-3.5 py-1.5 rounded-full bg-primary-50 border border-primary-200">
+                    <Text className="text-xs font-semibold text-primary-700">
+                      Laporan Penyaluran
+                    </Text>
+                  </View>
+                </View>
+
+                {/* Report Card (sesuai TabSection Astro) */}
+                <View className="bg-primary-50/50 rounded-xl p-4 border border-primary-100">
+                  <View className="flex-row items-center gap-3 mb-3">
+                    <Avatar
+                      uri={data.report.mitra.photoUrl || null}
+                      name={data.report.mitra.name || 'Beramal Bersama'}
+                      size={40}
+                    />
+                    <View className="flex-1 min-w-0">
+                      <Text
+                        className="font-semibold text-neutral-900 text-sm truncate"
+                        numberOfLines={1}>
+                        {data.report.mitra.name || 'Beramal Bersama'}
+                      </Text>
+                      <Text className="text-xs text-neutral-500 mt-0.5">
+                        {formatFullDate(data.report.distributedAt)}
+                      </Text>
+                    </View>
+                  </View>
+
+                  {data.report.photoUrl ? (
+                    <Image
+                      source={{uri: data.report.photoUrl}}
+                      className="w-full h-44 rounded-lg bg-neutral-200 mb-3"
+                      resizeMode="cover"
+                      accessibilityRole="image"
+                      accessibilityLabel={data.report.title}
+                    />
+                  ) : null}
+
+                  <Text className="font-bold text-neutral-900 text-base mb-2">
+                    {data.report.title}
+                  </Text>
+
+                  {data.report.descriptionHtml ? (
+                    <View className="py-1">
+                      <HtmlContent html={data.report.descriptionHtml} />
+                    </View>
+                  ) : null}
+                </View>
+
+                {/* Tombol Lihat Dampak Selengkapnya */}
+                <TouchableOpacity
+                  onPress={handleSeeAllReportSalur}
+                  className="mt-2 py-3 px-4 rounded-xl bg-primary-500 items-center justify-center flex-row gap-2 active:opacity-80"
+                  accessibilityRole="button"
+                  accessibilityLabel="Lihat Dampak Kebaikanmu Selengkapnya">
+                  <Text className="text-white text-sm font-semibold">
+                    Lihat Dampak Kebaikanmu Selengkapnya
+                  </Text>
+                  <Icon icon={AltArrowRight} size={16} color="#FFFFFF" />
+                </TouchableOpacity>
+              </View>
             ) : (
               <View className="px-4 gap-3">
                 <View className="relative">
@@ -393,44 +519,35 @@ export default function DetailProgramScreen({
               </View>
             ) : (
               <View className="px-4 gap-3">
-                <View className="flex-row items-center justify-between">
-                  <Text className="text-base font-semibold text-neutral-900">
-                    {program.donaturCount.toLocaleString('id-ID')} Donatur
-                  </Text>
-                  <TouchableOpacity
-                    onPress={handleSeeAll}
-                    accessibilityRole="button"
-                    accessibilityLabel="Lihat semua donatur">
-                    <Text className="text-sm font-semibold text-primary-600 py-2">Lihat semua</Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View className="flex-row gap-2">
-                  {DONATUR_SORT_OPTIONS.map(option => {
-                    const isActive = option.value === donaturSort;
-                    return (
-                      <TouchableOpacity
-                        key={option.value}
-                        className={`px-4 py-1.5 rounded-full ${
-                          isActive ? 'bg-primary-500' : 'bg-neutral-100'
-                        }`}
-                        onPress={() => setDonaturSort(option.value)}
-                        accessibilityRole="button"
-                        accessibilityLabel={`Urutkan donatur ${option.label}`}
-                        accessibilityState={{selected: isActive}}>
-                        <Text
-                          className={`text-xs font-medium ${
-                            isActive ? 'text-white' : 'text-neutral-600'
-                          }`}>
-                          {option.label}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  })}
+                <View className="flex-row items-center justify-between mb-1">
+                  <View className="flex-row items-center gap-2">
+                    <View className="px-3.5 py-1.5 rounded-full bg-primary-50 border border-primary-200">
+                      <Text className="text-xs font-semibold text-primary-700">
+                        Donatur
+                      </Text>
+                    </View>
+                    <View className="min-w-[24px] h-6 px-2 rounded-full bg-primary-600 items-center justify-center">
+                      <Text className="text-xs font-bold text-white">
+                        {Number(program.total_donors ?? program.total_donaturs ?? donatur.length).toLocaleString('id-ID')}
+                      </Text>
+                    </View>
+                  </View>
+                  {donatur.length > 0 && (
+                    <TouchableOpacity
+                      onPress={handleSeeAll}
+                      accessibilityRole="button"
+                      accessibilityLabel="Lihat semua donatur">
+                      <Text className="text-sm font-semibold text-primary-600 py-2">Lihat semua</Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
 
                 {donatur.length === 0 ? (
-                  <EmptyState icon={HandMoney} title="Belum ada donatur" />
+                  <EmptyState
+                    icon={HandMoney}
+                    title="Belum ada Donatur"
+                    description="Jadilah donatur pertama untuk program ini"
+                  />
                 ) : (
                   donatur.map(item => (
                     <DonaturListItem
@@ -444,60 +561,90 @@ export default function DetailProgramScreen({
             ))}
 
           {activeTab === 'reports' &&
-            (isProjectsLoading ? (
+            (isFundraisersLoading ? (
               <View className="py-8 items-center">
                 <ActivityIndicator color={colors.primary[500]} />
               </View>
-            ) : reportSalur.length === 0 ? (
-              <EmptyState icon={FileText} title="Belum ada report salur" />
+            ) : fundraisers.length === 0 ? (
+              <EmptyState
+                icon={UsersGroupTwoRounded}
+                title="Belum ada Fundraiser"
+                description="Jadilah fundraiser pertama untuk program ini"
+              />
             ) : (
               <View className="px-4 gap-3">
-                <View className="relative">
-                  {reportSalur.slice(0, SALUR_LIST_LIMIT).map((report, index, visible) => (
-                    <SalurTimelineItem
-                      key={report.id}
-                      item={report}
-                      isLast={index === visible.length - 1}
-                    />
-                  ))}
-                  {reportSalur.length > SALUR_LIST_LIMIT ? (
-                    <SeeMoreOverlay
-                      label="Lihat Semua Report Salur"
-                      onPress={handleSeeAllReportSalur}
-                    />
-                  ) : null}
+                <View className="flex-row items-center gap-2 mb-1">
+                  <View className="px-3.5 py-1.5 rounded-full bg-primary-50 border border-primary-200">
+                    <Text className="text-xs font-semibold text-primary-700">
+                      Fundraiser
+                    </Text>
+                  </View>
+                  <View className="min-w-[24px] h-6 px-2 rounded-full bg-primary-600 items-center justify-center">
+                    <Text className="text-xs font-bold text-white">
+                      {fundraisers.length}
+                    </Text>
+                  </View>
                 </View>
+
+                {fundraisers.map(item => (
+                  <View
+                    key={item.id}
+                    className="flex-row items-center gap-3 p-3.5 bg-white rounded-xl border border-neutral-100 shadow-sm">
+                    <View className="w-10 h-10 rounded-full bg-primary-100 items-center justify-center">
+                      <Text className="text-sm font-bold text-primary-700">
+                        {(item.name || 'F').charAt(0).toUpperCase()}
+                      </Text>
+                    </View>
+                    <View className="flex-1 min-w-0">
+                      <Text className="font-semibold text-neutral-900 text-sm truncate" numberOfLines={1}>
+                        {item.name || 'Fundraiser'}
+                      </Text>
+                      <Text className="text-xs text-neutral-500 mt-0.5">
+                        Mengajak{' '}
+                        <Text className="font-bold text-neutral-800">
+                          {item.totalDonors} orang
+                        </Text>{' '}
+                        berdonasi
+                      </Text>
+                    </View>
+                    <Text className="text-sm font-bold text-primary-600">
+                      {formatCurrency(item.totalAmount)}
+                    </Text>
+                  </View>
+                ))}
               </View>
             ))}
         </View>
       </ScrollView>
 
+      {/* Floating Bottom Bar: Rutin & Donasi Sekarang */}
       <FloatingDonationFooter
-        isRutin={program.isRutin}
-        donationLabel={program.donationLabel}
-        donateButtonColor={program.ctaColor}
+        isRutin={Boolean(program.is_rutin ?? program.isRutin)}
+        donationLabel={program.donationLabel ?? program.tipe?.name ?? 'Donasi'}
+        donateButtonColor={program.cta_color ?? program.ctaColor}
         onPressSecondary={handlePressSecondary}
         onPressDonate={handleDonateNow}
       />
 
+      {/* Share Bottom Sheet */}
       <ShareBottomSheet
         ref={shareSheetRef}
         onSelectOption={handleSelectShareOption}
       />
+
+      {/* Nominal Bottom Sheet */}
       <NominalBottomSheet
         key={nominalSheetKey}
         ref={nominalSheetRef}
         programTitle={program.title}
-        programImageUrl={program.imageUrl}
-        nominalType={program.nominalType}
-        presets={program.nominalPresets.map(preset => ({
-          amount: preset.nominal,
-          iconUrl: preset.iconUrl,
-          label: preset.label,
-        }))}
+        programImageUrl={program.image || program.imageUrl}
+        nominalType={program.nominalType ?? (program.jenis_nominal === 'paket' ? 'paket' : 'biasa')}
+        program_link={link}
         packages={program.packages}
         onConfirm={handleConfirmNominal}
       />
+
+      {/* Payment Method Bottom Sheet */}
       <MetodePembayaranBottomSheet
         ref={metodeSheetRef}
         paymentMethods={paymentMethods}

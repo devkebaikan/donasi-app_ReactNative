@@ -266,10 +266,10 @@ export default function HomeScreen(): React.JSX.Element {
           )}
 
           {/* 7. Laporan Proyek Penyaluran (#BergerakBeramalBersama) */}
-          {/* <ProjectListSection
+          <ProjectListSection
             projectList={projectList}
             onPressProject={handlePressProject}
-          /> */}
+          />
 
           <View className="h-2 bg-neutral-100" />
 

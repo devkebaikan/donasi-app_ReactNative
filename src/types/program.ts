@@ -25,7 +25,7 @@ export interface Program {
   link: string;
   image: string;
   time_target: string | number | null;
-  nominal_target: number;
+  nominal_target: number | null;
   nominal_achieved: string | number;
   progress_achieved: string | number;
   is_target_nominal?: boolean;
@@ -33,10 +33,6 @@ export interface Program {
   mitra: Mitra;
   category: ProgramCategory;
   tipe?: ProgramType;
-  // Dari `is_rutin` — menentukan program masuk tab "Pilihan Rutin". Aturannya
-  // HARUS sama dengan yang dipakai detail program, kalau tidak ada program yang
-  // tampil di tab itu tapi halaman detailnya tanpa tombol "Donasi Rutin".
-  // Lihat src/services/mockData/programSeed.ts.
   isRutin?: boolean;
   isRecommended?: boolean;
   donaturCount?: number;

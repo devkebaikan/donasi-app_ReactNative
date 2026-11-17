@@ -35,9 +35,12 @@ export function useLoginOtp(): State & Actions {
       return null;
     }
 
+    const digits = phone.replace(/\D/g, '');
+    const normalizedPhone = digits.startsWith('0') ? digits.slice(1) : digits;
+
     setIsLoading(true);
     try {
-      const res = await sendLoginOtp({phone});
+      const res = await sendLoginOtp({phone: normalizedPhone});
       if (res.success) {
         return {expiresIn: res.data.expires_in};
       }

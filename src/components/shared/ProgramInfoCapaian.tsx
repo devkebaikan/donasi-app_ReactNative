@@ -1,182 +1,140 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { AltArrowDown } from '@solar-icons/react-native/Linear';
-import { Icon } from '@/components/ui/Icon';
-import { ProgramProgressBar } from '@/components/shared/ProgramProgressBar';
-import { formatCurrency } from '@/utils/formatCurrency';
-import { formatDaysLeftValue } from '@/utils/donationProgress';
-import { colors, spacing, radius, fontSize, fontWeight, lineHeight } from '@/theme';
-import type { ProgramDetail } from '@/types/programDetail';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {AltArrowDown, AltArrowUp, HeartAngle, UsersGroupRounded} from '@solar-icons/react-native/Linear';
+import {Icon} from '@/components/ui/Icon';
+import {ProgramProgressBar} from '@/components/shared/ProgramProgressBar';
+import {formatCurrency} from '@/utils/formatCurrency';
+import {formatDaysLeftValue} from '@/utils/donationProgress';
+import {colors} from '@/theme';
+import type {ProgramDetail} from '@/types/programDetail';
 
 interface ProgramInfoCapaianProps {
   program: ProgramDetail;
-  /** Blok yang ikut muncul/hilang bersama "Selengkapnya", dirender full-bleed
-   * di bawah blok capaian (di luar padding container ini) — dipakai
-   * DetailProgramScreen untuk "Project Salur Terdekat". */
   expandedContent?: React.ReactNode;
 }
 
-// Saat tertutup, blok ini cuma menampilkan judul program + nominal tersedia.
-// Semua rincian capaian (nominal tercapai/target, bar progres, jumlah donatur,
-// sisa waktu) dan `expandedContent` baru muncul setelah "Selengkapnya"
-// ditekan.
 export function ProgramInfoCapaian({
   program,
   expandedContent,
 }: ProgramInfoCapaianProps): React.JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const isGoalUnlimited = !Number.isFinite(program.goalAmount);
-  const isTimeUnlimited = !Number.isFinite(program.daysLeft);
+  const collected = Number(program.nominal_achieved ?? program.collectedAmount ?? 0);
+  const used = Number(program.nominal_used ?? program.usedAmount ?? 0);
+  const target =
+    program.nominal_target !== undefined && program.nominal_target !== null
+      ? Number(program.nominal_target)
+      : Number.isFinite(program.goalAmount)
+      ? program.goalAmount
+      : null;
+  const donaturCount = Number(
+    program.total_donors ?? program.total_donaturs ?? program.donaturCount ?? 0,
+  );
+  const daysLeft =
+    program.remaining_days !== undefined && program.remaining_days !== null
+      ? Number(program.remaining_days)
+      : Number.isFinite(program.daysLeft)
+      ? program.daysLeft
+      : null;
+
+  const progressPercent =
+    program.progress_achieved !== undefined && program.progress_achieved !== null
+      ? Math.min(100, Number(program.progress_achieved))
+      : target && target > 0
+      ? Math.min(100, (collected / target) * 100)
+      : 100;
+
+  const isGoalUnlimited = target === null;
+  const isTimeUnlimited = daysLeft === null;
+  const amountAllocated= Number(program.nominal_achieved) - Number(program.no_project_nominal?.nominal);
+  const availableAmount = Number(program.collectedAmount - amountAllocated);
 
   return (
-    <View>
-      <View style={styles.container}>
-        <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
-          {program.title}
-        </Text>
+    <View className="px-4 py-3 bg-white">
+      {/* Title */}
+      <Text
+        className="text-base font-bold text-neutral-900 mb-3 leading-snug"
+        numberOfLines={3}
+        ellipsizeMode="tail">
+        {program.title}
+      </Text>
 
-        <View style={styles.availableRow}>
-          <View style={styles.availableText}>
-            <Text style={styles.label}>Tersedia</Text>
-            <Text style={styles.availableAmount}>
-              {formatCurrency(program.availableAmount)}
-            </Text>
-          </View>
-          {/* Panah saja tidak cukup menjelaskan apa yang akan terbuka —
-              labelnya ikut berganti mengikuti keadaan tombol. */}
-          <TouchableOpacity
-            style={styles.expandButton}
-            onPress={() => setIsExpanded(previous => !previous)}
-            accessibilityRole="button"
-            accessibilityLabel={
-              isExpanded ? 'Sembunyikan detail capaian' : 'Lihat detail capaian'
-            }
-            accessibilityState={{ expanded: isExpanded }}>
-            <Text style={styles.expandLabel}>
-              {isExpanded ? 'Sembunyikan' : 'Selengkapnya'}
-            </Text>
-            <View style={isExpanded ? styles.chevronExpanded : undefined}>
-              <Icon icon={AltArrowDown} size={18} color={colors.neutral[500]} />
-            </View>
-          </TouchableOpacity>
+      {/* Available Funds Row */}
+      <View className="flex-row items-center justify-between mb-2">
+        <View>
+          <Text className="text-xs text-neutral-500 font-medium">Donasi Tersedia</Text>
+          <Text className="text-xl font-bold text-secondary-500 mt-0.5">
+            {formatCurrency(availableAmount)}
+          </Text>
         </View>
 
-        {/* Urutan isi: bar progres -> jumlah donatur & sisa waktu -> kartu
-            nominal tercapai/target -> `expandedContent` (Project Salur
-            Terdekat) di bawah, full-bleed. */}
-        {isExpanded ? (
-          <>
-            <ProgramProgressBar progress={program.progressPercent} />
-
-            <View style={styles.statsRow}>
-              <Text style={styles.statsText}>
-                {`${program.donaturCount.toLocaleString('id-ID')} orang ber${program.donationLabel.toLowerCase()}`}
-              </Text>
-              <Text style={styles.statsText}>
-                {formatDaysLeftValue(program.daysLeft)}
-                {isTimeUnlimited ? '' : ' hari lagi'}
-              </Text>
-            </View>
-
-            <View style={styles.expandedArea}>
-              <View style={styles.expandedRow}>
-                <Text style={styles.label}>Nominal tercapai</Text>
-                <Text style={styles.expandedValue}>
-                  {formatCurrency(program.collectedAmount)}
-                </Text>
-              </View>
-              <View style={styles.expandedRow}>
-                <Text style={styles.label}>Nominal target</Text>
-                <Text style={styles.expandedValue}>
-                  {isGoalUnlimited
-                    ? 'Tanpa target'
-                    : formatCurrency(program.goalAmount)}
-                </Text>
-              </View>
-            </View>
-          </>
-        ) : null}
-
-        {program.note ? <Text style={styles.note}>{program.note}</Text> : null}
+        <TouchableOpacity
+          className="flex-row items-center gap-1 py-1 px-2"
+          onPress={() => setIsExpanded(previous => !previous)}
+          activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel={
+            isExpanded ? 'Tutup detail capaian' : 'Lihat semua detail capaian'
+          }
+          accessibilityState={{expanded: isExpanded}}>
+          <Text className="text-xs font-semibold text-primary-600">
+            {isExpanded ? 'Tutup' : 'Lihat Semua'}
+          </Text>
+          <Icon
+            icon={isExpanded ? AltArrowUp : AltArrowDown}
+            size={14}
+            color={colors.primary[600]}
+          />
+        </TouchableOpacity>
       </View>
+
+      {/* Detailed Info (collapsible) */}
+      {isExpanded ? (
+        <View className="my-2 gap-2.5">
+          <View>
+            <Text className="text-xs text-neutral-500">Donasi Terkumpul</Text>
+            <View className="flex-row items-baseline flex-wrap gap-1 mt-0.5">
+              <Text className="text-base font-bold text-primary-600">
+                {formatCurrency(collected)}
+              </Text>
+              {!isGoalUnlimited && target !== null && (
+                <>
+                  <Text className="text-xs text-neutral-400"> dari target </Text>
+                  <Text className="text-xs font-bold text-neutral-800">
+                    {formatCurrency(target)}
+                  </Text>
+                </>
+              )}
+            </View>
+          </View>
+
+          {/* Progress Bar */}
+          <ProgramProgressBar progress={progressPercent} />
+
+          {/* Stats Row */}
+          <View className="flex-row justify-between items-center text-xs text-neutral-700 py-1">
+            <View className="flex-row items-center gap-1.5">
+              <Icon icon={HeartAngle} size={16} color={colors.primary[500]} />
+              <Text className="font-bold text-neutral-900 text-xs">
+                {donaturCount.toLocaleString('id-ID')}
+              </Text>
+              <Text className="text-neutral-500 text-xs">Donasi</Text>
+            </View>
+
+            <View className="flex-row items-center gap-1.5">
+              <Icon icon={UsersGroupRounded} size={16} color={colors.primary[500]} />
+              <Text className="font-bold text-neutral-900 text-xs">
+                {formatDaysLeftValue(isTimeUnlimited ? Infinity : (daysLeft ?? Infinity))}
+              </Text>
+              <Text className="text-neutral-500 text-xs">
+                {isTimeUnlimited ? '' : 'hari lagi'}
+              </Text>
+            </View>
+          </View>
+        </View>
+      ) : null}
 
       {isExpanded ? expandedContent : null}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    paddingBottom: spacing.sm,
-    gap: spacing.sm,
-  },
-  title: {
-    fontSize: fontSize.lg,
-    fontWeight: fontWeight.bold,
-    color: colors.neutral[900],
-  },
-  availableRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  availableText: {
-    flex: 1,
-    gap: 2,
-  },
-  label: {
-    fontSize: fontSize.md,
-    color: colors.neutral[500],
-  },
-  availableAmount: {
-    fontSize: fontSize.xl,
-    fontWeight: fontWeight.bold,
-    color: colors.primary[600],
-  },
-  expandButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-    minHeight: 44,
-    paddingLeft: spacing.sm,
-  },
-  expandLabel: {
-    fontSize: fontSize.sm,
-    color: colors.neutral[500],
-  },
-  chevronExpanded: {
-    transform: [{ rotate: '180deg' }],
-  },
-  expandedArea: {
-    padding: spacing.md,
-    borderRadius: radius.md,
-    backgroundColor: colors.neutral[50],
-    gap: spacing.sm,
-  },
-  expandedRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  expandedValue: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  statsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  statsText: {
-    fontSize: fontSize.xs,
-    color: colors.neutral[500],
-  },
-  note: {
-    fontSize: fontSize.xs,
-    lineHeight: fontSize.xs * lineHeight.normal,
-    color: colors.neutral[500],
-  },
-});

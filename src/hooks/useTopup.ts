@@ -132,7 +132,7 @@ export function useTopup(): State & Actions {
     try {
       const response = await topupWallet({
         amount,
-        paymentMethodId: selectedMethod.id,
+        paymentMethodId: String(selectedMethod.id),
         voucherCode: appliedVoucherCode ?? undefined,
       });
       if (!response.success) {

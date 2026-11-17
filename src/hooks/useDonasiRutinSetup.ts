@@ -228,7 +228,7 @@ export function useDonasiRutinSetup({programId}: Params): State & Actions {
         onBehalfOf: isOnBehalfEnabled ? onBehalfOf || undefined : undefined,
         prayer: isPrayerEnabled ? prayer || undefined : undefined,
         repeatCount,
-        paymentMethodId: selectedMethod.id,
+        paymentMethodId: String(selectedMethod.id),
         donaturName: donaturName || 'Hamba Allah',
         donaturPhone,
       });

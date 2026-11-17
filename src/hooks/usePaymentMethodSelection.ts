@@ -9,6 +9,7 @@ import type {PaymentMethod} from '@/types/payment';
 
 interface Params {
   amount: number;
+  program_link?: string;
 }
 
 type State = {
@@ -22,7 +23,7 @@ type State = {
 };
 
 type Actions = {
-  loadPaymentMethods: () => Promise<void>;
+  loadPaymentMethods: (customLink?: string) => Promise<void>;
   loadWalletBalance: () => Promise<void>;
   selectMethod: (method: PaymentMethod) => void;
   presetMethod: (method: PaymentMethod) => void;
@@ -33,7 +34,7 @@ type Actions = {
 // Dipakai bareng oleh useAlurDonasi dan DetailProgramScreen — dua tempat yang
 // sama-sama menampilkan MetodePembayaranBottomSheet, supaya logic-nya (load
 // metode/saldo, validasi minimal per grup) tidak dobel.
-export function usePaymentMethodSelection({amount}: Params): State & Actions {
+export function usePaymentMethodSelection({amount, program_link}: Params): State & Actions {
   const isAuthenticated = useAuthStore(s => s.accessToken != null);
 
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
@@ -44,10 +45,10 @@ export function usePaymentMethodSelection({amount}: Params): State & Actions {
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
   const [isLoadingWalletBalance, setIsLoadingWalletBalance] = useState(false);
 
-  const loadPaymentMethods = useCallback(async (): Promise<void> => {
+  const loadPaymentMethods = useCallback(async (customLink?: string): Promise<void> => {
     setIsLoadingMethods(true);
     try {
-      const response = await getPaymentMethods();
+      const response = await getPaymentMethods(customLink || program_link);
       if (!response.success) {
         showToast(response.message);
         return;
@@ -58,7 +59,7 @@ export function usePaymentMethodSelection({amount}: Params): State & Actions {
     } finally {
       setIsLoadingMethods(false);
     }
-  }, []);
+  }, [program_link]);
 
   const loadWalletBalance = useCallback(async (): Promise<void> => {
     if (!isAuthenticated) {
@@ -83,9 +84,9 @@ export function usePaymentMethodSelection({amount}: Params): State & Actions {
   }, [isAuthenticated]);
 
   function selectMethod(method: PaymentMethod): void {
-    const groupMinAmount = getPaymentMethodGroupMinAmount(method.type);
-    if (amount < groupMinAmount) {
-      showToast(`Minimal donasi ${formatCurrency(groupMinAmount)} untuk metode ini`);
+    const minNominal = Number(method.minimun_nominal) || getPaymentMethodGroupMinAmount(method.type);
+    if (amount < minNominal) {
+      showToast(`Minimal donasi ${formatCurrency(minNominal)} untuk metode ini`);
       return;
     }
     setMethodErrorState(null);

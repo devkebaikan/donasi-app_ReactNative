@@ -1,43 +1,33 @@
-import React, {forwardRef, useCallback, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import React, {forwardRef, useCallback, useEffect, useState} from 'react';
+import {View, Text, TouchableOpacity, Image, TextInput, ActivityIndicator} from 'react-native';
 import {
   BottomSheetModal,
   BottomSheetScrollView,
   BottomSheetBackdrop,
-  BottomSheetTextInput,
 } from '@gorhom/bottom-sheet';
 import type {BottomSheetBackdropProps} from '@gorhom/bottom-sheet';
-import {Button} from '@/components/ui/Button';
 import {EmptyState} from '@/components/ui/EmptyState';
 import {SafeAreaFooter} from '@/components/ui/SafeAreaFooter';
 import {PackageOptionItem} from '@/components/shared/PackageOptionItem';
 import {Box} from '@solar-icons/react-native/Linear';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import {colors} from '@/theme';
 import {formatCurrency, formatNumberWithSeparator} from '@/utils/formatCurrency';
 import {sanitizeImageUrl} from '@/utils/imageUrl';
 import {MIN_DONATION_AMOUNT} from '@/hooks/useAlurDonasi';
+import {getNominalOptions} from '@/services/donationService';
 import type {DonationPackage} from '@/types/programDetail';
+import type {NominalOption} from '@/types/payment';
 
-export interface AmountPreset {
-  amount: number;
-  impact?: string;
-  iconUrl?: string;
-  label?: string; // "Nama Pilihan" — nama tampilan preset, dirender di atas nominal
-}
-
-const DEFAULT_AMOUNT_PRESETS: AmountPreset[] = [
-  {amount: 1_000_000, impact: 'Setara 5 tahun pendidikan anak'},
-  {amount: 500_000, impact: 'Setara 500 buku bacaan'},
-  {amount: 70_000, impact: 'Setara 1 paket sembako'},
-  {amount: 50_000, impact: 'Dukung program ini'},
-];
+export type AmountPreset = NominalOption;
 
 interface NominalBottomSheetProps {
   programTitle: string;
   programImageUrl: string;
   onConfirm: (amount: number, label: string) => void;
   nominalType?: 'biasa' | 'paket';
-  presets?: AmountPreset[];
+  program_link?: string;
+  nominal_options?: NominalOption[];
+  presets?: any[];
   packages?: DonationPackage[];
   minAmount?: number;
   sectionTitle?: string;
@@ -54,15 +44,17 @@ export const NominalBottomSheet = forwardRef<
     programImageUrl,
     onConfirm,
     nominalType = 'biasa',
-    presets = DEFAULT_AMOUNT_PRESETS,
+    program_link,
+    nominal_options,
+    presets,
     packages = [],
     minAmount = MIN_DONATION_AMOUNT,
-    sectionTitle,
-    confirmLabel = 'Lanjutkan Donasi',
-    presetLayout = 'list',
+    confirmLabel = 'Lanjut Donasi',
   },
   ref,
 ): React.JSX.Element {
+  const [options, setOptions] = useState<NominalOption[]>(nominal_options || []);
+  const [isLoadingOptions, setIsLoadingOptions] = useState(false);
   const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState('');
   const [selectedPackage, setSelectedPackage] = useState<DonationPackage | null>(
@@ -71,9 +63,37 @@ export const NominalBottomSheet = forwardRef<
   const [packageQuantity, setPackageQuantity] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (nominal_options && nominal_options.length > 0) {
+      setOptions(nominal_options);
+      return;
+    }
+
+    if (presets && presets.length > 0) {
+      const normalized = presets.map((p, idx) => ({
+        id: p.id ?? idx + 1,
+        nama_pilihan: p.nama_pilihan ?? p.label ?? '',
+        nominal: Number(p.nominal ?? p.amount ?? 0),
+      }));
+      setOptions(normalized);
+      return;
+    }
+
+    if (program_link) {
+      setIsLoadingOptions(true);
+      getNominalOptions(program_link)
+        .then(res => {
+          if (res.success && Array.isArray(res.data)) {
+            setOptions(res.data);
+          }
+        })
+        .finally(() => {
+          setIsLoadingOptions(false);
+        });
+    }
+  }, [nominal_options, presets, program_link]);
+
   const isPaket = nominalType === 'paket';
-  const resolvedSectionTitle =
-    sectionTitle ?? (isPaket ? 'Pilih paket donasi' : 'Pilih nominal donasi');
 
   const amount = isPaket
     ? (selectedPackage?.nominal ?? 0) * packageQuantity
@@ -125,8 +145,8 @@ export const NominalBottomSheet = forwardRef<
       return `${selectedPackage?.label ?? ''} x ${packageQuantity}`;
     }
     if (selectedPreset !== null) {
-      const preset = presets.find(p => p.amount === selectedPreset);
-      return preset?.label ?? 'Nominal Donasi';
+      const option = options.find(p => p.nominal === selectedPreset);
+      return option?.nama_pilihan || 'Nominal Donasi';
     }
     return 'Nominal Donasi';
   }
@@ -147,28 +167,33 @@ export const NominalBottomSheet = forwardRef<
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
       backdropComponent={renderBackdrop}
-      backgroundStyle={styles.sheetBackground}
-      handleIndicatorStyle={styles.handleIndicator}>
-      <View style={styles.header}>
-        <View style={styles.programRow}>
-          <Image source={{uri: sanitizeImageUrl(programImageUrl)}} style={styles.programImage} />
-          <Text style={styles.programTitle} numberOfLines={2}>
+      backgroundStyle={{backgroundColor: '#FFFFFF'}}
+      handleIndicatorStyle={{backgroundColor: colors.neutral[300]}}>
+      <View className="px-5 pt-2 pb-3 border-b border-neutral-100">
+        <View className="flex-row items-center gap-3 mb-2">
+          <Image
+            source={{uri: sanitizeImageUrl(programImageUrl)}}
+            className="w-16 h-10 rounded-md bg-neutral-100"
+            resizeMode="cover"
+          />
+          <Text className="flex-1 text-sm font-semibold text-neutral-900" numberOfLines={2}>
             {programTitle}
           </Text>
         </View>
-
-        <Text style={styles.sectionTitle}>{resolvedSectionTitle}</Text>
+        <Text className="text-base font-bold text-neutral-900">
+          {isPaket ? 'Pilih Paket Donasi' : 'Masukkan Nominal'}
+        </Text>
       </View>
 
       {isPaket && packages.length === 0 ? (
         <EmptyState icon={Box} title="Belum ada paket donasi tersedia" />
       ) : (
         <BottomSheetScrollView
-          contentContainerStyle={styles.scrollContent}
+          contentContainerClassName="px-5 py-4 gap-4"
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           {isPaket ? (
-            <View style={styles.packageList}>
+            <View className="gap-2.5">
               {packages.map(pkg => (
                 <PackageOptionItem
                   key={pkg.id}
@@ -183,78 +208,72 @@ export const NominalBottomSheet = forwardRef<
             </View>
           ) : (
             <>
-              <View
-                style={[
-                  styles.presetList,
-                  presetLayout === 'grid' && styles.presetListGrid,
-                ]}>
-                {presets.map(preset => {
-                  const isSelected = selectedPreset === preset.amount;
-                  return (
-                    <TouchableOpacity
-                      key={preset.amount}
-                      testID={`nominal-preset-${preset.amount}`}
-                      style={[
-                        styles.presetItem,
-                        presetLayout === 'grid' && styles.presetItemGrid,
-                        isSelected && styles.presetItemSelected,
-                      ]}
-                      onPress={() => handleSelectPreset(preset.amount)}
-                      accessibilityRole="button"
-                      accessibilityLabel={[
-                        preset.label,
-                        formatCurrency(preset.amount),
-                        preset.impact,
-                      ]
-                        .filter(Boolean)
-                        .join(', ')}
-                      accessibilityState={{selected: isSelected}}>
-                      {preset.iconUrl ? (
-                        <Image
-                          source={{uri: preset.iconUrl}}
-                          style={styles.presetIcon}
-                        />
-                      ) : null}
-                      <View style={styles.presetTextWrapper}>
-                        {preset.label ? (
-                          <Text
-                            style={[
-                              styles.presetLabel,
-                              presetLayout === 'grid' && styles.presetLabelGrid,
-                            ]}>
-                            {preset.label}
-                          </Text>
-                        ) : null}
+              {/* Preset 2x2 Grid */}
+              {isLoadingOptions ? (
+                <View className="py-4 items-center justify-center">
+                  <ActivityIndicator color={colors.primary[500]} />
+                </View>
+              ) : options.length > 0 ? (
+                <View className="flex-row flex-wrap justify-between gap-y-3">
+                  {options.map((option, index) => {
+                    const isSelected = selectedPreset === option.nominal;
+                    return (
+                      <TouchableOpacity
+                        key={option.id || option.nominal}
+                        testID={`nominal-preset-${option.nominal}`}
+                        className={`relative w-[48%] border-2 rounded-lg p-3.5 items-center justify-center ${
+                          isSelected
+                            ? 'border-primary-500 bg-primary-500'
+                            : 'border-primary-200 bg-white'
+                        }`}
+                        onPress={() => handleSelectPreset(option.nominal)}
+                        activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel={formatCurrency(option.nominal)}
+                        accessibilityState={{selected: isSelected}}>
+                        {index === 1 && (
+                          <View className="absolute -top-2.5 -right-1.5 bg-secondary-500 px-2 py-0.5 rounded-t-xl rounded-br-xl max-w-[90%]">
+                            <Text className="text-[10px] text-white font-bold" numberOfLines={1}>
+                              Nominal favorit
+                            </Text>
+                          </View>
+                        )}
                         <Text
-                          style={[
-                            styles.presetAmount,
-                            presetLayout === 'grid' && styles.presetAmountGrid,
-                          ]}>
-                          {formatCurrency(preset.amount)}
+                          className={`text-sm font-bold ${
+                            isSelected ? 'text-white' : 'text-neutral-700'
+                          }`}>
+                          {formatCurrency(option.nominal)}
                         </Text>
-                        {preset.impact ? (
-                          <Text style={styles.presetImpact}>{preset.impact}</Text>
-                        ) : null}
-                      </View>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              ) : null}
 
-              <Text style={styles.sectionTitle}>Atau tentukan donasi</Text>
-              <View style={[styles.customInputWrapper, error && styles.inputError]}>
-                <Text style={styles.customInputPrefix}>Rp</Text>
-                <BottomSheetTextInput
-                  style={styles.customInput}
-                  value={
-                    customAmount ? formatNumberWithSeparator(Number(customAmount)) : ''
-                  }
-                  onChangeText={handleChangeCustomAmount}
-                  keyboardType="number-pad"
-                  placeholder="0"
-                  placeholderTextColor={colors.neutral[400]}
-                  accessibilityLabel="Input nominal donasi custom"
-                />
+              {/* Custom Input */}
+              <View className="gap-1.5">
+                <Text className="text-xs text-neutral-500 font-medium">
+                  Atau masukkan nominal lainnya
+                </Text>
+                <View
+                  className={`flex-row items-center border rounded-lg px-3 h-12 bg-white ${
+                    error ? 'border-semantic-error' : 'border-neutral-300'
+                  }`}>
+                  <Text className="text-sm font-bold text-neutral-500 mr-2">Rp</Text>
+                  <TextInput
+                    className="flex-1 text-sm font-bold text-neutral-900 p-0"
+                    value={
+                      customAmount
+                        ? formatNumberWithSeparator(Number(customAmount))
+                        : ''
+                    }
+                    onChangeText={handleChangeCustomAmount}
+                    keyboardType="number-pad"
+                    placeholder="Masukkan nominal"
+                    placeholderTextColor={colors.neutral[400]}
+                    accessibilityLabel="Input nominal donasi custom"
+                  />
+                </View>
               </View>
             </>
           )}
@@ -263,172 +282,32 @@ export const NominalBottomSheet = forwardRef<
 
       <SafeAreaFooter>
         {isPaket ? (
-          <View style={styles.totalRow}>
-            <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>{formatCurrency(amount)}</Text>
+          <View className="flex-row items-center justify-between py-1">
+            <Text className="text-sm text-neutral-600">Total</Text>
+            <Text className="text-lg font-bold text-neutral-900">
+              {formatCurrency(amount)}
+            </Text>
           </View>
         ) : null}
 
         {error ? (
-          <Text style={styles.errorText} accessibilityLiveRegion="polite">
+          <Text className="text-xs text-semantic-error" accessibilityLiveRegion="polite">
             {error}
           </Text>
         ) : null}
 
-        <Button
-          label={confirmLabel}
+        <TouchableOpacity
+          className={`w-full py-3.5 rounded-lg items-center justify-center ${
+            isPaket && (packages.length === 0 || !selectedPackage)
+              ? 'bg-neutral-300'
+              : 'bg-secondary-500 active:bg-secondary-600'
+          }`}
           onPress={handleConfirm}
-          size="lg"
-          isDisabled={isPaket && (packages.length === 0 || !selectedPackage)}
-        />
+          activeOpacity={0.8}
+          disabled={isPaket && (packages.length === 0 || !selectedPackage)}>
+          <Text className="text-white font-bold text-sm">{confirmLabel}</Text>
+        </TouchableOpacity>
       </SafeAreaFooter>
     </BottomSheetModal>
   );
-});
-
-const styles = StyleSheet.create({
-  sheetBackground: {
-    backgroundColor: colors.neutral[0],
-  },
-  handleIndicator: {
-    backgroundColor: colors.neutral[300],
-  },
-  header: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-    paddingBottom: spacing.md,
-    gap: spacing.md,
-  },
-  scrollContent: {
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.lg,
-    gap: spacing.md,
-  },
-  programRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.md,
-  },
-  programImage: {
-    // Foto program selalu landscape 16:9 — sama dengan kartu program di daftar.
-    width: 72,
-    height: (72 * 9) / 16,
-    borderRadius: radius.md,
-    backgroundColor: colors.neutral[100],
-  },
-  programTitle: {
-    flex: 1,
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  sectionTitle: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[700],
-  },
-  presetList: {
-    gap: spacing.sm,
-  },
-  presetListGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  presetItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    borderWidth: 1,
-    borderColor: colors.neutral[200],
-    borderRadius: radius.lg,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    minHeight: 44,
-    justifyContent: 'center',
-  },
-  presetItemGrid: {
-    flexBasis: '31%',
-    flexGrow: 1,
-  },
-  presetItemSelected: {
-    borderColor: colors.primary[500],
-    backgroundColor: colors.primary[50],
-  },
-  presetIcon: {
-    width: 28,
-    height: 28,
-    borderRadius: radius.sm,
-    backgroundColor: colors.neutral[100],
-  },
-  presetTextWrapper: {
-    flex: 1,
-    gap: 2,
-  },
-  presetLabel: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  presetLabelGrid: {
-    textAlign: 'center',
-  },
-  presetAmount: {
-    fontSize: fontSize.sm,
-    color: colors.neutral[600],
-  },
-  presetAmountGrid: {
-    textAlign: 'center',
-  },
-  presetImpact: {
-    fontSize: fontSize.xs,
-    color: colors.neutral[500],
-    marginTop: 2,
-  },
-  packageList: {
-    gap: spacing.sm,
-  },
-  totalRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: spacing.xs,
-  },
-  totalLabel: {
-    fontSize: fontSize.sm,
-    color: colors.neutral[600],
-  },
-  totalValue: {
-    fontSize: fontSize.lg,
-    fontWeight: fontWeight.bold,
-    color: colors.neutral[900],
-  },
-  customInputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 48,
-    borderWidth: 1,
-    borderColor: colors.neutral[200],
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.md,
-    gap: spacing.xs,
-  },
-  inputError: {
-    borderColor: colors.semantic.error,
-  },
-  customInputPrefix: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[500],
-  },
-  customInput: {
-    flex: 1,
-    fontSize: fontSize.md,
-    color: colors.neutral[900],
-    padding: 0,
-  },
-  errorText: {
-    fontSize: fontSize.sm,
-    color: colors.semantic.error,
-    marginTop: -spacing.xs,
-  },
 });

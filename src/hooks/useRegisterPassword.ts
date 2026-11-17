@@ -83,13 +83,24 @@ export function useRegisterPassword(phone: string): State & Actions {
         password,
         password_confirmation: passwordConfirmation,
       });
-      if (!response.success) {
-        showToast(response.message);
-        setFieldErrors(response.data as unknown as Record<string, string>);
-        return false;
+
+      const token =
+        (response as any)?.access_token ||
+        (response as any)?.data?.access_token ||
+        (response as any)?.accessToken ||
+        (response as any)?.data?.accessToken;
+
+      if (token) {
+        setAccessToken(token);
+        return true;
       }
-      setAccessToken(response.data.accessToken);
-      return true;
+
+      const msg = (response as any)?.message || 'Gagal menyimpan password';
+      showToast(msg);
+      if ((response as any)?.data && typeof (response as any)?.data === 'object') {
+        setFieldErrors((response as any).data as Record<string, string>);
+      }
+      return false;
     } catch {
       showToast('Tidak dapat terhubung.');
       return false;

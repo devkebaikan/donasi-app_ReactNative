@@ -17,24 +17,24 @@ export interface ProgramDetailApiResponse {
   link: string;
   image: string;
   images: string[];
-  video: string;
+  video: string | null;
   status: string;
   content: string;
   description: string;
   time_target: string | number | null;
   nominal_target: number | null;
-  nominal_achieved: string;
-  nominal_used: string;
-  nominal_by_news: string;
-  progress_achieved: string;
-  remaining_nominal: string;
+  nominal_achieved: string | number;
+  nominal_used: string | number;
+  nominal_by_news?: string | number;
+  progress_achieved: string | number;
+  remaining_nominal?: string | number;
   remaining_days: number | null;
   total_beneficiery: number;
-  beneficiery_by_news: number;
+  beneficiery_by_news?: number;
   total_donaturs?: number | null;
   total_donors?: number | null;
   is_rutin: boolean;
-  is_favorit: boolean;
+  is_favorit?: boolean;
   created_at: string;
   updated_at: string;
   mitra: {
@@ -55,13 +55,39 @@ export interface ProgramDetailApiResponse {
     slug: string;
     description: string;
   } | null;
-  last_news: unknown | null;
-  last_two_projects: unknown[];
-  jenis_nominal: 'biasa' | 'paket';
-  nominal_presets: NominalPresetApiItem[] | null;
-  packages: DonationPackageApiItem[] | null;
-  cta_color: string | null; // hex warna tombol CTA, mis. "#FD6542" — null = pakai default
+  last_news?: unknown | null;
+  last_two_projects?: LastTwoProjectItem[];
+  jenis_nominal?: 'biasa' | 'paket' | string;
+  nominal_presets?: NominalPresetApiItem[] | null;
+  nominal_options?: unknown[];
+  packages?: DonationPackageApiItem[] | null;
+  cta_color?: string | null;
   nearest_projects?: ProjectSalurTerdekatApiItem[] | null;
+  project_summary?: Array<{status: string; count: number}>;
+  no_project_nominal?: {nominal: string | number; gross_nominal: string | number};
+  is_target_waktu?: boolean;
+  is_target_nominal?: boolean;
+  minimum_nominal?: number;
+  minimum_nominal_ads?: number;
+  [key: string]: any;
+}
+
+export interface LastTwoProjectItem {
+  id: number | string;
+  project_number?: string | null;
+  title: string;
+  nominal_target?: string | number;
+  nominal_achieved?: string | number;
+  nominal_used?: string | number;
+  excecution_time?: string | null;
+  image?: string;
+  beneficiary?: number;
+  location?: string | null;
+  kode_wilayah?: string | null;
+  lokasi_penyaluran?: string | null;
+  status?: string;
+  activity?: string;
+  [key: string]: any;
 }
 
 // Bentuk ringkas project salur untuk komponen "Project Salur Terdekat" di
@@ -83,6 +109,7 @@ export interface ProjectSalurTerdekat {
   title: string;
   status: ProjectSalurStatus;
   distributedAt: string;
+  image?: string;
   mitra: {
     name: string;
     photoUrl: string;
@@ -115,29 +142,29 @@ export interface DonationPackage {
   iconUrl: string;
 }
 
-export interface ProgramDetail {
-  id: string;
-  link: string;
-  title: string;
+export interface ProgramDetail extends Omit<ProgramDetailApiResponse, 'packages' | 'nominal_presets'> {
+  // Alias camelCase agar tetap kompatibel dengan komponen pendukung lama
+  id: any;
   imageUrl: string;
   videoUrl?: string;
   contentHtml: string;
   collectedAmount: number;
   usedAmount: number;
   availableAmount: number;
-  goalAmount: number; // Infinity = target tanpa batas
+  goalAmount: number;
   donaturCount: number;
-  daysLeft: number; // Infinity = waktu tanpa batas
-  progressPercent: number; // dari API, di-override 100 saat target tanpa batas
+  daysLeft: number;
+  progressPercent: number;
   isRutin: boolean;
-  donationLabel: string; // label tipe donasi, mis. "Infaq" — bukan field API langsung
+  donationLabel: string;
   organization: ProgramOrganization | null;
   note?: string;
   nominalType: 'biasa' | 'paket';
   nominalPresets: NominalPreset[];
   packages: DonationPackage[];
-  ctaColor?: string; // undefined = pakai default (secondary/coral)
+  ctaColor?: string;
   nearestProjects: ProjectSalurTerdekat[];
+  totalBeneficiary: number;
 }
 
 export interface ReportSalur {
@@ -203,6 +230,16 @@ export interface ProgramDonatur {
   paymentMethodName: string;
   isAnonymous: boolean;
   prayer?: string;
+  aminCount?: number;
+  isLiked?: boolean;
+}
+
+export interface ProgramFundraiser {
+  id: string;
+  name: string;
+  photoUrl?: string;
+  totalDonors: number;
+  totalAmount: number;
 }
 
 export interface SalesNotifItem {

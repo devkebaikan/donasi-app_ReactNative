@@ -24,8 +24,12 @@ export function PaymentMethodListItem({
       accessibilityRole="radio"
       accessibilityLabel={method.name}
       accessibilityState={{ selected: isSelected }}>
-      {method.logoUrl ? (
-        <Image source={{ uri: method.logoUrl }} style={styles.logo} resizeMode="contain" />
+      {method.image_url || method.logoUrl ? (
+        <Image
+          source={{ uri: method.image_url || method.logoUrl }}
+          style={styles.logo}
+          resizeMode="contain"
+        />
       ) : (
         <View style={styles.logoPlaceholder} />
       )}

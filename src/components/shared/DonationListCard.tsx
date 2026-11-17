@@ -72,11 +72,20 @@ export function DonationListCard({
             {program.title}
           </Text>
 
-          <View className="flex-row items-center gap-1">
-            <Text className="text-xs text-neutral-500" numberOfLines={1}>
-              {program.mitra.name}
-            </Text>
-            <Icon icon={VerifiedCheck} size={13} color={colors.primary[500]} />
+          <View className="flex-row items-center gap-1.5 flex-wrap">
+            <View className="flex-row items-center gap-1 flex-shrink min-w-0">
+              <Text className="text-xs text-neutral-500" numberOfLines={1}>
+                {program.mitra.name}
+              </Text>
+              <Icon icon={VerifiedCheck} size={13} color={colors.primary[500]} />
+            </View>
+            {program.category?.name ? (
+              <View className="bg-secondary-50 rounded-full px-2 py-0.5">
+                <Text className="text-[10px] font-medium text-secondary-600" numberOfLines={1}>
+                  {program.category.name}
+                </Text>
+              </View>
+            ) : null}
           </View>
 
           <ProgressBar progress={progress} height={4} />
@@ -89,7 +98,7 @@ export function DonationListCard({
   return (
     <TouchableOpacity
       testID={`donation-card-${program.id}`}
-      className="flex-row gap-3 p-2 rounded-xl bg-neutral-50"
+      className="flex-row gap-3 p-2 rounded-lg bg-neutral-50"
       onPress={() => onPress(program)}
       activeOpacity={0.8}
       accessibilityRole="button"
@@ -111,11 +120,20 @@ export function DonationListCard({
           {program.title}
         </Text>
 
-        <View className="flex-row items-center gap-1">
-          <Text className="text-xs text-neutral-500" numberOfLines={1}>
-            {program.mitra.name}
-          </Text>
-          <Icon icon={VerifiedCheck} size={13} color={colors.primary[500]} />
+        <View className="flex-row items-center gap-1.5 flex-wrap">
+          <View className="flex-row items-center gap-1 flex-shrink min-w-0">
+            <Icon icon={VerifiedCheck} size={13} color={colors.primary[500]} />
+            <Text className="text-xs text-neutral-500" numberOfLines={1}>
+              {program.mitra.name}
+            </Text>
+          </View>
+          {program.category?.name ? (
+            <View className="bg-secondary-50 rounded-full px-2 py-0.5">
+              <Text className="text-[10px] font-medium text-secondary-600" numberOfLines={1}>
+                {program.category.name}
+              </Text>
+            </View>
+          ) : null}
         </View>
 
         <ProgressBar progress={progress} height={4} />

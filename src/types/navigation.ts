@@ -182,6 +182,7 @@ export type RootStackParamList = {
     programId: string;
     programTitle: string;
     programImageUrl: string;
+    programLink?: string;
     nominalType?: 'biasa' | 'paket';
     presets?: NominalPreset[];
     packages?: DonationPackage[];

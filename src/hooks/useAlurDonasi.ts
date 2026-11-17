@@ -19,6 +19,7 @@ interface Params {
   initialAmount: number;
   initialNominalLabel?: string;
   projectSalurId?: string;
+  programLink?: string;
 }
 
 type State = {
@@ -64,6 +65,7 @@ export function useAlurDonasi({
   initialAmount,
   initialNominalLabel,
   projectSalurId,
+  programLink,
 }: Params): State & Actions {
   const isAuthenticated = useAuthStore(s => s.accessToken != null);
   const [selectedAmount, setSelectedAmount] = useState(initialAmount);
@@ -84,7 +86,10 @@ export function useAlurDonasi({
     selectMethod,
     presetMethod,
     setMethodError,
-  } = usePaymentMethodSelection({amount: selectedAmount});
+  } = usePaymentMethodSelection({
+    amount: selectedAmount,
+    program_link: programLink,
+  });
 
   const [donaturName, setDonaturNameState] = useState('');
   const [donaturNameError, setDonaturNameError] = useState<string | null>(null);
@@ -117,7 +122,7 @@ export function useAlurDonasi({
       return true;
     }
     let isValid = true;
-    if (!donaturName.trim()) {
+    if (!isAnonymous && !donaturName.trim()) {
       setDonaturNameError('Nama lengkap wajib diisi');
       isValid = false;
     }
@@ -125,17 +130,41 @@ export function useAlurDonasi({
       setDonaturPhoneError('Nomor WhatsApp wajib diisi');
       isValid = false;
     }
+    if (isOnBehalfEnabled && !onBehalfOf.trim()) {
+      showToast('Masukkan nama penerima / atas nama');
+      isValid = false;
+    }
     return isValid;
   }
 
   async function submitDonation(): Promise<CreateDonationResult | null> {
+    if (selectedAmount < MIN_DONATION_AMOUNT) {
+      showToast('Minimal donasi Rp 10.000');
+      return null;
+    }
     if (!selectedMethod) {
-      setMethodError('Pilih metode pembayaran');
+      setMethodError('Pilih metode pembayaran terlebih dahulu');
+      showToast('Pilih metode pembayaran terlebih dahulu');
       return null;
     }
     if (!validateDonaturFields()) {
       return null;
     }
+
+    const user = useAuthStore.getState().user;
+    const finalName = isAuthenticated
+      ? user?.name || 'Donatur'
+      : isAnonymous
+      ? 'Hamba Allah'
+      : donaturName.trim() || 'Hamba Allah';
+
+    const rawPhone = isAuthenticated ? user?.phone || '' : donaturPhone.trim();
+    const cleanPhone = rawPhone.replace(/\D/g, '');
+    const finalPhone = cleanPhone.startsWith('0')
+      ? cleanPhone
+      : cleanPhone
+      ? `0${cleanPhone}`
+      : '';
 
     setIsSubmitting(true);
     try {
@@ -144,10 +173,10 @@ export function useAlurDonasi({
         amount: selectedAmount,
         paymentMethodId: selectedMethod.id,
         isAnonymous,
-        onBehalfOf: isOnBehalfEnabled ? onBehalfOf || undefined : undefined,
-        prayer: prayer || undefined,
-        donaturName: !isAuthenticated ? donaturName || undefined : undefined,
-        donaturPhone: !isAuthenticated && donaturPhone ? `+62${donaturPhone}` : undefined,
+        onBehalfOf: isOnBehalfEnabled ? onBehalfOf.trim() || undefined : undefined,
+        prayer: prayer.trim() || undefined,
+        donaturName: finalName,
+        donaturPhone: finalPhone,
         projectSalurId,
       });
       if (!response.success) {

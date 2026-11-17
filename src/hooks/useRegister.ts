@@ -8,12 +8,14 @@ type State = {
   email: string;
   isLoading: boolean;
   fieldErrors: Record<string, string> | null;
+  errorMessage: string | null;
 };
 
 type Actions = {
   setName: (value: string) => void;
   setPhone: (value: string) => void;
   setEmail: (value: string) => void;
+  clearErrorMessage: () => void;
   submit: () => Promise<{expiresIn: number} | null>;
 };
 
@@ -28,6 +30,7 @@ export function useRegister(): State & Actions {
     string,
     string
   > | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   function clearFieldError(field: string): void {
     setFieldErrors(prev => {
@@ -43,26 +46,34 @@ export function useRegister(): State & Actions {
 
   function setName(value: string): void {
     setNameState(value);
+    setErrorMessage(null);
     clearFieldError('name');
   }
 
   function setPhone(value: string): void {
     setPhoneState(value);
+    setErrorMessage(null);
     clearFieldError('phone');
   }
 
   function setEmail(value: string): void {
     setEmailState(value);
+    setErrorMessage(null);
     clearFieldError('email');
   }
 
+  function clearErrorMessage(): void {
+    setErrorMessage(null);
+  }
+
   async function submit(): Promise<{expiresIn: number} | null> {
+    setErrorMessage(null);
     const errors: Record<string, string> = {};
     if (!name || name.trim().length < 2) {
       errors.name = 'Nama minimal 2 karakter';
     }
     const digits = phone.replace(/\D/g, '');
-    if (!digits || digits.length < 10 || digits.length > 13) {
+    if (!digits || digits.length < 8) {
       errors.phone = 'Masukkan nomor telepon yang valid';
     }
     if (email && !EMAIL_REGEX.test(email)) {
@@ -70,24 +81,33 @@ export function useRegister(): State & Actions {
     }
     if (Object.keys(errors).length) {
       setFieldErrors(errors);
+      setErrorMessage('Harap isi semua field yang wajib diisi');
       return null;
     }
+
+    const normalizedPhone = digits.startsWith('0') ? digits.slice(1) : digits;
 
     setIsLoading(true);
     try {
       const response = await requestOtp({
-        name,
-        phone,
-        email: email || undefined,
+        name: name.trim(),
+        phone: normalizedPhone,
+        email: email.trim() || undefined,
       });
       if (!response.success) {
-        showToast(response.message);
-        setFieldErrors(response.data as unknown as Record<string, string>);
+        const msg = response.message || 'Terjadi kesalahan';
+        setErrorMessage(msg);
+        showToast(msg);
+        if (response.data && typeof response.data === 'object') {
+          setFieldErrors(response.data as unknown as Record<string, string>);
+        }
         return null;
       }
-      return {expiresIn: response.data.expiresIn};
-    } catch {
-      showToast('Tidak dapat terhubung.');
+      return {expiresIn: response.data?.expiresIn || 180};
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || 'Terjadi kesalahan';
+      setErrorMessage(msg);
+      showToast(msg);
       return null;
     } finally {
       setIsLoading(false);
@@ -100,9 +120,11 @@ export function useRegister(): State & Actions {
     email,
     isLoading,
     fieldErrors,
+    errorMessage,
     setName,
     setPhone,
     setEmail,
+    clearErrorMessage,
     submit,
   };
 }

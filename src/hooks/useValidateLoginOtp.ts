@@ -69,13 +69,16 @@ export function useValidateLoginOtp(
     setIsLoadingVerify(true);
     try {
       const res = await validateLoginOtp({phone, otp: code});
-      if (res.success) {
-        setAccessToken(res.data.access_token);
+      const token =
+        (res as any)?.access_token || (res as any)?.data?.access_token;
+      if (token) {
+        setAccessToken(token);
         return true;
       }
-      setToast(res.message);
-      if (res.data && typeof res.data === 'object') {
-        setError(res.data as unknown as Record<string, string>);
+      const msg = (res as any)?.message || 'Kode OTP tidak valid';
+      setToast(msg);
+      if ((res as any)?.data && typeof (res as any)?.data === 'object') {
+        setError((res as any).data as Record<string, string>);
       }
       return false;
     } catch {

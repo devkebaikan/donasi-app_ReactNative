@@ -9,12 +9,20 @@ interface LoginPayload {
 export type LoginData = {
   access_token: string;
   expires_in: number;
+  id?: number | string;
+  user?: string;
+  name?: string;
+  email?: string | null;
+  phone?: string;
+  role?: string;
+  token_type?: string;
+  [key: string]: any;
 };
 
 export async function login(
   payload: LoginPayload,
-): Promise<ApiResponse<LoginData>> {
-  const res = await apiClient.post<ApiResponse<LoginData>>(
+): Promise<any> {
+  const res = await apiClient.post<any>(
     '/auth/login',
     payload,
   );

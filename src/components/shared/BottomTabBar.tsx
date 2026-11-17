@@ -1,49 +1,53 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Text, Image, type ImageSourcePropType} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Icon, type SolarIconComponent} from '@/components/ui/Icon';
-import {
-  Home,
-  Gift,
-  Heart,
-  CalendarMark,
-  User,
-} from '@solar-icons/react-native/Bold';
-import {
-  Home as HomeLinear,
-  Gift as GiftLinear,
-  Heart as HeartLinear,
-  CalendarMark as CalendarMarkLinear,
-  User as UserLinear,
-} from '@solar-icons/react-native/Linear';
 import type {BottomTabBarProps} from '@react-navigation/bottom-tabs';
-import {colors, spacing, radius, shadows, fontSize, fontWeight} from '@/theme';
+
+const navIcons = {
+  homeActive: require('@/assets/images/nav/home-active.png'),
+  homeInactive: require('@/assets/images/nav/home-inactive.png'),
+  programActive: require('@/assets/images/nav/program-active.png'),
+  programInactive: require('@/assets/images/nav/program-inactive.png'),
+  donasiku: require('@/assets/images/nav/donasiku.png'),
+  rutinActive: require('@/assets/images/nav/rutin-active.png'),
+  rutinInactive: require('@/assets/images/nav/rutin-inactive.png'),
+  userActive: require('@/assets/images/nav/user-active.png'),
+  userInactive: require('@/assets/images/nav/user-inactive.png'),
+};
 
 interface TabConfig {
   label: string;
-  activeIcon: SolarIconComponent;
-  inactiveIcon: SolarIconComponent;
+  activeImage: ImageSourcePropType;
+  inactiveImage: ImageSourcePropType;
   isCentered?: boolean;
 }
 
 const TAB_CONFIG: Record<string, TabConfig> = {
-  Home: {label: 'Beranda', activeIcon: Home, inactiveIcon: HomeLinear},
-  Donations: {label: 'Program', activeIcon: Gift, inactiveIcon: GiftLinear},
+  Home: {
+    label: 'Beranda',
+    activeImage: navIcons.homeActive,
+    inactiveImage: navIcons.homeInactive,
+  },
+  Donations: {
+    label: 'Program',
+    activeImage: navIcons.programActive,
+    inactiveImage: navIcons.programInactive,
+  },
   MyDonations: {
     label: 'Donasi Saya',
-    activeIcon: Heart,
-    inactiveIcon: HeartLinear,
+    activeImage: navIcons.donasiku,
+    inactiveImage: navIcons.donasiku,
     isCentered: true,
   },
   RecurringDonation: {
     label: 'Donasi Rutin',
-    activeIcon: CalendarMark,
-    inactiveIcon: CalendarMarkLinear,
+    activeImage: navIcons.rutinActive,
+    inactiveImage: navIcons.rutinInactive,
   },
   Account: {
     label: 'Akun',
-    activeIcon: User,
-    inactiveIcon: UserLinear,
+    activeImage: navIcons.userActive,
+    inactiveImage: navIcons.userInactive,
   },
 };
 
@@ -55,7 +59,9 @@ export function BottomTabBar({
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom}]}>
+    <View
+      className="flex-row bg-white border-t border-neutral-200"
+      style={{paddingBottom: insets.bottom}}>
       {state.routes.map((route, index) => {
         const options = descriptors[route.key]?.options;
         const config = TAB_CONFIG[route.name];
@@ -81,43 +87,55 @@ export function BottomTabBar({
           return (
             <TouchableOpacity
               key={route.key}
-              style={styles.centeredTab}
+              className="flex-1 min-h-[44px] items-center justify-end pb-1"
               onPress={handlePress}
+              activeOpacity={0.85}
               accessibilityRole="button"
               accessibilityLabel={label}
               accessibilityState={{selected: isFocused}}>
-              <View style={styles.centeredButton}>
-                <Icon
-                  icon={config.activeIcon}
-                  size={28}
-                  color={colors.neutral[0]}
+              <View className="w-14 h-14 rounded-full bg-primary-500 items-center justify-center -mt-5 shadow-lg shadow-primary-500/30">
+                <Image
+                  source={config.activeImage}
+                  className="w-7 h-7"
+                  resizeMode="contain"
                 />
               </View>
-              <Text style={[styles.label, isFocused && styles.labelActive]}>
+              <Text
+                className={`text-[10px] mt-1 ${
+                  isFocused
+                    ? 'text-primary-600 font-semibold'
+                    : 'text-neutral-500 font-medium'
+                }`}>
                 {label}
               </Text>
             </TouchableOpacity>
           );
         }
 
+        const iconSource = isFocused ? config?.activeImage : config?.inactiveImage;
+
         return (
           <TouchableOpacity
             key={route.key}
-            style={styles.tab}
+            className="flex-1 min-h-[44px] items-center justify-center py-2"
             onPress={handlePress}
+            activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel={label}
             accessibilityState={{selected: isFocused}}>
-            <Icon
-              icon={
+            {iconSource ? (
+              <Image
+                source={iconSource}
+                className="w-6 h-6"
+                resizeMode="contain"
+              />
+            ) : null}
+            <Text
+              className={`text-[10px] mt-1 ${
                 isFocused
-                  ? config?.activeIcon ?? Home
-                  : config?.inactiveIcon ?? HomeLinear
-              }
-              size={24}
-              color={isFocused ? colors.primary[500] : colors.neutral[400]}
-            />
-            <Text style={[styles.label, isFocused && styles.labelActive]}>
+                  ? 'text-primary-600 font-semibold'
+                  : 'text-neutral-400 font-medium'
+              }`}>
               {label}
             </Text>
           </TouchableOpacity>
@@ -126,47 +144,3 @@ export function BottomTabBar({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    backgroundColor: colors.neutral[0],
-    borderTopWidth: 1,
-    borderTopColor: colors.neutral[200],
-  },
-  tab: {
-    flex: 1,
-    minHeight: 44,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: spacing.xs,
-    // paddingBottom: spacing.sm,
-  },
-  centeredTab: {
-    flex: 1,
-    minHeight: 44,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: spacing.xs,
-    // paddingBottom: spacing.sm,
-  },
-  centeredButton: {
-    width: 56,
-    height: 56,
-    borderRadius: radius.full,
-    backgroundColor: colors.primary[500],
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: -20,
-    ...shadows.lg,
-  },
-  label: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[400],
-  },
-  labelActive: {
-    color: colors.primary[500],
-    fontWeight: fontWeight.semiBold,
-  },
-});

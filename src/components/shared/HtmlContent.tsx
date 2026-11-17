@@ -1,114 +1,61 @@
-import React, { useMemo } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { colors, spacing, radius, fontSize, lineHeight } from '@/theme';
 
-// Renderer HTML minimal (paragraf, <br>, <img>) tanpa dependency baru —
-// solusi interim sampai ada ADR untuk library HTML renderer penuh.
-// Tag lain di-strip, entity umum di-decode.
+import React from 'react';
+import { useWindowDimensions } from 'react-native';
+import RenderHTML from 'react-native-render-html';
+import { colors, fontSize, lineHeight } from '@/theme';
 
 interface HtmlContentProps {
   html: string;
 }
 
-type ContentBlock =
-  | { type: 'text'; value: string }
-  | { type: 'image'; value: string };
+export function HtmlContent({
+  html,
+}: HtmlContentProps): React.JSX.Element | null {
+  const { width } = useWindowDimensions();
 
-const HTML_ENTITIES: Record<string, string> = {
-  '&nbsp;': ' ',
-  '&amp;': '&',
-  '&lt;': '<',
-  '&gt;': '>',
-  '&quot;': '"',
-  '&#39;': "'",
-  '&rsquo;': '’',
-  '&lsquo;': '‘',
-};
-
-function decodeEntities(value: string): string {
-  return value.replace(
-    /&nbsp;|&amp;|&lt;|&gt;|&quot;|&#39;|&rsquo;|&lsquo;/g,
-    entity => HTML_ENTITIES[entity] ?? entity,
-  );
-}
-
-function extractText(fragment: string): string {
-  const withBreaks = fragment
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/p>/gi, '\n\n')
-    .replace(/<[^>]+>/g, '');
-  return decodeEntities(withBreaks)
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
-}
-
-function parseHtmlBlocks(html: string): ContentBlock[] {
-  if (!html) return [];
-  const blocks: ContentBlock[] = [];
-  const fragments = html.split(/(<img[^>]*>)/gi);
-
-  for (const fragment of fragments) {
-    if (!fragment) continue;
-    const imageMatch = fragment.match(/<img[^>]*src=["']([^"']+)["']/i);
-    if (imageMatch?.[1]) {
-      const src = imageMatch[1];
-      // Hanya izinkan remote URL atau data URI wajar (<50KB) untuk mencegah crash decoding
-      if (src.startsWith('http://') || src.startsWith('https://') || (src.startsWith('data:image') && src.length < 50_000)) {
-        blocks.push({ type: 'image', value: src });
-      }
-      continue;
-    }
-    const text = extractText(fragment);
-    if (text) {
-      blocks.push({ type: 'text', value: text });
-    }
-  }
-
-  return blocks;
-}
-
-export function HtmlContent({ html }: HtmlContentProps): React.JSX.Element | null {
-  const blocks = useMemo(() => parseHtmlBlocks(html), [html]);
-
-  if (blocks.length === 0) {
+  if (!html?.trim()) {
     return null;
   }
 
   return (
-    <View style={styles.container}>
-      {blocks.map((block, index) =>
-        block.type === 'image' ? (
-          <Image
-            key={`${block.type}-${index}`}
-            source={{ uri: block.value }}
-            style={styles.image}
-            resizeMode="cover"
-            accessibilityRole="image"
-            accessibilityLabel="Gambar konten program"
-          />
-        ) : (
-          <Text key={`${block.type}-${index}`} style={styles.text}>
-            {block.value}
-          </Text>
-        ),
-      )}
-    </View>
+    <RenderHTML
+      contentWidth={width - 32}
+      source={{ html }}
+      enableCSSInlineProcessing={true}
+      tagsStyles={{
+        body: {
+          color: colors.neutral[700],
+          fontSize: fontSize.sm,
+          lineHeight: fontSize.sm * lineHeight.normal,
+        },
+        p: {
+          color: colors.neutral[700],
+          fontSize: fontSize.sm,
+          lineHeight: fontSize.sm * lineHeight.normal,
+          textAlign: 'justify',
+          marginBottom: 12,
+        },
+        span: {
+          color: colors.neutral[700],
+        },
+        em: {
+          fontStyle: 'italic',
+        },
+        strong: {
+          fontWeight: 'bold',
+        },
+        b: {
+          fontWeight: 'bold',
+        },
+        img: {
+          borderRadius: 8,
+        },
+      }}
+      renderersProps={{
+        img: {
+          enableExperimentalPercentWidth: true,
+        },
+      }}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    gap: spacing.md,
-  },
-  text: {
-    fontSize: fontSize.sm,
-    lineHeight: fontSize.sm * lineHeight.normal,
-    color: colors.neutral[700],
-  },
-  image: {
-    width: '100%',
-    height: 180,
-    borderRadius: radius.md,
-    backgroundColor: colors.neutral[100],
-  },
-});

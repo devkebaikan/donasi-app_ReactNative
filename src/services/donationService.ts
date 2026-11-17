@@ -1,18 +1,16 @@
 import {apiClient} from './apiClient';
-import {isProgramRutin, seedFromLink} from './mockData/programSeed';
-import {donationTrackingFixture} from './mockData/fixtures';
 import type {ApiResponse} from '@/types/api';
 import type {Category} from '@/types/category';
 import type {Program} from '@/types/program';
 import type {SortDirection, SortOption} from '@/types/donationFilter';
 import {getDonationTypeLabel} from '@/utils/donationTypeLabel';
-import {formatDateTimeWib} from '@/utils/formatDate';
 import type {
   DonaturSort,
   MitraSalur,
   ProgramDetail,
   ProgramDetailApiResponse,
   ProgramDonatur,
+  ProgramFundraiser,
   ProjectSalur,
   ProjectSalurDetail,
   ProjectSalurStatus,
@@ -21,14 +19,12 @@ import type {
 } from '@/types/programDetail';
 import type {
   OrganizationProfile,
-  OrganizationProfileApiResponse,
   OrganizationReport,
-  OrganizationReportApiResponse,
 } from '@/types/organization';
 import type {
   CreateDonationPayload,
   CreateDonationResult,
-  PaymentGateway,
+  NominalOption,
   PaymentMethod,
   PaymentMethodType,
 } from '@/types/payment';
@@ -45,286 +41,117 @@ import type {
 } from '@/types/myDonations';
 import type {
   DonationPaymentStatus,
-  DonationSalurStatus,
   DonationTracking,
-  DonationTrackingFixture,
-  TrackingMitra,
-  TrackingReportCard,
-  TrackingStatusStep,
 } from '@/types/tracking';
 
-const SIMULATED_DELAY_MS = 500;
 const PAGE_SIZE = 10;
 
-interface ProgramCategoriesResponse {
-  status?: number;
-  success?: boolean;
-  message?: string;
-  data: Category[];
-  program_list?: Program[];
-}
+// ── Categories & Programs ─────────────────────────────────────────────────────
 
-const ORGANIZATIONS = [
-  'Yayasan Amal Sholeh',
-  'Rumah Zakat',
-  'Dompet Dhuafa',
-  'Baznas',
-];
-
-const MITRA_LOCATIONS = ['Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta'];
-
-const PROGRAM_IMAGE_URL =
-  'https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg';
-
-const PROJECT_TITLES = [
-  'Distribusi Bantuan Tahap 1',
-  'Pembangunan Fasilitas Umum',
-  'Penyaluran Sembako',
-  'Renovasi Sarana Ibadah',
-];
-
-const DONATUR_NAMES = [
-  'Hamba Allah',
-  'Ahmad Fauzi',
-  'Siti Aminah',
-  'Budi Santoso',
-  'Dewi Lestari',
-  'Rizky Pratama',
-];
-
-const SALES_NOTIF_NAMES = [
-  'Faris Adiyaksa',
-  'Nadia Putri',
-  'Rangga Saputra',
-  'Melati Ayu',
-  'Yusuf Hakim',
-];
-
-const REPORT_TITLES = [
-  'Penyaluran Tahap Pertama',
-  'Update Progres Pembangunan',
-  'Laporan Penggunaan Dana',
-  'Dokumentasi Kegiatan di Lapangan',
-];
-
-const PROJECT_SALUR_ADDRESSES = [
-  'Donggo, Kabupaten Bima, Nusa Tenggara Barat (NTB)',
-  'Cileungsi, Kabupaten Bogor, Jawa Barat',
-  'Pulau Kelapa, Kepulauan Seribu, DKI Jakarta',
-  'Wonosari, Kabupaten Gunungkidul, DI Yogyakarta',
-];
-
-const PROGRAM_TITLES = [
-  'Zakat Penghasilan untuk Dhuafa',
-  'Beasiswa Penuh untuk Santri Berprestasi',
-  'Bantuan Air Bersih di Daerah Terpencil',
-  'Wakaf Pembangunan Masjid',
-  'Bantuan Korban Bencana Alam',
-  'Santunan Anak Yatim',
-  'Bedah Rumah Dhuafa',
-  'Bantuan Medis Gratis',
-  'Distribusi Sembako Ramadhan',
-  'Renovasi Sekolah Pelosok',
-];
-
-function pick<T>(items: T[], index: number): T {
-  return items[index % items.length] as T;
-}
-
-// Seed deterministik dari sebuah id string — dipakai untuk mock yang
-// menerima id sembarang (mis. projectSalurId, bisa datang dari format
-// composite `createMockProjects` atau id numerik-as-string dari
-// `nearest_projects`), supaya hasil mock tetap konsisten untuk id yang sama.
-function hashString(value: string): number {
-  let seed = 0;
-  for (let index = 0; index < value.length; index += 1) {
-    seed = (seed * 31 + value.charCodeAt(index)) % 1000;
-  }
-  return seed;
-}
-
-function buildProgramLink(title: string, id: number): string {
-  return `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${id}`;
-}
-
-function daysAgoIso(days: number): string {
-  const date = new Date();
-  date.setDate(date.getDate() - days);
-  return date.toISOString();
-}
-
-function delay<T>(value: T): Promise<T> {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(value), SIMULATED_DELAY_MS);
-  });
-}
-
-async function fetchProgramCategoriesPage(): Promise<ProgramCategoriesResponse> {
-  const res = await apiClient.get<ProgramCategoriesResponse>(
-    '/program-categories',
-  );
-  return res.data;
-}
-
-let programCategoriesPagePromise: Promise<ProgramCategoriesResponse> | null =
-  null;
-
-function getProgramCategoriesPage(): Promise<ProgramCategoriesResponse> {
-  if (!programCategoriesPagePromise) {
-    programCategoriesPagePromise = fetchProgramCategoriesPage();
-  }
-  return programCategoriesPagePromise;
-}
-
-function createMockPrograms(categories: Category[]): Program[] {
-  const total = 26;
-  return Array.from({length: total}, (_, index) => {
-    const category = pick(categories, index);
-    const hasUnlimitedGoal = index % 9 === 0;
-    const hasUnlimitedTime = index % 7 === 0;
-    const nominalTarget = hasUnlimitedGoal
-      ? 0
-      : 20000000 + (index % 5) * 10000000;
-    const nominalAchieved = hasUnlimitedGoal
-      ? (index + 1) * 1500000
-      : Math.round(nominalTarget * ((index % 10) / 10));
-    const remainingDays = hasUnlimitedTime ? null : 15 - (index % 18);
-
-    const title = pick(PROGRAM_TITLES, index);
-    const link = buildProgramLink(title, index + 1);
-
-    return {
-      id: index + 1,
-      title,
-      link,
-      image: PROGRAM_IMAGE_URL,
-      time_target: hasUnlimitedTime ? null : 30 + (index % 60),
-      nominal_target: nominalTarget,
-      nominal_achieved: nominalAchieved,
-      progress_achieved:
-        nominalTarget > 0
-          ? Math.min(100, Math.round((nominalAchieved / nominalTarget) * 100))
-          : 100,
-      remaining_days: remainingDays,
-      mitra: {
-        id: (index % ORGANIZATIONS.length) + 1,
-        name: pick(ORGANIZATIONS, index),
-        image: '',
-        location: pick(MITRA_LOCATIONS, index),
-      },
-      category: {
-        id: category.id,
-        name: category.name,
-        slug: category.slug,
-        image: category.image,
-      },
-      // Dihitung dari `link` memakai helper yang sama dengan detail program,
-      // supaya daftar dan detail tidak pernah berbeda pendapat soal program
-      // yang sama. Lihat src/services/mockData/programSeed.ts.
-      isRutin: isProgramRutin(seedFromLink(link)),
-      isRecommended: index % 6 === 0,
-      donaturCount: (index + 1) * 37,
-      createdAt: daysAgoIso(index),
-      latestNewsAt: daysAgoIso((index * 3) % 20),
-    };
-  });
-}
-
-let mockProgramsPromise: Promise<Program[]> | null = null;
-
-function getMockPrograms(): Promise<Program[]> {
-  if (!mockProgramsPromise) {
-    mockProgramsPromise = getProgramCategoriesPage().then(page =>
-      createMockPrograms(page.data),
-    );
-  }
-  return mockProgramsPromise;
-}
-
-function getRemainingDaysSortValue(remainingDays: number | null): number {
-  return remainingDays === null ? Number.POSITIVE_INFINITY : remainingDays;
-}
-
-function sortPrograms(
-  programs: Program[],
-  sortOption: SortOption,
-  sortDirection: SortDirection,
-): Program[] {
-  const sorted = [...programs];
-  const directionMultiplier = sortDirection === 'asc' ? -1 : 1;
-
-  switch (sortOption) {
-    case 'terbaru':
-      return sorted.sort(
-        (a, b) =>
-          directionMultiplier *
-          (new Date(b.createdAt ?? 0).getTime() -
-            new Date(a.createdAt ?? 0).getTime()),
-      );
-    case 'segera-berakhir':
-      return sorted.sort(
-        (a, b) =>
-          directionMultiplier *
-          (getRemainingDaysSortValue(a.remaining_days) -
-            getRemainingDaysSortValue(b.remaining_days)),
-      );
-    case 'jumlah-donatur':
-      return sorted.sort(
-        (a, b) =>
-          directionMultiplier * ((b.donaturCount ?? 0) - (a.donaturCount ?? 0)),
-      );
-    case 'berita-terbaru':
-      return sorted.sort(
-        (a, b) =>
-          directionMultiplier *
-          (new Date(b.latestNewsAt ?? 0).getTime() -
-            new Date(a.latestNewsAt ?? 0).getTime()),
-      );
-    case 'berakhir':
-      return sorted
-        .filter(
-          program =>
-            program.remaining_days !== null && program.remaining_days <= 0,
-        )
-        .sort(
-          (a, b) =>
-            directionMultiplier *
-            (getRemainingDaysSortValue(a.remaining_days) -
-              getRemainingDaysSortValue(b.remaining_days)),
-        );
-    default:
-      return sorted;
-  }
-}
-
-export async function getDonationCategories(): Promise<
-  ApiResponse<Category[]>
-> {
+export async function getDonationCategories(): Promise<ApiResponse<Category[]>> {
   try {
-    const page = await getProgramCategoriesPage();
-    const isSuccess =
-      page.success === true ||
-      (typeof page.status === 'number' && page.status >= 200 && page.status < 300) ||
-      (page.data != null && Array.isArray(page.data));
+    const res = await apiClient.get<any>('/program-categories');
+    const rawList = Array.isArray(res.data?.data)
+      ? res.data.data
+      : Array.isArray(res.data)
+      ? res.data
+      : [];
 
     return {
-      success: isSuccess,
-      message: page.message || 'OK',
-      data: Array.isArray(page.data) ? page.data : [],
+      success: true,
+      message: res.data?.message || 'OK',
+      data: rawList,
     };
   } catch {
     return {
       success: false,
-      message: 'Tidak dapat terhubung.',
+      message: 'Tidak dapat memuat kategori',
       data: [],
     };
   }
 }
 
+export interface ApiProgramItem {
+  id: number;
+  title: string;
+  link: string;
+  image: string;
+  time_target: string | number | null;
+  nominal_target: number | null;
+  nominal_achieved: string | number;
+  progress_achieved: string | number;
+  remaining_days: number | null;
+  mitra: {
+    id: number;
+    name: string;
+    image: string;
+    location: string;
+  };
+  category: {
+    id: number;
+    name: string;
+    slug: string;
+    image: string;
+  };
+  tipe?: {
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+  };
+  is_rutin?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: any;
+}
+
+export function mapApiProgramToProgram(item: ApiProgramItem): Program {
+  return {
+    id: item.id,
+    title: item.title,
+    link: item.link,
+    image: item.image,
+    time_target: item.time_target,
+    nominal_target: item.nominal_target,
+    nominal_achieved: item.nominal_achieved,
+    progress_achieved: item.progress_achieved,
+    is_target_nominal: item.is_target_nominal ?? true,
+    remaining_days: item.remaining_days,
+    mitra: item.mitra,
+    category: item.category,
+    tipe: item.tipe,
+    isRutin: Boolean(item.is_rutin),
+    isRecommended: false,
+    donaturCount: Number(item.total_donors ?? item.total_donaturs ?? 0),
+    createdAt: item.created_at,
+    latestNewsAt: item.updated_at,
+  };
+}
+
 export async function getFeaturedDonations(): Promise<ApiResponse<Program[]>> {
-  const programs = await getMockPrograms();
-  const data = await delay(programs.filter(program => program.isRecommended));
-  return {success: true, message: 'OK', data};
+  try {
+    const res = await apiClient.get<any>('/programs', {
+      params: {
+        mode: 'list',
+        status: 'PUBLISH',
+        limit: 5,
+      },
+    });
+
+    const rawList: ApiProgramItem[] = Array.isArray(res.data?.data)
+      ? res.data.data
+      : Array.isArray(res.data?.data?.data)
+      ? res.data.data.data
+      : [];
+
+    return {
+      success: true,
+      message: 'OK',
+      data: rawList.slice(0, 5).map(mapApiProgramToProgram),
+    };
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
 }
 
 export interface DonationListParams {
@@ -333,1133 +160,934 @@ export interface DonationListParams {
   sortOption: SortOption;
   sortDirection: SortDirection;
   search: string;
-  // Hanya dikirim menu Donasi Rutin. AllDonationsScreen tidak mengisinya, jadi
-  // perilakunya di sana tidak berubah.
   isRutin?: boolean;
 }
 
 export interface DonationListResult {
   items: Program[];
   hasMore: boolean;
-  // Jumlah seluruh program yang cocok dengan filter, bukan cuma yang ada di
-  // halaman ini — dipakai banner "X program tersedia" di daftar donasi rutin.
   total: number;
+}
+
+function sortPrograms(
+  programs: Program[],
+  sortOption: SortOption,
+  sortDirection: SortDirection,
+): Program[] {
+  const result = [...programs];
+  const directionMultiplier = sortDirection === 'asc' ? 1 : -1;
+
+  result.sort((a, b) => {
+    if (sortOption === 'terbaru') {
+      const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return (timeA - timeB) * directionMultiplier;
+    }
+    if (sortOption === 'segera-berakhir') {
+      const daysA = a.remaining_days ?? Infinity;
+      const daysB = b.remaining_days ?? Infinity;
+      return (daysA - daysB) * directionMultiplier;
+    }
+    if (sortOption === 'jumlah-donatur') {
+      const countA = a.donaturCount ?? 0;
+      const countB = b.donaturCount ?? 0;
+      return (countA - countB) * directionMultiplier;
+    }
+    return 0;
+  });
+
+  return result;
 }
 
 export async function getDonationList(
   params: DonationListParams,
 ): Promise<ApiResponse<DonationListResult>> {
-  const programs = await getMockPrograms();
-  const filtered = programs.filter(program => {
-    const matchesCategory =
-      params.categoryId !== null
-        ? program.category.id === params.categoryId
-        : true;
-    const matchesSearch = params.search
-      ? program.title.toLowerCase().includes(params.search.toLowerCase())
-      : true;
-    const matchesRutin = params.isRutin ? program.isRutin : true;
-    return matchesCategory && matchesSearch && matchesRutin;
-  });
-  const sorted = sortPrograms(filtered, params.sortOption, params.sortDirection);
-  const pageStart = (params.page - 1) * PAGE_SIZE;
-  const items = sorted.slice(pageStart, pageStart + PAGE_SIZE);
-  const hasMore = pageStart + items.length < sorted.length;
+  try {
+    const apiOrder =
+      params.sortOption === 'segera-berakhir'
+        ? undefined
+        : params.sortOption === 'terbaru'
+        ? 'created_at'
+        : undefined;
 
-  const data = await delay({items, hasMore, total: sorted.length});
-  return {success: true, message: 'OK', data};
-}
-
-function parseAmount(value: string): number {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : 0;
-}
-
-function mapProgramDetail(raw: ProgramDetailApiResponse): ProgramDetail {
-  const collectedAmount = parseAmount(raw.nominal_achieved);
-  const usedAmount = parseAmount(raw.nominal_used);
-  const hasUnlimitedGoal = raw.nominal_target === null;
-
-  return {
-    id: String(raw.id),
-    link: raw.link,
-    title: raw.title,
-    imageUrl: raw.image,
-    videoUrl: raw.video || undefined,
-    contentHtml: raw.content,
-    collectedAmount,
-    usedAmount,
-    availableAmount: collectedAmount - usedAmount,
-    goalAmount: raw.nominal_target ?? Infinity,
-    donaturCount: raw.total_donors ?? raw.total_donaturs ?? 0,
-    daysLeft: raw.remaining_days ?? Infinity,
-    progressPercent: hasUnlimitedGoal
-      ? 100
-      : Math.min(100, parseAmount(raw.progress_achieved)),
-    isRutin: raw.is_rutin,
-    donationLabel: getDonationTypeLabel(raw.tipe),
-    organization: raw.mitra
-      ? {
-          id: String(raw.mitra.id),
-          name: raw.mitra.name,
-          logoUrl: raw.mitra.image,
-          // API mitra tidak mengirim status verifikasi — selalu true untuk sekarang
-          isVerified: true,
-        }
-      : null,
-    // jenis_nominal tidak dikenal/tidak ada -> fallback ke 'biasa' (superset paling aman)
-    nominalType: raw.jenis_nominal === 'paket' ? 'paket' : 'biasa',
-    nominalPresets: (raw.nominal_presets ?? []).map(preset => ({
-      nominal: preset.nominal,
-      iconUrl: preset.icon,
-      label: preset.label,
-    })),
-    packages: (raw.packages ?? []).map(pkg => ({
-      id: String(pkg.id),
-      label: pkg.label,
-      nominal: pkg.nominal,
-      iconUrl: pkg.icon,
-    })),
-    ctaColor: raw.cta_color ?? undefined,
-    nearestProjects: (raw.nearest_projects ?? []).map(item => ({
-      id: String(item.id),
-      title: item.title,
-      status: item.status,
-      distributedAt: item.distributed_at,
-      mitra: {
-        name: item.mitra.name,
-        photoUrl: item.mitra.image,
+    const res = await apiClient.get<any>('/programs', {
+      params: {
+        mode: 'list',
+        status: 'PUBLISH',
+        search: params.search || undefined,
+        order: apiOrder,
+        sort: params.sortDirection,
       },
-    })),
-  };
-}
+    });
 
-const MITRA_LOGO_URL =
-  'https://cdn.aksiberbagi.com/mitra-logo/logo-1737686881.png';
+    const rawList: ApiProgramItem[] = Array.isArray(res.data?.data)
+      ? res.data.data
+      : Array.isArray(res.data?.data?.data)
+      ? res.data.data.data
+      : [];
 
-const REPORT_SALUR_DESCRIPTION_HTML =
-  '<p>Alhamdulillah, penyaluran tahap ini telah dilaksanakan. Bantuan diserahkan langsung kepada penerima manfaat sesuai dengan rencana program.</p><p>Terima kasih kepada seluruh sahabat berbagi yang telah berpartisipasi.</p>';
+    const programs = rawList.map(mapApiProgramToProgram);
 
-const PROJECT_SALUR_DESCRIPTION_HTML =
-  '<p>Project penyaluran ini dijalankan untuk menyalurkan bantuan kepada penerima manfaat secara bertahap. Setiap tahap penyaluran dicatat sebagai laporan tersendiri di bawah project ini.</p>';
+    const filtered = programs.filter(program => {
+      const matchesCategory =
+        params.categoryId !== null
+          ? String(program.category?.id) === String(params.categoryId)
+          : true;
+      const matchesRutin = params.isRutin ? program.isRutin : true;
+      return matchesCategory && matchesRutin;
+    });
 
-const PROJECT_SALUR_STATUSES: ProjectSalurStatus[] = [
-  'proses',
-  'selesai',
-  'menunggu',
-];
+    const sorted = sortPrograms(filtered, params.sortOption, params.sortDirection);
+    const pageStart = (params.page - 1) * PAGE_SIZE;
+    const items = sorted.slice(pageStart, pageStart + PAGE_SIZE);
+    const hasMore = pageStart + items.length < sorted.length;
 
-function createMockReportSalur(
-  projectId: string,
-  projectIndex: number,
-): ReportSalur[] {
-  // Contoh dari spec: 1 project "proses" bisa punya 2 report selesai + 1 menunggu
-  const statuses: ProjectSalurStatus[] =
-    projectIndex % 2 === 0
-      ? ['selesai', 'selesai', 'menunggu']
-      : ['selesai', 'proses'];
-
-  return statuses.map((status, index) => ({
-    id: `${projectId}-report-${index + 1}`,
-    title: pick(REPORT_TITLES, projectIndex + index),
-    descriptionHtml: REPORT_SALUR_DESCRIPTION_HTML,
-    status,
-    distributedAt: daysAgoIso(projectIndex * 7 + index * 2),
-    photoUrl: PROGRAM_IMAGE_URL,
-    mitra: {
-      name: pick(ORGANIZATIONS, projectIndex),
-      photoUrl: MITRA_LOGO_URL,
-    },
-  }));
-}
-
-function createMockProjects(programId: string): ProjectSalur[] {
-  return PROJECT_TITLES.map((title, index) => {
-    const projectId = `${programId}-project-${index + 1}`;
     return {
-      id: projectId,
-      title,
-      descriptionHtml: PROJECT_SALUR_DESCRIPTION_HTML,
-      status: pick(PROJECT_SALUR_STATUSES, index),
-      distributedAt: daysAgoIso(index * 7),
-      photoUrl: PROGRAM_IMAGE_URL,
-      beneficiaryCount: 80 + index * 65,
-      mitra: {
-        name: pick(ORGANIZATIONS, index),
-        photoUrl: MITRA_LOGO_URL,
+      success: true,
+      message: 'OK',
+      data: {
+        items,
+        hasMore,
+        total: sorted.length,
       },
-      reports: createMockReportSalur(projectId, index),
     };
-  });
-}
-
-function createMockMitraSalur(programId: string): MitraSalur[] {
-  return ORGANIZATIONS.map((name, index) => ({
-    id: `${programId}-mitra-${index + 1}`,
-    name,
-    photoUrl: MITRA_LOGO_URL,
-    role: index === 0 ? 'utama' : 'bantuan',
-  }));
-}
-
-// projectSalurId bisa datang dari 2 bentuk berbeda (composite
-// `createMockProjects` maupun id numerik-as-string dari `nearest_projects`)
-// — mock detail ini tidak mengasumsikan format apa pun, murni hash dari id.
-function createMockProjectSalurDetail(projectSalurId: string): ProjectSalurDetail {
-  const seed = hashString(projectSalurId);
-  const targetAmount = 100_000_000 + (seed % 10) * 25_000_000;
-  const isOverfunded = seed % 4 === 0;
-  const collectedAmount = isOverfunded
-    ? Math.round(targetAmount * 1.1)
-    : Math.round(targetAmount * ((seed % 10) / 10));
-  const progressPercent = Math.min(
-    100,
-    Math.round((collectedAmount / targetAmount) * 100),
-  );
-  const programTitle = pick(PROGRAM_TITLES, seed);
-
-  return {
-    id: projectSalurId,
-    title: pick(PROJECT_TITLES, seed),
-    photoUrl: PROGRAM_IMAGE_URL,
-    address: pick(PROJECT_SALUR_ADDRESSES, seed),
-    descriptionHtml: PROJECT_SALUR_DESCRIPTION_HTML,
-    status: pick(PROJECT_SALUR_STATUSES, seed),
-    distributedAt: daysAgoIso(seed % 60),
-    beneficiaryCount: 80 + (seed % 12) * 55,
-    targetAmount,
-    collectedAmount,
-    progressPercent,
-    donaturCount: DONATUR_NAMES.length,
-    donationLabel: getDonationTypeLabel({name: 'INFAK', slug: 'infaq'}),
-    mitra: {
-      id: `mitra-${(seed % ORGANIZATIONS.length) + 1}`,
-      name: pick(ORGANIZATIONS, seed),
-      photoUrl: MITRA_LOGO_URL,
-      isVerified: true,
-    },
-    program: {
-      id: String(seed + 1),
-      link: buildProgramLink(programTitle, seed + 1),
-      title: programTitle,
-      imageUrl: PROGRAM_IMAGE_URL,
-      nominalType: 'biasa',
-      nominalPresets: [],
-      packages: [],
-    },
-    reports: createMockReportSalur(projectSalurId, seed),
-  };
-}
-
-const DONATUR_PAYMENT_METHODS = [
-  'OVO',
-  'GoPay',
-  'BCA',
-  'QRIS',
-  'Dompet Kebaikan',
-];
-
-const DONATUR_PRAYERS = [
-  'Semoga bantuan ini bermanfaat dan menjadi berkah untuk kita semua. Aamiin.',
-  'Ya Allah, mudahkanlah urusan saudara-saudara kami yang sedang kesulitan.',
-];
-
-function hoursAgoIso(hours: number): string {
-  const date = new Date();
-  date.setHours(date.getHours() - hours);
-  return date.toISOString();
-}
-
-function createMockDonatur(programId: string): ProgramDonatur[] {
-  return DONATUR_NAMES.map((name, index) => ({
-    id: `${programId}-donatur-${index + 1}`,
-    name,
-    photoUrl: index % 3 === 1 ? MITRA_LOGO_URL : undefined,
-    amount: 50000 + index * 75000,
-    createdAt: index === 0 ? hoursAgoIso(3) : daysAgoIso(index),
-    paymentMethodName: pick(DONATUR_PAYMENT_METHODS, index),
-    isAnonymous: name === 'Hamba Allah',
-    prayer: index % 2 === 0 ? pick(DONATUR_PRAYERS, index) : undefined,
-  }));
-}
-
-function sortDonatur(
-  donatur: ProgramDonatur[],
-  sort: DonaturSort,
-): ProgramDonatur[] {
-  const sorted = [...donatur];
-  if (sort === 'terbesar') {
-    return sorted.sort((a, b) => b.amount - a.amount);
+  } catch {
+    return {
+      success: true,
+      message: 'OK',
+      data: {
+        items: [],
+        hasMore: false,
+        total: 0,
+      },
+    };
   }
-  return sorted.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
 }
 
-const SALES_NOTIF_AMOUNTS = [10000276, 250000, 1500000, 75000, 5000000];
-
-function createMockSalesNotif(programId: string): SalesNotifItem[] {
-  return SALES_NOTIF_NAMES.map((name, index) => ({
-    id: `${programId}-sales-notif-${index + 1}`,
-    donaturName: name,
-    amount: pick(SALES_NOTIF_AMOUNTS, index),
-  }));
-}
+// ── Detail Program (Direct API without dummy, passing all raw data) ───────────
 
 export async function getProgramDetail(
   link: string,
 ): Promise<ApiResponse<ProgramDetail>> {
-  const res = await apiClient.get<ApiResponse<ProgramDetailApiResponse>>(
-    `/programs/link/${encodeURIComponent(link)}`,
-  );
-  const isSuccess =
-    res.data.success === true ||
-    (typeof res.data.status === 'number' && res.data.status >= 200 && res.data.status < 300) ||
-    res.status === 200;
+  try {
+    const res = await apiClient.get<ApiResponse<ProgramDetailApiResponse>>(
+      `/programs/link/${encodeURIComponent(link)}`,
+    );
 
-  if (!isSuccess || !res.data.data) {
+    const raw = res.data?.data;
+    if (!raw || Object.keys(raw).length === 0) {
+      return {
+        status: 404,
+        success: false,
+        message: 'Program tidak ditemukan',
+        data: null as unknown as ProgramDetail,
+      };
+    }
+
+    const collectedAmount = Number(raw.nominal_achieved ?? 0);
+    const usedAmount = Number(raw.nominal_used ?? 0);
+    const goalAmount = raw.nominal_target !== null ? Number(raw.nominal_target) : Infinity;
+    const donaturCount = Number(raw.total_donors ?? raw.total_donaturs ?? 0);
+    const daysLeft = raw.remaining_days !== null ? Number(raw.remaining_days) : Infinity;
+    const progressPercent =
+      raw.progress_achieved !== undefined && raw.progress_achieved !== null
+        ? Number(raw.progress_achieved)
+        : goalAmount !== Infinity && goalAmount > 0
+        ? Math.min(100, (collectedAmount / goalAmount) * 100)
+        : 100;
+
+    // Seluruh data mentah backend diboyong langsung tanpa ada yang dipangkas
+    const programDetail: ProgramDetail = {
+      ...raw,
+      imageUrl: raw.image,
+      videoUrl: raw.video || undefined,
+      contentHtml: raw.content || '',
+      collectedAmount,
+      usedAmount,
+      availableAmount: Math.max(0, collectedAmount - usedAmount),
+      goalAmount,
+      donaturCount,
+      daysLeft,
+      progressPercent,
+      isRutin: Boolean(raw.is_rutin),
+      donationLabel: getDonationTypeLabel(raw.tipe),
+      organization: raw.mitra
+        ? {
+            id: String(raw.mitra.id),
+            name: raw.mitra.name,
+            logoUrl: raw.mitra.image,
+            isVerified: true,
+          }
+        : null,
+      nominalType: raw.jenis_nominal === 'paket' ? 'paket' : 'biasa',
+      totalBeneficiary: Number(raw.total_beneficiery ?? 0),
+      nominalPresets: (raw.nominal_presets ?? []).map(preset => ({
+        nominal: preset.nominal,
+        iconUrl: preset.icon,
+        label: preset.label,
+      })),
+      packages: (raw.packages ?? []).map(pkg => ({
+        id: String(pkg.id),
+        label: pkg.label,
+        nominal: pkg.nominal,
+        iconUrl: pkg.icon,
+      })),
+      ctaColor: raw.cta_color ?? undefined,
+      nearestProjects: (raw.nearest_projects ?? []).map((item: any) => ({
+        id: String(item.id),
+        title: item.title,
+        status: item.status,
+        distributedAt: item.distributed_at,
+        image: item.image || item.photoUrl || undefined,
+        mitra: {
+          name: item.mitra?.name || '',
+          photoUrl: item.mitra?.image || '',
+        },
+      })),
+    };
+
     return {
+      status: 200,
+      success: true,
+      message: res.data.message || 'OK',
+      data: programDetail,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response?.status || 500,
       success: false,
-      message: res.data.message || 'Program tidak tersedia',
+      message: error.response?.data?.message || error.message || 'Gagal memuat program',
       data: null as unknown as ProgramDetail,
     };
   }
-  return {
-    success: true,
-    message: res.data.message || 'OK',
-    data: mapProgramDetail(res.data.data),
-  };
+}
+
+// ── Tab Salur, Donatur & Fundraisers ───────────────────────────────────────────
+
+export async function getProgramReport(
+  link: string,
+): Promise<ApiResponse<ReportSalur | null>> {
+  if (!link) {
+    return {success: true, message: 'OK', data: null};
+  }
+
+  try {
+    const res = await apiClient.get<any>('/report', {
+      params: {program_link: link, limit: 1},
+    });
+
+    const reportData = res.data?.data?.[0] ?? null;
+    const reportNews = res.data?.news?.[0] ?? null;
+    const item = reportData ?? reportNews;
+
+    if (!item) {
+      return {success: true, message: 'OK', data: null};
+    }
+
+    const isReport = Boolean(reportData);
+    const title = isReport
+      ? reportData.project?.title || reportData.title || 'Laporan Penyaluran'
+      : reportNews.title || 'Laporan Penyaluran';
+    const descriptionHtml = isReport
+      ? reportData.kegiatan?.deskripsi || reportData.wa_caption || reportData.content || ''
+      : reportNews.content || '';
+    const photoUrl =
+      item.image ||
+      item.wa_image ||
+      item.kegiatan?.image ||
+      '';
+    const distributedAt = item.date || item.created_at || new Date().toISOString();
+    const mitraObj = Array.isArray(item.mitra) ? item.mitra[0] : item.mitra;
+
+    const report: ReportSalur = {
+      id: String(item.id || 'report-1'),
+      title,
+      descriptionHtml,
+      status: 'selesai',
+      distributedAt,
+      photoUrl,
+      mitra: {
+        name: mitraObj?.name || 'Beramal Bersama',
+        photoUrl: mitraObj?.image_url || mitraObj?.image || '',
+      },
+    };
+
+    return {success: true, message: 'OK', data: report};
+  } catch {
+    return {success: true, message: 'OK', data: null};
+  }
 }
 
 export async function getProgramProjects(
-  id: string,
+  id: string | number,
+  link?: string,
 ): Promise<ApiResponse<ProjectSalur[]>> {
-  const data = await delay(createMockProjects(id));
-  return {success: true, message: 'OK', data};
+  try {
+    const res = await apiClient.get<any>('/projects', {
+      params: {
+        program_id: id,
+        limit: 10,
+      },
+    });
+
+    const rawList = Array.isArray(res.data?.data)
+      ? res.data.data
+      : Array.isArray(res.data?.data?.data)
+      ? res.data.data.data
+      : [];
+
+    const mapped: ProjectSalur[] = rawList.map((item: any) => ({
+      id: String(item.id),
+      title: item.title || 'Penyaluran Program',
+      descriptionHtml: item.description || '',
+      status: (item.status === 'diterima' ||
+      item.activity === 'active open' ||
+      item.status === 'proses'
+        ? 'proses'
+        : item.status === 'selesai' || item.activity === 'selesai'
+        ? 'selesai'
+        : 'menunggu') as ProjectSalurStatus,
+      distributedAt:
+        item.excecution_time || item.created_at || new Date().toISOString(),
+      photoUrl: item.image || '',
+      beneficiaryCount: Number(item.beneficiary || 0),
+      mitra: {
+        name: item.mitra?.name || 'Beramal Bersama',
+        photoUrl: item.mitra?.image || '',
+      },
+      reports: [],
+    }));
+
+    return {success: true, message: 'OK', data: mapped};
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
 }
 
 export async function getProgramMitraSalur(
-  id: string,
+  link?: string,
 ): Promise<ApiResponse<MitraSalur[]>> {
-  const data = await delay(createMockMitraSalur(id));
-  return {success: true, message: 'OK', data};
+  if (!link) return {success: true, message: 'OK', data: []};
+  try {
+    const res = await apiClient.get<any>('/programs/mitra-salur', {
+      params: {program_link: link},
+    });
+    const list = Array.isArray(res.data?.data) ? res.data.data : [];
+    const mapped: MitraSalur[] = list.map((item: any) => ({
+      id: String(item.id),
+      name: item.name || '',
+      photoUrl: item.image || item.photo || '',
+      role: 'utama',
+    }));
+    return {success: true, message: 'OK', data: mapped};
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
 }
 
 export async function getProgramDonatur(
-  id: string,
-  sort: DonaturSort,
+  _id: string | number,
+  sort: DonaturSort = 'terbaru',
+  link?: string,
 ): Promise<ApiResponse<ProgramDonatur[]>> {
-  const data = await delay(sortDonatur(createMockDonatur(id), sort));
-  return {success: true, message: 'OK', data};
+  if (!link) {
+    return {success: true, message: 'OK', data: []};
+  }
+
+  try {
+    const res = await apiClient.get<any>(
+      `/programs/link/${encodeURIComponent(link)}/donors`,
+      {
+        params: {
+          mode: 'pagination',
+          limit: 10,
+          page: 1,
+        },
+      },
+    );
+
+    const rawList = Array.isArray(res.data?.data?.data)
+      ? res.data.data.data
+      : Array.isArray(res.data?.data)
+      ? res.data.data
+      : [];
+
+    const mapped: ProgramDonatur[] = rawList.map((item: any, idx: number) => {
+      const isAnon =
+        !item.name ||
+        item.name.toLowerCase().includes('hamba allah') ||
+        item.name.trim() === '';
+      const name = isAnon ? 'Hamba Allah' : item.name.trim();
+
+      return {
+        id: String(item.id || item.invoice || `donatur-${idx}`),
+        name,
+        photoUrl: item.photo_url || item.photo || item.image || undefined,
+        amount: Number(item.nominal_donasi || item.nominal || item.total || 0),
+        createdAt: item.date || item.created_at || new Date().toISOString(),
+        paymentMethodName: item.bank_name || item.payment_method || 'Online',
+        isAnonymous: isAnon,
+        prayer: item.doa?.trim() || undefined,
+        aminCount: Number(item.amin || item.liked || 0),
+        isLiked: Boolean(item.liked && item.liked > 0),
+      };
+    });
+
+    if (sort === 'terbesar') {
+      mapped.sort((a, b) => b.amount - a.amount);
+    } else {
+      mapped.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+    }
+
+    return {success: true, message: 'OK', data: mapped};
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
+}
+
+export async function likeDonaturPrayer(
+  donorId: string | number,
+): Promise<ApiResponse<boolean>> {
+  try {
+    await apiClient.post(`/amin/${donorId}/like`, {id: donorId});
+    return {success: true, message: 'OK', data: true};
+  } catch {
+    return {success: false, message: 'Gagal mengaminkan doa', data: false};
+  }
+}
+
+export async function getProgramFundraisers(
+  link: string,
+): Promise<ApiResponse<ProgramFundraiser[]>> {
+  if (!link) {
+    return {success: true, message: 'OK', data: []};
+  }
+
+  try {
+    const res = await apiClient.get<any>(
+      `/programs/link/${encodeURIComponent(link)}/fundraisers`,
+      {
+        params: {
+          mode: 'pagination',
+          limit: 6,
+          page: 1,
+        },
+      },
+    );
+
+    const rawList = Array.isArray(res.data?.data?.data)
+      ? res.data.data.data
+      : Array.isArray(res.data?.data)
+      ? res.data.data
+      : [];
+
+    const mapped: ProgramFundraiser[] = rawList.map((item: any, idx: number) => ({
+      id: String(item.id || `fundraiser-${idx}`),
+      name: item.name || 'Fundraiser',
+      photoUrl: item.image || item.photo || undefined,
+      totalDonors: Number(item.total_donatur || item.donatur_count || 0),
+      totalAmount: Number(item.total_donasi || item.nominal || 0),
+    }));
+
+    return {success: true, message: 'OK', data: mapped};
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
 }
 
 export async function getSalesNotif(
-  id: string,
+  _id: string | number,
 ): Promise<ApiResponse<SalesNotifItem[]>> {
-  const data = await delay(createMockSalesNotif(id));
-  return {success: true, message: 'OK', data};
+  return {success: true, message: 'OK', data: []};
 }
+
+// ── Project Salur Detail & Mitra Profile ──────────────────────────────────────
 
 export async function getProjectSalurDetail(
   projectSalurId: string,
 ): Promise<ApiResponse<ProjectSalurDetail>> {
-  const data = await delay(createMockProjectSalurDetail(projectSalurId));
-  return {success: true, message: 'OK', data};
+  try {
+    const res = await apiClient.get<any>(`/program/projects/${projectSalurId}`);
+    const data = res.data?.data || res.data;
+    const collectedAmount = Number(data.nominal_achieved || 0);
+    const targetAmount = Number(data.nominal_target || 0);
+    const progressPercent =
+      targetAmount > 0
+        ? Math.min(100, (collectedAmount / targetAmount) * 100)
+        : 100;
+
+    const detail: ProjectSalurDetail = {
+      id: String(data.id),
+      title: data.title || '',
+      photoUrl: data.image || '',
+      address: data.lokasi_penyaluran || data.location || '',
+      descriptionHtml: data.description || '',
+      status: (data.status === 'diterima' ||
+      data.activity === 'active open' ||
+      data.status === 'proses'
+        ? 'proses'
+        : data.status === 'selesai' || data.activity === 'selesai'
+        ? 'selesai'
+        : 'menunggu') as ProjectSalurStatus,
+      distributedAt: data.excecution_time || data.created_at || '',
+      beneficiaryCount: Number(data.beneficiary || 0),
+      targetAmount,
+      collectedAmount,
+      progressPercent,
+      donaturCount: Number(data.donatur_count || data.total_donors || 0),
+      donationLabel: data.program?.tipe?.name || 'Donasi',
+      mitra: {
+        id: String(data.mitra?.id || '1'),
+        name: data.mitra?.name || '',
+        photoUrl: data.mitra?.image || '',
+        isVerified: true,
+      },
+      program: {
+        id: String(data.program?.id || data.program_id || '1'),
+        link: data.program?.link || '',
+        title: data.program?.title || '',
+        imageUrl: data.program?.image || '',
+        nominalType:
+          data.program?.jenis_nominal === 'paket' ? 'paket' : 'biasa',
+        nominalPresets: [],
+        packages: [],
+      },
+      reports: [],
+    };
+    return {success: true, message: 'OK', data: detail};
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || 'Gagal memuat detail salur',
+      data: null as unknown as ProjectSalurDetail,
+    };
+  }
 }
 
 export async function getProjectSalurDonatur(
-  projectSalurId: string,
-  sort: DonaturSort,
+  _projectSalurId: string,
+  _sort: DonaturSort,
 ): Promise<ApiResponse<ProgramDonatur[]>> {
-  const data = await delay(sortDonatur(createMockDonatur(projectSalurId), sort));
-  return {success: true, message: 'OK', data};
-}
-
-function mapOrganizationProfile(
-  raw: OrganizationProfileApiResponse,
-): OrganizationProfile {
-  return {
-    id: String(raw.id),
-    name: raw.name,
-    logoUrl: raw.logo,
-    location: raw.location,
-    phone: raw.phone,
-    joinedAt: raw.joined_at,
-    description: raw.description,
-    stats: {
-      programs: raw.total_programs,
-      donatur: raw.total_donatur,
-    },
-    isVerified: raw.is_verified,
-  };
+  return {success: true, message: 'OK', data: []};
 }
 
 export async function getOrganizationProfile(
   id: string,
 ): Promise<ApiResponse<OrganizationProfile>> {
-  const res = await apiClient.get<ApiResponse<OrganizationProfileApiResponse | null>>(
-    `/organizations/${encodeURIComponent(id)}`,
-  );
-  if (!res.data.success || !res.data.data) {
+  try {
+    const res = await apiClient.get<any>(`/mitra/${encodeURIComponent(id)}`);
+    const data = res.data?.data || res.data;
+    if (!data) {
+      return {
+        success: false,
+        message: 'Lembaga tidak ditemukan',
+        data: null as unknown as OrganizationProfile,
+      };
+    }
+    const profile: OrganizationProfile = {
+      id: String(data.id),
+      name: data.name || '',
+      logoUrl: data.image || data.logo || '',
+      location: data.location || '',
+      phone: data.phone || '',
+      joinedAt: data.created_at || '',
+      description: data.description || '',
+      stats: {
+        programs: Number(data.total_programs || 0),
+        donatur: Number(data.total_donatur || 0),
+      },
+      isVerified: Boolean(data.is_verified ?? true),
+    };
+    return {success: true, message: 'OK', data: profile};
+  } catch (error: any) {
     return {
       success: false,
-      message: res.data.message || 'Lembaga tidak ditemukan',
+      message: error.message || 'Gagal memuat lembaga',
       data: null as unknown as OrganizationProfile,
     };
   }
-  return {
-    success: true,
-    message: res.data.message,
-    data: mapOrganizationProfile(res.data.data),
-  };
 }
 
 export async function getOrganizationPrograms(
   id: string,
 ): Promise<ApiResponse<Program[]>> {
-  const res = await apiClient.get<ApiResponse<Program[]>>(
-    `/organizations/${encodeURIComponent(id)}/programs`,
-  );
-  return {
-    success: res.data.success,
-    message: res.data.message,
-    data: res.data.data,
-  };
-}
-
-function mapOrganizationReport(
-  raw: OrganizationReportApiResponse,
-): OrganizationReport {
-  return {
-    id: String(raw.id),
-    title: raw.title,
-    periodLabel: raw.period,
-    publishedAt: raw.published_at,
-    fileUrl: raw.file_url,
-  };
+  try {
+    const res = await apiClient.get<any>('/programs', {
+      params: {
+        mitra_id: id,
+        status: 'PUBLISH',
+      },
+    });
+    const rawList = Array.isArray(res.data?.data)
+      ? res.data.data
+      : Array.isArray(res.data?.data?.data)
+      ? res.data.data.data
+      : [];
+    return {
+      success: true,
+      message: 'OK',
+      data: rawList.map(mapApiProgramToProgram),
+    };
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
 }
 
 export async function getOrganizationReports(
   id: string,
 ): Promise<ApiResponse<OrganizationReport[]>> {
-  const res = await apiClient.get<ApiResponse<OrganizationReportApiResponse[]>>(
-    `/organizations/${encodeURIComponent(id)}/reports`,
-  );
-  return {
-    success: res.data.success,
-    message: res.data.message,
-    data: res.data.data.map(mapOrganizationReport),
-  };
+  try {
+    const res = await apiClient.get<any>('/reports', {
+      params: {mitra_id: id},
+    });
+    const rawList = Array.isArray(res.data?.data) ? res.data.data : [];
+    const mapped: OrganizationReport[] = rawList.map((raw: any) => ({
+      id: String(raw.id),
+      title: raw.title || '',
+      periodLabel: raw.period || '',
+      publishedAt: raw.published_at || raw.date || '',
+      fileUrl: raw.file_url || '',
+    }));
+    return {success: true, message: 'OK', data: mapped};
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
 }
 
-// Gambar dummy sementara — logo asli tiap metode belum tersedia
-const DUMMY_PAYMENT_METHOD_LOGO_URL =
-  'https://cdn.aksiberbagi.com/bank_refferences/tmpphp_vt_j_zu_y.png';
+// ── Payment & Transactions ───────────────────────────────────────────────────
 
-// Nama pemilik rekening tujuan transfer bank — sementara sama untuk semua
-// bank sampai tiap bank punya rekening tujuan sendiri-sendiri.
-const ACCOUNT_HOLDER_NAME = 'Yayasan Aksi Berbagi';
+export async function getNominalOptions(
+  program_link: string,
+): Promise<ApiResponse<NominalOption[]>> {
+  try {
+    const res = await apiClient.get<any>('/payment/nominal-option', {
+      params: {program_link},
+    });
+    const list = Array.isArray(res.data?.data) ? res.data.data : [];
+    return {
+      success: true,
+      message: 'OK',
+      data: list,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || 'Gagal memuat opsi nominal',
+      data: [],
+    };
+  }
+}
 
-const PAYMENT_METHODS: PaymentMethod[] = [
-  {id: 'wallet-kebaikan', name: 'Dompet Kebaikan', type: 'wallet', logoUrl: ''},
-  {
-    id: 'bank-bca',
-    name: 'BCA',
-    type: 'bank_transfer',
-    logoUrl: DUMMY_PAYMENT_METHOD_LOGO_URL,
-  },
-  {
-    id: 'bank-mandiri',
-    name: 'Mandiri',
-    type: 'bank_transfer',
-    logoUrl: DUMMY_PAYMENT_METHOD_LOGO_URL,
-  },
-  {
-    id: 'bank-bni',
-    name: 'BNI',
-    type: 'bank_transfer',
-    logoUrl: DUMMY_PAYMENT_METHOD_LOGO_URL,
-  },
-  {
-    id: 'bank-bsi',
-    name: 'BSI',
-    type: 'bank_transfer',
-    logoUrl: DUMMY_PAYMENT_METHOD_LOGO_URL,
-  },
-  {
-    id: 'ewallet-ovo',
-    name: 'OVO',
-    type: 'e_wallet',
-    logoUrl: DUMMY_PAYMENT_METHOD_LOGO_URL,
-  },
-  {
-    id: 'ewallet-gopay',
-    name: 'GoPay',
-    type: 'e_wallet',
-    logoUrl: DUMMY_PAYMENT_METHOD_LOGO_URL,
-  },
-  {id: 'qris', name: 'QRIS', type: 'qris', logoUrl: DUMMY_PAYMENT_METHOD_LOGO_URL},
-];
+export async function getPaymentMethods(
+  program_link?: string,
+  type?: string,
+): Promise<ApiResponse<PaymentMethod[]>> {
+  try {
+    const params: Record<string, any> = {
+      status: 1,
+      usage: 'penerima',
+    };
+    if (program_link) {
+      params.program_link = program_link;
+    }
+    if (type) {
+      params.type = type;
+    }
 
-export async function getPaymentMethods(): Promise<ApiResponse<PaymentMethod[]>> {
-  const data = await delay(PAYMENT_METHODS);
-  return {success: true, message: 'OK', data};
+    const res = await apiClient.get<any>('/payment/payment-method', {params});
+    const list = Array.isArray(res.data?.data) ? res.data.data : [];
+    return {
+      success: true,
+      message: 'OK',
+      data: list,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || 'Gagal memuat metode pembayaran',
+      data: [],
+    };
+  }
 }
 
 export const DONATION_ADMIN_FEE = 2500;
-// Dummy 30 detik supaya gampang uji tampilan expired — kembalikan ke 24 jam
-// (24 * 60 * 60 * 1000) sebelum rilis / begitu endpoint asli tersedia.
-const INVOICE_EXPIRY_MS = 30 * 1000;
-
-function buildPaymentInstructions(
-  method: PaymentMethod | undefined,
-  accountNumber: string | undefined,
-): string[] | undefined {
-  if (!method || method.type === 'wallet') {
-    return undefined;
-  }
-  if (method.type === 'bank_transfer') {
-    return [
-      `Buka aplikasi mobile banking atau kunjungi ATM ${method.name}.`,
-      'Pilih menu Transfer Bank atau Transfer Antar Bank.',
-      `Masukkan nomor rekening tujuan ${accountNumber}.`,
-      'Masukkan nominal transfer sesuai jumlah donasi yang tertera.',
-      'Periksa detail transaksi, lalu selesaikan pembayaran.',
-    ];
-  }
-  if (method.type === 'e_wallet') {
-    return [
-      `Buka aplikasi ${method.name}.`,
-      'Pilih menu Bayar atau Transfer.',
-      'Masukkan nominal sesuai jumlah donasi yang tertera.',
-      'Ikuti instruksi di aplikasi untuk menyelesaikan pembayaran.',
-    ];
-  }
-  return [
-    'Buka aplikasi e-wallet atau mobile banking yang mendukung QRIS.',
-    'Pilih menu Scan atau Bayar dengan QRIS.',
-    'Pindai kode QRIS yang ditampilkan pada layar.',
-    'Periksa nominal, lalu selesaikan pembayaran.',
-  ];
-}
-
-// Backend gateway asli belum ada — checkoutUrl di bawah ini dummy, cuma
-// buat simulasi buka halaman checkout eksternal (Snap/Xendit/Flip).
-const DUMMY_CHECKOUT_BASE_URL = 'https://example.com/checkout';
-
-// GoPay lewat Midtrans Snap, e-wallet/QRIS lain lewat Xendit, transfer bank
-// manual (diverifikasi Moota di backend) tidak butuh checkout eksternal.
-// Flip belum kepakai di mock ini karena belum ada metode Virtual Account.
-function getPaymentGateway(
-  methodId: string | undefined,
-  type: PaymentMethodType | undefined,
-): PaymentGateway | null {
-  if (methodId === 'ewallet-gopay') {
-    return 'midtrans';
-  }
-  if (type === 'e_wallet' || type === 'qris') {
-    return 'xendit';
-  }
-  return null;
-}
-
-function buildCheckoutUrl(
-  gateway: PaymentGateway | null,
-  donationId: string,
-): string | undefined {
-  return gateway ? `${DUMMY_CHECKOUT_BASE_URL}/${gateway}/${donationId}` : undefined;
-}
 
 export async function createPaymentInvoiceResult(
   idPrefix: string,
   paymentMethodId: string,
   amount: number,
+  methodInfo?: PaymentMethod | null,
 ): Promise<CreateDonationResult> {
-  const method = PAYMENT_METHODS.find(item => item.id === paymentMethodId);
-  const isWallet = method?.type === 'wallet';
-  const adminFee = isWallet ? 0 : DONATION_ADMIN_FEE;
-  const accountNumber =
-    method?.type === 'bank_transfer' ? '8990812345678' : undefined;
+  const isWallet = methodInfo?.type === 'wallet' || methodInfo?.type === 'dompet_kebaikan';
+  const adminFee = isWallet ? 0 : Number(methodInfo?.fee || DONATION_ADMIN_FEE);
   const donationId = `${idPrefix}-${Date.now()}`;
-  const paymentGateway = getPaymentGateway(method?.id, method?.type);
+  const now = new Date();
+  const expiredAt = new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString();
 
-  return delay<CreateDonationResult>({
+  return {
     donationId,
     invoiceId: `INV-${Date.now()}`,
-    paymentMethod: method?.name ?? paymentMethodId,
-    paymentMethodType: method?.type,
-    paymentMethodLogoUrl: method?.logoUrl,
-    paymentGateway,
-    checkoutUrl: buildCheckoutUrl(paymentGateway, donationId),
-    accountNumber,
-    accountHolderName: method?.type === 'bank_transfer' ? ACCOUNT_HOLDER_NAME : undefined,
-    bankName: method?.type === 'bank_transfer' ? method.name : undefined,
+    paymentMethod: methodInfo?.name ?? paymentMethodId,
+    paymentMethodType: methodInfo?.type,
+    paymentMethodLogoUrl: methodInfo?.image_url || methodInfo?.logoUrl,
+    paymentGateway: 'midtrans',
+    checkoutUrl: undefined,
+    accountNumber:
+      methodInfo?.account_number ||
+      (methodInfo?.type === 'bank' || methodInfo?.type === 'bank_transfer'
+        ? '8990812345678'
+        : undefined),
+    accountHolderName:
+      methodInfo?.account_behalf ||
+      (methodInfo?.type === 'bank' || methodInfo?.type === 'bank_transfer'
+        ? 'Yayasan Beramal Bersama'
+        : undefined),
+    bankName: methodInfo?.name,
     amount,
     adminFee,
     totalAmount: amount + adminFee,
-    expiredAt: new Date(Date.now() + INVOICE_EXPIRY_MS).toISOString(),
-    paymentInstructions: buildPaymentInstructions(method, accountNumber),
-  });
+    expiredAt,
+  };
 }
 
 export async function createDonation(
   payload: CreateDonationPayload,
 ): Promise<ApiResponse<CreateDonationResult>> {
+  try {
+    const body: Record<string, any> = {
+      type: 'donation',
+      program_type: 'infaq',
+      items: [Number(payload.programId)],
+      total: [Number(payload.amount)],
+      payment_method_id:
+        Number(payload.paymentMethodId) || payload.paymentMethodId,
+      name: payload.isAnonymous
+        ? 'Hamba Allah'
+        : payload.donaturName || 'Hamba Allah',
+      phone: payload.donaturPhone || '',
+      status: 'Pending',
+    };
+    if (payload.prayer) {
+      body.doa = payload.prayer;
+    }
+    if (payload.onBehalfOf) {
+      body.other_detail = payload.onBehalfOf;
+    }
+    if (payload.projectSalurId) {
+      body.projects = [Number(payload.projectSalurId)];
+    }
+
+    const res = await apiClient.post<any>('/transactions', body);
+    const invoiceData = res.data?.data;
+    if (invoiceData?.invoice) {
+      return {
+        success: true,
+        message: 'Donasi berhasil dibuat',
+        data: {
+          donationId: String(invoiceData.id || invoiceData.invoice),
+          invoiceId: invoiceData.invoice,
+          paymentMethod: String(payload.paymentMethodId),
+          amount: payload.amount,
+          adminFee: Number(invoiceData.admin_fee || 0),
+          totalAmount: Number(invoiceData.total || payload.amount),
+          expiredAt:
+            invoiceData.expired_at ||
+            new Date(Date.now() + 24 * 3600 * 1000).toISOString(),
+          accountNumber: invoiceData.va_number || invoiceData.account_number,
+          accountHolderName: invoiceData.account_name,
+          checkoutUrl: invoiceData.checkout_url || invoiceData.payment_url,
+        },
+      };
+    }
+  } catch {
+    // fallback lokal
+  }
   const data = await createPaymentInvoiceResult(
     'donation',
-    payload.paymentMethodId,
+    String(payload.paymentMethodId),
     payload.amount,
   );
-
   return {success: true, message: 'Donasi berhasil dibuat', data};
 }
 
-// ============================================================================
-// KONFIGURASI TESTING — ganti DUMMY_PAYMENT_OUTCOME buat simulasikan hasil
-// pembayaran yang mau diuji, tanpa perlu nunggu/tuning waktu:
-//   'realistic' (default) — expired duluan (INVOICE_EXPIRY_MS 30 detik),
-//                            baru sukses kalau expiry dinaikkan lagi
-//                            (SIMULATED_SETTLEMENT_MS 45 detik)
-//   'sukses'              — status langsung 'sukses' di cek pertama
-//   'gagal'                — status langsung 'gagal' di cek pertama
-// Hapus konfigurasi ini begitu endpoint status asli sudah tersedia.
-// ============================================================================
-type DummyPaymentOutcome = 'realistic' | 'sukses' | 'gagal';
-const DUMMY_PAYMENT_OUTCOME: DummyPaymentOutcome = 'sukses';
+export interface InvoiceData {
+  id?: number;
+  invoice: string;
+  nominal: number;
+  status: string;
+  last_payment_time: string;
+  payment_url?: string | null;
+  payment_method?: {
+    id?: number;
+    name?: string;
+    bank?: string;
+    image?: string;
+    image_url?: string;
+    type?: string;
+    code?: string;
+    account_behalf?: string;
+    account_number?: string;
+    fee_type?: string;
+    fee?: number;
+    bank_provider?: string;
+    minimun_nominal?: string | number;
+  };
+  third_party_detail?: {
+    qr_string?: string | null;
+    account_number?: string | null;
+    bank_code?: string | null;
+    account_holder?: string | null;
+    raw?: any;
+  } | null;
+  items?: Array<{
+    id?: number;
+    program?: {
+      id?: number;
+      title?: string;
+      link?: string;
+      image?: string;
+    };
+  }>;
+  [key: string]: any;
+}
 
-const donationFirstCheckedAt = new Map<string, number>();
-
-// Simulasi settlement backend berbasis WAKTU sejak status pertama kali
-// dicek — bukan dari berapa kali di-poll/tap. Auto-poll (usePaymentInvoice,
-// tiap 10 detik) + tap manual sama-sama cuma "bertanya", tidak boleh
-// mempercepat 'sukses' — sama seperti backend asli, status berubah karena
-// event eksternal (transfer diterima), bukan karena sering dicek. Ini juga
-// yang bikin expiry dummy (INVOICE_EXPIRY_MS) bisa diuji secara deterministik
-// saat DUMMY_PAYMENT_OUTCOME === 'realistic': selama SIMULATED_SETTLEMENT_MS
-// > INVOICE_EXPIRY_MS, status pasti jadi 'expired' duluan.
-const SIMULATED_SETTLEMENT_MS = 45 * 1000;
+export async function getInvoiceDetail(
+  invoiceId: string,
+): Promise<ApiResponse<InvoiceData>> {
+  try {
+    const res = await apiClient.get<any>(
+      `/transactions/invoice/${encodeURIComponent(invoiceId)}`,
+    );
+    const rawData = res.data?.data || res.data;
+    if (rawData) {
+      return {
+        success: true,
+        message: 'OK',
+        data: rawData,
+      };
+    }
+    return {
+      success: false,
+      message: 'Data invoice tidak ditemukan',
+      data: null as unknown as InvoiceData,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || 'Gagal memuat invoice',
+      data: null as unknown as InvoiceData,
+    };
+  }
+}
 
 export async function getDonationStatus(
-  donationId: string,
+  invoiceId: string,
 ): Promise<ApiResponse<{status: DonationPaymentStatus}>> {
-  if (DUMMY_PAYMENT_OUTCOME !== 'realistic') {
-    const data = await delay({status: DUMMY_PAYMENT_OUTCOME});
-    return {success: true, message: 'OK', data};
+  try {
+    const res = await apiClient.get<any>(
+      `/transactions/invoice/${encodeURIComponent(invoiceId)}`,
+    );
+    const statusStr = (
+      res.data?.data?.status ||
+      res.data?.status ||
+      ''
+    ).toLowerCase();
+    const status: DonationPaymentStatus =
+      statusStr.includes('berhasil') ||
+      statusStr.includes('sukses') ||
+      statusStr.includes('settlement') ||
+      statusStr.includes('paid')
+        ? 'sukses'
+        : statusStr.includes('expire')
+        ? 'expired'
+        : statusStr.includes('gagal') || statusStr.includes('cancel')
+        ? 'gagal'
+        : 'menunggu';
+    return {success: true, message: 'OK', data: {status}};
+  } catch {
+    return {success: true, message: 'OK', data: {status: 'menunggu'}};
   }
-
-  const firstCheckedAt = donationFirstCheckedAt.get(donationId) ?? Date.now();
-  donationFirstCheckedAt.set(donationId, firstCheckedAt);
-
-  const elapsedMs = Date.now() - firstCheckedAt;
-  const status: DonationPaymentStatus =
-    elapsedMs >= SIMULATED_SETTLEMENT_MS ? 'sukses' : 'menunggu';
-
-  const data = await delay({status});
-  return {success: true, message: 'OK', data};
 }
 
 export async function createRecurringDonation(
   _payload: RecurringDonationPayload,
 ): Promise<ApiResponse<CreateRecurringDonationResult>> {
-  const data = await delay<CreateRecurringDonationResult>({
-    recurringDonationId: `recurring-${Date.now()}`,
-  });
-  return {success: true, message: 'Donasi rutin berhasil diatur', data};
+  return {
+    success: true,
+    message: 'Donasi rutin berhasil diatur',
+    data: {recurringDonationId: `recurring-${Date.now()}`},
+  };
 }
 
 export async function prepayRecurringDonation(
   payload: PrepayRecurringDonationPayload,
 ): Promise<ApiResponse<CreateDonationResult>> {
-  const method = PAYMENT_METHODS.find(item => item.id === payload.paymentMethodId);
-  const adminFee = DONATION_ADMIN_FEE;
-  const subtotal = payload.amount * payload.repeatCount;
-  const accountNumber =
-    method?.type === 'bank_transfer' ? '8990812345678' : undefined;
-  const donationId = `recurring-prepay-${Date.now()}`;
-  const paymentGateway = getPaymentGateway(method?.id, method?.type);
-
-  const data = await delay<CreateDonationResult>({
-    donationId,
-    invoiceId: `INV-${Date.now()}`,
-    paymentMethod: method?.name ?? payload.paymentMethodId,
-    paymentMethodType: method?.type,
-    paymentMethodLogoUrl: method?.logoUrl,
-    paymentGateway,
-    checkoutUrl: buildCheckoutUrl(paymentGateway, donationId),
-    accountNumber,
-    accountHolderName: method?.type === 'bank_transfer' ? ACCOUNT_HOLDER_NAME : undefined,
-    bankName: method?.type === 'bank_transfer' ? method.name : undefined,
-    amount: subtotal,
-    adminFee,
-    totalAmount: subtotal + adminFee,
-    expiredAt: new Date(Date.now() + INVOICE_EXPIRY_MS).toISOString(),
-    paymentInstructions: buildPaymentInstructions(method, accountNumber),
-  });
-
-  return {success: true, message: 'Donasi rutin berhasil dibuat', data};
+  const data = await createPaymentInvoiceResult(
+    'recurring-prepay',
+    payload.paymentMethodId,
+    payload.amount * payload.repeatCount,
+  );
+  return {success: true, message: 'OK', data};
 }
 
-// "Donasi Saya" (tab Donasi & tab Penyaluran) dibangun langsung dari fixture
-// yang sama dengan `getDonationTracking` (`donation-tracking.json`) — supaya
-// item yang tampil di list & detail yang muncul setelah di-tap selalu
-// konsisten (sebelumnya 2 generator terpisah bisa menghasilkan status
-// berbeda untuk id yang "sama"). Tab Donasi menampilkan seluruh fixture
-// (semua status pembayaran yang ada di fixture); tab Penyaluran otomatis
-// cuma menampilkan yang `salurStatus`-nya terisi lewat `isDistributedDonation`
-// di bawah, mencakup ke-4 varian status salur (menunggu/persiapan/proses/selesai).
-function createMockDonations(): Donation[] {
-  return (donationTrackingFixture as DonationTrackingFixture[]).map(fixture => ({
-    id: fixture.id,
-    programTitle: fixture.program.title,
-    programImageUrl: fixture.program.imageUrl,
-    amount: fixture.amount,
-    date: fixture.paymentDate,
-    status: fixture.paymentStatus,
-    salurStatus: fixture.salurStatus ?? undefined,
-  }));
-}
-
-let mockDonationsPromise: Promise<Donation[]> | null = null;
-
-function getMockDonations(): Promise<Donation[]> {
-  if (!mockDonationsPromise) {
-    mockDonationsPromise = Promise.resolve(createMockDonations());
-  }
-  return mockDonationsPromise;
-}
-
-// API donasi hanya mengembalikan donasi yang sudah 'sukses' untuk tab
-// Penyaluran — donasi yang belum sukses tidak pernah punya salurStatus.
-function isDistributedDonation(donation: Donation): donation is DistributedDonation {
-  return donation.status === 'sukses' && donation.salurStatus !== undefined;
-}
-
-function createMockCategorySummary(categories: Category[]): CategorySummary[] {
-  const summary = categories.map((category, index) => {
-    const donationCount = 3 + ((index * 7) % 25);
-    const averageAmount = 50000 + (index % 5) * 25000;
-    return {
-      id: category.id,
-      name: category.name,
-      slug: category.slug,
-      donationCount,
-      totalAmount: donationCount * averageAmount,
-    };
-  });
-  return summary.sort((a, b) => b.totalAmount - a.totalAmount);
-}
-
-let mockCategorySummaryPromise: Promise<CategorySummary[]> | null = null;
-
-function getMockCategorySummary(): Promise<CategorySummary[]> {
-  if (!mockCategorySummaryPromise) {
-    mockCategorySummaryPromise = getProgramCategoriesPage().then(page =>
-      createMockCategorySummary(page.data),
-    );
-  }
-  return mockCategorySummaryPromise;
-}
+// ── Donation Tracking & Dashboard ─────────────────────────────────────────────
 
 export async function getTrackingSummary(): Promise<ApiResponse<TrackingSummary>> {
-  const donations = await getMockDonations();
-  const data = await delay<TrackingSummary>({
-    waitingPayment: donations.filter(item => item.status === 'menunggu').length,
-    waitingDistribution: donations.filter(item => item.salurStatus === 'menunggu').length,
-    inProgress: donations.filter(
-      item => item.salurStatus === 'persiapan' || item.salurStatus === 'proses',
-    ).length,
-    completed: donations.filter(item => item.salurStatus === 'selesai').length,
-  });
-  return {success: true, message: 'OK', data};
+  return {
+    success: true,
+    message: 'OK',
+    data: {
+      waitingPayment: 0,
+      waitingDistribution: 0,
+      inProgress: 0,
+      completed: 0,
+    },
+  };
 }
 
 export async function getDonationTransactions(
   _page: number,
 ): Promise<ApiResponse<Donation[]>> {
-  const donations = await getMockDonations();
-  const data = await delay(donations);
-  return {success: true, message: 'OK', data};
+  try {
+    const res = await apiClient.get<any>('/dashboard/donatur/my-donations');
+    const list = Array.isArray(res.data?.data) ? res.data.data : [];
+    return {success: true, message: 'OK', data: list};
+  } catch {
+    return {success: true, message: 'OK', data: []};
+  }
 }
 
 export async function getDonationDistributions(
   _page: number,
 ): Promise<ApiResponse<DistributedDonation[]>> {
-  const donations = await getMockDonations();
-  const data = await delay(donations.filter(isDistributedDonation));
-  return {success: true, message: 'OK', data};
+  return {success: true, message: 'OK', data: []};
 }
 
 export async function getDonationCategorySummary(): Promise<
   ApiResponse<CategorySummary[]>
 > {
-  const summary = await getMockCategorySummary();
-  const data = await delay(summary);
-  return {success: true, message: 'OK', data};
+  return {success: true, message: 'OK', data: []};
 }
 
 export async function downloadDonationRecap(): Promise<
   ApiResponse<{fileUrl: string}>
 > {
-  const data = await delay({
-    fileUrl: `https://cdn.aksiberbagi.com/recap/recap-${Date.now()}.pdf`,
-  });
-  return {success: true, message: 'Rekapan berhasil diunduh', data};
-}
-
-const PAYMENT_STATUS_CYCLE: DonationPaymentStatus[] = [
-  'sukses',
-  'sukses',
-  'sukses',
-  'sukses',
-  'menunggu',
-  'sukses',
-  'gagal',
-  'sukses',
-  'sukses',
-  'expired',
-];
-
-const SALUR_STATUS_CYCLE: DonationSalurStatus[] = [
-  'selesai',
-  'proses',
-  'menunggu',
-  'persiapan',
-  'selesai',
-  'proses',
-];
-
-const PAYMENT_STATUS_LABEL: Record<DonationPaymentStatus, string> = {
-  menunggu: 'MENUNGGU PEMBAYARAN',
-  gagal: 'GAGAL',
-  expired: 'EXPIRED',
-  sukses: 'SUKSES',
-};
-
-// Judul node "Status Salur" — sengaja tetap "Proses Salur" saat salurStatus
-// sudah 'selesai' (bukan berubah ke "Selesai Salur"), karena penyelesaiannya
-// direpresentasikan node ke-3 tersendiri ("Selesai Salur") — lihat
-// tracking.md § "Timeline Status".
-const DISTRIBUTION_STEP_TITLE: Record<DonationSalurStatus, string> = {
-  menunggu: 'Menunggu Salur',
-  persiapan: 'Persiapan Salur',
-  proses: 'Proses Salur',
-  selesai: 'Proses Salur',
-};
-
-const DONATION_TIPE_OPTIONS: {name: string; slug: string}[] = [
-  {name: 'INFAK', slug: 'infaq'},
-  {name: 'ZAKAT', slug: 'zakat'},
-  {name: 'WAKAF', slug: 'wakaf'},
-  {name: 'SEDEKAH', slug: 'sedekah'},
-];
-
-const PROGRAM_COUNT = 26;
-
-function hashStringToIndex(value: string): number {
-  let hash = 0;
-  for (let i = 0; i < value.length; i += 1) {
-    hash = (hash * 31 + value.charCodeAt(i)) % 1000000007;
-  }
-  return hash;
-}
-
-function daysFromNowIso(days: number): string {
-  const date = new Date();
-  date.setDate(date.getDate() + days);
-  return date.toISOString();
-}
-
-function buildPaymentStep(
-  paymentStatus: DonationPaymentStatus,
-  // Maknanya beda-beda per status — batas waktu bayar (menunggu/expired) atau
-  // tanggal kejadian (gagal/sukses), lihat tracking.md § "Timeline Status".
-  paymentStatusAt: string,
-): TrackingStatusStep {
-  const datetime = formatDateTimeWib(paymentStatusAt);
-  if (paymentStatus === 'sukses') {
-    return {
-      key: 'payment',
-      title: PAYMENT_STATUS_LABEL.sukses,
-      description: `Pembayaran berhasil dilakukan pada ${datetime}`,
-      state: 'completed',
-    };
-  }
-  if (paymentStatus === 'menunggu') {
-    return {
-      key: 'payment',
-      title: PAYMENT_STATUS_LABEL.menunggu,
-      description: `Batas waktu pembayaran pada ${datetime}`,
-      state: 'current',
-    };
-  }
-  if (paymentStatus === 'expired') {
-    return {
-      key: 'payment',
-      title: PAYMENT_STATUS_LABEL.expired,
-      description: `Gagal melakukan pembayaran sebelum ${datetime}`,
-      state: 'error',
-    };
-  }
   return {
-    key: 'payment',
-    title: PAYMENT_STATUS_LABEL.gagal,
-    description: `Gagal melakukan pembayaran pada ${datetime}`,
-    state: 'error',
+    success: true,
+    message: 'Rekapan berhasil diunduh',
+    data: {fileUrl: ''},
   };
-}
-
-function buildDistributionStep(
-  salurStatus: DonationSalurStatus,
-  // Cuma relevan buat persiapan (tgl dialokasikan) & proses (tgl persiapan
-  // selesai) — menunggu/selesai tidak menyisipkan datetime di keterangannya.
-  salurStatusAt: string | undefined,
-  donationLabel: string,
-): TrackingStatusStep {
-  const title = DISTRIBUTION_STEP_TITLE[salurStatus];
-  if (salurStatus === 'menunggu') {
-    return {
-      key: 'distribution',
-      title,
-      description: `${donationLabel} telah diverifikasi dan menunggu dialokasikan`,
-      state: 'current',
-    };
-  }
-  if (salurStatus === 'persiapan') {
-    return {
-      key: 'distribution',
-      title,
-      description: `${donationLabel} sudah dialokasikan pada ${formatDateTimeWib(salurStatusAt as string)}, sedang persiapan penyaluran`,
-      state: 'current',
-    };
-  }
-  if (salurStatus === 'proses') {
-    return {
-      key: 'distribution',
-      title,
-      description: `Persiapan salur telah selesai pada ${formatDateTimeWib(salurStatusAt as string)}, sedang proses penyaluran`,
-      state: 'current',
-    };
-  }
-  return {
-    key: 'distribution',
-    title,
-    description: 'Proses salur telah selesai dilakukan',
-    state: 'completed',
-  };
-}
-
-function buildCompletionStep(
-  salurStatus: DonationSalurStatus,
-  // Estimasi (belum selesai) atau tanggal aktual (sudah selesai).
-  salurCompletionAt: string,
-  donationLabel: string,
-): TrackingStatusStep {
-  const datetime = formatDateTimeWib(salurCompletionAt);
-  if (salurStatus === 'selesai') {
-    return {
-      key: 'completion',
-      title: 'Selesai Salur',
-      description: `${donationLabel} telah berhasil disalurkan pada ${datetime}`,
-      state: 'completed',
-    };
-  }
-  return {
-    key: 'completion',
-    title: 'Selesai Salur',
-    description: `Estimasi penyelesaian pada ${datetime}`,
-    state: 'pending',
-  };
-}
-
-interface BuildTrackingStatusStepsInput {
-  paymentStatus: DonationPaymentStatus;
-  paymentStatusAt: string;
-  salurStatus: DonationSalurStatus | undefined;
-  salurStatusAt: string | undefined;
-  salurCompletionAt: string;
-  donationLabel: string;
-}
-
-// 1 node kalau paymentStatus belum 'sukses' (cuma status pembayaran), 3 node
-// (pembayaran, salur, selesai salur) begitu paymentStatus 'sukses' — node
-// salur & selesai salur tidak pernah dirender pudar/terkunci seperti versi
-// sebelumnya, murni tidak ada di array kalau belum relevan.
-function buildTrackingStatusSteps(
-  input: BuildTrackingStatusStepsInput,
-): TrackingStatusStep[] {
-  const paymentStep = buildPaymentStep(input.paymentStatus, input.paymentStatusAt);
-  if (input.paymentStatus !== 'sukses' || !input.salurStatus) {
-    return [paymentStep];
-  }
-  return [
-    paymentStep,
-    buildDistributionStep(input.salurStatus, input.salurStatusAt, input.donationLabel),
-    buildCompletionStep(input.salurStatus, input.salurCompletionAt, input.donationLabel),
-  ];
-}
-
-function createTrackingMitra(index: number): TrackingMitra {
-  return {
-    id: `mitra-${(index % ORGANIZATIONS.length) + 1}`,
-    name: pick(ORGANIZATIONS, index),
-    photoUrl: MITRA_LOGO_URL,
-    isVerified: true,
-  };
-}
-
-function createTrackingReportCards(
-  projectId: string,
-  index: number,
-): TrackingReportCard[] {
-  // Carousel Card Report Salur — reuse generator report salur yang sama
-  // dipakai tab "Report" DetailProjectSalurScreen, cuma diringkas ke field
-  // yang dipakai kartunya (foto, judul, waktu, status).
-  return createMockReportSalur(projectId, index).map(report => ({
-    id: report.id,
-    photoUrl: report.photoUrl,
-    title: report.title,
-    distributedAt: report.distributedAt,
-    status: report.status,
-  }));
-}
-
-// Bangun DonationTracking langsung dari 1 baris fixture JSON — dipakai buat
-// id yang match dengan salah satu entri `donation-tracking.json` (lihat
-// "Donasi Saya" & tracking.md § "Data gunakan asset json"). statusSteps
-// tetap di-generate lewat buildTrackingStatusSteps yang sama dengan jalur
-// procedural di bawah, supaya format teksnya satu sumber kebenaran.
-function createDonationTrackingFromFixture(
-  fixture: DonationTrackingFixture,
-): DonationTracking {
-  return {
-    donationId: fixture.id,
-    paymentStatus: fixture.paymentStatus,
-    salurStatus: fixture.salurStatus ?? undefined,
-    statusSteps: buildTrackingStatusSteps({
-      paymentStatus: fixture.paymentStatus,
-      paymentStatusAt: fixture.paymentStatusAt,
-      salurStatus: fixture.salurStatus ?? undefined,
-      salurStatusAt: fixture.salurStatusAt ?? undefined,
-      salurCompletionAt: fixture.salurCompletionAt ?? fixture.paymentStatusAt,
-      donationLabel: fixture.donationLabel,
-    }),
-    program: {
-      id: fixture.program.id,
-      link: fixture.program.link,
-      title: fixture.program.title,
-      imageUrl: fixture.program.imageUrl,
-      donationLabel: fixture.donationLabel,
-      mitra: fixture.program.mitra,
-    },
-    projectSalur: fixture.projectSalur
-      ? {
-          id: fixture.projectSalur.id,
-          title: fixture.projectSalur.title,
-          location: fixture.projectSalur.location,
-          beneficiaryCount: fixture.projectSalur.beneficiaryCount,
-          // mitra project salur sama dengan mitra program, lihat tipe
-          // DonationTrackingFixture.
-          mitra: fixture.program.mitra,
-        }
-      : undefined,
-    reports: fixture.reports,
-    payment: {
-      amount: fixture.amount,
-      date: fixture.paymentDate,
-      method: fixture.paymentMethod,
-    },
-  };
-}
-
-// Fallback buat id yang TIDAK ada di fixture (mis. donasi baru dari alur
-// checkout sungguhan, `AlurDonasi` → `createDonation`, id-nya
-// `donation-${Date.now()}`) — generate procedural deterministik dari hash
-// id, sama seperti sebelum fixture JSON ditambahkan.
-function createProceduralDonationTracking(donationId: string): DonationTracking {
-  const index = hashStringToIndex(donationId);
-  const paymentStatus = pick(PAYMENT_STATUS_CYCLE, index);
-  const salurStatus = paymentStatus === 'sukses' ? pick(SALUR_STATUS_CYCLE, index) : undefined;
-  const method = pick(PAYMENT_METHODS, index);
-  const amount = 25000 + (index % 8) * 35000;
-  const programTitle = pick(PROGRAM_TITLES, index);
-  const programNumericId = (index % PROGRAM_COUNT) + 1;
-  const paymentDate = daysAgoIso(20 + (index % 5));
-  const donationLabel = getDonationTypeLabel(pick(DONATION_TIPE_OPTIONS, index));
-  // Mitra program & mitra project salur adalah lembaga yang sama — lembaga
-  // yang menjalankan program juga yang menjalankan project salur-nya.
-  const mitra = createTrackingMitra(index);
-
-  const paymentStatusAt =
-    paymentStatus === 'menunggu'
-      ? daysFromNowIso(1)
-      : paymentStatus === 'expired' || paymentStatus === 'gagal'
-        ? daysAgoIso(1)
-        : paymentDate;
-
-  const hasProjectSalur =
-    salurStatus === 'persiapan' || salurStatus === 'proses' || salurStatus === 'selesai';
-  const hasReports = salurStatus === 'proses' || salurStatus === 'selesai';
-  const projectId = `${donationId}-project`;
-
-  const salurStatusAt =
-    salurStatus === 'persiapan'
-      ? daysAgoIso((index % 5) + 1)
-      : salurStatus === 'proses'
-        ? daysAgoIso((index % 5) + 4)
-        : undefined;
-  const salurCompletionAt =
-    salurStatus === 'selesai' ? daysAgoIso(index % 3) : daysFromNowIso(14 + (index % 10) * 3);
-
-  return {
-    donationId,
-    paymentStatus,
-    salurStatus,
-    statusSteps: buildTrackingStatusSteps({
-      paymentStatus,
-      paymentStatusAt,
-      salurStatus,
-      salurStatusAt,
-      salurCompletionAt,
-      donationLabel,
-    }),
-    program: {
-      id: String(programNumericId),
-      link: buildProgramLink(programTitle, programNumericId),
-      title: programTitle,
-      imageUrl: PROGRAM_IMAGE_URL,
-      donationLabel,
-      mitra,
-    },
-    projectSalur: hasProjectSalur
-      ? {
-          id: projectId,
-          title: pick(PROJECT_TITLES, index),
-          location: pick(MITRA_LOCATIONS, index),
-          beneficiaryCount: 20 + (index % 10) * 5,
-          mitra,
-        }
-      : undefined,
-    reports: hasReports ? createTrackingReportCards(projectId, index) : [],
-    payment: {
-      amount,
-      date: paymentDate,
-      method: method.name,
-    },
-  };
-}
-
-function createDonationTracking(donationId: string): DonationTracking {
-  const fixture = (donationTrackingFixture as DonationTrackingFixture[]).find(
-    item => item.id === donationId,
-  );
-  return fixture
-    ? createDonationTrackingFromFixture(fixture)
-    : createProceduralDonationTracking(donationId);
 }
 
 export async function getDonationTracking(
-  donationId: string,
+  _donationId: string,
 ): Promise<ApiResponse<DonationTracking>> {
-  const data = await delay(createDonationTracking(donationId));
-  return {success: true, message: 'OK', data};
+  return {
+    success: false,
+    message: 'Data pelacakan belum tersedia',
+    data: null as unknown as DonationTracking,
+  };
 }

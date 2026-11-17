@@ -6,9 +6,9 @@ export type PaymentMethodGroupKey = 'instant' | 'bank_transfer';
 export const INSTANT_PAYMENT_MIN_AMOUNT = 10_000;
 export const BANK_TRANSFER_MIN_AMOUNT = 1_000;
 
-const GROUP_TYPES: Record<PaymentMethodGroupKey, PaymentMethodType[]> = {
-  instant: ['wallet', 'e_wallet', 'qris'],
-  bank_transfer: ['bank_transfer'],
+const GROUP_TYPES: Record<PaymentMethodGroupKey, string[]> = {
+  instant: ['wallet', 'dompet_kebaikan', 'e_wallet', 'qris'],
+  bank_transfer: ['bank', 'bank_transfer', 'virtual_account'],
 };
 
 export const PAYMENT_METHOD_GROUP_MIN_AMOUNT: Record<PaymentMethodGroupKey, number> = {

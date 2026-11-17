@@ -81,7 +81,7 @@ export function useDonasiBersamaUrun(groupId: string): State & Actions {
     try {
       const response = await createDonasiBersamaContribution(groupId, {
         amount: selectedAmount,
-        paymentMethodId: selectedMethod.id,
+        paymentMethodId: String(selectedMethod.id),
         isAnonymous,
       });
       if (!response.success) {

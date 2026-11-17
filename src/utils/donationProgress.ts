@@ -1,8 +1,8 @@
 export function getDonationProgress(
   collectedAmount: number,
-  goalAmount: number,
+  goalAmount: number | null,
 ): number {
-  if (!Number.isFinite(goalAmount) || goalAmount <= 0) {
+  if (goalAmount === null || !Number.isFinite(goalAmount) || goalAmount <= 0) {
     return 100;
   }
   return Math.min(100, (collectedAmount / goalAmount) * 100);

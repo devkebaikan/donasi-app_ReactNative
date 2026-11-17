@@ -1,33 +1,40 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {Icon} from '@/components/ui/Icon';
-import {Eye, EyeClosed} from '@solar-icons/react-native/Linear';
-import {HeaderColor} from '@/components/shared/HeaderColor';
+import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Icon } from '@/components/ui/Icon';
+import {
+  ArrowLeft,
+  Eye,
+  EyeClosed,
+  LockPassword,
+  DangerCircle,
+} from '@solar-icons/react-native/Linear';
 import type {
   RootStackNavigationProp,
   RegisterPasswordScreenProps,
 } from '@/types/navigation';
-import {useRegisterPassword} from '@/hooks/useRegisterPassword';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import { useRegisterPassword } from '@/hooks/useRegisterPassword';
+import { colors } from '@/theme';
 
 type Props = RegisterPasswordScreenProps;
 
 export default function RegisterPasswordScreen({
   route,
 }: Props): React.JSX.Element {
-  const {phone} = route.params;
+  const { phone } = route.params;
   const navigation = useNavigation<RootStackNavigationProp>();
+  const insets = useSafeAreaInsets();
   const confirmRef = useRef<TextInput>(null);
 
   const {
@@ -52,210 +59,148 @@ export default function RegisterPasswordScreen({
   }
 
   const isDisabled = isLoading;
+  const errorMessage =
+    fieldErrors?.password || fieldErrors?.password_confirmation || null;
 
   return (
-    <View style={styles.root}>
-      <HeaderColor title="Buat Password" onBack={() => navigation.goBack()} />
+    <View className="flex-1 bg-neutral-50" style={{ paddingTop: insets.top }}>
+      {/* Header Bar */}
+      <View className="h-14 flex-row items-center px-4 border-b border-neutral-100 bg-white">
+        <TouchableOpacity
+          className="w-10 h-10 items-center justify-center -ml-2"
+          onPress={() => navigation.goBack()}
+          accessibilityRole="button"
+          accessibilityLabel="Kembali"
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <Icon icon={ArrowLeft} size={22} color={colors.neutral[800]} />
+        </TouchableOpacity>
+        <Text className="flex-1 text-center font-bold text-base text-neutral-800 -ml-2">
+          Atur Password
+        </Text>
+        <View className="w-8" />
+      </View>
 
       <KeyboardAvoidingView
-        style={styles.cardWrapper}
+        className="flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <View style={styles.card}>
-          <ScrollView
-            contentContainerStyle={styles.scroll}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}>
-            <View style={styles.fieldWrapper}>
-              <Text style={styles.label}>Password Baru</Text>
-              <View style={styles.passwordContainer}>
-                <TextInput
-                  style={[
-                    styles.input,
-                    styles.passwordInput,
-                    fieldErrors?.password ? styles.inputError : null,
-                  ]}
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!isPasswordVisible}
-                  placeholder="Password baru"
-                  placeholderTextColor={colors.neutral[400]}
-                  textContentType="newPassword"
-                  returnKeyType="next"
-                  onSubmitEditing={() => confirmRef.current?.focus()}
-                  accessibilityLabel="Input password baru"
-                  accessibilityRole="none"
+        <ScrollView
+          contentContainerClassName="flex-grow justify-center px-8 py-8"
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          {/* Logo & Headline */}
+          <View className="items-center text-center mb-8">
+            <Image
+              source={require('@/assets/images/logo/logo-short-color.png')}
+              className="h-16 w-16 mb-6"
+              resizeMode="contain"
+            />
+            <Text className="text-lg font-semibold text-gray-800 text-center leading-snug">
+              Buat Password{'\n'}Baru
+            </Text>
+            <Text className="text-xs text-gray-400 mt-2 text-center">
+              Password digunakan untuk masuk ke akun{' '}
+              <Text className="font-semibold text-gray-600">{phone}</Text>
+            </Text>
+          </View>
+
+          {/* Alert Error Box */}
+          {errorMessage ? (
+            <View className="flex-row items-center gap-2 bg-red-50 border border-red-200 rounded-2xl px-4 py-3 mb-4">
+              <Icon icon={DangerCircle} size={18} color="#DC2626" />
+              <Text className="flex-1 text-xs text-red-600 font-medium">
+                {errorMessage}
+              </Text>
+            </View>
+          ) : null}
+
+          {/* Form */}
+          <View className="gap-y-4">
+            {/* Input Password */}
+            <View className="relative flex-row items-center bg-gray-100 rounded-full h-14 px-5 border border-transparent focus:border-primary-400">
+              <Icon icon={LockPassword} size={20} color={colors.neutral[400]} />
+              <TextInput
+                className="flex-1 ml-3 mr-2 text-sm text-gray-800 font-medium p-0"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!isPasswordVisible}
+                placeholder="Password baru"
+                placeholderTextColor={colors.neutral[400]}
+                textContentType="newPassword"
+                returnKeyType="next"
+                onSubmitEditing={() => confirmRef.current?.focus()}
+                accessibilityLabel="Input password baru"
+              />
+              <TouchableOpacity
+                className="p-1"
+                onPress={togglePasswordVisible}
+                accessibilityRole="button"
+                accessibilityLabel={
+                  isPasswordVisible
+                    ? 'Sembunyikan password'
+                    : 'Tampilkan password'
+                }>
+                <Icon
+                  icon={isPasswordVisible ? Eye : EyeClosed}
+                  size={20}
+                  color={colors.neutral[400]}
                 />
-                <TouchableOpacity
-                  style={styles.eyeButton}
-                  onPress={togglePasswordVisible}
-                  accessibilityRole="button"
-                  accessibilityLabel={
-                    isPasswordVisible
-                      ? 'Sembunyikan password'
-                      : 'Tampilkan password'
-                  }>
-                  <Icon
-                    icon={isPasswordVisible ? EyeClosed : Eye}
-                    size={20}
-                    color={colors.neutral[400]}
-                  />
-                </TouchableOpacity>
-              </View>
-              {fieldErrors?.password ? (
-                <Text
-                  style={styles.errorText}
-                  accessibilityLiveRegion="polite">
-                  {fieldErrors.password}
-                </Text>
-              ) : null}
+              </TouchableOpacity>
             </View>
 
-            <View style={styles.fieldWrapper}>
-              <Text style={styles.label}>Konfirmasi Password</Text>
-              <View style={styles.passwordContainer}>
-                <TextInput
-                  ref={confirmRef}
-                  style={[
-                    styles.input,
-                    styles.passwordInput,
-                    fieldErrors?.password_confirmation
-                      ? styles.inputError
-                      : null,
-                  ]}
-                  value={passwordConfirmation}
-                  onChangeText={setPasswordConfirmation}
-                  secureTextEntry={!isConfirmVisible}
-                  placeholder="Konfirmasi password"
-                  placeholderTextColor={colors.neutral[400]}
-                  textContentType="newPassword"
-                  returnKeyType="done"
-                  onSubmitEditing={handleSubmit}
-                  accessibilityLabel="Input konfirmasi password"
-                  accessibilityRole="none"
+            {/* Input Konfirmasi Password */}
+            <View className="relative flex-row items-center bg-gray-100 rounded-full h-14 px-5 border border-transparent focus:border-primary-400">
+              <Icon icon={LockPassword} size={20} color={colors.neutral[400]} />
+              <TextInput
+                ref={confirmRef}
+                className="flex-1 ml-3 mr-2 text-sm text-gray-800 font-medium p-0"
+                value={passwordConfirmation}
+                onChangeText={setPasswordConfirmation}
+                secureTextEntry={!isConfirmVisible}
+                placeholder="Konfirmasi password"
+                placeholderTextColor={colors.neutral[400]}
+                textContentType="newPassword"
+                returnKeyType="done"
+                onSubmitEditing={handleSubmit}
+                accessibilityLabel="Input konfirmasi password"
+              />
+              <TouchableOpacity
+                className="p-1"
+                onPress={toggleConfirmVisible}
+                accessibilityRole="button"
+                accessibilityLabel={
+                  isConfirmVisible
+                    ? 'Sembunyikan konfirmasi password'
+                    : 'Tampilkan konfirmasi password'
+                }>
+                <Icon
+                  icon={isConfirmVisible ? Eye : EyeClosed}
+                  size={20}
+                  color={colors.neutral[400]}
                 />
-                <TouchableOpacity
-                  style={styles.eyeButton}
-                  onPress={toggleConfirmVisible}
-                  accessibilityRole="button"
-                  accessibilityLabel={
-                    isConfirmVisible
-                      ? 'Sembunyikan password'
-                      : 'Tampilkan password'
-                  }>
-                  <Icon
-                    icon={isConfirmVisible ? EyeClosed : Eye}
-                    size={20}
-                    color={colors.neutral[400]}
-                  />
-                </TouchableOpacity>
-              </View>
-              {fieldErrors?.password_confirmation ? (
-                <Text
-                  style={styles.errorText}
-                  accessibilityLiveRegion="polite">
-                  {fieldErrors.password_confirmation}
-                </Text>
-              ) : null}
+              </TouchableOpacity>
             </View>
 
+            {/* Submit Button */}
             <TouchableOpacity
-              style={[styles.button, isDisabled ? styles.buttonDisabled : null]}
+              className={`w-full bg-primary-500 rounded-full py-4 items-center justify-center mt-3 ${
+                isDisabled ? 'opacity-60' : 'active:bg-primary-600'
+              }`}
               onPress={handleSubmit}
               disabled={isDisabled}
               accessibilityRole="button"
-              accessibilityLabel="Simpan Password"
-              accessibilityState={{disabled: isDisabled}}>
+              accessibilityLabel="Simpan & Masuk"
+              accessibilityState={{ disabled: isDisabled }}>
               {isLoading ? (
-                <ActivityIndicator color={colors.neutral[0]} />
+                <ActivityIndicator color="#FFFFFF" size="small" />
               ) : (
-                <Text style={styles.buttonText}>Simpan Password</Text>
+                <Text className="text-white text-sm font-semibold">
+                  Simpan & Masuk
+                </Text>
               )}
             </TouchableOpacity>
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.neutral[0],
-  },
-  cardWrapper: {
-    flex: 1,
-  },
-  card: {
-    flex: 1,
-    backgroundColor: colors.primary[50],
-    borderTopLeftRadius: radius['2xl'],
-    borderTopRightRadius: radius['2xl'],
-    overflow: 'hidden',
-  },
-  scroll: {
-    flexGrow: 1,
-    paddingHorizontal: spacing.xl,
-    paddingTop: spacing['2xl'],
-    paddingBottom: spacing['2xl'],
-  },
-  fieldWrapper: {
-    marginBottom: spacing.lg,
-  },
-  label: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[700],
-    marginBottom: spacing.xs,
-  },
-  input: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: colors.neutral[200],
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.md,
-    fontSize: fontSize.md,
-    color: colors.neutral[900],
-    backgroundColor: colors.neutral[0],
-  },
-  inputError: {
-    borderColor: colors.semantic.error,
-  },
-  passwordContainer: {
-    position: 'relative',
-  },
-  passwordInput: {
-    paddingRight: spacing['4xl'],
-  },
-  eyeButton: {
-    position: 'absolute',
-    right: spacing.md,
-    top: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    minWidth: 44,
-    minHeight: 44,
-    alignItems: 'flex-end',
-  },
-  errorText: {
-    marginTop: spacing.xs,
-    fontSize: fontSize.sm,
-    color: colors.semantic.error,
-  },
-  button: {
-    height: 52,
-    backgroundColor: colors.secondary[500],
-    borderRadius: radius.lg,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: spacing.sm,
-  },
-  buttonDisabled: {
-    backgroundColor: colors.neutral[300],
-  },
-  buttonText: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[0],
-  },
-});

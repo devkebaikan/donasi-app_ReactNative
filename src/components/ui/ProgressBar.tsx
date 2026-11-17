@@ -21,7 +21,7 @@ export function ProgressBar({
   progress,
   height = 4,
   trackColor = colors.neutral[200],
-  fillColor = colors.secondary[500],
+  fillColor = colors.primary[500],
   className,
   style,
 }: ProgressBarProps): React.JSX.Element {

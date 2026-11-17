@@ -4,26 +4,29 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {HeaderColor} from '@/components/shared/HeaderColor';
+import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Icon } from '@/components/ui/Icon';
+import { ArrowLeft, DangerCircle } from '@solar-icons/react-native/Linear';
 import type {
   RootStackNavigationProp,
   RegisterOtpScreenProps,
 } from '@/types/navigation';
-import {useRegisterOtp} from '@/hooks/useRegisterOtp';
-import {OtpInput} from '@/components/ui/OtpInput';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import { useRegisterOtp } from '@/hooks/useRegisterOtp';
+import { OtpInput } from '@/components/ui/OtpInput';
+import { colors } from '@/theme';
 
 type Props = RegisterOtpScreenProps;
 
-export default function RegisterOtpScreen({route}: Props): React.JSX.Element {
-  const {phone, name, email, expiresIn} = route.params;
+export default function RegisterOtpScreen({ route }: Props): React.JSX.Element {
+  const { phone, name, email, expiresIn } = route.params;
   const navigation = useNavigation<RootStackNavigationProp>();
+  const insets = useSafeAreaInsets();
 
   const {
     otp,
@@ -39,14 +42,14 @@ export default function RegisterOtpScreen({route}: Props): React.JSX.Element {
   async function handleOtpComplete(value: string): Promise<void> {
     const success = await verify(value);
     if (success) {
-      navigation.navigate('RegisterPassword', {phone});
+      navigation.navigate('RegisterPassword', { phone });
     }
   }
 
   async function handleVerify(): Promise<void> {
     const success = await verify();
     if (success) {
-      navigation.navigate('RegisterPassword', {phone});
+      navigation.navigate('RegisterPassword', { phone });
     }
   }
 
@@ -62,160 +65,113 @@ export default function RegisterOtpScreen({route}: Props): React.JSX.Element {
   const isVerifyDisabled = isLoadingVerify;
 
   return (
-    <View style={styles.root}>
-      <HeaderColor title="Verifikasi OTP" onBack={() => navigation.goBack()} />
+    <View className="flex-1 bg-neutral-50" style={{ paddingTop: insets.top }}>
+      {/* Header Bar */}
+      <View className="h-14 flex-row items-center px-4 border-b border-neutral-100 bg-white">
+        <TouchableOpacity
+          className="w-10 h-10 items-center justify-center -ml-2"
+          onPress={() => navigation.goBack()}
+          accessibilityRole="button"
+          accessibilityLabel="Kembali"
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <Icon icon={ArrowLeft} size={22} color={colors.neutral[800]} />
+        </TouchableOpacity>
+        <Text className="flex-1 text-center font-bold text-base text-neutral-800 -ml-2">
+          Verifikasi OTP
+        </Text>
+        <View className="w-8" />
+      </View>
 
       <KeyboardAvoidingView
-        style={styles.cardWrapper}
+        className="flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <View style={styles.card}>
-          <ScrollView
-            contentContainerStyle={styles.scroll}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}>
-            <View style={styles.phoneRow}>
-              <Text style={styles.phoneLabel}>Kode OTP dikirim ke </Text>
-              <Text style={styles.phoneValue}>{phone}</Text>
-            </View>
+        <ScrollView
+          contentContainerClassName="flex-grow justify-center px-8 py-8"
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          {/* Logo & Headline */}
+          <View className="items-center text-center mb-8">
+            <Image
+              source={require('@/assets/images/logo/logo-short-color.png')}
+              className="h-16 w-16 mb-6"
+              resizeMode="contain"
+            />
+            <Text className="text-lg font-semibold text-gray-800 text-center leading-snug">
+              Pastikan Kepemilikan{'\n'}Akun Ini
+            </Text>
+            <Text className="text-xs text-gray-400 mt-2 text-center">
+              Masukkan 6 digit kode yang dikirimkan ke nomor{' '}
+              <Text className="font-semibold text-gray-600">{phone}</Text>
+            </Text>
+          </View>
 
-            <View style={styles.otpWrapper}>
-              <OtpInput
-                value={otp}
-                onChange={setOtp}
-                onComplete={handleOtpComplete}
-              />
-              {fieldErrors?.otp ? (
-                <Text
-                  style={styles.errorText}
-                  accessibilityLiveRegion="polite">
-                  {fieldErrors.otp}
+          {/* Alert Error */}
+          {fieldErrors?.otp ? (
+            <View className="flex-row items-center gap-2 bg-red-50 border border-red-200 rounded-2xl px-4 py-3 mb-4">
+              <Icon icon={DangerCircle} size={18} color="#DC2626" />
+              <Text className="flex-1 text-xs text-red-600 font-medium">
+                {fieldErrors.otp}
+              </Text>
+            </View>
+          ) : null}
+
+          {/* OTP Input */}
+          <View className="w-full items-center mb-6">
+            <OtpInput
+              value={otp}
+              onChange={setOtp}
+              onComplete={handleOtpComplete}
+            />
+          </View>
+
+          {/* Submit Button */}
+          <TouchableOpacity
+            className={`w-full bg-primary-500 rounded-full py-4 items-center justify-center ${
+              isVerifyDisabled ? 'opacity-60' : 'active:bg-primary-600'
+            }`}
+            onPress={handleVerify}
+            disabled={isVerifyDisabled}
+            accessibilityRole="button"
+            accessibilityLabel="Verifikasi"
+            accessibilityState={{ disabled: isVerifyDisabled }}>
+            {isLoadingVerify ? (
+              <ActivityIndicator color="#FFFFFF" size="small" />
+            ) : (
+              <Text className="text-white text-sm font-semibold">Verifikasi</Text>
+            )}
+          </TouchableOpacity>
+
+          {/* Resend Section */}
+          <View className="text-center items-center mt-6 gap-y-1">
+            <Text className="text-xs text-gray-400">
+              Belum menerima kode OTP?
+            </Text>
+            {!canResend ? (
+              <Text className="text-xs text-gray-500">
+                Kirim ulang dalam{' '}
+                <Text className="font-semibold text-primary-600">
+                  {formatCountdown(countdown)}
                 </Text>
-              ) : null}
-            </View>
-
-            <View style={styles.resendRow}>
-              {canResend ? (
-                <TouchableOpacity
-                  onPress={resend}
-                  accessibilityRole="button"
-                  accessibilityLabel="Kirim ulang OTP">
-                  {isLoadingResend ? (
-                    <ActivityIndicator
-                      size="small"
-                      color={colors.primary[500]}
-                    />
-                  ) : (
-                    <Text style={styles.resendActive}>Kirim Ulang</Text>
-                  )}
-                </TouchableOpacity>
-              ) : (
-                <Text style={styles.resendDisabled}>
-                  Kirim ulang OTP ({formatCountdown(countdown)})
-                </Text>
-              )}
-            </View>
-
-            <TouchableOpacity
-              style={[
-                styles.button,
-                isVerifyDisabled ? styles.buttonDisabled : null,
-              ]}
-              onPress={handleVerify}
-              disabled={isVerifyDisabled}
-              accessibilityRole="button"
-              accessibilityLabel="Verifikasi"
-              accessibilityState={{disabled: isVerifyDisabled}}>
-              {isLoadingVerify ? (
-                <ActivityIndicator color={colors.neutral[0]} />
-              ) : (
-                <Text style={styles.buttonText}>Verifikasi</Text>
-              )}
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
+              </Text>
+            ) : (
+              <TouchableOpacity
+                className="w-full border border-primary-400 rounded-full py-3.5 items-center justify-center mt-2"
+                onPress={resend}
+                disabled={isLoadingResend}
+                accessibilityRole="button"
+                accessibilityLabel="Kirim ulang kode OTP">
+                {isLoadingResend ? (
+                  <ActivityIndicator color={colors.primary[500]} size="small" />
+                ) : (
+                  <Text className="text-primary-600 text-sm font-semibold">
+                    Kirim Ulang Kode
+                  </Text>
+                )}
+              </TouchableOpacity>
+            )}
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.neutral[0],
-  },
-  cardWrapper: {
-    flex: 1,
-  },
-  card: {
-    flex: 1,
-    backgroundColor: colors.primary[50],
-    borderTopLeftRadius: radius['2xl'],
-    borderTopRightRadius: radius['2xl'],
-    overflow: 'hidden',
-  },
-  scroll: {
-    flexGrow: 1,
-    paddingHorizontal: spacing.xl,
-    paddingTop: spacing['2xl'],
-    paddingBottom: spacing['2xl'],
-    alignItems: 'center',
-  },
-  phoneRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginBottom: spacing['2xl'],
-  },
-  phoneLabel: {
-    fontSize: fontSize.md,
-    color: colors.neutral[500],
-  },
-  phoneValue: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  otpWrapper: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: spacing.lg,
-  },
-  errorText: {
-    marginTop: spacing.sm,
-    fontSize: fontSize.sm,
-    color: colors.semantic.error,
-    textAlign: 'center',
-  },
-  resendRow: {
-    minHeight: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: spacing.xl,
-  },
-  resendActive: {
-    fontSize: fontSize.md,
-    color: colors.primary[500],
-    fontWeight: fontWeight.medium,
-  },
-  resendDisabled: {
-    fontSize: fontSize.md,
-    color: colors.neutral[400],
-  },
-  button: {
-    height: 52,
-    width: '100%',
-    backgroundColor: colors.secondary[500],
-    borderRadius: radius.lg,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonDisabled: {
-    backgroundColor: colors.neutral[300],
-  },
-  buttonText: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[0],
-  },
-});

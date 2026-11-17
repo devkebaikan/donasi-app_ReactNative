@@ -1,16 +1,19 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
-import {getDonationStatus} from '@/services/donationService';
+import {getInvoiceDetail, type InvoiceData} from '@/services/donationService';
 import {showToast} from '@/utils/toast';
 import type {DonationPaymentStatus} from '@/types/tracking';
 
 const POLL_INTERVAL_MS = 10_000;
 
 interface Params {
-  donationId: string;
-  expiredAt: string;
+  invoiceId?: string;
+  donationId?: string;
+  initialExpiredAt?: string;
 }
 
 type State = {
+  invoice: InvoiceData | null;
+  isLoading: boolean;
   secondsLeft: number;
   paymentStatus: DonationPaymentStatus;
   isCheckingStatus: boolean;
@@ -18,39 +21,71 @@ type State = {
 
 type Actions = {
   checkStatus: () => Promise<void>;
+  refetch: () => Promise<void>;
 };
 
-function getSecondsLeft(expiredAt: string): number {
+function getSecondsLeft(expiredAt?: string): number {
+  if (!expiredAt) return 86400;
   const diffMs = new Date(expiredAt).getTime() - Date.now();
   return Math.max(0, Math.floor(diffMs / 1000));
 }
 
-export function usePaymentInvoice({donationId, expiredAt}: Params): State & Actions {
-  const [secondsLeft, setSecondsLeft] = useState(() => getSecondsLeft(expiredAt));
+function parseStatus(statusStr: string): DonationPaymentStatus {
+  const s = (statusStr || '').toLowerCase();
+  if (
+    s.includes('paid') ||
+    s.includes('sukses') ||
+    s.includes('berhasil') ||
+    s.includes('settlement')
+  ) {
+    return 'sukses';
+  }
+  if (s.includes('expire')) {
+    return 'expired';
+  }
+  if (s.includes('cancel') || s.includes('gagal')) {
+    return 'gagal';
+  }
+  return 'menunggu';
+}
+
+export function usePaymentInvoice({
+  invoiceId,
+  donationId,
+  initialExpiredAt,
+}: Params): State & Actions {
+  const effectiveId = invoiceId || donationId || '';
+  const [invoice, setInvoice] = useState<InvoiceData | null>(null);
+  const [isLoading, setIsLoading] = useState(Boolean(effectiveId));
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<DonationPaymentStatus>('menunggu');
+  const [paymentStatus, setPaymentStatus] =
+    useState<DonationPaymentStatus>('menunggu');
+
+  const expiryTime = invoice?.last_payment_time || initialExpiredAt;
+  const [secondsLeft, setSecondsLeft] = useState(() =>
+    getSecondsLeft(expiryTime),
+  );
   const isFetchingRef = useRef(false);
 
+  // Update countdown
   useEffect(() => {
-    setSecondsLeft(getSecondsLeft(expiredAt));
+    setSecondsLeft(getSecondsLeft(expiryTime));
     const interval = setInterval(() => {
-      setSecondsLeft(getSecondsLeft(expiredAt));
+      setSecondsLeft(getSecondsLeft(expiryTime));
     }, 1000);
     return () => clearInterval(interval);
-  }, [expiredAt]);
+  }, [expiryTime]);
 
-  // Timer habis melebur jadi bagian dari paymentStatus itu sendiri — bukan
-  // flag isExpired terpisah. Cuma override kalau statusnya masih 'menunggu'
-  // (status yang sudah resolve ke sukses/gagal tidak boleh ketimpa expired).
+  // Expiry check
   useEffect(() => {
     if (secondsLeft <= 0) {
       setPaymentStatus(prev => (prev === 'menunggu' ? 'expired' : prev));
     }
   }, [secondsLeft]);
 
-  const runCheck = useCallback(
-    async (showFeedback: boolean): Promise<void> => {
-      if (isFetchingRef.current) {
+  const fetchInvoiceData = useCallback(
+    async (showFeedback = false): Promise<void> => {
+      if (!effectiveId || isFetchingRef.current) {
         return;
       }
       isFetchingRef.current = true;
@@ -58,48 +93,75 @@ export function usePaymentInvoice({donationId, expiredAt}: Params): State & Acti
         setIsCheckingStatus(true);
       }
       try {
-        const response = await getDonationStatus(donationId);
-        if (!response.success) {
+        const response = await getInvoiceDetail(effectiveId);
+        if (response.success && response.data) {
+          setInvoice(response.data);
+          const parsed = parseStatus(response.data.status);
+          setPaymentStatus(parsed);
+
           if (showFeedback) {
-            showToast(response.message);
+            if (parsed === 'sukses') {
+              showToast('Pembayaran berhasil diverifikasi!');
+            } else if (parsed === 'menunggu') {
+              showToast('Pembayaran belum diterima. Silakan selesaikan pembayaran.');
+            } else if (parsed === 'expired') {
+              showToast('Waktu pembayaran telah kedaluwarsa.');
+            } else {
+              showToast('Transaksi dibatalkan atau gagal.');
+            }
           }
-          return;
-        }
-        setPaymentStatus(response.data.status);
-        if (showFeedback) {
-          if (response.data.status === 'menunggu') {
-            showToast('Pembayaran belum diterima. Silakan cek kembali nanti.');
-          } else if (response.data.status === 'gagal') {
-            showToast('Pembayaran gagal. Silakan coba lagi.');
-          }
+        } else if (showFeedback) {
+          showToast(response.message || 'Gagal memuat status invoice');
         }
       } catch {
         if (showFeedback) {
-          showToast('Tidak dapat terhubung.');
+          showToast('Tidak dapat terhubung ke server.');
         }
       } finally {
         isFetchingRef.current = false;
+        setIsLoading(false);
         if (showFeedback) {
           setIsCheckingStatus(false);
         }
       }
     },
-    [donationId],
+    [effectiveId],
   );
 
-  // Polling otomatis — silent (tanpa toast), berhenti begitu status resolve
-  // (sukses/gagal) atau expired, jalan lagi kalau screen dibuka ulang.
+  // Initial fetch on mount
   useEffect(() => {
-    if (paymentStatus !== 'menunggu') {
+    if (effectiveId) {
+      fetchInvoiceData(false);
+    }
+  }, [effectiveId, fetchInvoiceData]);
+
+  // Periodic polling if still pending
+  useEffect(() => {
+    if (paymentStatus !== 'menunggu' || !effectiveId) {
       return;
     }
     const interval = setInterval(() => {
-      runCheck(false);
+      fetchInvoiceData(false);
     }, POLL_INTERVAL_MS);
     return () => clearInterval(interval);
-  }, [paymentStatus, runCheck]);
+  }, [paymentStatus, effectiveId, fetchInvoiceData]);
 
-  const checkStatus = useCallback((): Promise<void> => runCheck(true), [runCheck]);
+  const checkStatus = useCallback(async () => {
+    await fetchInvoiceData(true);
+  }, [fetchInvoiceData]);
 
-  return {secondsLeft, paymentStatus, isCheckingStatus, checkStatus};
+  const refetch = useCallback(async () => {
+    setIsLoading(true);
+    await fetchInvoiceData(false);
+  }, [fetchInvoiceData]);
+
+  return {
+    invoice,
+    isLoading,
+    secondsLeft,
+    paymentStatus,
+    isCheckingStatus,
+    checkStatus,
+    refetch,
+  };
 }

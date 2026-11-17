@@ -1,13 +1,13 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {colors, spacing, fontSize, fontWeight} from '@/theme';
+import {colors, spacing, radius, fontSize, fontWeight, shadows} from '@/theme';
 import type {DetailProgramTab} from '@/hooks/useDetailProgram';
 
 const TABS: {key: DetailProgramTab; label: string}[] = [
   {key: 'about', label: 'Cerita'},
-  {key: 'projects', label: 'Project Salur'},
+  {key: 'projects', label: 'Salur'},
   {key: 'donatur', label: 'Donatur'},
-  {key: 'reports', label: 'Report Salur'},
+  {key: 'reports', label: 'Fundraiser'},
 ];
 
 interface ProgramTabBarProps {
@@ -26,13 +26,14 @@ export function ProgramTabBar({
         return (
           <TouchableOpacity
             key={tab.key}
-            style={[styles.tab, isActive && styles.tabActive]}
+            style={[styles.tab, isActive ? styles.tabActive : styles.tabInactive]}
             onPress={() => onChange(tab.key)}
+            activeOpacity={0.7}
             accessibilityRole="tab"
             accessibilityLabel={tab.label}
             accessibilityState={{selected: isActive}}>
             <Text
-              style={[styles.label, isActive && styles.labelActive]}
+              style={[styles.label, isActive ? styles.labelActive : styles.labelInactive]}
               numberOfLines={1}>
               {tab.label}
             </Text>
@@ -46,26 +47,36 @@ export function ProgramTabBar({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.neutral[200],
+    paddingHorizontal: spacing.lg,
+    gap: spacing.sm,
+    marginTop: spacing.sm,
   },
   tab: {
     flex: 1,
-    paddingVertical: spacing.md,
+    minHeight: 40,
     alignItems: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
+    justifyContent: 'center',
+    borderRadius: radius.md,
+    borderWidth: 1,
   },
   tabActive: {
-    borderBottomColor: colors.primary[500],
+    backgroundColor: colors.primary[500],
+    borderColor: colors.primary[500],
+  },
+  tabInactive: {
+    backgroundColor: colors.neutral[0],
+    borderColor: colors.neutral[200],
+    ...shadows.sm,
   },
   label: {
     fontSize: fontSize.sm,
     fontWeight: fontWeight.medium,
-    color: colors.neutral[500],
   },
   labelActive: {
-    color: colors.primary[500],
+    color: colors.neutral[0],
     fontWeight: fontWeight.semiBold,
+  },
+  labelInactive: {
+    color: colors.neutral[700],
   },
 });

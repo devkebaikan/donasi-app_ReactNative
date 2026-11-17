@@ -1,10 +1,9 @@
 import React, {forwardRef, useCallback} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {
   BottomSheetModal,
   BottomSheetView,
   BottomSheetBackdrop,
-  BottomSheetTextInput,
 } from '@gorhom/bottom-sheet';
 import type {BottomSheetBackdropProps} from '@gorhom/bottom-sheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -52,7 +51,7 @@ export const VoucherBottomSheet = forwardRef<
         style={[styles.container, {paddingBottom: insets.bottom + spacing.xl}]}>
         <Text style={styles.title}>Punya Kode Voucher?</Text>
         <View style={[styles.inputWrapper, error && styles.inputError]}>
-          <BottomSheetTextInput
+          <TextInput
             style={styles.input}
             value={voucherCode}
             onChangeText={onChangeCode}

@@ -1,13 +1,12 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {HtmlContent} from '@/components/shared/HtmlContent';
 import {formatDate} from '@/utils/formatDate';
 import {
   PROJECT_SALUR_STATUS_LABEL as STATUS_LABEL,
   PROJECT_SALUR_STATUS_COLOR as STATUS_COLOR,
 } from '@/utils/projectSalurStatus';
 import {colors, spacing, radius, fontSize, fontWeight, shadows} from '@/theme';
-import type {ReportSalur} from '@/types/programDetail';
+import type {ProjectSalurStatus, ReportSalur} from '@/types/programDetail';
 
 interface SalurTimelineItemProps {
   item: ReportSalur;
@@ -26,18 +25,52 @@ export function SalurTimelineItem({
   isLast = false,
   onPressDetail,
 }: SalurTimelineItemProps): React.JSX.Element {
-  const statusColor = STATUS_COLOR[item.status];
+  const statusKey = (item?.status || 'proses') as ProjectSalurStatus;
+  const statusColor = STATUS_COLOR[statusKey] ?? {
+    bg: colors.neutral[100],
+    text: colors.neutral[700],
+  };
+  const statusLabel = STATUS_LABEL[statusKey] ?? item?.status ?? 'Penyaluran';
+
+  const mitraName = item?.mitra?.name || 'Beramal Bersama';
+  const mitraPhoto = item?.mitra?.photoUrl || '';
+  const itemPhoto = item?.photoUrl || '';
+  const itemDate = item?.distributedAt ? formatDate(item.distributedAt) : '';
+  const cleanDescription = item?.descriptionHtml
+    ? item.descriptionHtml.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim()
+    : '';
 
   return (
     <View style={styles.container}>
       <View style={styles.timelineColumn}>
-        <Image
-          source={{uri: item.mitra.photoUrl}}
-          style={styles.mitraPhoto}
-          resizeMode="cover"
-          accessibilityRole="image"
-          accessibilityLabel={`Logo ${item.mitra.name}`}
-        />
+        {mitraPhoto ? (
+          <Image
+            source={{uri: mitraPhoto}}
+            style={styles.mitraPhoto}
+            resizeMode="cover"
+            accessibilityRole="image"
+            accessibilityLabel={`Logo ${mitraName}`}
+          />
+        ) : (
+          <View
+            style={[
+              styles.mitraPhoto,
+              {
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: colors.primary[100],
+              },
+            ]}>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '700',
+                color: colors.primary[700],
+              }}>
+              {mitraName.charAt(0).toUpperCase()}
+            </Text>
+          </View>
+        )}
         {!isLast && <View style={styles.timelineLine} />}
       </View>
 
@@ -45,29 +78,39 @@ export function SalurTimelineItem({
         <View style={styles.headerRow}>
           <View style={styles.mitraInfo}>
             <Text style={styles.mitraName} numberOfLines={1}>
-              {item.mitra.name}
+              {mitraName}
             </Text>
-            <Text style={styles.date}>{formatDate(item.distributedAt)}</Text>
+            {itemDate ? <Text style={styles.date}>{itemDate}</Text> : null}
           </View>
           <View style={[styles.badge, {backgroundColor: statusColor.bg}]}>
             <Text style={[styles.badgeText, {color: statusColor.text}]}>
-              {STATUS_LABEL[item.status]}
+              {statusLabel}
             </Text>
           </View>
         </View>
 
-        <Image
-          source={{uri: item.photoUrl}}
-          style={styles.itemPhoto}
-          resizeMode="cover"
-          accessibilityRole="image"
-          accessibilityLabel={`Foto penyaluran ${item.title}`}
-        />
+        {itemPhoto ? (
+          <Image
+            source={{uri: itemPhoto}}
+            style={styles.itemPhoto}
+            resizeMode="cover"
+            accessibilityRole="image"
+            accessibilityLabel={`Foto penyaluran ${item?.title || ''}`}
+          />
+        ) : null}
 
-        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.title}>{item?.title || 'Penyaluran Program'}</Text>
 
-        {item.descriptionHtml ? (
-          <HtmlContent html={item.descriptionHtml} />
+        {cleanDescription ? (
+          <Text
+            style={{
+              fontSize: fontSize.xs,
+              color: colors.neutral[600],
+              lineHeight: 18,
+            }}
+            numberOfLines={3}>
+            {cleanDescription}
+          </Text>
         ) : null}
 
         {onPressDetail ? (

@@ -1,11 +1,11 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Heart} from '@solar-icons/react-native/Bold';
 import {Icon} from '@/components/ui/Icon';
 import {Avatar} from '@/components/ui/Avatar';
 import {formatCurrency} from '@/utils/formatCurrency';
 import {formatRelativeTime} from '@/utils/formatRelativeTime';
-import {colors, spacing, radius, fontSize, fontWeight, lineHeight} from '@/theme';
+import {colors} from '@/theme';
 import type {ProgramDonatur} from '@/types/programDetail';
 
 interface DonaturListItemProps {
@@ -17,44 +17,78 @@ export function DonaturListItem({
   donatur,
   onPressAamiin,
 }: DonaturListItemProps): React.JSX.Element {
-  const displayName = donatur.isAnonymous ? 'Hamba Allah' : donatur.name;
-  // Anonim: foto ikut disembunyikan supaya identitas tidak bocor lewat avatar
+  const [isLiked, setIsLiked] = useState<boolean>(donatur.isLiked ?? false);
+  const [aminCount, setAminCount] = useState<number>(donatur.aminCount ?? 0);
+
+  const displayName = donatur.isAnonymous || !donatur.name?.trim()
+    ? 'Hamba Allah'
+    : donatur.name.trim();
   const photoUri = donatur.isAnonymous ? null : donatur.photoUrl ?? null;
+
+  function handleAamiin(): void {
+    if (isLiked) return;
+    setIsLiked(true);
+    setAminCount(prev => prev + 1);
+    onPressAamiin(donatur);
+  }
 
   return (
     <View
-      style={styles.container}
+      className="bg-white rounded-xl p-4 shadow-sm border border-neutral-100"
       accessibilityRole="text"
       accessibilityLabel={`${displayName}, ${formatCurrency(donatur.amount)}`}>
-      <View style={styles.row}>
+      <View className="flex-row items-start gap-3">
         <Avatar uri={photoUri} name={displayName} size={40} />
-        <View style={styles.info}>
-          <Text style={styles.name} numberOfLines={1}>
+        <View className="flex-1 min-w-0">
+          <Text className="font-semibold text-neutral-900 text-sm truncate" numberOfLines={1}>
             {displayName}
           </Text>
-          <Text style={styles.meta}>
-            {formatRelativeTime(donatur.createdAt)} via{' '}
-            {donatur.paymentMethodName}
+          <Text className="text-xs text-neutral-500 mt-0.5">
+            {formatRelativeTime(donatur.createdAt)} via {donatur.paymentMethodName || 'Online'}
           </Text>
         </View>
-        <Text style={styles.amount}>{formatCurrency(donatur.amount)}</Text>
+        <Text className="font-bold text-primary-600 text-sm">
+          {formatCurrency(donatur.amount)}
+        </Text>
       </View>
 
       {donatur.prayer ? (
-        <View style={styles.prayerCard}>
-          <Text style={styles.prayerText}>{donatur.prayer}</Text>
-          <View style={styles.prayerFooter}>
-            <Text style={styles.prayerCaption}>
-              Yuk Aamiin-kan doa saudara kita
+        <View className="bg-neutral-50 rounded-lg p-3 mt-3 border border-neutral-100">
+          <Text className="text-neutral-700 text-xs leading-relaxed mb-2.5">
+            {donatur.prayer}
+          </Text>
+          <View className="flex-row items-center justify-between pt-2 border-t border-neutral-200">
+            <Text className="text-[11px] text-neutral-500">
+              {aminCount > 0 ? (
+                <>
+                  <Text className="font-semibold text-primary-600">{aminCount}</Text> orang mengaminkan doa ini
+                </>
+              ) : (
+                'Yuk Aamiin-kan doa saudara kita'
+              )}
             </Text>
             <TouchableOpacity
-              style={styles.aamiinButton}
-              onPress={() => onPressAamiin(donatur)}
-              hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}
+              className={`flex-row items-center gap-1.5 px-3 py-1 rounded-md border ${
+                isLiked
+                  ? 'bg-primary-500 border-primary-500'
+                  : 'bg-white border-primary-500'
+              }`}
+              onPress={handleAamiin}
+              activeOpacity={0.7}
+              disabled={isLiked}
               accessibilityRole="button"
               accessibilityLabel={`Aamiin-kan doa ${displayName}`}>
-              <Icon icon={Heart} size={14} color={colors.secondary[500]} />
-              <Text style={styles.aamiinLabel}>Aamiin</Text>
+              <Icon
+                icon={Heart}
+                size={13}
+                color={isLiked ? '#FFFFFF' : colors.primary[500]}
+              />
+              <Text
+                className={`text-xs font-semibold ${
+                  isLiked ? 'text-white' : 'text-primary-600'
+                }`}>
+                Aamiin
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -62,72 +96,3 @@ export function DonaturListItem({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    gap: spacing.sm,
-    paddingVertical: spacing.sm,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  info: {
-    flex: 1,
-    gap: 2,
-  },
-  name: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[900],
-  },
-  meta: {
-    fontSize: fontSize.xs,
-    color: colors.neutral[500],
-  },
-  amount: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  prayerCard: {
-    marginLeft: 40 + spacing.sm,
-    padding: spacing.md,
-    borderRadius: radius.md,
-    backgroundColor: colors.neutral[50],
-    gap: spacing.sm,
-  },
-  prayerText: {
-    fontSize: fontSize.sm,
-    lineHeight: fontSize.sm * lineHeight.normal,
-    color: colors.neutral[700],
-  },
-  prayerFooter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: spacing.sm,
-  },
-  prayerCaption: {
-    flex: 1,
-    fontSize: fontSize.xs,
-    color: colors.neutral[500],
-  },
-  aamiinButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.secondary[200],
-    backgroundColor: colors.secondary[50],
-  },
-  aamiinLabel: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.semiBold,
-    color: colors.secondary[500],
-  },
-});

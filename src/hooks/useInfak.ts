@@ -116,7 +116,7 @@ export function useInfak(): State & Actions {
     try {
       const response = await createInfak({
         amount,
-        paymentMethodId: selectedMethod.id,
+        paymentMethodId: String(selectedMethod.id),
         donaturName,
         prayer: prayer || undefined,
         isForOther,

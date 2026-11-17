@@ -28,10 +28,14 @@ export const queryKeys = {
     detail: (link: string) => ['program', 'detail', link] as const,
     salesNotif: (programId: string | null) =>
       ['program', 'sales-notif', programId] as const,
-    projects: (programId: string | null) =>
-      ['program', 'projects', programId] as const,
-    donatur: (programId: string | null, sort: DonaturSort) =>
-      ['program', 'donatur', programId, sort] as const,
+    projects: (programId: string | null, programLink?: string | null) =>
+      ['program', 'projects', programId, programLink] as const,
+    report: (programLink: string | null) =>
+      ['program', 'report', programLink] as const,
+    donatur: (programId: string | null, sort: DonaturSort, programLink?: string | null) =>
+      ['program', 'donatur', programId, sort, programLink] as const,
+    fundraiser: (programLink: string | null) =>
+      ['program', 'fundraiser', programLink] as const,
   },
   projectSalur: {
     detail: (projectSalurId: string) =>
