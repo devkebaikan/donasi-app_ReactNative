@@ -254,6 +254,7 @@ export interface SalesNotifItem {
 // "Project Salur Terdekat") — 3 tingkat kelengkapan data untuk 1 entitas,
 // lihat detail-project-salur.md § "Tipe Internal — ProjectSalurDetail".
 export interface ProjectSalurDetail {
+  judul: string;
   id: string;
   title: string;
   photoUrl: string;
@@ -274,6 +275,7 @@ export interface ProjectSalurDetail {
     isVerified: boolean;
   };
   program: {
+    name: string;
     id: string; // dipakai sebagai AlurDonasi.programId
     link: string; // dipakai navigasi ke DetailProgramScreen({link})
     title: string;

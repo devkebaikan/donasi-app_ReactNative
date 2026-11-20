@@ -325,7 +325,7 @@ export default function DetailProjectSalurScreen({
 
         <View style={styles.section}>
           <ProjectSalurInfoAlert
-            programTitle={project.program.title}
+            programTitle={project.program.name}
             onPress={handlePressProgramAlert}
           />
         </View>
@@ -434,7 +434,7 @@ export default function DetailProjectSalurScreen({
 
       <FloatingDonationFooter
         isRutin={false}
-        donationLabel={project.donationLabel}
+        donationLabel={"Donasi"}
         onPressSecondary={handleShare}
         onPressDonate={handleDonateNow}
       />
