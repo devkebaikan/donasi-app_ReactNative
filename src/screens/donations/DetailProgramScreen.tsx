@@ -253,7 +253,12 @@ export default function DetailProgramScreen({
     if (!program) {
       return;
     }
-    navigation.navigate('AllReportSalur', {programId: program.id});
+    navigation.navigate('AllReportSalur', {
+      programId: String(program.id),
+      programLink: program.link || link,
+      programTitle: program.title,
+      programImageUrl: program.imageUrl,
+    });
   }
 
   function handlePressDetailProjectSalur(id: string): void {

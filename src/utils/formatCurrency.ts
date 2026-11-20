@@ -8,6 +8,8 @@ export function formatCurrency(amount: number): string {
   return `Rp ${formatNumberWithSeparator(amount)}`;
 }
 
+export const formatRupiah = formatCurrency;
+
 const BILLION = 1_000_000_000;
 const MILLION = 1_000_000;
 const THOUSAND = 1_000;

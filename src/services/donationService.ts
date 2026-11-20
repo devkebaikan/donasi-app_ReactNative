@@ -418,6 +418,131 @@ export async function getProgramReport(
   }
 }
 
+export interface ApiReportItem {
+  id: number;
+  source?: string;
+  project_id?: number;
+  kegiatan_id?: number;
+  type?: string;
+  title?: string;
+  content?: string;
+  image?: string;
+  date?: string;
+  ig_link?: string;
+  ig_embed?: string;
+  wa_image?: string;
+  wa_caption?: string;
+  mitra_ids?: string;
+  project?: {
+    id: number;
+    title?: string;
+    name?: string;
+    description?: string;
+    status?: string;
+    kode_wilayah?: string | null;
+    location?: string;
+    lokasi_penyaluran?: string;
+  };
+  kegiatan?: {
+    id?: number;
+    title?: string;
+    deskripsi?: string;
+    image?: string;
+  };
+  mitra?: Array<{
+    id: number;
+    name: string;
+    image_url?: string;
+    image?: string;
+  }>;
+  program?: {
+    id?: number;
+    title?: string;
+    link?: string;
+    image?: string;
+  };
+  created_at?: string;
+  updated_at?: string;
+}
+
+export async function getAllReportsByLink(
+  programLink: string,
+): Promise<ApiResponse<ApiReportItem[]>> {
+  try {
+    const res = await apiClient.get<any>('/reports', {
+      params: {program_link: programLink},
+    });
+    const rawList = Array.isArray(res.data?.data)
+      ? res.data.data
+      : Array.isArray(res.data)
+      ? res.data
+      : [];
+    return {
+      success: true,
+      message: res.data?.message || 'OK',
+      data: rawList,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || 'Gagal memuat laporan penyaluran',
+      data: [],
+    };
+  }
+}
+
+export async function getReportDetailById(
+  reportId: number | string,
+): Promise<ApiResponse<ApiReportItem | null>> {
+  try {
+    const res = await apiClient.get<any>(`/report/${reportId}`);
+    const data = res.data?.data || res.data;
+    if (data) {
+      return {
+        success: true,
+        message: 'OK',
+        data,
+      };
+    }
+    return {
+      success: false,
+      message: 'Detail laporan tidak ditemukan',
+      data: null,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || 'Gagal memuat detail laporan',
+      data: null,
+    };
+  }
+}
+
+export async function getReportByLink(
+  link: string,
+): Promise<ApiResponse<ApiReportItem | null>> {
+  if (!link) {
+    return {success: true, message: 'OK', data: null};
+  }
+  try {
+    const res = await apiClient.get<any>('/report', {
+      params: {program_link: link, limit: 1},
+    });
+    const item = res.data?.data?.[0] ?? res.data?.news?.[0] ?? null;
+    return {
+      success: true,
+      message: 'OK',
+      data: item,
+    };
+  } catch {
+    return {
+      success: true,
+      message: 'OK',
+      data: null,
+    };
+  }
+}
+
 export async function getProgramProjects(
   id: string | number,
   link?: string,
@@ -612,19 +737,35 @@ export async function getProjectSalurDetail(
   try {
     const res = await apiClient.get<any>(`/program/projects/${projectSalurId}`);
     const data = res.data?.data || res.data;
-    const collectedAmount = Number(data.nominal_achieved || 0);
-    const targetAmount = Number(data.nominal_target || 0);
+    if (!data) {
+      return {
+        success: false,
+        message: 'Proyek penyaluran tidak ditemukan',
+        data: null as unknown as ProjectSalurDetail,
+      };
+    }
+
+    const title = data.judul || data.title || '';
+    const photoUrl = data.image_url || data.image || '';
+    const address = data.lokasi_penyaluran || data.location || '';
+    const descriptionHtml = data.deskripsi || data.description || '';
+    const collectedAmount = Number(data.claimed_donasi ?? data.nominal_achieved ?? 0);
+    const targetAmount = Number(data.nominal_acc ?? data.nominal_target ?? 0);
     const progressPercent =
       targetAmount > 0
-        ? Math.min(100, (collectedAmount / targetAmount) * 100)
+        ? Math.min(100, Math.round((collectedAmount / targetAmount) * 100))
         : 100;
+    const distributedAt = data.waktu_pelaksanaan || data.excecution_time || data.created_at || '';
+    const beneficiaryCount = Number(data.jumlah_pm ?? data.beneficiary ?? 0);
+    const mitraData = data.mitra_utama || data.mitra || data.mitras?.[0];
+    const programData = data.programs?.[0] || data.program;
 
     const detail: ProjectSalurDetail = {
       id: String(data.id),
-      title: data.title || '',
-      photoUrl: data.image || '',
-      address: data.lokasi_penyaluran || data.location || '',
-      descriptionHtml: data.description || '',
+      title,
+      photoUrl,
+      address,
+      descriptionHtml,
       status: (data.status === 'diterima' ||
       data.activity === 'active open' ||
       data.status === 'proses'
@@ -632,26 +773,25 @@ export async function getProjectSalurDetail(
         : data.status === 'selesai' || data.activity === 'selesai'
         ? 'selesai'
         : 'menunggu') as ProjectSalurStatus,
-      distributedAt: data.excecution_time || data.created_at || '',
-      beneficiaryCount: Number(data.beneficiary || 0),
+      distributedAt,
+      beneficiaryCount,
       targetAmount,
       collectedAmount,
       progressPercent,
       donaturCount: Number(data.donatur_count || data.total_donors || 0),
-      donationLabel: data.program?.tipe?.name || 'Donasi',
+      donationLabel: programData?.name || 'Donasi',
       mitra: {
-        id: String(data.mitra?.id || '1'),
-        name: data.mitra?.name || '',
-        photoUrl: data.mitra?.image || '',
+        id: String(mitraData?.id || '1'),
+        name: mitraData?.nama || mitraData?.name || 'Yayasan Sahabat Beramal Bersama',
+        photoUrl: mitraData?.image_url || mitraData?.image || '',
         isVerified: true,
       },
       program: {
-        id: String(data.program?.id || data.program_id || '1'),
-        link: data.program?.link || '',
-        title: data.program?.title || '',
-        imageUrl: data.program?.image || '',
-        nominalType:
-          data.program?.jenis_nominal === 'paket' ? 'paket' : 'biasa',
+        id: String(programData?.id || '1'),
+        link: programData?.slug || programData?.link || '',
+        title: programData?.name || programData?.title || title,
+        imageUrl: photoUrl,
+        nominalType: 'biasa',
         nominalPresets: [],
         packages: [],
       },
@@ -690,16 +830,16 @@ export async function getOrganizationProfile(
     const profile: OrganizationProfile = {
       id: String(data.id),
       name: data.name || '',
-      logoUrl: data.image || data.logo || '',
-      location: data.location || '',
-      phone: data.phone || '',
+      logoUrl: data.image_url || data.image || data.logo || '',
+      location: data.address || data.location || '',
+      phone: data.contact || data.number || data.phone || '',
       joinedAt: data.created_at || '',
       description: data.description || '',
       stats: {
-        programs: Number(data.total_programs || 0),
-        donatur: Number(data.total_donatur || 0),
+        programs: Number(data.program_count || data.total_programs || 0),
+        donatur: Number(data.donor_count || data.total_donatur || 0),
       },
-      isVerified: Boolean(data.is_verified ?? true),
+      isVerified: Boolean(data.status === 'active' || (data.is_verified ?? true)),
     };
     return {success: true, message: 'OK', data: profile};
   } catch (error: any) {
@@ -913,11 +1053,41 @@ export async function createDonation(
   return {success: true, message: 'Donasi berhasil dibuat', data};
 }
 
+export interface InvoiceItem {
+  id?: number;
+  activity?: string;
+  nominal_donasi?: number;
+  program?: {
+    id?: number;
+    title?: string;
+    link?: string;
+    image?: string;
+    mitra?: {
+      id?: number;
+      name?: string;
+      image_url?: string;
+    };
+  };
+  project?: {
+    id?: number;
+    judul?: string;
+    name?: string;
+    description?: string;
+    waktu_pelaksanaan?: string;
+    jumlah_pm?: number | string;
+    activity?: string;
+    image?: string;
+  };
+  [key: string]: any;
+}
+
 export interface InvoiceData {
   id?: number;
   invoice: string;
   nominal: number;
   status: string;
+  date?: string;
+  created_at?: string;
   last_payment_time: string;
   payment_url?: string | null;
   payment_method?: {
@@ -942,15 +1112,7 @@ export interface InvoiceData {
     account_holder?: string | null;
     raw?: any;
   } | null;
-  items?: Array<{
-    id?: number;
-    program?: {
-      id?: number;
-      title?: string;
-      link?: string;
-      image?: string;
-    };
-  }>;
+  items?: InvoiceItem[];
   [key: string]: any;
 }
 
@@ -1046,6 +1208,126 @@ export async function getTrackingSummary(): Promise<ApiResponse<TrackingSummary>
       completed: 0,
     },
   };
+}
+
+export interface MyDonationHistoryItem {
+  id?: number | string;
+  invoice: string;
+  judul?: string;
+  title?: string;
+  nominal_donasi?: number;
+  total?: number;
+  date?: string;
+  time?: string;
+  created_at?: string;
+  image_url?: string;
+  posisi?: string;
+  payment_status?: string;
+  status?: string;
+  source?: string;
+  [key: string]: any;
+}
+
+export interface DonationCalendarDay {
+  date: string;
+  count: number;
+  total_nominal: number;
+}
+
+export async function getMyDonationsList(params: {
+  page?: number;
+  limit?: number;
+  posisi?: string;
+  invoice?: string;
+}): Promise<ApiResponse<{items: MyDonationHistoryItem[]; hasMore: boolean}>> {
+  try {
+    const queryParams: Record<string, any> = {
+      page: params.page ?? 1,
+      limit: params.limit ?? 10,
+    };
+    if (params.posisi) {
+      queryParams.posisi = params.posisi;
+    }
+    if (params.invoice) {
+      queryParams.invoice = params.invoice;
+    }
+    const res = await apiClient.get<any>('/dashboard/donatur/my-donation', {
+      params: queryParams,
+    });
+    const json = res.data;
+    let items: any[] = [];
+    if (Array.isArray(json?.data)) {
+      items = json.data;
+    } else if (Array.isArray(json?.data?.data)) {
+      items = json.data.data;
+    } else if (Array.isArray(json)) {
+      items = json;
+    }
+
+    const meta =
+      json?.pagination ??
+      json?.data?.pagination ??
+      json?.meta ??
+      json?.data?.meta ??
+      null;
+    const hasMore =
+      meta && meta.current_page != null && meta.last_page != null
+        ? Number(meta.current_page) < Number(meta.last_page)
+        : items.length >= (params.limit ?? 10);
+
+    return {
+      success: true,
+      message: 'OK',
+      data: {items, hasMore},
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || 'Gagal memuat riwayat donasi',
+      data: {items: [], hasMore: false},
+    };
+  }
+}
+
+export async function getMyDonationCalendar(params: {
+  start_date: string;
+  end_date: string;
+  status?: string;
+}): Promise<ApiResponse<DonationCalendarDay[]>> {
+  try {
+    const res = await apiClient.get<any>(
+      '/dashboard/donatur/my-donation-calendar',
+      {
+        params: {
+          start_date: params.start_date,
+          end_date: params.end_date,
+          status: params.status ?? 'Paid',
+        },
+      },
+    );
+    const days: DonationCalendarDay[] = Array.isArray(res.data?.data?.days)
+      ? res.data.data.days.map((day: any) => ({
+          date:
+            typeof day.date === 'string' && day.date.includes('T')
+              ? day.date.split('T')[0]
+              : String(day.date),
+          count: Number(day.count) || 0,
+          total_nominal: Number(day.total_nominal) || 0,
+        }))
+      : [];
+
+    return {
+      success: true,
+      message: 'OK',
+      data: days,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || 'Gagal memuat kalender donasi',
+      data: [],
+    };
+  }
 }
 
 export async function getDonationTransactions(

@@ -102,12 +102,29 @@ export default function HomeScreen(): React.JSX.Element {
   function handlePressBanner(target?: number | string): void {
     if (!target) return;
     if (typeof target === 'string' && /^https?:\/\//i.test(target)) {
+      if (target.includes('sedekah-subuh')) {
+        navigation.navigate('SedekahSubuh');
+        return;
+      }
+      if (target.includes('teruskan-cahaya')) {
+        navigation.navigate('TeruskanCahaya');
+        return;
+      }
       openExternalUrl(target);
       return;
     }
     const cleanSlug = typeof target === 'string'
       ? target.replace(/^https?:\/\/[^/]+\/(?:donasi\/)?/i, '').replace(/^\/+/, '')
       : String(target);
+
+    if (cleanSlug === 'sedekah-subuh') {
+      navigation.navigate('SedekahSubuh');
+      return;
+    }
+    if (cleanSlug === 'teruskan-cahaya') {
+      navigation.navigate('TeruskanCahaya');
+      return;
+    }
 
     if (cleanSlug) {
       navigation.navigate('DetailProgram', {

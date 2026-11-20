@@ -4,4 +4,7 @@ export interface User {
   email: string;
   phone: string;
   avatarUrl: string | null;
+  dompet_kebaikan?: {
+    saldo: number;
+  };
 }

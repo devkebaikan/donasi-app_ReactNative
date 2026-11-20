@@ -25,8 +25,10 @@ import {SearchScreen} from '@/screens/search/SearchScreen';
 import DetailProgramScreen from '@/screens/donations/DetailProgramScreen';
 import DetailProjectSalurScreen from '@/screens/donations/DetailProjectSalurScreen';
 import PerLembagaScreen from '@/screens/donations/PerLembagaScreen';
+import MitraListScreen from '@/screens/donations/MitraListScreen';
 import AllProjectSalurScreen from '@/screens/donations/AllProjectSalurScreen';
 import AllReportSalurScreen from '@/screens/donations/AllReportSalurScreen';
+import DetailReportSalurScreen from '@/screens/donations/DetailReportSalurScreen';
 import AlurDonasiScreen from '@/screens/donations/AlurDonasiScreen';
 import PaymentInvoiceScreen from '@/screens/donations/PaymentInvoiceScreen';
 import DonasiRutinSetupScreen from '@/screens/donations/DonasiRutinSetupScreen';
@@ -35,6 +37,8 @@ import DonasiRutinProgramScreen from '@/screens/donations/DonasiRutinProgramScre
 import DonasiRutinSuksesScreen from '@/screens/donations/DonasiRutinSuksesScreen';
 import DetailDonasiRutinScreen from '@/screens/myDonations/DetailDonasiRutinScreen';
 import InfakScreen from '@/screens/donations/InfakScreen';
+import SedekahSubuhScreen from '@/screens/campaigns/SedekahSubuhScreen';
+import TeruskanCahayaScreen from '@/screens/campaigns/TeruskanCahayaScreen';
 import TopupScreen from '@/screens/topup/TopupScreen';
 import NewsScreen from '@/screens/news/NewsScreen';
 import NewsDetailScreen from '@/screens/news/NewsDetailScreen';
@@ -64,6 +68,7 @@ import ReflectionDetailScreen from '@/screens/reflection/ReflectionDetailScreen'
 import EventScreen from '@/screens/event/EventScreen';
 import PerTemaScreen from '@/screens/donations/PerTemaScreen';
 import TrackingScreen from '@/screens/myDonations/TrackingScreen';
+import RiwayatDonasiScreen from '@/screens/myDonations/RiwayatDonasiScreen';
 import ZakatScreen from '@/screens/zakat/ZakatScreen';
 import ZakatKalkulatorScreen from '@/screens/zakat/ZakatKalkulatorScreen';
 import PrayerScheduleScreen from '@/screens/prayer/PrayerScheduleScreen';
@@ -121,11 +126,16 @@ export function RootNavigator(): React.JSX.Element {
           component={DetailProjectSalurScreen}
         />
         <Stack.Screen name="PerLembaga" component={PerLembagaScreen} />
+        <Stack.Screen name="MitraList" component={MitraListScreen} />
         <Stack.Screen
           name="AllProjectSalur"
           component={AllProjectSalurScreen}
         />
         <Stack.Screen name="AllReportSalur" component={AllReportSalurScreen} />
+        <Stack.Screen
+          name="DetailReportSalur"
+          component={DetailReportSalurScreen}
+        />
         <Stack.Screen name="AlurDonasi" component={AlurDonasiScreen} />
         <Stack.Screen name="PaymentInvoice" component={PaymentInvoiceScreen} />
         <Stack.Screen
@@ -228,12 +238,15 @@ export function RootNavigator(): React.JSX.Element {
           component={TantanganJurnalScreen}
         />
         <Stack.Screen name="Tracking" component={TrackingScreen} />
+        <Stack.Screen name="RiwayatDonasi" component={RiwayatDonasiScreen} />
         <Stack.Screen name="Zakat" component={ZakatScreen} />
         <Stack.Screen
           name="ZakatKalkulator"
           component={ZakatKalkulatorScreen}
         />
         <Stack.Screen name="Infak" component={InfakScreen} />
+        <Stack.Screen name="SedekahSubuh" component={SedekahSubuhScreen} />
+        <Stack.Screen name="TeruskanCahaya" component={TeruskanCahayaScreen} />
         <Stack.Screen
           name="PrayerSchedule"
           component={PrayerScheduleScreen}

@@ -1,379 +1,382 @@
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
-  Image,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
+  Modal,
+  RefreshControl,
 } from 'react-native';
-import type {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {MenuDots, Pause, Play, Pen, TrashBinTrash} from '@solar-icons/react-native/Linear';
-import {Icon} from '@/components/ui/Icon';
-import {HeaderLight} from '@/components/shared/HeaderLight';
-import {ActionSheet, type ActionSheetAction} from '@/components/shared/ActionSheet';
-import {RecurringEditSheet} from '@/components/shared/RecurringEditSheet';
-import {NominalBottomSheet} from '@/components/shared/NominalBottomSheet';
-import {RecurringHistoryItem} from '@/components/shared/RecurringHistoryItem';
-import {PauseStopDialog} from '@/components/shared/PauseStopDialog';
-import {useRecurringDonationDetail} from '@/hooks/useRecurringDonationDetail';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
-  useRecurringDonationEdit,
-  MIN_RECURRING_EDIT_AMOUNT,
-} from '@/hooks/useRecurringDonationEdit';
+  AltArrowLeft,
+  CheckCircle,
+  ClockCircle,
+  CloseCircle,
+  DangerCircle,
+  StopCircle,
+} from '@solar-icons/react-native/Linear';
+import {Icon} from '@/components/ui/Icon';
+import {
+  getRutinDetail,
+  stopMyRutin,
+  type RutinDetailData,
+} from '@/services/recurringDonationService';
 import {formatCurrency} from '@/utils/formatCurrency';
-import {formatRecurringSchedule} from '@/utils/formatDate';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import {formatDate} from '@/utils/formatDate';
+import {showToast} from '@/utils/toast';
+import {colors} from '@/theme';
 import type {DetailDonasiRutinScreenProps} from '@/types/navigation';
-import type {RecurringDonationStatus} from '@/types/recurringDonation';
-
-const STATUS_LABEL: Record<RecurringDonationStatus, string> = {
-  AKTIF: 'AKTIF',
-  JEDA: 'JEDA',
-};
-
-const STATUS_COLOR: Record<RecurringDonationStatus, {bg: string; text: string}> = {
-  AKTIF: {bg: colors.semantic.successLight, text: colors.semantic.success},
-  JEDA: {bg: colors.neutral[100], text: colors.neutral[500]},
-};
-
-type ActionValue = 'edit' | 'toggle' | 'stop';
 
 export default function DetailDonasiRutinScreen({
   route,
   navigation,
 }: DetailDonasiRutinScreenProps): React.JSX.Element {
   const {recurringId} = route.params;
-  const nominalSheetRef = useRef<BottomSheetModal>(null);
+  const insets = useSafeAreaInsets();
 
-  const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
-  const [isEditSheetOpen, setIsEditSheetOpen] = useState(false);
+  const [detail, setDetail] = useState<RutinDetailData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isStopping, setIsStopping] = useState(false);
+  const [isStopModalVisible, setIsStopModalVisible] = useState(false);
 
-  const {
-    detail,
-    isLoading,
-    isPausing,
-    isSaving,
-    isStopping,
-    isStopDialogVisible,
-    pause,
-    resume,
-    update,
-    openStopDialog,
-    closeStopDialog,
-    confirmStop,
-  } = useRecurringDonationDetail(recurringId);
-
-  const form = useRecurringDonationEdit(detail, isEditSheetOpen);
-
-  const isPaused = detail?.status === 'JEDA';
-
-  const actions: ActionSheetAction[] = [
-    {value: 'edit', label: 'Ubah Rutinitas', icon: Pen},
-    {
-      value: 'toggle',
-      label: isPaused ? 'Aktifkan Lagi' : 'Jeda Rutinitas',
-      icon: isPaused ? Play : Pause,
-    },
-    {
-      value: 'stop',
-      label: 'Hentikan Rutinitas',
-      icon: TrashBinTrash,
-      tone: 'danger',
-    },
-  ];
-
-  // Sheet aksi HARUS tertutup dulu sebelum sheet ubah atau dialog dibuka —
-  // dua bottom sheet yang present bersamaan membuat backdrop menumpuk dan
-  // sheet kedua tidak bisa ditutup.
-  function handleSelectAction(value: string): void {
-    setIsActionSheetOpen(false);
-    const action = value as ActionValue;
-    if (action === 'edit') {
-      setIsEditSheetOpen(true);
-      return;
-    }
-    if (action === 'toggle') {
-      if (isPausing) {
-        return;
+  const fetchDetail = useCallback(async () => {
+    try {
+      const res = await getRutinDetail(recurringId);
+      if (res.success && res.data) {
+        setDetail(res.data);
       }
-      if (isPaused) {
-        resume();
-      } else {
-        pause();
-      }
-      return;
+    } catch {
+      showToast('Gagal memuat detail donasi rutin');
+    } finally {
+      setIsLoading(false);
+      setIsRefreshing(false);
     }
-    openStopDialog();
-  }
+  }, [recurringId]);
 
-  function handleConfirmAmount(amount: number): void {
-    form.setAmount(amount);
-    nominalSheetRef.current?.dismiss();
-  }
+  useEffect(() => {
+    fetchDetail();
+  }, [fetchDetail]);
 
-  async function handleSubmitEdit(): Promise<void> {
-    const payload = form.buildPayload();
-    if (!payload) {
-      return;
-    }
-    const fieldErrors = await update(payload);
-    if (fieldErrors) {
-      form.setErrors(fieldErrors);
-      return;
-    }
-    setIsEditSheetOpen(false);
+  function handleRefresh(): void {
+    setIsRefreshing(true);
+    fetchDetail();
   }
 
   async function handleConfirmStop(): Promise<void> {
-    const success = await confirmStop();
-    if (success) {
-      navigation.goBack();
+    setIsStopping(true);
+    try {
+      const res = await stopMyRutin(recurringId);
+      if (res.success) {
+        showToast('Donasi rutin berhasil dihentikan');
+        setIsStopModalVisible(false);
+        fetchDetail();
+      } else {
+        showToast(res.message || 'Gagal menghentikan donasi rutin');
+      }
+    } catch {
+      showToast('Terjadi kesalahan saat menghentikan donasi rutin');
+    } finally {
+      setIsStopping(false);
     }
   }
 
-  function renderHeaderAction(): React.JSX.Element | undefined {
-    if (!detail) {
-      return undefined;
-    }
-    return (
-      <TouchableOpacity
-        style={styles.headerAction}
-        onPress={() => setIsActionSheetOpen(true)}
-        accessibilityRole="button"
-        accessibilityLabel="Aksi lain untuk rutinitas ini">
-        <Icon icon={MenuDots} size={22} color={colors.neutral[900]} />
-      </TouchableOpacity>
-    );
+  const status = detail?.status ?? '';
+  const invoicing = detail?.invoicing ?? null;
+  const isPending = Boolean(invoicing && invoicing.status === 'Pending');
+  const isActive = status === 'active';
+
+  // Banner status
+  let bannerBg = 'bg-primary-500';
+  let bannerTitle = 'Pembayaran Donasi Rutin Sukses';
+  let bannerStatusText = 'Berhasil Dilakukan';
+  let bannerTextColor = 'text-primary-600';
+  let StatusIconComponent = CheckCircle;
+
+  if (isActive) {
+    bannerBg = 'bg-primary-500';
+    bannerTitle = 'Donasi Rutin Aktif';
+    bannerStatusText = 'Berhasil Terjadwal';
+    bannerTextColor = 'text-primary-600';
+    StatusIconComponent = CheckCircle;
+  } else if (isPending) {
+    bannerBg = 'bg-amber-500';
+    bannerTitle = 'Menunggu Pembayaran';
+    bannerStatusText = 'Sedang Diproses';
+    bannerTextColor = 'text-amber-500';
+    StatusIconComponent = ClockCircle;
+  } else if (invoicing === null && !isActive) {
+    bannerBg = 'bg-rose-500';
+    bannerTitle = 'Donasi Rutin Dihentikan';
+    bannerStatusText = 'Sudah Dihentikan';
+    bannerTextColor = 'text-rose-500';
+    StatusIconComponent = StopCircle;
+  } else {
+    bannerBg = 'bg-rose-500';
+    bannerTitle = 'Pembayaran Donasi Rutin Gagal';
+    bannerStatusText = 'Gagal Dilakukan';
+    bannerTextColor = 'text-rose-500';
+    StatusIconComponent = CloseCircle;
   }
+
+  const frequencyLabel =
+    detail?.range_type === 'monthly'
+      ? 'Bulanan'
+      : detail?.range_type === 'weekly'
+      ? 'Mingguan'
+      : 'Harian';
+
+  const timeFormatted = detail?.time ? detail.time.slice(0, 5) : '08:00';
 
   return (
-    <View style={styles.container}>
-      <HeaderLight
-        title="Detail Donasi Rutin"
-        onBack={() => navigation.goBack()}
-        rightSlot={renderHeaderAction()}
-      />
+    <View className="flex-1 bg-slate-50">
+      {/* Header Bar */}
+      <View
+        style={{paddingTop: insets.top}}
+        className="bg-white border-b border-slate-100 flex-row items-center px-4 py-3">
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          className="w-10 h-10 items-center justify-center -ml-2 rounded-full active:bg-slate-100"
+          accessibilityRole="button"
+          accessibilityLabel="Kembali">
+          <Icon icon={AltArrowLeft} size={22} color={colors.neutral[800]} />
+        </TouchableOpacity>
+        <Text className="text-base font-bold text-slate-900 ml-2">
+          Detail Donasi Rutin
+        </Text>
+      </View>
 
-      {isLoading || !detail ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator color={colors.primary[500]} />
+      {isLoading ? (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator size="large" color={colors.primary[500]} />
+        </View>
+      ) : !detail ? (
+        <View className="flex-1 items-center justify-center p-6">
+          <Text className="text-sm font-semibold text-slate-700">
+            Data donasi rutin tidak ditemukan
+          </Text>
         </View>
       ) : (
         <ScrollView
-          contentContainerStyle={styles.content}
-          showsVerticalScrollIndicator={false}>
-          <Image
-            source={{uri: detail.programImageUrl}}
-            style={styles.programImage}
-          />
-
-          <Text style={styles.programTitle}>{detail.programTitle}</Text>
-
-          {/* Empat keterangan rutinitas dikumpulkan dalam satu kartu 2x2:
-              berapa yang sudah terkumpul, berapa per periode, sedang jalan
-              atau dijeda, dan kapan jalannya. Sebelumnya status dan jadwal
-              berdiri sendiri di luar kartu sehingga halaman ini terbaca
-              sebagai empat blok terpisah untuk satu hal yang sama. */}
-          <View style={styles.statsCard}>
-            <View style={styles.statsRow}>
-              <View style={styles.statItem}>
-                <Text style={styles.statLabel}>Total Terdonasi</Text>
-                <Text style={styles.statValue}>
-                  {formatCurrency(detail.totalDonated)}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 40}}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+              colors={[colors.primary[500]]}
+            />
+          }>
+          <View className="p-4 gap-4">
+            {/* Status Banner Card */}
+            <View className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-xs">
+              <View className={`px-4 py-3 ${bannerBg}`}>
+                <Text className="text-white text-xs font-bold text-center">
+                  {bannerTitle}
                 </Text>
               </View>
-              <View style={styles.statDivider} />
-              <View style={styles.statItem}>
-                <Text style={styles.statLabel}>Nominal</Text>
-                <Text style={styles.statValue}>
-                  {formatCurrency(detail.amount)}
+
+              <View className="p-6 items-center text-center">
+                <View className="w-20 h-20 rounded-full bg-slate-50 items-center justify-center mb-4 border border-slate-100">
+                  <Icon
+                    icon={StatusIconComponent}
+                    size={42}
+                    color={
+                      isActive
+                        ? colors.primary[500]
+                        : isPending
+                        ? '#f59e0b'
+                        : '#f43f5e'
+                    }
+                  />
+                </View>
+
+                <Text className="text-xs text-slate-600 leading-relaxed text-center">
+                  Penjadwalan donasi rutin untuk program{' '}
+                  <Text className="font-bold text-slate-900">
+                    {detail.program?.title || 'Donasi Rutin'}
+                  </Text>{' '}
+                  <Text className={`font-bold ${bannerTextColor}`}>
+                    {bannerStatusText}
+                  </Text>
                 </Text>
               </View>
             </View>
 
-            <View style={styles.statsRowDivider} />
+            {/* Detail Info Card */}
+            <View className="bg-white rounded-3xl border border-slate-100 p-5 shadow-xs">
+              <Text className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
+                Informasi Jadwal
+              </Text>
 
-            <View style={styles.statsRow}>
-              <View style={styles.statItem}>
-                <Text style={styles.statLabel}>Status</Text>
-                <View
-                  style={[
-                    styles.statusBadge,
-                    {backgroundColor: STATUS_COLOR[detail.status].bg},
-                  ]}>
-                  <Text
-                    style={[
-                      styles.statusBadgeText,
-                      {color: STATUS_COLOR[detail.status].text},
-                    ]}>
-                    {STATUS_LABEL[detail.status]}
+              <View className="gap-3">
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-xs text-slate-500 font-medium">
+                    Dijadwalkan mulai
+                  </Text>
+                  <Text className="text-xs font-semibold text-slate-800">
+                    {detail.created_at ? formatDate(detail.created_at) : '-'}
+                  </Text>
+                </View>
+
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-xs text-slate-500 font-medium">Frekuensi</Text>
+                  <Text className="text-xs font-semibold text-slate-800">
+                    {frequencyLabel}
+                  </Text>
+                </View>
+
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-xs text-slate-500 font-medium">Tiap Pukul</Text>
+                  <Text className="text-xs font-semibold text-slate-800">
+                    {timeFormatted} WIB
+                  </Text>
+                </View>
+
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-xs text-slate-500 font-medium">
+                    Metode Pembayaran
+                  </Text>
+                  <Text className="text-xs font-semibold text-slate-800">
+                    {detail.commitment == null ? 'Saku Kebaikan' : 'Bayar Langsung'}
+                  </Text>
+                </View>
+
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-xs text-slate-500 font-medium">
+                    Nominal per Periode
+                  </Text>
+                  <Text className="text-xs font-bold text-primary-600">
+                    {formatCurrency(detail.nominal)}
+                  </Text>
+                </View>
+
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-xs text-slate-500 font-medium">
+                    Sudah Berjalan
+                  </Text>
+                  <Text className="text-xs font-semibold text-slate-800">
+                    {detail.summary?.frekuensi_donasi ?? 0} Hari
+                  </Text>
+                </View>
+
+                <View className="flex-row items-center justify-between">
+                  <Text className="text-xs text-slate-500 font-medium">Status</Text>
+                  <View
+                    className={`px-2.5 py-0.5 rounded-full ${
+                      isActive ? 'bg-primary-50' : 'bg-rose-50'
+                    }`}>
+                    <Text
+                      className={`text-[10px] font-bold ${
+                        isActive ? 'text-primary-600' : 'text-rose-600'
+                      }`}>
+                      {isActive ? 'Aktif' : 'Nonaktif'}
+                    </Text>
+                  </View>
+                </View>
+
+                <View className="border-t border-dashed border-slate-200 pt-3 mt-1 flex-row items-center justify-between">
+                  <Text className="text-xs font-bold text-slate-700">
+                    {isPending ? 'Total Perlu Dibayar:' : 'Total Didonasikan:'}
+                  </Text>
+                  <Text className="text-sm font-bold text-slate-900">
+                    {isPending
+                      ? formatCurrency(invoicing?.total ?? 0)
+                      : formatCurrency(detail.summary?.total_donasi ?? 0)}
                   </Text>
                 </View>
               </View>
-              <View style={styles.statDivider} />
-              <View style={styles.statItem}>
-                <Text style={styles.statLabel}>Waktu</Text>
-                <Text style={styles.scheduleText} numberOfLines={2}>
-                  {formatRecurringSchedule(detail)}
-                </Text>
-              </View>
             </View>
-          </View>
 
-          <View style={styles.historySection}>
-            <Text style={styles.sectionTitle}>Riwayat Otomatis</Text>
-            {detail.history.length === 0 ? (
-              <Text style={styles.historyEmpty}>Belum ada riwayat.</Text>
-            ) : (
-              detail.history.map(entry => (
-                <RecurringHistoryItem key={entry.id} entry={entry} />
-              ))
+            {/* Action Buttons */}
+            {isPending && invoicing?.invoice && (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('PaymentInvoice', {
+                    donationId: invoicing.invoice,
+                    invoiceId: invoicing.invoice,
+                    programTitle: detail.program?.title || 'Donasi Rutin',
+                    amount: invoicing.total,
+                    adminFee: 0,
+                    totalAmount: invoicing.total,
+                    expiredAt: '',
+                    paymentMethod: 'TRANSFER',
+                  })
+                }
+                activeOpacity={0.85}
+                className="w-full bg-orange-500 active:bg-orange-600 py-3.5 rounded-2xl items-center justify-center shadow-md">
+                <Text className="text-xs font-bold text-white">Bayar Sekarang</Text>
+              </TouchableOpacity>
+            )}
+
+            {!isPending && !isActive && (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DonasiRutinJenis')}
+                activeOpacity={0.85}
+                className="w-full bg-primary-500 active:bg-primary-600 py-3.5 rounded-2xl items-center justify-center shadow-md">
+                <Text className="text-xs font-bold text-white">
+                  Pilih Donasi Rutin Lainnya
+                </Text>
+              </TouchableOpacity>
+            )}
+
+            {!isPending && isActive && (
+              <TouchableOpacity
+                onPress={() => setIsStopModalVisible(true)}
+                activeOpacity={0.85}
+                className="w-full bg-rose-500 active:bg-rose-600 py-3.5 rounded-2xl items-center justify-center shadow-md">
+                <Text className="text-xs font-bold text-white">
+                  Hentikan Donasi Rutin
+                </Text>
+              </TouchableOpacity>
             )}
           </View>
         </ScrollView>
       )}
 
-      <ActionSheet
-        isOpen={isActionSheetOpen}
-        title="Aksi Rutinitas"
-        actions={actions}
-        onSelect={handleSelectAction}
-        onClose={() => setIsActionSheetOpen(false)}
-      />
+      {/* Stop Confirmation Modal */}
+      <Modal
+        visible={isStopModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setIsStopModalVisible(false)}>
+        <View className="flex-1 bg-black/40 items-center justify-center p-6">
+          <View className="bg-white rounded-3xl p-6 w-full max-w-sm items-center shadow-xl">
+            <View className="w-14 h-14 bg-rose-50 rounded-full items-center justify-center mb-3">
+              <Icon icon={DangerCircle} size={30} color="#e11d48" />
+            </View>
 
-      <RecurringEditSheet
-        isOpen={isEditSheetOpen}
-        amount={form.amount}
-        frequency={form.frequency}
-        scheduleDay={form.scheduleDay}
-        weekDay={form.weekDay}
-        scheduleHour={form.scheduleHour}
-        scheduleMinute={form.scheduleMinute}
-        errors={form.errors}
-        isSaving={isSaving}
-        onPressAmount={() => nominalSheetRef.current?.present()}
-        onChangeFrequency={form.setFrequency}
-        onChangeWeekDay={form.setWeekDay}
-        onChangeMonthDay={form.setScheduleDay}
-        onChangeHour={form.setScheduleHour}
-        onChangeMinute={form.setScheduleMinute}
-        onSubmit={handleSubmitEdit}
-        onClose={() => setIsEditSheetOpen(false)}
-      />
+            <Text className="text-base font-bold text-slate-900 mb-1">
+              Hentikan Donasi Rutin?
+            </Text>
+            <Text className="text-xs text-slate-500 text-center leading-relaxed mb-6">
+              Apakah kamu yakin ingin menghentikan donasi rutin ini? Anda dapat mengaktifkannya kembali sewaktu-waktu.
+            </Text>
 
-      <NominalBottomSheet
-        ref={nominalSheetRef}
-        programTitle={detail?.programTitle ?? ''}
-        programImageUrl={detail?.programImageUrl ?? ''}
-        onConfirm={handleConfirmAmount}
-        minAmount={MIN_RECURRING_EDIT_AMOUNT}
-        sectionTitle="Nominal donasi rutin"
-        confirmLabel="Simpan Nominal"
-        presetLayout="grid"
-      />
+            <View className="flex-row gap-3 w-full">
+              <TouchableOpacity
+                onPress={() => setIsStopModalVisible(false)}
+                disabled={isStopping}
+                className="flex-1 border border-slate-200 py-3 rounded-xl items-center justify-center">
+                <Text className="text-xs font-semibold text-slate-600">Batal</Text>
+              </TouchableOpacity>
 
-      <PauseStopDialog
-        visible={isStopDialogVisible}
-        isLoading={isStopping}
-        onConfirm={handleConfirmStop}
-        onCancel={closeStopDialog}
-      />
+              <TouchableOpacity
+                onPress={handleConfirmStop}
+                disabled={isStopping}
+                className="flex-1 bg-rose-500 active:bg-rose-600 py-3 rounded-xl items-center justify-center shadow-sm">
+                {isStopping ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  <Text className="text-xs font-bold text-white">Ya, Hentikan</Text>
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral[50],
-  },
-  headerAction: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loadingContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    padding: spacing.lg,
-    paddingBottom: spacing['2xl'],
-    gap: spacing.md,
-  },
-  programImage: {
-    width: '100%',
-    height: 160,
-    borderRadius: radius.lg,
-    backgroundColor: colors.neutral[200],
-  },
-  statusBadge: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 2,
-    borderRadius: radius.sm,
-  },
-  statusBadgeText: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.semiBold,
-  },
-  programTitle: {
-    fontSize: fontSize.lg,
-    fontWeight: fontWeight.bold,
-    color: colors.neutral[900],
-  },
-  statsCard: {
-    backgroundColor: colors.neutral[0],
-    borderRadius: radius.lg,
-    padding: spacing.lg,
-    gap: spacing.md,
-  },
-  statsRow: {
-    flexDirection: 'row',
-  },
-  statItem: {
-    flex: 1,
-    gap: spacing.xs,
-  },
-  statDivider: {
-    width: StyleSheet.hairlineWidth,
-    backgroundColor: colors.neutral[200],
-    marginHorizontal: spacing.md,
-  },
-  statsRowDivider: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: colors.neutral[200],
-  },
-  statLabel: {
-    fontSize: fontSize.xs,
-    color: colors.neutral[500],
-  },
-  statValue: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.bold,
-    color: colors.neutral[900],
-  },
-  scheduleText: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  // Tanpa kartu pembungkus: tiap baris riwayat sudah jadi kartunya sendiri,
-  // jadi section ini cuma judul + tumpukan kartu.
-  historySection: {
-    gap: spacing.sm,
-  },
-  sectionTitle: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  historyEmpty: {
-    fontSize: fontSize.sm,
-    color: colors.neutral[500],
-  },
-});

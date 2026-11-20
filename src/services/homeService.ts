@@ -35,33 +35,57 @@ export async function getHomePage(): Promise<ApiResponse<HomePageData>> {
 
 
 export async function getBanners(): Promise<ApiResponse<Banner[]>> {
-  const res = await apiClient.get<ApiResponse<Banner[]>>('/banners');
-  return res.data;
+  try {
+    const res = await apiClient.get<ApiResponse<Banner[]>>('/banners');
+    return res.data;
+  } catch {
+    return {success: false, data: [], message: ''};
+  }
 }
 
 export async function getCategories(): Promise<ApiResponse<Category[]>> {
-  const res = await apiClient.get<ApiResponse<Category[]>>('/categories');
-  return res.data;
+  try {
+    const res = await apiClient.get<ApiResponse<Category[]>>('/categories');
+    return res.data;
+  } catch {
+    return {success: false, data: [], message: ''};
+  }
 }
 
 export async function getFeaturedPrograms(): Promise<ApiResponse<Program[]>> {
-  const res = await apiClient.get<ApiResponse<Program[]>>(
-    '/programs?featured=true&limit=5',
-  );
-  return res.data;
+  try {
+    const res = await apiClient.get<ApiResponse<Program[]>>(
+      '/programs?featured=true&limit=5',
+    );
+    return res.data;
+  } catch {
+    return {success: false, data: [], message: ''};
+  }
 }
 
 export async function getWalletBalance(): Promise<ApiResponse<number>> {
-  const res = await apiClient.get<ApiResponse<number>>('/wallet/balance');
-  return res.data;
+  try {
+    const res = await apiClient.get<any>('/dashboard/donatur/my-wallet');
+    const saldo = Number(res.data?.data?.saldo ?? res.data?.saldo ?? 0);
+    return {
+      success: true,
+      data: saldo,
+      message: 'OK',
+    };
+  } catch {
+    return {
+      success: true,
+      data: 0,
+      message: '',
+    };
+  }
 }
 
-// getNextPrayerTime() dihapus: `/prayer-times` sekarang mengembalikan jadwal
-// harian penuh (PrayerSchedule) untuk menu Sholat, dan waktu berikutnya di card
-// Beranda tetap dibaca dari `next_prayer_time` pada `/pages/home`.
-// Lihat docs/08-features/sholat/sholat-schedule.md.
-
 export async function getPopupPromo(): Promise<ApiResponse<Promo | null>> {
-  const res = await apiClient.get<ApiResponse<Promo | null>>('/promos/popup');
-  return res.data;
+  try {
+    const res = await apiClient.get<ApiResponse<Promo | null>>('/promos/popup');
+    return res.data;
+  } catch {
+    return {success: false, data: null, message: ''};
+  }
 }

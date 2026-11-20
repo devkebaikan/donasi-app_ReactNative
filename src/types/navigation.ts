@@ -176,8 +176,20 @@ export type RootStackParamList = {
     programId: string;
   };
   AllReportSalur: {
-    programId: string;
+    programId?: string;
+    programLink: string;
+    programTitle?: string;
+    programImageUrl?: string;
   };
+  DetailReportSalur: {
+    reportId: number | string;
+    programLink?: string;
+    programTitle?: string;
+    programImageUrl?: string;
+  };
+  RiwayatDonasi: {
+    posisi?: string;
+  } | undefined;
   AlurDonasi: {
     programId: string;
     programTitle: string;
@@ -255,9 +267,9 @@ export type RootStackParamList = {
   // pendaftaran di browser. Tidak ada daftar, tidak ada detail.
   // Lihat docs/08-features/event/event.md.
   Event: undefined;
-  // Halaman Per Tema — satu halaman gambar penuh + tombol CTA dinamis.
-  // Lihat docs/08-features/donasi/per-tema.md.
-  PerTema: undefined;
+  // Halaman Per Tema — eksplorasi kumpulan program spesial berdasarkan tema.
+  PerTema: {slug?: string} | undefined;
+  MitraList: undefined;
   // Menu Relung Doa — dua screen biasa, tanpa nested navigator.
   // `initialTab` dipakai saat balik dari DoaCreate supaya langsung mendarat di
   // tab "Doa Saya". Lihat docs/08-features/doa/README.md.
@@ -345,7 +357,9 @@ export type RootStackParamList = {
   };
   Zakat: undefined;
   ZakatKalkulator: undefined;
-  Infak: undefined;
+  Infak: {initialAmount?: number} | undefined;
+  SedekahSubuh: undefined;
+  TeruskanCahaya: undefined;
   // Menu Sholat — tiga screen biasa, tanpa nested navigator.
   // Lihat docs/08-features/sholat/README.md.
   PrayerSchedule: undefined;
@@ -425,6 +439,16 @@ export type PerLembagaScreenProps = NativeStackScreenProps<
   'PerLembaga'
 >;
 
+export type PerTemaScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'PerTema'
+>;
+
+export type MitraListScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'MitraList'
+>;
+
 export type AllProjectSalurScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'AllProjectSalur'
@@ -433,6 +457,16 @@ export type AllProjectSalurScreenProps = NativeStackScreenProps<
 export type AllReportSalurScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'AllReportSalur'
+>;
+
+export type DetailReportSalurScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'DetailReportSalur'
+>;
+
+export type RiwayatDonasiScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'RiwayatDonasi'
 >;
 
 export type AlurDonasiScreenProps = NativeStackScreenProps<
@@ -503,4 +537,14 @@ export type ZakatKalkulatorScreenProps = NativeStackScreenProps<
 export type InfakScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'Infak'
+>;
+
+export type SedekahSubuhScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'SedekahSubuh'
+>;
+
+export type TeruskanCahayaScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'TeruskanCahaya'
 >;

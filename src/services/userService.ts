@@ -4,8 +4,27 @@ import type {User} from '@/types/user';
 import type {DonationReminderFrequency} from '@/types/setting';
 
 export async function getMe(): Promise<ApiResponse<User>> {
-  const res = await apiClient.get<ApiResponse<User>>('/users/me');
-  return res.data;
+  try {
+    const res = await apiClient.get<any>('/dashboard/donatur/my-account');
+    const data = res.data?.data || res.data || {};
+    return {
+      success: true,
+      message: 'OK',
+      data: {
+        id: String(data.id || ''),
+        name: data.name || '',
+        email: data.email || '',
+        phone: data.phone || '',
+        avatarUrl: data.img || null,
+      },
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || 'Gagal memuat profil',
+      data: null as unknown as User,
+    };
+  }
 }
 
 interface UpdateProfilePayload {
@@ -75,3 +94,32 @@ export async function updateSettings(
   );
   return res.data;
 }
+
+export interface MyAccountData {
+  id?: number | string;
+  name?: string;
+  phone?: string;
+  email?: string;
+  img?: string | null;
+  reff_code?: string;
+  dompet_kebaikan?: {
+    saldo?: number;
+    [key: string]: any;
+  };
+}
+
+export async function getMyAccount(): Promise<ApiResponse<MyAccountData>> {
+  try {
+    const res = await apiClient.get<ApiResponse<MyAccountData>>(
+      '/dashboard/donatur/my-account',
+    );
+    return res.data;
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || 'Gagal memuat akun',
+      data: null as unknown as MyAccountData,
+    };
+  }
+}
+

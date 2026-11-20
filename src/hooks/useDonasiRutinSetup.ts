@@ -154,6 +154,8 @@ export function useDonasiRutinSetup({programId}: Params): State & Actions {
       if (response.success) {
         setWalletBalance(response.data);
       }
+    } catch {
+      setWalletBalance(0);
     } finally {
       setIsLoadingWalletBalance(false);
     }

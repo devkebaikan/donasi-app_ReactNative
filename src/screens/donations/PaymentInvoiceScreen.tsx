@@ -564,7 +564,7 @@ export default function PaymentInvoiceScreen({
                 onPress={handleGoToTracking}
                 className="w-full py-3 rounded-xl bg-slate-100 active:bg-slate-200 items-center justify-center">
                 <Text className="text-xs font-semibold text-slate-700">
-                  Lihat Riwayat Donasi
+                  Lacak Donasimu
                 </Text>
               </TouchableOpacity>
             ) : null}

@@ -1,254 +1,239 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
   Image,
+  ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
+  RefreshControl,
+  Share as RNShare,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {Flag, GalleryRemove, Share} from '@solar-icons/react-native/Linear';
-import {HeaderTransparent} from '@/components/shared/HeaderTransparent';
 import {
-  ShareBottomSheet,
-  type ShareOption,
-} from '@/components/shared/ShareBottomSheet';
-import {Button} from '@/components/ui/Button';
-import {EmptyState} from '@/components/ui/EmptyState';
+  AltArrowLeft,
+  Share,
+  Flag,
+  HandHeart,
+  Card,
+  UsersGroupTwoRounded,
+} from '@solar-icons/react-native/Linear';
 import {Icon} from '@/components/ui/Icon';
-import {SafeAreaFooter} from '@/components/ui/SafeAreaFooter';
-import {useActiveTheme} from '@/hooks/useActiveTheme';
-import {openExternalUrl} from '@/utils/openExternalUrl';
+import {ProgramCard} from '@/components/shared/ProgramCard';
+import {EmptyState} from '@/components/ui/EmptyState';
+import {
+  getProgramThemeBySlug,
+  getActiveTheme,
+  type ProgramThemeData,
+} from '@/services/themeService';
+import {formatRupiah} from '@/utils/formatCurrency';
 import {showToast} from '@/utils/toast';
-import {colors, spacing, fontSize} from '@/theme';
-import type {RootStackNavigationProp} from '@/types/navigation';
+import type {PerTemaScreenProps} from '@/types/navigation';
+import type {Program} from '@/types/program';
 
-const SHARE_OPTION_LABEL: Record<ShareOption, string> = {
-  facebook: 'Facebook',
-  twitter: 'Twitter',
-  whatsapp: 'Whatsapp',
-  'copy-url': 'Salin URL',
-};
+export default function PerTemaScreen({
+  route,
+  navigation,
+}: PerTemaScreenProps): React.JSX.Element {
+  const insets = useSafeAreaInsets();
+  const slug = route.params?.slug;
 
-const DEFAULT_CTA_LABEL = 'Lihat Selengkapnya';
+  const [themeData, setThemeData] = useState<ProgramThemeData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-export default function PerTemaScreen(): React.JSX.Element {
-  const navigation = useNavigation<RootStackNavigationProp>();
+  async function loadTheme() {
+    try {
+      if (slug) {
+        const res = await getProgramThemeBySlug(slug);
+        if (res.success && res.data) {
+          setThemeData(res.data);
+          return;
+        }
+      }
 
-  const shareSheetRef = useRef<BottomSheetModal>(null);
-  const [hasImageError, setHasImageError] = useState(false);
-
-  const {theme, isLoading, isConnectionError, retry} = useActiveTheme();
-
-  function handleBack(): void {
-    navigation.goBack();
+      // Fallback ke active theme
+      const activeRes = await getActiveTheme();
+      if (activeRes.data) {
+        const d = activeRes.data;
+        setThemeData({
+          id: d.id || 'theme-1',
+          name: d.title || 'Tema Ramadan: Berbagi Kebaikan',
+          title: d.title || 'Tema Ramadan: Berbagi Kebaikan',
+          slug: d.id || 'ramadan',
+          description:
+            d.description ||
+            'Bersama kita wujudkan keberkahan bagi saudara-saudara kita yang membutuhkan.',
+          imageUrl:
+            d.imageUrl ||
+            'https://cdn.aksiberbagi.com/settings/home-banner-1777532258.jpeg',
+          totalCollected: 248_500_000,
+          totalPrograms: 4,
+          programs: [],
+        });
+      }
+    } catch {
+      // Safe fallback
+    } finally {
+      setIsLoading(false);
+      setIsRefreshing(false);
+    }
   }
 
-  function handleShare(): void {
-    shareSheetRef.current?.present();
+  useEffect(() => {
+    loadTheme();
+  }, [slug]);
+
+  async function handleRefresh() {
+    setIsRefreshing(true);
+    await loadTheme();
   }
 
-  // Seluruh opsi ShareBottomSheet masih placeholder di codebase ini — sama
-  // dengan DetailProgramScreen dan EventScreen.
-  function handleSelectShareOption(option: ShareOption): void {
-    shareSheetRef.current?.dismiss();
-    showToast(
-      `Fitur berbagi ke ${SHARE_OPTION_LABEL[option]} akan segera hadir.`,
-    );
+  async function handleShare() {
+    try {
+      await RNShare.share({
+        message: `Mari berpartisipasi dalam program kebaikan "${
+          themeData?.title || 'Tema Kebaikan'
+        }" di Beramalbersama: https://beramalbersama.com/tema/${
+          themeData?.slug || ''
+        }`,
+      });
+    } catch {
+      // Ignore cancel
+    }
   }
 
-  // Dua tujuan yang mungkin, ditentukan API lewat ctaType: halaman web di luar
-  // aplikasi, atau program donasi di dalam aplikasi.
-  async function handlePressCta(): Promise<void> {
-    if (!theme) {
-      return;
-    }
-    if (theme.ctaType === 'program') {
-      navigation.navigate('DetailProgram', {link: theme.ctaTarget});
-      return;
-    }
-    await openExternalUrl(theme.ctaTarget);
-  }
-
-  const ctaLabel = theme?.ctaLabel ? theme.ctaLabel : DEFAULT_CTA_LABEL;
-
-  // Tombol tidak dirender kalau tujuannya kosong — tombol mati tanpa penjelasan
-  // lebih membingungkan daripada tidak ada tombol sama sekali.
-  const hasCtaTarget = Boolean(theme?.ctaTarget);
-
-  // Gambar benar-benar menutupi layar hanya saat datanya ada dan gambarnya
-  // tidak gagal dimuat — dipakai menentukan tone header dan warna ikonnya.
-  const hasImage = Boolean(theme) && !hasImageError;
-
-  const shareButton = (
-    <TouchableOpacity
-      style={styles.headerIconButton}
-      onPress={handleShare}
-      accessibilityRole="button"
-      accessibilityLabel="Bagikan tema">
-      <Icon
-        icon={Share}
-        size={22}
-        // Ikut tone header: putih di atas gambar, gelap di atas latar terang.
-        color={hasImage ? colors.neutral[0] : colors.primary[700]}
-      />
-    </TouchableOpacity>
-  );
-
-  // Gambar tema mengisi SELURUH layar sebagai latar (absoluteFill + cover),
-  // bukan elemen dalam aliran layout — header dan tombol CTA mengambang di
-  // atasnya. Konsepnya sama persis dengan EventScreen.
-  function renderBackground(): React.JSX.Element | null {
-    if (isConnectionError) {
-      return (
-        <View style={styles.stateContainer}>
-          <EmptyState
-            icon={Flag}
-            title="Tema gagal dimuat"
-            description="Periksa koneksi internet kamu, lalu coba lagi."
-          />
-          <Button label="Coba Lagi" variant="secondary" onPress={retry} />
-        </View>
-      );
-    }
-
-    if (isLoading) {
-      return (
-        <View style={[StyleSheet.absoluteFill, styles.centered]}>
-          <ActivityIndicator color={colors.primary[500]} />
-        </View>
-      );
-    }
-
-    if (!theme) {
-      return (
-        <View style={styles.stateContainer}>
-          <EmptyState
-            icon={Flag}
-            title="Belum Ada Tema"
-            description="Tema kebaikan baru akan muncul di sini."
-          />
-        </View>
-      );
-    }
-
-    if (hasImageError) {
-      return (
-        <View style={[StyleSheet.absoluteFill, styles.centered]}>
-          <Icon icon={GalleryRemove} size={32} color={colors.neutral[400]} />
-          <Text style={styles.fallbackText}>Gambar tidak dapat dimuat</Text>
-        </View>
-      );
-    }
-
-    return (
-      <Image
-        source={{uri: theme.imageUrl}}
-        style={StyleSheet.absoluteFill}
-        // cover, bukan contain: gambar menutupi layar penuh tanpa bidang
-        // kosong di sisi mana pun. Yang terpotong hanya tepi gambar.
-        resizeMode="cover"
-        onError={() => setHasImageError(true)}
-        // Seluruh teks tema ada di dalam gambar dan tidak terbaca screen
-        // reader — judul dari API yang menggantikannya di sini.
-        accessibilityLabel={theme.title}
-      />
-    );
+  function handlePressProgram(program: Program) {
+    navigation.navigate('DetailProgram', {
+      link: program.link || String(program.id),
+    });
   }
 
   return (
-    <View style={styles.container}>
-      {renderBackground()}
-
-      {/* Header dan footer mengambang di atas gambar — gambar tetap utuh dari
-          ujung atas sampai ujung bawah layar. */}
-      <View style={styles.headerOverlay}>
-        {/* Gambar bisa terang atau gelap di bagian atas — scrim tipis ini yang
-            menjaga tombol back dan bagikan tetap terbaca di keduanya. */}
-        {hasImage ? <View style={styles.headerScrim} /> : null}
-        <HeaderTransparent
-          onBack={handleBack}
-          tone={hasImage ? 'light' : 'dark'}
-          rightSlot={theme ? shareButton : undefined}
-        />
+    <View className="flex-1 bg-slate-50">
+      {/* Header */}
+      <View
+        style={{paddingTop: Math.max(insets.top, 12)}}
+        className="bg-white px-4 pb-3 flex-row items-center border-b border-gray-100 shadow-xs z-10">
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          className="w-10 h-10 rounded-full items-center justify-center bg-gray-50 active:bg-gray-100 mr-2"
+          accessibilityLabel="Kembali">
+          <Icon icon={AltArrowLeft} size={22} color="#1F2937" />
+        </TouchableOpacity>
+        <View className="flex-1">
+          <Text numberOfLines={1} className="text-base font-bold text-gray-900">
+            {themeData?.title || 'Tema Kebaikan'}
+          </Text>
+          <Text className="text-[11px] text-gray-400">
+            Eksplorasi kumpulan program spesial
+          </Text>
+        </View>
+        <TouchableOpacity
+          onPress={handleShare}
+          className="w-10 h-10 rounded-full items-center justify-center bg-gray-50 active:bg-gray-100 ml-1"
+          accessibilityLabel="Bagikan">
+          <Icon icon={Share} size={20} color="#1F2937" />
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.spacer} />
-
-      {theme && hasCtaTarget ? (
-        <SafeAreaFooter withBorder={false} style={styles.footer}>
-          <Button
-            label={ctaLabel}
-            onPress={handlePressCta}
-            accessibilityLabel={`${ctaLabel} — ${theme.title}`}
+      {isLoading ? (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator size="large" color="#10B981" />
+          <Text className="text-xs text-gray-400 mt-2">Memuat tema...</Text>
+        </View>
+      ) : !themeData ? (
+        <View className="flex-1 items-center justify-center p-6">
+          <EmptyState
+            icon={Flag}
+            title="Tema Belum Tersedia"
+            description="Kumpulan program untuk tema ini akan segera hadir."
           />
-        </SafeAreaFooter>
-      ) : null}
+        </View>
+      ) : (
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{paddingBottom: insets.bottom + 40}}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+              tintColor="#10B981"
+            />
+          }>
+          {/* Banner Hero */}
+          <View className="w-full aspect-[16/8] bg-gray-200 overflow-hidden relative">
+            <Image
+              source={{uri: themeData.imageUrl}}
+              className="w-full h-full"
+              resizeMode="cover"
+            />
+            <View className="absolute inset-0 bg-black/20" />
+          </View>
 
-      <ShareBottomSheet
-        ref={shareSheetRef}
-        title="Bagikan Tema"
-        onSelectOption={handleSelectShareOption}
-      />
+          <View className="p-4 space-y-4">
+            {/* Title & Description Card */}
+            <View className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs">
+              <Text className="text-lg font-black text-gray-900 mb-1.5 leading-snug">
+                {themeData.title}
+              </Text>
+              {Boolean(themeData.description) && (
+                <Text className="text-xs text-gray-600 leading-relaxed">
+                  {themeData.description}
+                </Text>
+              )}
+
+              {/* Ringkasan Statistik */}
+              <View className="flex-row items-center gap-3 mt-4 pt-3.5 border-t border-gray-100">
+                <View className="flex-1 bg-emerald-50/70 p-3 rounded-xl border border-emerald-100">
+                  <Text className="text-[10px] text-emerald-800 font-semibold uppercase">
+                    Total Terkumpul
+                  </Text>
+                  <Text className="text-sm font-extrabold text-emerald-700 mt-0.5">
+                    {formatRupiah(themeData.totalCollected)}
+                  </Text>
+                </View>
+
+                <View className="flex-1 bg-slate-50 p-3 rounded-xl border border-slate-200/70">
+                  <Text className="text-[10px] text-gray-500 font-semibold uppercase">
+                    Program Terkait
+                  </Text>
+                  <Text className="text-sm font-extrabold text-gray-800 mt-0.5">
+                    {themeData.totalPrograms} Program
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            {/* List Program di bawah tema ini */}
+            <View>
+              <Text className="text-sm font-bold text-gray-800 mb-3 px-1">
+                Program Pilihan Tema Ini
+              </Text>
+
+              {themeData.programs.length === 0 ? (
+                <View className="bg-white rounded-2xl p-6 border border-gray-100 items-center justify-center">
+                  <Icon icon={HandHeart} size={36} color="#D1D5DB" />
+                  <Text className="text-xs text-gray-400 mt-2 text-center">
+                    Program untuk tema ini sedang disiapkan
+                  </Text>
+                </View>
+              ) : (
+                <View className="space-y-3">
+                  {themeData.programs.map(program => (
+                    <ProgramCard
+                      key={program.id}
+                      program={program}
+                      onPress={handlePressProgram}
+                    />
+                  ))}
+                </View>
+              )}
+            </View>
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral[900],
-  },
-  headerOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10,
-  },
-  headerScrim: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: colors.neutral[1000],
-    opacity: 0.25,
-  },
-  // Mendorong footer ke bawah tanpa menutupi gambar di belakangnya.
-  spacer: {
-    flex: 1,
-  },
-  footer: {
-    backgroundColor: 'transparent',
-  },
-  stateContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    paddingHorizontal: spacing.xl,
-    gap: spacing.md,
-    backgroundColor: colors.neutral[100],
-  },
-  centered: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.neutral[100],
-  },
-  fallbackText: {
-    fontSize: fontSize.sm,
-    color: colors.neutral[500],
-  },
-  headerIconButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

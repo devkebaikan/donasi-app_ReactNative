@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,303 +6,212 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   RefreshControl,
-  StatusBar,
-  StyleSheet,
+  Image,
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
-import {ArrowLeft, HandHeart} from '@solar-icons/react-native/Linear';
+import {AltArrowLeft, VerifiedCheck} from '@solar-icons/react-native/Linear';
 import {Icon} from '@/components/ui/Icon';
-import {FloatingOrbs} from '@/components/shared/FloatingOrbs';
-import {SearchField} from '@/components/ui/SearchField';
-import {EmptyState} from '@/components/ui/EmptyState';
-import {DonationListCard} from '@/components/shared/DonationListCard';
-import {DonationListCardSkeleton} from '@/components/shared/DonationListCardSkeleton';
-import {DonationFilterDropdown} from '@/components/shared/DonationFilterDropdown';
-import {DonationSortDirectionToggle} from '@/components/shared/DonationSortDirectionToggle';
-import {useRecurringProgramList} from '@/hooks/useRecurringProgramList';
-import {
-  colors,
-  spacing,
-  radius,
-  fontSize,
-  fontWeight,
-  lineHeight,
-} from '@/theme';
+import {ProgressBar} from '@/components/ui/ProgressBar';
+import {getRutinPrograms} from '@/services/recurringDonationService';
+import {formatCurrency} from '@/utils/formatCurrency';
+import {colors} from '@/theme';
 import type {DonasiRutinProgramScreenProps} from '@/types/navigation';
-import type {Program} from '@/types/program';
 
-const SKELETON_KEYS = ['a', 'b', 'c'];
-
-type ListRow =
-  | {kind: 'program'; program: Program}
-  | {kind: 'skeleton'; id: string};
-
-// Katalog program yang bisa didonasikan rutin. Dulu ini tab "Pilihan Rutin" di
-// RecurringDonationScreen; sekarang berdiri sendiri sebagai kelanjutan dari
-// "Pilih Program Sendiri" di DonasiRutinJenisScreen. Isinya dipindah apa
-// adanya — hook, kartu, dan kontrol urutannya sama persis.
 export default function DonasiRutinProgramScreen({
   navigation,
 }: DonasiRutinProgramScreenProps): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const [searchInput, setSearchInput] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [programs, setPrograms] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const programList = useRecurringProgramList(searchQuery);
+  const fetchPrograms = useCallback(async () => {
+    try {
+      const res = await getRutinPrograms();
+      if (res.success && Array.isArray(res.data)) {
+        setPrograms(res.data);
+      } else {
+        setPrograms([]);
+      }
+    } catch {
+      setPrograms([]);
+    } finally {
+      setIsLoading(false);
+      setIsRefreshing(false);
+    }
+  }, []);
 
-  function handlePressProgram(program: Program): void {
-    navigation.navigate('DetailProgram', {
-      link: program.link || String(program.id),
+  useEffect(() => {
+    fetchPrograms();
+  }, [fetchPrograms]);
+
+  function handleRefresh(): void {
+    setIsRefreshing(true);
+    fetchPrograms();
+  }
+
+  function handlePressProgram(item: any): void {
+    navigation.navigate('DonasiRutinSetup', {
+      programId: String(item.id),
+      programTitle: item.title,
+      programImageUrl: item.image,
     });
   }
 
-  function buildRows(): ListRow[] {
-    if (programList.isLoading) {
-      return SKELETON_KEYS.map(id => ({kind: 'skeleton', id}));
-    }
-    return programList.programs.map(program => ({kind: 'program', program}));
-  }
-
-  function renderRow({item}: {item: ListRow}): React.JSX.Element {
-    return (
-      <View style={styles.itemWrapper}>
-        {item.kind === 'skeleton' ? (
-          <DonationListCardSkeleton />
-        ) : (
-          <DonationListCard
-            program={item.program}
-            variant="list"
-            onPress={handlePressProgram}
-          />
-        )}
-      </View>
-    );
-  }
-
-  // Banner mengambil resep hero yang sama dengan screen donasi rutin lain
-  // (gradient primary + FloatingOrbs), jadi tiga screen alur ini terbaca satu
-  // keluarga. Jumlah program datang dari `total` — seluruh hasil filter, bukan
-  // cuma halaman yang sudah dimuat.
-  function renderBanner(): React.JSX.Element {
-    return (
-      <View style={styles.bannerBlock}>
-        <LinearGradient
-          colors={[colors.primary[200], colors.primary[50], colors.neutral[0]]}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 1}}
-          style={styles.bannerGradient}
-        />
-        <FloatingOrbs />
-        <View style={styles.banner}>
-          <Text style={styles.bannerTitle}>Pilih Program Donasi Rutinmu</Text>
-          <Text style={styles.bannerSubtitle}>
-            Atur sekali, sedekahmu jalan otomatis tiap periode tanpa perlu
-            diingat lagi.
-          </Text>
-          <View style={styles.bannerPill}>
-            <Icon icon={HandHeart} size={18} color={colors.primary[700]} />
-            <Text style={styles.bannerPillText}>
-              {programList.isLoading
-                ? 'Memuat program...'
-                : `${programList.total.toLocaleString('id-ID')} program tersedia`}
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
-  }
-
-  function renderListHeader(): React.JSX.Element {
-    return (
-      <View>
-        {renderBanner()}
-        <View style={styles.controlRow}>
-          <DonationFilterDropdown
-            value={programList.sortOption}
-            onChange={programList.setSortOption}
-          />
-          <DonationSortDirectionToggle
-            value={programList.sortDirection}
-            onPress={programList.toggleSortDirection}
-          />
-        </View>
-        {programList.isListLoading ? (
-          <ActivityIndicator
-            style={styles.listLoading}
-            color={colors.primary[500]}
-          />
-        ) : null}
-      </View>
-    );
-  }
-
-  function renderEmpty(): React.JSX.Element | null {
-    if (programList.isLoading) {
-      return null;
-    }
-    return (
-      <EmptyState
-        icon={HandHeart}
-        title="Program Tidak Ditemukan"
-        description={
-          searchQuery
-            ? `Tidak ada program yang cocok dengan "${searchQuery}".`
-            : 'Belum ada program yang bisa didonasikan rutin.'
-        }
-      />
-    );
-  }
-
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor={colors.neutral[0]} barStyle="dark-content" />
-
-      {/* Judul screen dilepas: field pencarian naik ke navbar, satu baris
-          dengan tombol kembali — pola yang sama dengan header Home (logo +
-          pencarian), cuma logonya diganti tombol kembali. */}
-      <View style={[styles.header, {paddingTop: insets.top + spacing.md}]}>
+    <View className="flex-1 bg-slate-50">
+      {/* Header Bar */}
+      <View
+        style={{paddingTop: insets.top}}
+        className="bg-white border-b border-slate-100 flex-row items-center px-4 py-3">
         <TouchableOpacity
-          style={styles.backButton}
           onPress={() => navigation.goBack()}
+          className="w-10 h-10 items-center justify-center -ml-2 rounded-full active:bg-slate-100"
           accessibilityRole="button"
           accessibilityLabel="Kembali">
-          <Icon icon={ArrowLeft} size={24} color={colors.neutral[900]} />
+          <Icon icon={AltArrowLeft} size={22} color={colors.neutral[800]} />
         </TouchableOpacity>
-        <View style={styles.searchWrapper}>
-          <SearchField
-            value={searchInput}
-            onChangeText={setSearchInput}
-            onSubmit={() => setSearchQuery(searchInput.trim())}
-            onClear={() => {
-              setSearchInput('');
-              setSearchQuery('');
-            }}
-            placeholder="Cari program donasi rutin"
-            accessibilityLabel="Cari program donasi rutin"
-          />
-        </View>
+        <Text className="text-base font-bold text-slate-900 ml-2">
+          Pilih Program Donasi Rutin
+        </Text>
       </View>
 
       <FlatList
-        data={buildRows()}
-        keyExtractor={(item, index) =>
-          item.kind === 'skeleton'
-            ? `skeleton-${item.id}`
-            : `program-${item.program.id}-${index}`
-        }
-        renderItem={renderRow}
+        data={programs}
+        keyExtractor={(item, index) => `${item.id || index}`}
+        contentContainerStyle={{paddingBottom: 40}}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          styles.listContent,
-          {paddingBottom: insets.bottom + spacing.xl},
-        ]}
-        ListHeaderComponent={renderListHeader}
-        ListEmptyComponent={renderEmpty}
-        ListFooterComponent={
-          programList.isLoadingMore ? (
-            <ActivityIndicator
-              style={styles.listLoading}
-              color={colors.primary[500]}
-            />
-          ) : null
-        }
-        onEndReachedThreshold={0.4}
-        onEndReached={programList.loadMore}
         refreshControl={
           <RefreshControl
-            refreshing={programList.isRefreshing}
-            onRefresh={programList.refresh}
-            tintColor={colors.primary[500]}
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
             colors={[colors.primary[500]]}
           />
+        }
+        ListHeaderComponent={
+          /* Hero Stats Banner */
+          <View className="mb-4">
+            <LinearGradient
+              colors={[colors.primary[500], colors.primary[700]]}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              className="p-5 rounded-b-3xl">
+              <Text className="text-xs text-primary-100 font-medium mb-1">
+                Program tersedia
+              </Text>
+              <Text className="text-2xl font-bold text-white mb-1">
+                {isLoading ? '...' : `${programs.length} Program`}
+              </Text>
+              <Text className="text-xs text-primary-100">
+                Pilih program terbaik untuk donasi rutinmu
+              </Text>
+            </LinearGradient>
+          </View>
+        }
+        renderItem={({item}) => {
+          const progress = Math.min(
+            1,
+            Math.max(
+              0,
+              (Number(item.nominal_achieved) || 0) /
+                (Number(item.nominal_target) || 1),
+            ),
+          );
+
+          return (
+            <View className="px-4 mb-3">
+              <TouchableOpacity
+                onPress={() => handlePressProgram(item)}
+                activeOpacity={0.7}
+                className="bg-white rounded-2xl border border-slate-100 p-3 flex-row gap-3 shadow-2xs active:bg-slate-50">
+                {item.image ? (
+                  <Image
+                    source={{uri: item.image}}
+                    className="w-28 h-24 rounded-xl bg-slate-100"
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <View className="w-28 h-24 rounded-xl bg-primary-50 items-center justify-center">
+                    <Text className="text-2xl">🤲</Text>
+                  </View>
+                )}
+
+                <View className="flex-1 justify-between py-0.5">
+                  <View>
+                    <Text
+                      numberOfLines={2}
+                      className="text-xs font-bold text-slate-800 leading-snug mb-1">
+                      {item.title}
+                    </Text>
+
+                    <View className="flex-row items-center gap-1 mb-2">
+                      <Text
+                        numberOfLines={1}
+                        className="text-[10px] text-slate-500 font-medium max-w-[120px]">
+                        {item.mitra?.name || 'Mitra Penyalur'}
+                      </Text>
+                      <Icon
+                        icon={VerifiedCheck}
+                        size={12}
+                        color={colors.primary[500]}
+                      />
+                    </View>
+                  </View>
+
+                  <View className="gap-1.5">
+                    <ProgressBar progress={progress} height={4} />
+
+                    <View className="flex-row items-center justify-between">
+                      <View>
+                        <Text className="text-[9px] text-slate-400">Terkumpul</Text>
+                        <Text className="text-[11px] font-bold text-primary-600">
+                          {formatCurrency(Number(item.nominal_achieved) || 0)}
+                        </Text>
+                      </View>
+
+                      {item.time_target != null && (
+                        <View className="items-end">
+                          <Text className="text-[9px] text-slate-400">Sisa hari</Text>
+                          <Text className="text-[11px] font-semibold text-slate-700">
+                            {item.time_target} hari
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+        ListEmptyComponent={
+          isLoading ? (
+            <View className="p-4 gap-3">
+              {[1, 2, 3, 4].map(n => (
+                <View
+                  key={n}
+                  className="bg-white rounded-2xl border border-slate-100 p-3 flex-row gap-3">
+                  <View className="w-28 h-24 rounded-xl bg-slate-200 animate-pulse" />
+                  <View className="flex-1 justify-between py-1">
+                    <View className="gap-2">
+                      <View className="w-3/4 h-3 bg-slate-200 rounded animate-pulse" />
+                      <View className="w-1/2 h-2.5 bg-slate-200 rounded animate-pulse" />
+                    </View>
+                    <View className="w-full h-2 bg-slate-200 rounded animate-pulse" />
+                  </View>
+                </View>
+              ))}
+            </View>
+          ) : (
+            <View className="py-12 items-center justify-center px-4">
+              <Text className="text-sm font-semibold text-slate-600">
+                Belum ada program rutin tersedia
+              </Text>
+            </View>
+          )
         }
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral[0],
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.sm,
-    backgroundColor: colors.neutral[0],
-  },
-  backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: -spacing.sm,
-  },
-  searchWrapper: {
-    flex: 1,
-  },
-  bannerBlock: {
-    overflow: 'hidden',
-  },
-  bannerGradient: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  banner: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.lg,
-    gap: spacing.xs,
-  },
-  bannerTitle: {
-    fontSize: fontSize.xl,
-    fontWeight: fontWeight.bold,
-    color: colors.primary[800],
-    lineHeight: fontSize.xl * lineHeight.tight,
-  },
-  bannerSubtitle: {
-    fontSize: fontSize.sm,
-    lineHeight: fontSize.sm * lineHeight.normal,
-    color: colors.neutral[600],
-  },
-  bannerPill: {
-    alignSelf: 'flex-start',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-    marginTop: spacing.sm,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.full,
-    backgroundColor: colors.neutral[0],
-  },
-  bannerPillText: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.bold,
-    color: colors.primary[700],
-  },
-  controlRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-    paddingBottom: spacing.xs,
-  },
-  listLoading: {
-    paddingVertical: spacing.md,
-  },
-  listContent: {
-    gap: spacing.md,
-  },
-  itemWrapper: {
-    paddingHorizontal: spacing.lg,
-  },
-});

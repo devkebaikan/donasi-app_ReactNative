@@ -1,40 +1,57 @@
-import {useState} from 'react';
-import {useQuery} from '@tanstack/react-query';
-import {getDonationTracking} from '@/services/donationService';
-import {unwrapResponse} from '@/utils/apiError';
-import {queryKeys} from '@/utils/queryKeys';
-import type {DonationTracking} from '@/types/tracking';
+import {useCallback, useEffect, useState} from 'react';
+import {
+  getInvoiceDetail,
+  getReportByLink,
+  type InvoiceData,
+  type ApiReportItem,
+} from '@/services/donationService';
 
-type State = {
-  tracking: DonationTracking | null;
-  isLoading: boolean;
-  isNotFound: boolean;
-  isPaymentExpanded: boolean;
-};
+export function useTrackingDetail(slug: string) {
+  const [invoice, setInvoice] = useState<InvoiceData | null>(null);
+  const [reportsMap, setReportsMap] = useState<Record<string, ApiReportItem | null>>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-type Actions = {
-  togglePaymentExpanded: () => void;
-};
+  const fetchTracking = useCallback(async () => {
+    if (!slug) {
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
+    setIsError(false);
+    try {
+      const res = await getInvoiceDetail(slug);
+      if (res.success && res.data) {
+        setInvoice(res.data);
+        const items = res.data.items ?? [];
+        const reports: Record<string, ApiReportItem | null> = {};
+        for (const item of items) {
+          if (item.project?.id) {
+            const link = item.program?.link || slug;
+            const repRes = await getReportByLink(link);
+            reports[String(item.project.id)] = repRes?.data ?? null;
+          }
+        }
+        setReportsMap(reports);
+      } else {
+        setIsError(true);
+      }
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [slug]);
 
-export function useTrackingDetail(donationId: string): State & Actions {
-  // Default terbuka — beda dari akordion lain di app yang default tertutup,
-  // sesuai ketentuan "Detail Pembayaran: accordion (default terbuka)".
-  const [isPaymentExpanded, setIsPaymentExpanded] = useState(true);
-
-  const trackingQuery = useQuery({
-    queryKey: queryKeys.tracking.detail(donationId),
-    queryFn: () => getDonationTracking(donationId).then(unwrapResponse),
-  });
-
-  function togglePaymentExpanded(): void {
-    setIsPaymentExpanded(value => !value);
-  }
+  useEffect(() => {
+    fetchTracking();
+  }, [fetchTracking]);
 
   return {
-    tracking: trackingQuery.data ?? null,
-    isLoading: trackingQuery.isPending,
-    isNotFound: trackingQuery.isError,
-    isPaymentExpanded,
-    togglePaymentExpanded,
+    invoice,
+    reportsMap,
+    isLoading,
+    isError,
+    refetch: fetchTracking,
   };
 }
