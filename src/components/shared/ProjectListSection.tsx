@@ -54,7 +54,7 @@ export function ProjectListSection({
               accessibilityRole="button"
               accessibilityLabel={project.title}>
               {/* Thumbnail Image */}
-              <View className="w-28 h-20 rounded-xl overflow-hidden bg-neutral-100 mr-3 shrink-0">
+              <View className="w-36 h-20 rounded-lg overflow-hidden bg-neutral-100 mr-3 shrink-0">
                 {project.image ? (
                   <Image
                     source={{uri: sanitizeImageUrl(project.image)}}

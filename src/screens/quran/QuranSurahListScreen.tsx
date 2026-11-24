@@ -117,6 +117,7 @@ function QuranSurahListScreen(): React.JSX.Element {
           <DonationSortDirectionToggle
             value={sortDirection}
             onPress={toggleSortDirection}
+            size="md"
           />
         </View>
       </View>

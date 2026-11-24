@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {VerifiedCheck, AltArrowRight} from '@solar-icons/react-native/Linear';
+import {VerifiedCheck} from '@solar-icons/react-native/Bold';
+import { AltArrowRight} from '@solar-icons/react-native/Linear';
 import {Icon} from '@/components/ui/Icon';
 import {colors} from '@/theme';
 import type {ProgramOrganization} from '@/types/programDetail';
@@ -42,9 +43,9 @@ export function FundraiserCard({
         <Text className="font-bold text-neutral-900 text-sm truncate uppercase tracking-tight" numberOfLines={1}>
           {organization.name}
         </Text>
-        <View className="flex-row items-center gap-1 bg-cyan-50 px-2 py-0.5 rounded-full self-start mt-1 border border-cyan-100">
-          <Text className="text-[10px] text-cyan-700 font-semibold">Verified</Text>
-          <Icon icon={VerifiedCheck} size={11} color="#0891b2" />
+        <View className="flex-row items-center gap-1 bg-cyan-50/80 px-2 py-0.5 rounded-full self-start mt-1 border border-cyan-100">
+          <Text className="text-[10px] text-cyan-800 font-semibold">Verified</Text>
+          <Icon icon={VerifiedCheck} size={12} color="#0891b2" />
         </View>
       </View>
 

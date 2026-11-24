@@ -1,15 +1,14 @@
 import React, {forwardRef, useCallback} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {
   BottomSheetModal,
-  BottomSheetView,
   BottomSheetBackdrop,
+  BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import type {BottomSheetBackdropProps} from '@gorhom/bottom-sheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {CategorySelectedBadge} from '@/components/shared/CategorySelectedBadge';
 import {sanitizeImageUrl} from '@/utils/imageUrl';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
 import type {Category} from '@/types/category';
 
 interface CategoryBottomSheetProps {
@@ -17,6 +16,9 @@ interface CategoryBottomSheetProps {
   selectedCategoryId: number | null;
   onSelectCategory: (category: Category) => void;
 }
+
+const SHEET_BACKGROUND_STYLE = {backgroundColor: '#FFFFFF', borderRadius: 24};
+const HANDLE_INDICATOR_STYLE = {backgroundColor: '#D1D5DB', width: 44};
 
 export const CategoryBottomSheet = forwardRef<
   BottomSheetModal,
@@ -50,122 +52,74 @@ export const CategoryBottomSheet = forwardRef<
       ref={ref}
       snapPoints={['60%']}
       backdropComponent={renderBackdrop}
-      backgroundStyle={styles.sheetBackground}
-      handleIndicatorStyle={styles.handleIndicator}>
-      <BottomSheetView
-        style={[styles.container, {paddingBottom: insets.bottom + spacing.lg}]}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Pilih Kategori</Text>
+      backgroundStyle={SHEET_BACKGROUND_STYLE}
+      handleIndicatorStyle={HANDLE_INDICATOR_STYLE}>
+      <View className="flex-1 px-5">
+        {/* Header */}
+        <View className="flex-row items-center justify-between pb-3 border-b border-neutral-100">
+          <View className='flex-col gap-0'>
+          <Text className="text-base font-semibold text-neutral-900">
+            Kategori Program
+          </Text>
+          <Text className="text-xs text-neutral-400">
+            Pilih kategori program yang ingin anda tampilkan
+          </Text>
+          </View>
           <TouchableOpacity
             testID="category-sheet-close-button"
-            style={styles.closeButton}
+            className="w-8 h-8 rounded-full items-center justify-center bg-neutral-100"
             onPress={handleClose}
+            activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel="Tutup">
-            <Text style={styles.closeIcon}>✕</Text>
+            <Text className="text-sm font-semibold text-neutral-500">✕</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.grid}>
+
+        {/* Categories Grid ScrollView */}
+        <BottomSheetScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerClassName="flex-row flex-wrap pt-4"
+          contentContainerStyle={{paddingBottom: insets.bottom + 24}}>
           {categories.map(category => {
             const isSelected = category.id === selectedCategoryId;
             return (
               <TouchableOpacity
                 key={category.id}
                 testID={`category-sheet-item-${category.id}`}
-                style={styles.item}
+                className="w-1/4 items-center gap-1.5 mb-5"
                 onPress={() => onSelectCategory(category)}
+                activeOpacity={0.7}
                 accessibilityRole="button"
                 accessibilityLabel={category.name}
                 accessibilityState={{selected: isSelected}}>
                 <View
-                  style={[
-                    styles.iconWrapper,
-                    isSelected && styles.iconWrapperSelected,
-                  ]}>
+                  className={`relative w-14 h-14 rounded-full items-center justify-center ${
+                    isSelected
+                      ? 'bg-primary-50 border-2 border-primary-500'
+                      : 'bg-primary-50/70 border border-transparent'
+                  }`}>
                   <Image
                     source={{uri: sanitizeImageUrl(category.image_url)}}
-                    style={styles.categoryImage}
+                    className="w-full h-full"
                     resizeMode="contain"
                   />
                   {isSelected && <CategorySelectedBadge />}
                 </View>
-                <Text style={styles.label} numberOfLines={1}>
+                <Text
+                  className={`text-xs text-center px-1 ${
+                    isSelected
+                      ? 'font-semibold text-primary-600'
+                      : 'font-medium text-neutral-500'
+                  }`}
+                  numberOfLines={1}>
                   {category.name}
                 </Text>
               </TouchableOpacity>
             );
           })}
-        </View>
-      </BottomSheetView>
+        </BottomSheetScrollView>
+      </View>
     </BottomSheetModal>
   );
-});
-
-const COLUMN_COUNT = 4;
-
-const styles = StyleSheet.create({
-  sheetBackground: {
-    backgroundColor: colors.neutral[0],
-  },
-  handleIndicator: {
-    backgroundColor: colors.neutral[300],
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-    gap: spacing.lg,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  closeButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  closeIcon: {
-    fontSize: fontSize.lg,
-    color: colors.neutral[500],
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  item: {
-    width: `${100 / COLUMN_COUNT}%`,
-    alignItems: 'center',
-    gap: spacing.xs,
-    marginBottom: spacing.lg,
-  },
-  iconWrapper: {
-    width: 46,
-    height: 46,
-    borderRadius: radius.full,
-    backgroundColor: colors.primary[50],
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  iconWrapperSelected: {
-    backgroundColor: colors.primary[50],
-    borderWidth: 1,
-    borderColor: colors.primary[500],
-  },
-  label: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[700],
-  },
-  categoryImage: {
-    width: '100%',
-    height: '100%',
-  },
 });

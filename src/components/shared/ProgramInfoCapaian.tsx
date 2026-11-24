@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {AltArrowDown, AltArrowUp, HeartAngle, UsersGroupRounded} from '@solar-icons/react-native/Linear';
+import {AltArrowDown, AltArrowUp, UsersGroupRounded} from '@solar-icons/react-native/Linear';
+import { HeartAngle} from '@solar-icons/react-native/Bold';
 import {Icon} from '@/components/ui/Icon';
 import {ProgramProgressBar} from '@/components/shared/ProgramProgressBar';
 import {formatCurrency} from '@/utils/formatCurrency';
@@ -53,7 +54,7 @@ export function ProgramInfoCapaian({
     <View className="px-4 py-3 bg-white">
       {/* Title */}
       <Text
-        className="text-base font-bold text-neutral-900 mb-3 leading-snug"
+        className="text-lg font-bold text-neutral-900 mb-3 leading-snug"
         numberOfLines={3}
         ellipsizeMode="tail">
         {program.title}
@@ -62,8 +63,8 @@ export function ProgramInfoCapaian({
       {/* Available Funds Row */}
       <View className="flex-row items-center justify-between mb-2">
         <View>
-          <Text className="text-xs text-neutral-500 font-medium">Donasi Tersedia</Text>
-          <Text className="text-xl font-bold text-secondary-500 mt-0.5">
+          <Text className="text-sm text-neutral-500 font-medium">Donasi Tersedia</Text>
+          <Text className="text-lg font-bold text-secondary-500 mt-0.5">
             {formatCurrency(availableAmount)}
           </Text>
         </View>
@@ -77,7 +78,7 @@ export function ProgramInfoCapaian({
             isExpanded ? 'Tutup detail capaian' : 'Lihat semua detail capaian'
           }
           accessibilityState={{expanded: isExpanded}}>
-          <Text className="text-xs font-semibold text-primary-600">
+          <Text className="text-sm text-primary-600">
             {isExpanded ? 'Tutup' : 'Lihat Semua'}
           </Text>
           <Icon
@@ -92,7 +93,7 @@ export function ProgramInfoCapaian({
       {isExpanded ? (
         <View className="my-2 gap-2.5">
           <View>
-            <Text className="text-xs text-neutral-500">Donasi Terkumpul</Text>
+            <Text className="text-sm text-neutral-500">Donasi Terkumpul</Text>
             <View className="flex-row items-baseline flex-wrap gap-1 mt-0.5">
               <Text className="text-base font-bold text-primary-600">
                 {formatCurrency(collected)}
@@ -100,7 +101,7 @@ export function ProgramInfoCapaian({
               {!isGoalUnlimited && target !== null && (
                 <>
                   <Text className="text-xs text-neutral-400"> dari target </Text>
-                  <Text className="text-xs font-bold text-neutral-800">
+                  <Text className="text-sm font-bold text-neutral-800">
                     {formatCurrency(target)}
                   </Text>
                 </>
@@ -114,14 +115,14 @@ export function ProgramInfoCapaian({
           {/* Stats Row */}
           <View className="flex-row justify-between items-center text-xs text-neutral-700 py-1">
             <View className="flex-row items-center gap-1.5">
-              <Icon icon={HeartAngle} size={16} color={colors.primary[500]} />
+              <Icon icon={HeartAngle} size={14} color={colors.primary[500]} />
               <Text className="font-bold text-neutral-900 text-xs">
                 {donaturCount.toLocaleString('id-ID')}
               </Text>
               <Text className="text-neutral-500 text-xs">Donasi</Text>
             </View>
 
-            <View className="flex-row items-center gap-1.5">
+            {/* <View className="flex-row items-center gap-1.5">
               <Icon icon={UsersGroupRounded} size={16} color={colors.primary[500]} />
               <Text className="font-bold text-neutral-900 text-xs">
                 {formatDaysLeftValue(isTimeUnlimited ? Infinity : (daysLeft ?? Infinity))}
@@ -129,7 +130,7 @@ export function ProgramInfoCapaian({
               <Text className="text-neutral-500 text-xs">
                 {isTimeUnlimited ? '' : 'hari lagi'}
               </Text>
-            </View>
+            </View> */}
           </View>
         </View>
       ) : null}

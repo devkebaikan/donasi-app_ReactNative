@@ -6,13 +6,12 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import type {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {FileText, HandMoney, MapPoint, Share} from '@solar-icons/react-native/Linear';
+import {FileText, MapPoint, Share} from '@solar-icons/react-native/Linear';
 import {EmptyState} from '@/components/ui/EmptyState';
 import {Icon} from '@/components/ui/Icon';
 import {HeaderTransparent} from '@/components/shared/HeaderTransparent';
@@ -21,10 +20,7 @@ import {FundraiserCard} from '@/components/shared/FundraiserCard';
 import {ProjectSalurInfoAlert} from '@/components/shared/ProjectSalurInfoAlert';
 import {ProjectSalurAmountCards} from '@/components/shared/ProjectSalurAmountCards';
 import {ProjectSalurProgressSection} from '@/components/shared/ProjectSalurProgressSection';
-import {ProjectSalurTabBar} from '@/components/shared/ProjectSalurTabBar';
-import {SalurTimelineItem} from '@/components/shared/SalurTimelineItem';
 import {HtmlContent} from '@/components/shared/HtmlContent';
-import {DonaturListItem} from '@/components/shared/DonaturListItem';
 import {FloatingDonationFooter} from '@/components/shared/FloatingDonationFooter';
 import {ShareBottomSheet, type ShareOption} from '@/components/shared/ShareBottomSheet';
 import {NominalBottomSheet} from '@/components/shared/NominalBottomSheet';
@@ -33,12 +29,11 @@ import {useDetailProjectSalur} from '@/hooks/useDetailProjectSalur';
 import {usePaymentMethodSelection} from '@/hooks/usePaymentMethodSelection';
 import {useAuthStore} from '@/stores/authStore';
 import {showToast} from '@/utils/toast';
-import {colors, spacing, radius, fontSize, fontWeight} from '@/theme';
+import {colors} from '@/theme';
 import type {
   DetailProjectSalurScreenProps,
   RootStackNavigationProp,
 } from '@/types/navigation';
-import type {DonaturSort} from '@/types/programDetail';
 import type {PaymentMethod} from '@/types/payment';
 
 const SHARE_OPTION_LABEL: Record<ShareOption, string> = {
@@ -47,12 +42,6 @@ const SHARE_OPTION_LABEL: Record<ShareOption, string> = {
   whatsapp: 'Whatsapp',
   'copy-url': 'Salin URL',
 };
-
-const DONATUR_SORT_OPTIONS: {value: DonaturSort; label: string}[] = [
-  {value: 'terbaru', label: 'Terbaru'},
-  {value: 'terbesar', label: 'Terbesar'},
-];
-
 const HEADER_IMAGE_HEIGHT = 220;
 
 export default function DetailProjectSalurScreen({
@@ -231,18 +220,9 @@ export default function DetailProjectSalurScreen({
     metodeSheetRef.current?.dismiss();
     navigation.navigate('Topup');
   }
-
-  function handleSeeAllDonatur(): void {
-    showToast('Fitur akan segera hadir.');
-  }
-
-  function handlePressAamiin(): void {
-    showToast('Fitur akan segera hadir.');
-  }
-
   if (isLoading) {
     return (
-      <View style={[styles.container, styles.centerContent]}>
+      <View className="flex-1 bg-white items-center justify-center">
         <ActivityIndicator color={colors.primary[500]} />
       </View>
     );
@@ -250,7 +230,7 @@ export default function DetailProjectSalurScreen({
 
   if (isNotFound || !project) {
     return (
-      <View style={styles.container}>
+      <View className="flex-1 bg-white">
         <HeaderLight title="Detail Project Salur" onBack={handleBack} />
         <EmptyState
           icon={FileText}
@@ -263,7 +243,7 @@ export default function DetailProjectSalurScreen({
 
   const shareButton = (
     <TouchableOpacity
-      style={styles.headerIconButton}
+      className="w-11 h-11 items-center justify-center"
       onPress={handleShare}
       accessibilityRole="button"
       accessibilityLabel="Bagikan project salur">
@@ -276,8 +256,8 @@ export default function DetailProjectSalurScreen({
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerOverlay}>
+    <View className="flex-1 bg-white">
+      <View className="absolute top-0 left-0 right-0 z-10">
         {isHeaderCollapsed ? (
           <HeaderLight
             title={project.title}
@@ -293,16 +273,16 @@ export default function DetailProjectSalurScreen({
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        contentContainerStyle={styles.scrollContent}>
+        contentContainerClassName="pb-32">
         <Image
           source={{uri: project.photoUrl}}
-          style={styles.headerImage}
+          className="w-full h-[220px] bg-neutral-200"
           resizeMode="cover"
           accessibilityRole="image"
           accessibilityLabel={project.title}
         />
 
-        <View style={styles.section}>
+        <View className="px-6 py-4 gap-2">
           <FundraiserCard
             organization={{
               id: project.mitra.id,
@@ -315,22 +295,22 @@ export default function DetailProjectSalurScreen({
           />
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.title}>{project.title}</Text>
-          <View style={styles.addressRow}>
+        <View className="px-6 py-4 gap-2">
+          <Text className="text-lg font-bold text-neutral-900">{project.title}</Text>
+          <View className="flex-row items-center gap-1">
             <Icon icon={MapPoint} size={16} color={colors.neutral[500]} />
-            <Text style={styles.addressText}>{project.address}</Text>
+            <Text className="flex-1 text-sm text-neutral-600">{project.address}</Text>
           </View>
         </View>
 
-        <View style={styles.section}>
+        <View className="px-6 py-4 gap-2">
           <ProjectSalurInfoAlert
-            programTitle={project.program.name}
+            programTitle={project.program.title}
             onPress={handlePressProgramAlert}
           />
         </View>
 
-        <View style={styles.section}>
+        <View className="px-6 py-4 gap-2">
           <ProjectSalurAmountCards
             targetAmount={project.targetAmount}
             collectedAmount={project.collectedAmount}
@@ -343,93 +323,11 @@ export default function DetailProjectSalurScreen({
         </View>
 
         {project.descriptionHtml ? (
-          <View style={styles.section}>
-            <Text style={styles.sectionHeading}>Deskripsi Project</Text>
+          <View className="px-6 py-4 gap-2">
+            <Text className="text-base font-semibold text-neutral-900">Deskripsi Project</Text>
             <HtmlContent html={project.descriptionHtml} />
           </View>
         ) : null}
-
-        <View style={styles.tabBarWrapper}>
-          <ProjectSalurTabBar activeTab={activeTab} onChange={setActiveTab} />
-        </View>
-
-        <View style={styles.tabContent}>
-          {activeTab === 'report' &&
-            (project.reports.length === 0 ? (
-              <EmptyState icon={FileText} title="Belum ada report penyaluran" />
-            ) : (
-              <View style={styles.listSection}>
-                <View style={styles.timelineWrapper}>
-                  {project.reports.map((report, index, visible) => (
-                    <SalurTimelineItem
-                      key={report.id}
-                      item={report}
-                      isLast={index === visible.length - 1}
-                    />
-                  ))}
-                </View>
-              </View>
-            ))}
-
-          {activeTab === 'donatur' &&
-            (isDonaturLoading ? (
-              <View style={styles.tabLoading}>
-                <ActivityIndicator color={colors.primary[500]} />
-              </View>
-            ) : (
-              <View style={styles.listSection}>
-                <View style={styles.donaturHeader}>
-                  <Text style={styles.donaturTotal}>
-                    {project.donaturCount.toLocaleString('id-ID')} Donatur
-                  </Text>
-                  <TouchableOpacity
-                    onPress={handleSeeAllDonatur}
-                    accessibilityRole="button"
-                    accessibilityLabel="Lihat semua donatur">
-                    <Text style={styles.seeAll}>Lihat semua</Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View style={styles.donaturSortRow}>
-                  {DONATUR_SORT_OPTIONS.map(option => {
-                    const isActive = option.value === donaturSort;
-                    return (
-                      <TouchableOpacity
-                        key={option.value}
-                        style={[
-                          styles.donaturSortChip,
-                          isActive && styles.donaturSortChipActive,
-                        ]}
-                        onPress={() => setDonaturSort(option.value)}
-                        accessibilityRole="button"
-                        accessibilityLabel={`Urutkan donatur ${option.label}`}
-                        accessibilityState={{selected: isActive}}>
-                        <Text
-                          style={[
-                            styles.donaturSortLabel,
-                            isActive && styles.donaturSortLabelActive,
-                          ]}>
-                          {option.label}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-
-                {donatur.length === 0 ? (
-                  <EmptyState icon={HandMoney} title="Belum ada donatur" />
-                ) : (
-                  donatur.map(item => (
-                    <DonaturListItem
-                      key={item.id}
-                      donatur={item}
-                      onPressAamiin={handlePressAamiin}
-                    />
-                  ))
-                )}
-              </View>
-            ))}
-        </View>
       </ScrollView>
 
       <FloatingDonationFooter
@@ -442,6 +340,9 @@ export default function DetailProjectSalurScreen({
       <ShareBottomSheet
         ref={shareSheetRef}
         title="Bagikan Project Salur"
+        programTitle={project.title}
+        programImageUrl={project.photoUrl}
+        shareUrl={`https://beramalbersama.com/project-salur/${project.id}`}
         onSelectOption={handleSelectShareOption}
       />
       <NominalBottomSheet
@@ -476,115 +377,3 @@ export default function DetailProjectSalurScreen({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.neutral[0],
-  },
-  centerContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10,
-  },
-  headerIconButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  scrollContent: {
-    paddingBottom: spacing['4xl'] * 2,
-  },
-  headerImage: {
-    width: '100%',
-    height: HEADER_IMAGE_HEIGHT,
-    backgroundColor: colors.neutral[200],
-  },
-  section: {
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    gap: spacing.sm,
-  },
-  title: {
-    fontSize: fontSize.lg,
-    fontWeight: fontWeight.bold,
-    color: colors.neutral[900],
-  },
-  addressRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-  },
-  addressText: {
-    flex: 1,
-    fontSize: fontSize.sm,
-    color: colors.neutral[600],
-  },
-  sectionHeading: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  tabBarWrapper: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-  },
-  tabContent: {
-    paddingVertical: spacing.md,
-  },
-  listSection: {
-    paddingHorizontal: spacing.lg,
-    gap: spacing.md,
-  },
-  tabLoading: {
-    paddingVertical: spacing['2xl'],
-    alignItems: 'center',
-  },
-  timelineWrapper: {
-    position: 'relative',
-  },
-  donaturHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  donaturTotal: {
-    fontSize: fontSize.md,
-    fontWeight: fontWeight.semiBold,
-    color: colors.neutral[900],
-  },
-  seeAll: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.semiBold,
-    color: colors.primary[600],
-    paddingVertical: spacing.sm,
-  },
-  donaturSortRow: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-  },
-  donaturSortChip: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-    borderRadius: radius.full,
-    backgroundColor: colors.neutral[100],
-  },
-  donaturSortChipActive: {
-    backgroundColor: colors.primary[500],
-  },
-  donaturSortLabel: {
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.medium,
-    color: colors.neutral[600],
-  },
-  donaturSortLabelActive: {
-    color: colors.neutral[0],
-  },
-});

@@ -43,7 +43,11 @@ export function PrayerScheduleHeader({
 
   return (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar
+        translucent={false}
+        backgroundColor={colors.primary[600]}
+        barStyle="light-content"
+      />
       <View style={[styles.container, {paddingTop: insets.top + spacing.sm}]}>
         <LinearGradient
           colors={[colors.primary[600], colors.primary[800]]}

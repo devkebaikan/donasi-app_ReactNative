@@ -86,6 +86,7 @@ export function ProgramListSection({
         <Button
           label="Program Lainnya"
           onPress={onPressSeeMore}
+          size='md'
           // variant="ghost"
         />
       </View>

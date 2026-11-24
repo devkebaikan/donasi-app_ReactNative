@@ -19,7 +19,7 @@ export function CategoryPillList({
   selectedCategoryId,
   onSelectCategory,
   onPressMore,
-  visibleCount = 4,
+  visibleCount = 2,
 }: CategoryPillListProps): React.JSX.Element {
   const visibleCategories = categories.slice(0, visibleCount);
   const isSelectedInMore =

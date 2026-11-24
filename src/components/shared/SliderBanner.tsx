@@ -18,7 +18,7 @@ interface SliderBannerProps {
 }
 
 const CARD_WIDTH = screenWidth - 40;
-const CARD_HEIGHT = Math.round(CARD_WIDTH * 0.45);
+const CARD_HEIGHT = Math.round(CARD_WIDTH * 0.566);
 const AUTO_SCROLL_MS = 4200;
 
 export function SliderBanner({
@@ -87,7 +87,7 @@ export function SliderBanner({
         renderItem={({item}) => (
           <TouchableOpacity
             style={{width: CARD_WIDTH, height: CARD_HEIGHT}}
-            className="rounded-2xl overflow-hidden bg-neutral-100 shadow-sm"
+            className="rounded-xl overflow-hidden bg-neutral-100 shadow-sm"
             activeOpacity={item.link ? 0.85 : 1}
             onPress={() => item.link && onPressBanner && onPressBanner(item.link)}
             accessibilityRole="button"

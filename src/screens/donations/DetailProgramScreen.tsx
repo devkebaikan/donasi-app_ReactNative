@@ -6,14 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {AltArrowRight, FileText, HandMoney, Soundwave, UsersGroupTwoRounded} from '@solar-icons/react-native/Linear';
+import {AltArrowRight, FileText, HandMoney, Share, Soundwave, UsersGroupTwoRounded} from '@solar-icons/react-native/Linear';
 import {EmptyState} from '@/components/ui/EmptyState';
 import {Avatar} from '@/components/ui/Avatar';
-import {DetailProgramHeader} from '@/components/shared/DetailProgramHeader';
+import {HeaderLight} from '@/components/shared/HeaderLight';
 import {ProgramInfoCapaian} from '@/components/shared/ProgramInfoCapaian';
 import {ProjectSalurTerdekatSection} from '@/components/shared/ProjectSalurTerdekatSection';
 import {PenggalangDanaAccordion} from '@/components/shared/PenggalangDanaAccordion';
@@ -39,21 +39,8 @@ import {formatFullDate} from '@/utils/formatDate';
 import {colors} from '@/theme';
 import {sanitizeImageUrl} from '@/utils/imageUrl';
 import type {DetailProgramScreenProps, RootStackNavigationProp} from '@/types/navigation';
-import type {DonaturSort} from '@/types/programDetail';
 import type {PaymentMethod} from '@/types/payment';
 import { Icon } from '@/components/ui/Icon';
-
-const SHARE_OPTION_LABEL: Record<ShareOption, string> = {
-  facebook: 'Facebook',
-  twitter: 'Twitter',
-  whatsapp: 'Whatsapp',
-  'copy-url': 'Salin URL',
-};
-
-const DONATUR_SORT_OPTIONS: {value: DonaturSort; label: string}[] = [
-  {value: 'terbaru', label: 'Terbaru'},
-  {value: 'terbesar', label: 'Terbesar'},
-];
 
 const SALUR_LIST_LIMIT = 3;
 
@@ -67,7 +54,6 @@ export default function DetailProgramScreen({
     preservedNominalLabel,
   } = route.params;
   const navigation = useNavigation<RootStackNavigationProp>();
-  const insets = useSafeAreaInsets();
   const isAuthenticated = useAuthStore(s => s.accessToken != null);
   const shareSheetRef = useRef<BottomSheetModal>(null);
   const nominalSheetRef = useRef<BottomSheetModal>(null);
@@ -91,7 +77,7 @@ export default function DetailProgramScreen({
   } = useDetailProgram(link);
 
   const program = data.detail;
-  const {salesNotif, projects, reportSalur, donatur, fundraisers} = data;
+  const {salesNotif, projects, donatur, fundraisers} = data;
 
   const {
     paymentMethods,
@@ -140,9 +126,8 @@ export default function DetailProgramScreen({
     shareSheetRef.current?.present();
   }
 
-  function handleSelectShareOption(option: ShareOption): void {
+  function handleSelectShareOption(_option: ShareOption): void {
     shareSheetRef.current?.dismiss();
-    showToast(`Fitur berbagi ke ${SHARE_OPTION_LABEL[option]} akan segera hadir.`);
   }
 
   function handlePressFundraiser(): void {
@@ -265,15 +250,35 @@ export default function DetailProgramScreen({
     navigation.navigate('DetailProjectSalur', {projectSalurId: id});
   }
 
-  async function handlePressAamiin(item: any): Promise<void> {
+  async function handlePressAamiin(item: {id?: number | string}): Promise<void> {
     if (item?.id) {
       await likeDonaturPrayer(item.id);
     }
   }
 
+  const shareButton = (
+    <TouchableOpacity
+      className="w-10 h-10 rounded-full items-center justify-center active:bg-white/10"
+      onPress={handleShare}
+      activeOpacity={0.7}
+      accessibilityRole="button"
+      accessibilityLabel="Bagikan program">
+      <Icon
+        icon={Share}
+        size={22}
+        color={colors.neutral[0]}
+      />
+    </TouchableOpacity>
+  );
+
   if (isLoading) {
     return (
       <View className="flex-1 bg-white items-center justify-center">
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={colors.primary[500]}
+          translucent={false}
+        />
         <ActivityIndicator color={colors.primary[500]} />
       </View>
     );
@@ -281,11 +286,11 @@ export default function DetailProgramScreen({
 
   if (isNotFound || !program) {
     return (
-      <View className="flex-1 bg-white" style={{paddingTop: insets.top}}>
-        <DetailProgramHeader
+      <View className="flex-1 bg-white">
+        <HeaderLight
           title="Detail Program"
-          onPressBack={handleBack}
-          onPressShare={handleShare}
+          onBack={handleBack}
+          rightSlot={shareButton}
         />
         <EmptyState
           icon={FileText}
@@ -301,12 +306,12 @@ export default function DetailProgramScreen({
   }
 
   return (
-    <View className="flex-1 bg-white" style={{paddingTop: insets.top}}>
-      {/* Header Bar */}
-      <DetailProgramHeader
+    <View className="flex-1 bg-white">
+      {/* Header Bar dengan HeaderLight */}
+      <HeaderLight
         title={program.title}
-        onPressBack={handleBack}
-        onPressShare={handleShare}
+        onBack={handleBack}
+        rightSlot={shareButton}
       />
 
       <ScrollView
@@ -634,6 +639,9 @@ export default function DetailProgramScreen({
       {/* Share Bottom Sheet */}
       <ShareBottomSheet
         ref={shareSheetRef}
+        programTitle={program.title}
+        programImageUrl={sanitizeImageUrl(program.image || program.imageUrl)}
+        shareUrl={`https://beramalbersama.com/${program.link || link}`}
         onSelectOption={handleSelectShareOption}
       />
 

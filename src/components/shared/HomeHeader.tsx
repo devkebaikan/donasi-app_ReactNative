@@ -417,7 +417,7 @@ export function HomeHeader({
                       onPress={() => closeDrawer(item.onPress)}
                       activeOpacity={0.75}>
                       <View className="flex-row items-center gap-3 flex-1">
-                        <Icon icon={item.icon} size={18} color="#6B7280" />
+                        <Icon icon={item.icon} size={16} color="#157874" />
                         <View className="flex-1">
                           <Text className="text-sm font-semibold text-neutral-800">
                             {item.label}
@@ -437,14 +437,14 @@ export function HomeHeader({
             {/* Drawer Footer: Tombol Keluar jika login */}
             {isAuthenticated && (
               <View
-                className="border-t border-neutral-100 px-5 pt-3 pb-3 bg-neutral-50/50"
+                className="border-t border-neutral-100 px-5 pt-3 pb-3"
                 style={{ paddingBottom: Math.max(insets.bottom, 14) }}>
                 <TouchableOpacity
-                  className="py-2 px-3 rounded-xl flex-row items-center justify-center gap-2 border border-red-100 bg-red-50/60 active:bg-red-100"
+                  className="py-3 px-3 mb-3 rounded-lg flex-row items-center justify-center gap-2 border border-red-200 active:bg-red-100"
                   onPress={() => closeDrawer(() => clearAuth())}
                   activeOpacity={0.8}>
-                  <Icon icon={Logout2} size={16} color="#DC2626" />
-                  <Text className="text-xs font-semibold text-red-600">
+                  <Icon icon={Logout2} size={14} color="#DC2626" />
+                  <Text className="text-xs font-semibold text-red-500">
                     Keluar Akun
                   </Text>
                 </TouchableOpacity>

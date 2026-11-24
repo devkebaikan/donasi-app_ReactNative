@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { VerifiedCheck } from '@solar-icons/react-native/Linear';
+import { VerifiedCheck } from '@solar-icons/react-native/Bold';
 import { Icon } from '@/components/ui/Icon';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { RecommendedBadge } from '@/components/shared/RecommendedBadge';
@@ -106,8 +106,7 @@ export function DonationListCard({
       <View className="relative">
         <Image
           source={{ uri: program.image }}
-          className="w-40 rounded-lg bg-neutral-100"
-          style={{ height: imageHeight }}
+          className="w-40 h-24 rounded-lg bg-neutral-100"
           resizeMode="cover"
           accessibilityRole="image"
           accessibilityLabel={program.title}
@@ -116,13 +115,13 @@ export function DonationListCard({
       </View>
 
       <View className="flex-1 justify-between gap-1">
-        <Text className="text-sm font-semibold text-neutral-900" numberOfLines={2} ellipsizeMode="tail">
+        <Text className="text-[11px] font-semibold text-neutral-900" numberOfLines={2} ellipsizeMode="tail">
           {program.title}
         </Text>
 
         <View className="flex-row items-center gap-1.5 flex-wrap">
           <View className="flex-row items-center gap-1 flex-shrink min-w-0">
-            <Icon icon={VerifiedCheck} size={13} color={colors.primary[500]} />
+            <Icon icon={VerifiedCheck} size={12} color='#3188c9' />
             <Text className="text-xs text-neutral-500" numberOfLines={1}>
               {program.mitra.name}
             </Text>
@@ -145,16 +144,16 @@ export function DonationListCard({
 
 function Footer({ collectedAmount, remainingDays }: { collectedAmount: number; remainingDays: number | null }): React.JSX.Element {
   return (
-    <View className="flex-row justify-between items-end mt-1">
+    <View className="flex-row justify-between items-end mt-0">
       <View>
         <Text className="text-xs text-neutral-500">Terkumpul</Text>
-        <Text className="text-sm font-semibold text-primary-600" numberOfLines={1}>
+        <Text className="text-xs font-semibold text-primary-700" numberOfLines={1}>
           {formatCurrency(collectedAmount)}
         </Text>
       </View>
       <View className="items-end">
         <Text className="text-xs text-neutral-500">Sisa hari</Text>
-        <Text className="text-sm font-semibold text-primary-600">
+        <Text className="text-xs font-semibold text-gray-600">
           {formatDaysLeftValue(remainingDays)}
         </Text>
       </View>

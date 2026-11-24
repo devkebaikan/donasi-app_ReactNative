@@ -48,7 +48,7 @@ export default function HomeScreen(): React.JSX.Element {
   const {
     homeData,
     banners,
-    mainBanner,
+    // mainBanner,
     secondBanner,
     thirdBanner,
     bannerSlides,

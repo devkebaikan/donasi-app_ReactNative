@@ -18,7 +18,11 @@ export function QuranProgressHeader({
 
   return (
     <View style={[styles.container, {paddingTop: insets.top + spacing.lg}]}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        translucent={false}
+        backgroundColor={colors.primary[500]}
+        barStyle="light-content"
+      />
       <LinearGradient
         colors={[colors.primary[200], colors.primary[50], colors.neutral[0]]}
         style={styles.gradient}

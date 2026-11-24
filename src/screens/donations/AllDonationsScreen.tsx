@@ -153,7 +153,7 @@ export default function AllDonationsScreen({
           selectedCategoryId={selectedCategoryId}
           onSelectCategory={handleSelectCategory}
           onPressMore={handlePressMoreCategories}
-          visibleCount={4}
+          visibleCount={3}
         />
       </View>
 
@@ -186,7 +186,7 @@ export default function AllDonationsScreen({
           ListHeaderComponent={
             <>
               {/* Program Pilihan (Horizontal Scroll) */}
-              {featuredPrograms.length > 0 && (
+              {/* {featuredPrograms.length > 0 && (
                 <>
                   <FeaturedDonationsSection
                     programs={featuredPrograms}
@@ -194,10 +194,11 @@ export default function AllDonationsScreen({
                   />
                   <View className="h-2 bg-neutral-100 my-1" />
                 </>
-              )}
+              )} */}
 
               {/* Toolbar Sort & View Mode */}
-              <View className="px-4 py-2">
+              <View className="px-4 pt-3 pb-1">
+                {/* Controls Row */}
                 <View className="flex-row items-center justify-between">
                   <View className="flex-row items-center gap-2">
                     <DonationFilterDropdown

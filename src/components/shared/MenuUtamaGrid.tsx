@@ -62,7 +62,7 @@ export function MenuUtamaGrid({
               onPress={() => onPressItem(item.screen)}
               accessibilityRole="button"
               accessibilityLabel={item.name}>
-              <View className="relative h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+              <View className="relative h-14 w-14 items-center justify-center rounded-full bg-neutral-100">
                 {iconSource && (
                   <Image
                     source={iconSource}
@@ -80,7 +80,7 @@ export function MenuUtamaGrid({
                 )}
               </View>
 
-              <Text className="text-center text-xs text-neutral-600">
+              <Text className="text-center text-xs text-neutral-500">
                 {item.name}
               </Text>
             </TouchableOpacity>

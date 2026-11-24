@@ -4,10 +4,10 @@ import {
   TouchableOpacity,
   Text,
   ActivityIndicator,
-  StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import {Icon, type SolarIconComponent} from '@/components/ui/Icon';
-import {colors, colorTokens, spacing, radius, fontSize, fontWeight} from '@/theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline';
 type ButtonSize = 'xs' | 'smWide' | 'sm' | 'md' | 'lg';
@@ -29,14 +29,16 @@ interface ButtonProps {
    * tombol saja tidak cukup menjelaskan aksinya — mis. "Daftar Kajiannya" yang
    * butuh menyebut nama event-nya. */
   accessibilityLabel?: string;
+  className?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 // Icon mengikuti warna label supaya tidak perlu dioper per pemakaian.
 const ICON_COLOR: Record<ButtonVariant, string> = {
-  primary: colors.neutral[0],
-  secondary: colorTokens.text.primary,
-  ghost: colors.primary[500],
-  outline: colors.primary[500],
+  primary: '#FFFFFF',
+  secondary: '#111827',
+  ghost: '#1EB8B1',
+  outline: '#1EB8B1',
 };
 
 const ICON_SIZE: Record<ButtonSize, number> = {
@@ -58,6 +60,36 @@ const HIT_SLOP: Partial<Record<ButtonSize, typeof XS_HIT_SLOP>> = {
   smWide: SM_WIDE_HIT_SLOP,
 };
 
+const VARIANT_CONTAINER: Record<ButtonVariant, string> = {
+  primary: 'bg-secondary-600/85',
+  secondary: 'bg-neutral-100 border border-neutral-200',
+  ghost: 'bg-transparent border border-primary-500',
+  outline: 'bg-white border border-primary-500',
+};
+
+const VARIANT_LABEL: Record<ButtonVariant, string> = {
+  primary: 'text-white',
+  secondary: 'text-neutral-900',
+  ghost: 'text-primary-500',
+  outline: 'text-primary-500',
+};
+
+const SIZE_CONTAINER: Record<ButtonSize, string> = {
+  xs: 'min-h-[32px] py-1 px-2',
+  smWide: 'min-h-[30px] py-1 px-6',
+  sm: 'min-h-[40px] py-1 px-3',
+  md: 'min-h-[40px] py-1 px-3',
+  lg: 'min-h-[44px] py-3 px-6',
+};
+
+const SIZE_LABEL: Record<ButtonSize, string> = {
+  xs: 'text-xs',
+  smWide: 'text-sm',
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-base',
+};
+
 export function Button({
   label,
   onPress,
@@ -68,6 +100,8 @@ export function Button({
   color,
   icon,
   accessibilityLabel,
+  className = '',
+  style,
 }: ButtonProps): React.JSX.Element {
   // Warna dynamic cuma dipakai variant outline (border + label + icon);
   // variant primary memakainya sebagai background.
@@ -76,28 +110,25 @@ export function Button({
 
   const labelNode = (
     <Text
-      style={[
-        styles.label,
-        size === 'xs' && styles.xsLabel,
-        styles[`${variant}Label`],
-        outlineColor ? {color: outlineColor} : null,
-      ]}>
+      className={`font-semibold ${SIZE_LABEL[size]} ${VARIANT_LABEL[variant]}`}
+      style={outlineColor ? {color: outlineColor} : undefined}>
       {label}
     </Text>
   );
 
   return (
     <TouchableOpacity
+      className={`items-center justify-center rounded-lg ${VARIANT_CONTAINER[variant]} ${SIZE_CONTAINER[size]} ${
+        isDisabled || isLoading ? 'opacity-50' : ''
+      } ${className}`}
       style={[
-        styles.base,
-        styles[variant],
-        styles[size],
-        variant === 'primary' && color ? {backgroundColor: color} : null,
-        outlineColor ? {borderColor: outlineColor} : null,
-        (isDisabled || isLoading) && styles.disabled,
+        variant === 'primary' && color ? {backgroundColor: color} : undefined,
+        outlineColor ? {borderColor: outlineColor} : undefined,
+        style,
       ]}
       onPress={onPress}
       disabled={isDisabled || isLoading}
+      activeOpacity={0.7}
       hitSlop={HIT_SLOP[size]}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? label}
@@ -107,15 +138,12 @@ export function Button({
           size="small"
           color={
             variant === 'primary'
-              ? colors.neutral[0]
-              : outlineColor ?? colors.primary[500]
+              ? '#FFFFFF'
+              : outlineColor ?? '#1EB8B1'
           }
         />
       ) : icon ? (
-        // Hanya dibungkus row saat ada icon — tombol tanpa icon tetap
-        // merender <Text> langsung seperti sebelumnya, jadi tidak ada
-        // pemakaian existing yang berubah tampilannya.
-        <View style={styles.content}>
+        <View className="flex-row items-center gap-2">
           <Icon
             icon={icon}
             size={ICON_SIZE[size]}
@@ -129,58 +157,3 @@ export function Button({
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  base: {
-    minHeight: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: radius.md,
-  },
-  primary: {
-    backgroundColor: colors.secondary[500],
-  },
-  secondary: {
-    backgroundColor: colors.neutral[100],
-    borderWidth: 1,
-    borderColor: colorTokens.border.default,
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: colors.primary[500],
-  },
-  // Sama dengan ghost, tapi background putih solid — dipakai di atas footer
-  // atau kartu yang latarnya tidak putih.
-  outline: {
-    backgroundColor: colors.neutral[0],
-    borderWidth: 1,
-    borderColor: colors.primary[500],
-  },
-  xs: {minHeight: 32, paddingVertical: spacing.xs, paddingHorizontal: spacing.sm},
-  // Tombol aksi di header kartu (Saldo Kebaikan di Home, Saku Berbagi di form
-  // donasi rutin): sedikit lebih pendek dari `sm` tapi lebih lebar.
-  smWide: {
-    minHeight: 30,
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.xl,
-  },
-  sm: {paddingVertical: spacing.xs, paddingHorizontal: spacing.md},
-  md: {paddingVertical: spacing.sm, paddingHorizontal: spacing.lg},
-  lg: {paddingVertical: spacing.md, paddingHorizontal: spacing.xl},
-  disabled: {opacity: 0.5},
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  label: {
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.semiBold,
-  },
-  xsLabel: {fontSize: fontSize.xs},
-  primaryLabel: {color: colors.neutral[0]},
-  secondaryLabel: {color: colorTokens.text.primary},
-  ghostLabel: {color: colors.primary[500]},
-  outlineLabel: {color: colors.primary[500]},
-});

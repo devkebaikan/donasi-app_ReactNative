@@ -67,7 +67,7 @@ export function ProgramSection({
             return (
               <TouchableOpacity
                 key={program.id}
-                className="w-48 bg-white rounded-2xl mr-3 border border-neutral-100 shadow-sm overflow-hidden flex-col"
+                className="w-52 bg-white rounded-xl mr-3 border border-neutral-100 shadow-sm overflow-hidden flex-col"
                 onPress={() => onPressProgram(program)}
                 activeOpacity={0.85}
                 accessibilityRole="button"

@@ -29,7 +29,11 @@ export function QuranHomeHeader({
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        translucent={false}
+        backgroundColor={colors.primary[500]}
+        barStyle="light-content"
+      />
       <View
         style={[
           styles.container,
