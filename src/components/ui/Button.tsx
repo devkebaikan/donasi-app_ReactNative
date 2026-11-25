@@ -61,7 +61,7 @@ const HIT_SLOP: Partial<Record<ButtonSize, typeof XS_HIT_SLOP>> = {
 };
 
 const VARIANT_CONTAINER: Record<ButtonVariant, string> = {
-  primary: 'bg-secondary-600/85',
+  primary: 'bg-secondary-600',
   secondary: 'bg-neutral-100 border border-neutral-200',
   ghost: 'bg-transparent border border-primary-500',
   outline: 'bg-white border border-primary-500',

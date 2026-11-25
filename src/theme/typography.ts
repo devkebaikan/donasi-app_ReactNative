@@ -1,14 +1,14 @@
 export const fontFamily = {
   light: 'Montserrat-Light',
-  lightItalic: 'Montserrat-LightItalic',
+  lightItalic: 'Montserrat-Light',
   regular: 'Montserrat-Regular',
-  italic: 'Montserrat-Italic',
+  italic: 'Montserrat-Regular',
   medium: 'Montserrat-Medium',
-  mediumItalic: 'Montserrat-MediumItalic',
+  mediumItalic: 'Montserrat-Medium',
   semiBold: 'Montserrat-SemiBold',
-  semiBoldItalic: 'Montserrat-SemiBoldItalic',
+  semiBoldItalic: 'Montserrat-SemiBold',
   bold: 'Montserrat-Bold',
-  boldItalic: 'Montserrat-BoldItalic',
+  boldItalic: 'Montserrat-Bold',
   // Font mushaf: LPMQ Isep Misbah, font resmi Mushaf Standar Indonesia.
   // Dipilih karena seortografi dengan teks Kemenag yang dipakai aplikasi —
   // lihat ADR-005. Nilainya harus sama dengan nama file .ttf (Android) dan

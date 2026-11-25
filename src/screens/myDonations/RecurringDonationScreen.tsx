@@ -292,7 +292,7 @@ export default function RecurringDonationScreen(): React.JSX.Element {
                         {imageUrl ? (
                           <Image
                             source={{uri: imageUrl}}
-                            className="w-24 h-20 rounded-xl bg-slate-100"
+                            className="w-36 h-20 rounded-lg bg-slate-100"
                             resizeMode="cover"
                           />
                         ) : (
