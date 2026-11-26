@@ -79,7 +79,7 @@ export default function DonasiRutinProgramScreen({
 
       <FlatList
         data={programs}
-        keyExtractor={(item, index) => `${item.id || index}`}
+        keyExtractor={(item, index) => `${item.id || 'program'}-${index}`}
         contentContainerStyle={{paddingBottom: 40}}
         showsVerticalScrollIndicator={false}
         refreshControl={

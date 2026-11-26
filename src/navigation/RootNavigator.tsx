@@ -31,6 +31,7 @@ import AllReportSalurScreen from '@/screens/donations/AllReportSalurScreen';
 import DetailReportSalurScreen from '@/screens/donations/DetailReportSalurScreen';
 import AlurDonasiScreen from '@/screens/donations/AlurDonasiScreen';
 import PaymentInvoiceScreen from '@/screens/donations/PaymentInvoiceScreen';
+import CaraPembayaranScreen from '@/screens/donations/CaraPembayaranScreen';
 import DonasiRutinSetupScreen from '@/screens/donations/DonasiRutinSetupScreen';
 import DonasiRutinJenisScreen from '@/screens/donations/DonasiRutinJenisScreen';
 import DonasiRutinProgramScreen from '@/screens/donations/DonasiRutinProgramScreen';
@@ -138,6 +139,7 @@ export function RootNavigator(): React.JSX.Element {
         />
         <Stack.Screen name="AlurDonasi" component={AlurDonasiScreen} />
         <Stack.Screen name="PaymentInvoice" component={PaymentInvoiceScreen} />
+        <Stack.Screen name="CaraPembayaran" component={CaraPembayaranScreen} />
         <Stack.Screen
           name="DonasiRutinJenis"
           component={DonasiRutinJenisScreen}

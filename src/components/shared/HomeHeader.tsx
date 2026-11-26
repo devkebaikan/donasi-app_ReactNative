@@ -274,7 +274,7 @@ export function HomeHeader({
           backgroundColor: headerBgColor,
           borderColor: headerBorderColor,
         }}>
-        <View className="h-14 flex-row items-center justify-between px-3 gap-2.5">
+        <View className="h-16 flex-row items-center justify-between px-3 gap-2.5">
           {/* Logo Brand */}
           <TouchableOpacity
             className="h-9 justify-center items-center shrink-0"

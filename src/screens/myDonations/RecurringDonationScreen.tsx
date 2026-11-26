@@ -285,7 +285,7 @@ export default function RecurringDonationScreen(): React.JSX.Element {
 
                     return (
                       <TouchableOpacity
-                        key={item.id || index}
+                        key={`${item.id ?? 'recurring'}-${index}`}
                         onPress={() => handlePressItem(item)}
                         activeOpacity={0.7}
                         className="p-3 flex-row gap-3 items-center active:bg-slate-50">

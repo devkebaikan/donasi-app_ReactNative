@@ -244,7 +244,7 @@ export default function TrackingScreen({
                 : null;
 
               return (
-                <View key={item.id ?? index} className="gap-3">
+                <View key={`${item.id ?? 'item'}-${index}`} className="gap-3">
                   {/* ── Stepper Card ── */}
                   <View className="bg-white rounded-xl shadow-xs p-4 gap-4 border border-slate-100">
                     <View>

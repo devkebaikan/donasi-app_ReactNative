@@ -127,7 +127,7 @@ export default function AllDonationsScreen({
         <View className="flex-1 flex-row items-center bg-neutral-100/90 rounded-full px-3.5 py-2 gap-2">
           <Icon icon={Magnifer} size={18} color={colors.neutral[400]} />
           <TextInput
-            className="flex-1 text-xs text-neutral-900 p-0"
+            className="flex-1 text-xs text-neutral-900 p-0 py-1"
             placeholder="Cari program donasi.."
             placeholderTextColor={colors.neutral[400]}
             value={searchInput}

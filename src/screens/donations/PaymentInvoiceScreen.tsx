@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {
   View,
   Text,
@@ -16,10 +16,10 @@ import {
   Copy,
   CheckCircle,
   CloseCircle,
-  DangerTriangle,
   ChatRoundLine,
   AltArrowLeft,
   RefreshCircle,
+  DangerCircle,
 } from '@solar-icons/react-native/Linear';
 import {Icon} from '@/components/ui/Icon';
 import {DonationDoaDialog} from '@/components/shared/DonationDoaDialog';
@@ -38,6 +38,56 @@ function formatCountdown(totalSeconds: number): string {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function getPaymentHelpSlug(
+  payment?: {code?: string; bank?: string; name?: string; type?: string; slug?: string},
+  defaultBank?: string,
+  defaultMethod?: string,
+  defaultType?: string,
+): string {
+  if (payment?.slug) return String(payment.slug).toLowerCase().trim();
+
+  const raw = [
+    payment?.code,
+    payment?.bank,
+    defaultBank,
+    payment?.name,
+    defaultMethod,
+    payment?.type,
+    defaultType,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  if (raw.includes('qris')) return 'qris';
+  if (raw.includes('gopay')) return 'gopay';
+  if (raw.includes('ovo')) return 'ovo';
+  if (raw.includes('shopee')) return 'shopeepay';
+  if (raw.includes('dana')) return 'dana';
+
+  // Virtual Account
+  if (raw.includes('va') || raw.includes('virtual')) {
+    if (raw.includes('bca')) return 'bca-va';
+    if (raw.includes('mandiri')) return 'mandiri-va';
+    if (raw.includes('bni')) return 'bni-va';
+    if (raw.includes('bri')) return 'bri-va';
+    if (raw.includes('bsi')) return 'bsi-va';
+    if (raw.includes('permata')) return 'permata-va';
+    return 'bca-va';
+  }
+
+  // Transfer Bank
+  if (raw.includes('bca')) return 'bca';
+  if (raw.includes('mandiri')) return 'mandiri';
+  if (raw.includes('bni')) return 'bni';
+  if (raw.includes('bri')) return 'bri';
+  if (raw.includes('bsi')) return 'bsi';
+  if (raw.includes('muamalat')) return 'muamalat';
+  if (raw.includes('permata')) return 'permata';
+
+  return 'bank-transfer';
 }
 
 export default function PaymentInvoiceScreen({
@@ -105,7 +155,6 @@ export default function PaymentInvoiceScreen({
 
   const paymentUrl = invoice?.payment_url || checkoutUrl;
   const firstItem = invoice?.items?.[0];
-  const programLink = firstItem?.program?.link;
   const displayProgramTitle =
     firstItem?.program?.title || programTitle || 'Donasi';
 
@@ -186,6 +235,32 @@ export default function PaymentInvoiceScreen({
     });
   }
 
+  function handleOpenCaraPembayaran(): void {
+    const slug = getPaymentHelpSlug(
+      payment,
+      bankName,
+      paymentMethod,
+      paymentMethodType,
+    );
+    navigation.navigate('CaraPembayaran', {
+      invoiceId: effectiveInvoiceId,
+      slug,
+      bankName: payment.name || bankName,
+      accountNumber: payment.account_number
+        ? String(payment.account_number)
+        : accountNumber
+          ? String(accountNumber)
+          : undefined,
+      accountHolderName:
+        payment.account_behalf ||
+        accountHolderName ||
+        'Yayasan Sahabat Beramal Bersama',
+      amount: donationNominal,
+      paymentMethodLogoUrl: payment.image_url || paymentMethodLogoUrl,
+      paymentMethodType: paymentMethodType || (payment.type as string),
+    });
+  }
+
   function handleDonateAgain(): void {
     if (programId && programTitle && programImageUrl) {
       navigation.replace('AlurDonasi', {
@@ -220,25 +295,25 @@ export default function PaymentInvoiceScreen({
       />
 
       {/* Top Header */}
-      <View className="bg-white border-b border-slate-200 px-4 py-3 flex-row items-center justify-between">
+      <View className="bg-primary-500 px-4 gap-5 py-3 flex-row items-center">
         <TouchableOpacity
           onPress={() => navigation.canGoBack() ? navigation.goBack() : handleBackToHome()}
           className="w-10 h-10 items-center justify-center -ml-2 rounded-full active:bg-slate-100"
           accessibilityRole="button"
           accessibilityLabel="Kembali">
-          <Icon icon={AltArrowLeft} size={24} color={colors.neutral[800]} />
+          <Icon icon={AltArrowLeft} size={24} color="white" />
         </TouchableOpacity>
-        <Text className="text-base font-bold text-slate-900">
+        <Text className="text-base font-bold text-white">
           Invoice Pembayaran
         </Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => refetch()}
           disabled={isLoading}
           className="w-10 h-10 items-center justify-center -mr-2 rounded-full active:bg-slate-100"
           accessibilityRole="button"
           accessibilityLabel="Muat Ulang">
-          <Icon icon={RefreshCircle} size={22} color={colors.neutral[600]} />
-        </TouchableOpacity>
+          <Icon icon={RefreshCircle} size={18} color={"white"} />
+        </TouchableOpacity> */}
       </View>
 
       {isLoading && !invoice ? (
@@ -289,15 +364,15 @@ export default function PaymentInvoiceScreen({
             <View className="bg-primary-500 px-5 py-4 shadow-sm">
               <View className="flex-row items-center justify-between">
                 <View>
-                  <Text className="text-xs text-primary-100 font-medium">
+                  <Text className="text-xs text-primary-100">
                     Batas Waktu Pembayaran
                   </Text>
-                  <Text className="text-sm font-bold text-white mt-0.5">
+                  <Text className="text-sm font-semibold text-white mt-0.5">
                     {deadlineTime ? formatDateTime(deadlineTime) : '24 Jam'}
                   </Text>
                 </View>
-                <View className="flex-row items-center gap-1.5 bg-primary-600/60 px-3 py-1.5 rounded-full border border-primary-400/40">
-                  <Icon icon={ClockCircle} size={16} color="#ffffff" />
+                <View className="flex-row items-center gap-1.5 bg-primary-600/60 px-4 py-2 rounded-full border border-primary-400/40">
+                  <Icon icon={ClockCircle} size={14} color="#ffffff" />
                   <Text className="text-xs font-mono font-bold text-white">
                     {formatCountdown(secondsLeft)}
                   </Text>
@@ -500,10 +575,10 @@ export default function PaymentInvoiceScreen({
                 ) : null}
 
                 {/* Notice Penting */}
-                <View className="p-4 bg-amber-50/70 border-t border-amber-100 flex-row items-start gap-2.5">
+                <View className="p-4 bg-amber-50/80 border-t border-amber-100 flex-row items-start gap-2.5">
                   <Icon
-                    icon={DangerTriangle}
-                    size={18}
+                    icon={DangerCircle}
+                    size={16}
                     color="#d97706"
                   />
                   <Text className="flex-1 text-xs text-amber-900 leading-relaxed">
@@ -533,53 +608,72 @@ export default function PaymentInvoiceScreen({
               </TouchableOpacity>
             ) : null}
 
-            {/* Tombol Cek Status Pembayaran (Realtime Verification) */}
+            {/* Action Buttons Section */}
             {!isPaid && !isCanceled ? (
-              <TouchableOpacity
-                onPress={checkStatus}
-                disabled={isCheckingStatus}
-                className="w-full py-3.5 rounded-xl bg-white border border-primary-500 active:bg-primary-50 flex-row items-center justify-center gap-2 shadow-xs"
-                accessibilityRole="button"
-                accessibilityLabel="Cek Status Pembayaran">
-                {isCheckingStatus ? (
-                  <ActivityIndicator size="small" color={colors.primary[500]} />
-                ) : (
-                  <Icon
-                    icon={RefreshCircle}
-                    size={18}
-                    color={colors.primary[500]}
-                  />
-                )}
-                <Text className="text-sm font-bold text-primary-600">
-                  {isCheckingStatus
-                    ? 'Memeriksa status...'
-                    : 'Cek Status Pembayaran'}
-                </Text>
-              </TouchableOpacity>
-            ) : null}
+              <View className="gap-2.5 pt-1">
+                {/* 1. Tombol Utama: Cek Status Pembayaran (Solid Primary) */}
+                <TouchableOpacity
+                  onPress={checkStatus}
+                  disabled={isCheckingStatus}
+                  activeOpacity={0.85}
+                  className="w-full py-3.5 px-4 rounded-xl bg-primary-500 active:bg-primary-600 flex-row items-center justify-center gap-2 shadow-xs"
+                  accessibilityRole="button"
+                  accessibilityLabel="Cek Status Pembayaran">
+                  {isCheckingStatus ? (
+                    <ActivityIndicator size="small" color="#FFFFFF" />
+                  ) : (
+                    <Icon
+                      icon={RefreshCircle}
+                      size={16}
+                      color="#FFFFFF"
+                    />
+                  )}
+                  <Text className="text-sm font-semibold text-white tracking-wide">
+                    {isCheckingStatus
+                      ? 'Memeriksa status...'
+                      : 'Cek Status Pembayaran'}
+                  </Text>
+                </TouchableOpacity>
 
-            {/* Link Lacak Donasimu (Jika belum lunas tapi ingin melacak) */}
-            {!isPaid && !isCanceled ? (
-              <TouchableOpacity
-                onPress={handleGoToTracking}
-                className="w-full py-3 rounded-xl bg-slate-100 active:bg-slate-200 items-center justify-center">
-                <Text className="text-xs font-semibold text-slate-700">
-                  Lacak Donasimu
-                </Text>
-              </TouchableOpacity>
+                {/* 2. Tombol Sekunder: Cara Pembayaran & Lacak Donasi (2 Kolom Seimbang) */}
+                <View className="flex-row gap-2.5">
+                  <TouchableOpacity
+                    onPress={handleOpenCaraPembayaran}
+                    activeOpacity={0.7}
+                    className="flex-1 py-3 px-3 rounded-xl bg-white border border-slate-200 shadow-2xs active:bg-slate-50 flex-row items-center justify-center gap-1.5"
+                    accessibilityRole="button"
+                    accessibilityLabel="Cara Pembayaran">
+                    <Text className="text-xs font-semibold text-slate-800">
+                      Cara Pembayaran
+                    </Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={handleGoToTracking}
+                    activeOpacity={0.7}
+                    className="flex-1 py-3 px-3 rounded-xl bg-white border border-slate-200 shadow-2xs active:bg-slate-50 flex-row items-center justify-center gap-1.5"
+                    accessibilityRole="button"
+                    accessibilityLabel="Lacak Donasi">
+                    <Text className="text-xs font-semibold text-slate-800">
+                      Lacak Donasi
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             ) : null}
 
             {/* Help / WhatsApp Section */}
             <View className="items-center pt-2">
               <TouchableOpacity
                 onPress={openWhatsappCs}
-                className="flex-row items-center gap-1.5 py-2 px-3 rounded-full active:bg-slate-100"
+                activeOpacity={0.7}
+                className="flex-row items-center gap-1.5 py-1.5 px-3 rounded-full bg-slate-100/70 active:bg-slate-200/70"
                 accessibilityRole="button"
                 accessibilityLabel="Chat Admin WhatsApp">
-                <Icon icon={ChatRoundLine} size={16} color={colors.neutral[500]} />
+                <Icon icon={ChatRoundLine} size={15} color={colors.neutral[500]} />
                 <Text className="text-xs text-slate-500">
-                  Butuh bantuan seputar donasi?{' '}
-                  <Text className="font-bold text-primary-600 underline">
+                  Butuh bantuan?{' '}
+                  <Text className="font-bold text-primary-600">
                     Chat Admin
                   </Text>
                 </Text>
@@ -589,10 +683,11 @@ export default function PaymentInvoiceScreen({
             {/* Back to Home Button */}
             <TouchableOpacity
               onPress={handleBackToHome}
-              className="self-center py-2 px-4 active:opacity-70 mt-1"
+              activeOpacity={0.7}
+              className="self-center py-1.5 px-4"
               accessibilityRole="button"
               accessibilityLabel="Kembali ke Beranda">
-              <Text className="text-sm font-semibold text-slate-500">
+              <Text className="text-xs font-medium text-slate-400">
                 Kembali ke Beranda
               </Text>
             </TouchableOpacity>

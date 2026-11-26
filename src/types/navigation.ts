@@ -225,6 +225,17 @@ export type RootStackParamList = {
     programImageUrl?: string;
     isNewTransaction?: boolean; // true hanya saat redirect langsung setelah transaksi berhasil dibuat — dipakai untuk munculkan DonationDoaDialog sekali; kalau screen ini dibuka ulang (mis. dari riwayat donasi yang belum dibayar), param ini tidak dikirim sehingga do'a tidak muncul lagi
   };
+  CaraPembayaran: {
+    invoiceId?: string;
+    slug?: string;
+    bankName?: string;
+    accountNumber?: string;
+    accountHolderName?: string;
+    amount?: number;
+    paymentMethodLogoUrl?: string;
+    paymentMethodType?: string;
+    paymentMethodName?: string;
+  };
   // Tanpa param sama sekali = jenis "pilihan" (program dipilihkan admin).
   // `intent` selain 'program' membuat trio program di bawahnya tidak dipakai.
   DonasiRutinSetup: {
@@ -477,6 +488,11 @@ export type AlurDonasiScreenProps = NativeStackScreenProps<
 export type PaymentInvoiceScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'PaymentInvoice'
+>;
+
+export type CaraPembayaranScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'CaraPembayaran'
 >;
 
 export type DonasiRutinSetupScreenProps = NativeStackScreenProps<

@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
-  AltArrowLeft,
   FileText,
   User,
   Heart,
@@ -25,6 +24,7 @@ import {formatCurrency} from '@/utils/formatCurrency';
 import {formatDate} from '@/utils/formatDate';
 import {colors} from '@/theme';
 import type {RiwayatDonasiScreenProps} from '@/types/navigation';
+import { HeaderLight } from '@/components/shared/HeaderLight';
 
 const STATUS_TABS = [
   {value: '', label: 'Semua'},
@@ -108,7 +108,15 @@ export default function RiwayatDonasiScreen({
           if (targetPage === 1) {
             setItems(res.data.items);
           } else {
-            setItems(prev => [...prev, ...res.data.items]);
+            setItems(prev => {
+              const existingKeys = new Set(
+                prev.map(i => `${i.invoice || i.id}`),
+              );
+              const uniqueNewItems = res.data.items.filter(
+                i => !existingKeys.has(`${i.invoice || i.id}`),
+              );
+              return [...prev, ...uniqueNewItems];
+            });
           }
           setHasMore(res.data.hasMore);
           setPage(targetPage);
@@ -188,7 +196,7 @@ export default function RiwayatDonasiScreen({
         onPress={() => handleItemPress(item)}
         className="mx-4 mb-3 flex-row bg-white rounded-xl border border-slate-100 overflow-hidden shadow-xs p-3 gap-3">
         {/* Thumbnail Image */}
-        <View className="w-28 h-20 rounded-lg overflow-hidden bg-slate-100">
+        <View className="w-36 h-20 rounded-lg overflow-hidden bg-slate-100">
           {item.image_url ? (
             <Image
               source={{uri: item.image_url}}
@@ -207,8 +215,8 @@ export default function RiwayatDonasiScreen({
           <View>
             <View className="flex-row items-start justify-between gap-1.5 mb-1">
               <Text
-                className="text-xs font-bold text-slate-800 leading-snug flex-1"
-                numberOfLines={2}>
+                className="text-sm font-bold text-slate-800 leading-snug flex-1"
+                numberOfLines={1}>
                 {item.judul || item.title || '-'}
               </Text>
               {isRutin ? (
@@ -220,7 +228,7 @@ export default function RiwayatDonasiScreen({
               ) : null}
             </View>
 
-            <Text className="text-[11px] text-slate-400">
+            <Text className="text-[10px] text-slate-400">
               {dateStr}
               {timeStr ? ` · ${timeStr}` : ''}
             </Text>
@@ -232,7 +240,7 @@ export default function RiwayatDonasiScreen({
             </Text>
 
             <View className={`px-2 py-0.5 rounded-full ${badge.bg}`}>
-              <Text className={`text-[10px] font-semibold ${badge.text}`}>
+              <Text className={`text-[9px] font-semibold ${badge.text}`}>
                 {badge.label}
               </Text>
             </View>
@@ -245,19 +253,7 @@ export default function RiwayatDonasiScreen({
   return (
     <View className="flex-1 bg-slate-50" style={{paddingTop: insets.top}}>
       {/* Top Header */}
-      <View className="bg-white border-b border-slate-100 px-4 py-3 flex-row items-center justify-between">
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          className="w-10 h-10 items-center justify-center -ml-2 rounded-full active:bg-slate-100"
-          accessibilityRole="button"
-          accessibilityLabel="Kembali">
-          <Icon icon={AltArrowLeft} size={24} color={colors.neutral[800]} />
-        </TouchableOpacity>
-        <Text className="text-base font-bold text-slate-900">
-          Riwayat Donasi Saya
-        </Text>
-        <View className="w-10" />
-      </View>
+      <HeaderLight title="Riwayat Donasi Saya" onBack={()=> navigation.goBack()}/>
 
       {/* Horizontal Filter Tabs */}
       <View className="bg-white px-4 py-2.5 border-b border-slate-100">
@@ -272,7 +268,7 @@ export default function RiwayatDonasiScreen({
             return (
               <TouchableOpacity
                 onPress={() => handleFilterChange(tab.value)}
-                className={`px-4 py-1.5 rounded-full border ${
+                className={`px-4 py-2 rounded-full border ${
                   isActive
                     ? 'bg-primary-500 border-primary-500 shadow-2xs'
                     : 'bg-white border-slate-200 active:bg-slate-50'
@@ -367,7 +363,7 @@ export default function RiwayatDonasiScreen({
         /* State: Items List */
         <FlatList
           data={items}
-          keyExtractor={(item, index) => `${item.id || item.invoice || index}`}
+          keyExtractor={(item, index) => `${item.invoice || item.id || 'item'}-${index}`}
           renderItem={renderHistoryItem}
           contentContainerStyle={{paddingVertical: 12}}
           showsVerticalScrollIndicator={false}

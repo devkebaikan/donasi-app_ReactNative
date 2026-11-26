@@ -763,6 +763,7 @@ export async function getProjectSalurDetail(
     const detail: ProjectSalurDetail = {
       id: String(data.id),
       title,
+      judul: title,
       photoUrl,
       address,
       descriptionHtml,
@@ -788,6 +789,7 @@ export async function getProjectSalurDetail(
       },
       program: {
         id: String(programData?.id || '1'),
+        name: programData?.name || programData?.title || title,
         link: programData?.slug || programData?.link || '',
         title: programData?.name || programData?.title || title,
         imageUrl: photoUrl,

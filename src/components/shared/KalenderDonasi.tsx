@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
-import Svg, {Path} from 'react-native-svg';
 import {AltArrowLeft, AltArrowRight} from '@solar-icons/react-native/Linear';
 import {Icon} from '@/components/ui/Icon';
 import {
@@ -34,8 +33,7 @@ const MONTH_NAMES = [
 
 const DAY_NAMES = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
-const HEART_PATH =
-  'M12 21.5s-8.5-5.5-10.8-10C-.7 7.8 1.2 3 5.5 3c2.8 0 5.2 1.7 6.5 4.1C13.2 4.7 15.7 3 18.5 3c4.3 0 6.2 4.8 4.3 8.5C20.5 16 12 21.5 12 21.5z';
+const LOGO_SHORT_COLOR = require('@/assets/images/logo/logo-short-color.png');
 
 function formatDateStr(year: number, month: number, day: number): string {
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -46,16 +44,15 @@ interface KalenderDonasiProps {
 }
 
 export function KalenderDonasi({isAuthenticated}: KalenderDonasiProps): React.JSX.Element {
-  const now = new Date();
-  const [currentYear, setCurrentYear] = useState(now.getFullYear());
-  const [currentMonth, setCurrentMonth] = useState(now.getMonth());
+  const [currentYear, setCurrentYear] = useState(() => new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(() => new Date().getMonth());
   const [donationMap, setDonationMap] = useState<Map<string, DonationCalendarDay>>(new Map());
   const [isLoading, setIsLoading] = useState(false);
 
-  const todayStr = useMemo(
-    () => formatDateStr(now.getFullYear(), now.getMonth(), now.getDate()),
-    [now],
-  );
+  const todayStr = useMemo(() => {
+    const d = new Date();
+    return formatDateStr(d.getFullYear(), d.getMonth(), d.getDate());
+  }, []);
 
   const fetchCalendarData = useCallback(async (year: number, month: number) => {
     if (!isAuthenticated) {
@@ -219,13 +216,11 @@ export function KalenderDonasi({isAuthenticated}: KalenderDonasiProps): React.JS
                 }`}>
                 {hasDonation ? (
                   <View className="w-8 h-8 items-center justify-center relative">
-                    <Svg
-                      width={30}
-                      height={30}
-                      viewBox="0 0 24 24"
-                      className="absolute inset-0">
-                      <Path d={HEART_PATH} fill={colors.secondary[500]} />
-                    </Svg>
+                    <Image
+                      source={LOGO_SHORT_COLOR}
+                      className="w-7 h-7 absolute"
+                      resizeMode="contain"
+                    />
                     <Text className="text-[11px] font-bold text-white z-10">
                       {cell.day}
                     </Text>
@@ -247,9 +242,11 @@ export function KalenderDonasi({isAuthenticated}: KalenderDonasiProps): React.JS
       {/* Legend */}
       <View className="mt-3 flex-row items-center justify-center gap-5 border-t border-slate-100 pt-3">
         <View className="flex-row items-center gap-1.5">
-          <Svg width={12} height={12} viewBox="0 0 24 24">
-            <Path d={HEART_PATH} fill={colors.secondary[500]} />
-          </Svg>
+          <Image
+            source={LOGO_SHORT_COLOR}
+            className="w-3.5 h-3.5"
+            resizeMode="contain"
+          />
           <Text className="text-[10px] font-medium text-slate-500">
             Hari donasi
           </Text>

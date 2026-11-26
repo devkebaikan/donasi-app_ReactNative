@@ -277,7 +277,7 @@ export default function AllReportSalurScreen({
                       item.type === 'Final' ? 'Selesai' : item.type || 'Penyaluran';
 
                     return (
-                      <View key={item.id ?? index} className="relative">
+                      <View key={`${item.id ?? 'report'}-${index}`} className="relative">
                         {/* Timeline Dot */}
                         <View className="absolute -left-[23px] top-4 w-3.5 h-3.5 rounded-full bg-primary-500 border-2 border-white shadow-xs z-10" />
 

@@ -40,7 +40,7 @@ export function CategoryPillList({
         accessibilityRole="button"
         accessibilityLabel="Semua Kategori"
         accessibilityState={{selected: selectedCategoryId === null}}
-        className={`flex-row items-center px-3.5 py-1.5 rounded-full ${
+        className={`flex-row items-center px-3.5 py-2 rounded-full ${
           selectedCategoryId === null
             ? 'bg-primary-500'
             : 'bg-neutral-100'
@@ -69,7 +69,7 @@ export function CategoryPillList({
             accessibilityRole="button"
             accessibilityLabel={item.name}
             accessibilityState={{selected: isSelected}}
-            className={`flex-row items-center gap-1.5 px-3 py-1.5 rounded-full ${
+            className={`flex-row items-center gap-1.5 px-3 py-2 rounded-full ${
               isSelected
                 ? 'bg-primary-500'
                 : 'bg-neutral-100'
@@ -101,7 +101,7 @@ export function CategoryPillList({
         accessibilityRole="button"
         accessibilityLabel="Lihat kategori lainnya"
         accessibilityState={{selected: isSelectedInMore}}
-        className={`flex-row items-center gap-1.5 px-3 py-1.5 rounded-full ${
+        className={`flex-row items-center gap-1.5 px-3 py-2 rounded-full ${
           isSelectedInMore
             ? 'bg-primary-500'
             : 'bg-neutral-100'

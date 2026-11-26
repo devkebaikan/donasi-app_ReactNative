@@ -506,7 +506,7 @@ export default function DetailProgramScreen({
                 <View className="relative">
                   {projects.slice(0, SALUR_LIST_LIMIT).map((project, index, visible) => (
                     <SalurTimelineItem
-                      key={project.id}
+                      key={`${project.id}-${index}`}
                       item={project}
                       isLast={index === visible.length - 1}
                       onPressDetail={handlePressDetailProjectSalur}
@@ -559,9 +559,9 @@ export default function DetailProgramScreen({
                     description="Jadilah donatur pertama untuk program ini"
                   />
                 ) : (
-                  donatur.map(item => (
+                  donatur.map((item, index) => (
                     <DonaturListItem
-                      key={item.id}
+                      key={`${item.id}-${index}`}
                       donatur={item}
                       onPressAamiin={handlePressAamiin}
                     />
@@ -596,9 +596,9 @@ export default function DetailProgramScreen({
                   </View>
                 </View>
 
-                {fundraisers.map(item => (
+                {fundraisers.map((item, index) => (
                   <View
-                    key={item.id}
+                    key={`${item.id}-${index}`}
                     className="flex-row items-center gap-3 p-3.5 bg-white rounded-xl border border-neutral-100 shadow-sm">
                     <View className="w-10 h-10 rounded-full bg-primary-100 items-center justify-center">
                       <Text className="text-sm font-bold text-primary-700">

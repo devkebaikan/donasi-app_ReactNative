@@ -78,10 +78,10 @@ export default function MyDonationsScreen(): React.JSX.Element {
   return (
     <View className="flex-1 bg-slate-50">
       {/* Header bar */}
-      <MyDonationsTopBar
+      {/* <MyDonationsTopBar
         onPressSearch={handlePressSearch}
         isScrolled={isScrolled}
-      />
+      /> */}
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -109,7 +109,7 @@ export default function MyDonationsScreen(): React.JSX.Element {
             <View className="absolute -bottom-6 right-10 w-24 h-24 bg-white/10 rounded-full" />
 
             {/* Content Hero */}
-            <View className="relative z-10 w-11/12">
+            <View className="relative z-10 w-11/12 pt-6">
               <Text className="text-xl font-bold text-slate-800 leading-tight mb-2">
                 Jejak Kebaikanmu{'\n'}
                 <Text className="text-primary-700">Tercatat dengan Indah</Text>
@@ -163,7 +163,7 @@ export default function MyDonationsScreen(): React.JSX.Element {
                     onPress={() => handleNavigateToRiwayat(item.posisi)}
                     activeOpacity={0.7}
                     className="flex-1 items-center px-1">
-                    <View className="w-12 h-12 rounded-2xl items-center justify-center mb-2 shadow-xs bg-primary-50">
+                    <View className="w-12 h-12 rounded-2xl items-center justify-center mb-2 shadow-md bg-primary-50">
                       <Image
                         source={item.image}
                         style={{width: 24, height: 24}}
@@ -172,7 +172,7 @@ export default function MyDonationsScreen(): React.JSX.Element {
                     </View>
                     <Text
                       numberOfLines={2}
-                      className="text-[11px] leading-tight text-slate-500 font-medium text-center">
+                      className="text-xs leading-tight text-slate-500 font-medium text-center">
                       {item.label}
                     </Text>
                   </TouchableOpacity>
